@@ -1,0 +1,25 @@
+# Migration scratch files
+temp-home.html
+fresh-home.html
+fresh-home-en.html
+_slide*.html
+scraped-he-home.html
+scraped-en-home.html
+scrape-log.txt
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Firebase
+.firebase/
+firebase-debug.log
+
+# IDE
+.idea/
+.vscode/

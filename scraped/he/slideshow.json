@@ -1,0 +1,93 @@
+[
+  {
+    "title": "אלנט | ניטור איכות החשמל",
+    "subtitle": "מנטרת ומבקרת את רשת החשמל שלך.",
+    "description": "מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה , מדויקת וממשק ידידותי בעברית.\nהמערכת מפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דו\"ח אירועי חשמל מקיף ומדויק.",
+    "link": "/he/מודדים-לאיכות-חשמל/",
+    "image": "https://static.wixstatic.com/media/9a8771_9a27f8af7a704effbc7d20a5eb8c82c4~mv2.png/v1/fill/w_421",
+    "bg": "https://static.wixstatic.com/media/422dc5_38073d395d004d5bb035fae027a974ff~mv2.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0.34,
+    "bg_overlay": "white",
+    "layout": "split-image-start",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "UniWEB",
+    "subtitle": "המפתח שלך לבניין יעיל וטכנולוגי .",
+    "description": "בקרת מבנים ומערכות אנרגיה\nמערכת חדשנית ומשוכללת.\nמערכת ליעול ולשליטה אנרגטית",
+    "link": "/he/תוכנות-hmi-bms-scada/",
+    "image": "https://static.wixstatic.com/media/9a8771_eda8789aeee7474dae92ab0c7b0d64b5~mv2.png/v1/crop/x_31,y_15,w_225,h_225/fill/w_280,h_280,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/bullet_ball_green_edited.png",
+    "bg": "https://static.wixstatic.com/media/da9d83ef63014589acac69d0c0f44f45.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0.31,
+    "bg_overlay": "white",
+    "layout": "split-image-end",
+    "text_theme": "dark",
+    "accent_subtitle": true
+  },
+  {
+    "title": "בקרים מתקדמים למבני ציבור ותעשייה.",
+    "subtitle": "",
+    "description": "שליטה מדידה ובקרה על מערכות מיזוג האוויר, חשמל וכל שאר המערכות האלקטרו מכניות בבניין.",
+    "link": "/he/בקרים-מתוכנתים-ddc-plc/",
+    "image": "",
+    "bg": "https://static.wixstatic.com/media/f715c7cf8d6c4f4a8d719a58c9562aca.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0.42,
+    "bg_overlay": "white",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "אלנט MC",
+    "subtitle": "נהל במדויק את צריכת האנרגיה בבניין",
+    "description": "מערכת מדויקת למדידת צריכת אנרגיה בצובר והפקת חשבונות צריכת חשמל ומיזוג אויר.",
+    "link": "/he/מוני-אנרגיה/",
+    "image": "https://static.wixstatic.com/media/9a8771_4ebb72cec4f14c95b411194b4b22c78f~mv2.png/v1/fill/w_520,h_200,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/MC8.png",
+    "bg": "https://static.wixstatic.com/media/11062b_5966e3de2e5745c1bb409fab44548d6f~mv2_d_4608_3456_s_4_2.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0.15,
+    "bg_overlay": "white",
+    "layout": "image-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "חיסכון באנרגיה",
+    "subtitle": "חסוך באנרגיה ומנע פגיעה בסביבה.",
+    "description": "בחר במערכת ידידותית לסביבה.",
+    "link": "/he/בקרה-לשיפור-מקדם-הספק/",
+    "image": "",
+    "bg": "https://static.wixstatic.com/media/3d2098412dbf46189d3998ae4392e5bc.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "כצעד ראשון ,מדוד את צריכת האנרגיה במערכות השונות.",
+    "subtitle": "",
+    "description": "מודעות לכמות האנרגיה הנצרכת , היא הדרך היעילה ביותר להפחתה כוללת של צריכת האנרגיה ומזעור הנזק לסביבה.",
+    "link": "/he/מוני-אנרגיה/",
+    "image": "",
+    "bg": "https://static.wixstatic.com/media/9a8771_50b436f862cd4168acf3388b76828742~mv2.png/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0.71,
+    "bg_overlay": "white",
+    "layout": "hero-text",
+    "text_theme": "hero",
+    "accent_subtitle": false
+  },
+  {
+    "title": "שימוש במוצרים מובילים טכנולוגית במחירים תחרותיים",
+    "subtitle": "",
+    "description": "",
+    "link": "/he/תוכנות-hmi-bms-scada/",
+    "image": "",
+    "bg": "https://static.wixstatic.com/media/422dc5_da5aafb54aa841339583602754d715b0~mv2.jpg/v1/fill/w_1920,h_590,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "title-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  }
+]
