@@ -300,8 +300,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
-                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen1-sketch.pdf",
+                    "file": "transfer-switch-controller-gen1-sketch.pdf",
                 },
             },
             {
@@ -318,8 +318,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
-                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen2-sketch.pdf",
+                    "file": "transfer-switch-controller-gen2-sketch.pdf",
                 },
             },
             {
@@ -338,8 +338,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
-                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-2-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-2-breakers-sketch.pdf",
                 },
             },
             {
@@ -357,8 +357,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
-                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-3-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-3-breakers-sketch.pdf",
                 },
             },
         ],
@@ -381,8 +381,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
-                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen1-sketch.pdf",
+                    "file": "transfer-switch-controller-gen1-sketch.pdf",
                 },
             },
             {
@@ -399,8 +399,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
-                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen2-sketch.pdf",
+                    "file": "transfer-switch-controller-gen2-sketch.pdf",
                 },
             },
             {
@@ -419,8 +419,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
-                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-2-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-2-breakers-sketch.pdf",
                 },
             },
             {
@@ -438,8 +438,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
-                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-3-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-3-breakers-sketch.pdf",
                 },
             },
         ],
@@ -462,8 +462,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
-                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen1-sketch.pdf",
+                    "file": "transfer-switch-controller-gen1-sketch.pdf",
                 },
             },
             {
@@ -480,8 +480,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
-                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen2-sketch.pdf",
+                    "file": "transfer-switch-controller-gen2-sketch.pdf",
                 },
             },
             {
@@ -500,8 +500,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
-                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-2-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-2-breakers-sketch.pdf",
                 },
             },
             {
@@ -519,8 +519,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
-                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-3-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-3-breakers-sketch.pdf",
                 },
             },
         ],
@@ -543,8 +543,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
-                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen1-sketch.pdf",
+                    "file": "transfer-switch-controller-gen1-sketch.pdf",
                 },
             },
             {
@@ -561,8 +561,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
-                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen2-sketch.pdf",
+                    "file": "transfer-switch-controller-gen2-sketch.pdf",
                 },
             },
             {
@@ -581,8 +581,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
-                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-2-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-2-breakers-sketch.pdf",
                 },
             },
             {
@@ -600,8 +600,8 @@ TRANSFER_SWITCH_DRAWINGS = {
                     },
                 ],
                 "document": {
-                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
-                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "url": "https://www.ddc.co.il/_files/ugd/transfer-switch-controller-gen3-3-breakers-sketch.pdf",
+                    "file": "transfer-switch-controller-gen3-3-breakers-sketch.pdf",
                 },
             },
         ],
@@ -3501,21 +3501,28 @@ def build_language(lang: str) -> int:
     return count
 
 
-def build_root_redirect() -> None:
-    root_index = """<!DOCTYPE html>
+def build_path_redirects() -> None:
+    redirects = [
+        ("", "/he/", 'ישומי בקרה בע"מ'),
+        ("co", "/he/transfer-switch-drawings/", "בקרי החלפה - שרטוטים"),
+    ]
+    SITE_DIR.mkdir(parents=True, exist_ok=True)
+    for path, target, title in redirects:
+        html = f"""<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8"/>
-  <meta http-equiv="refresh" content="0;url=/he/"/>
-  <link rel="canonical" href="/he/"/>
-  <title>ישומי בקרה בע"מ</title>
+  <meta http-equiv="refresh" content="0;url={target}"/>
+  <link rel="canonical" href="{target}"/>
+  <title>{title}</title>
 </head>
 <body>
-  <p><a href="/he/">ישומי בקרה בע"מ</a></p>
+  <p><a href="{target}">{title}</a></p>
 </body>
 </html>"""
-    SITE_DIR.mkdir(parents=True, exist_ok=True)
-    (SITE_DIR / "index.html").write_text(root_index, encoding="utf-8")
+        out_dir = SITE_DIR / path if path else SITE_DIR
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
 
 
 def copy_assets() -> None:
@@ -3540,7 +3547,7 @@ def main():
 
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     copy_assets()
-    build_root_redirect()
+    build_path_redirects()
 
     total = 0
     for lang in SITE_CONFIG:
