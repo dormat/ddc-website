@@ -61,9 +61,35 @@ python -m http.server 8080
 
 ## Deploy to Firebase Hosting
 
+### Automatic deploy on push (recommended)
+
+GitHub Actions workflows in `.github/workflows/` build the site and deploy to Firebase Hosting when you push to `main` (live) or open a pull request (preview URL).
+
+**One-time setup** — run from the project root on a machine with Node.js installed:
+
 ```bash
 npm install -g firebase-tools
 firebase login
+firebase init hosting:github
+```
+
+When prompted:
+
+- Firebase project: **harokdim**
+- GitHub repo: **dormat/ddc-website**
+- Live branch: **main**
+- Build command: `pip install -r requirements.txt && python scripts/build_site.py` (or skip if workflows already exist)
+
+The CLI creates a service account and uploads it to GitHub as the secret `FIREBASE_SERVICE_ACCOUNT_HAROKDIM`. If the workflow files already exist, choose **not** to overwrite them when asked.
+
+After the secret is in place, every push to `main` deploys to the live site (`ddc-temp`).
+
+### Manual deploy
+
+```bash
+npm install -g firebase-tools
+firebase login
+python scripts/build_site.py
 firebase deploy
 ```
 
