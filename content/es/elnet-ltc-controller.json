@@ -1,0 +1,80 @@
+{
+  "url": "https://www.elnet-meter.com/es/elnet-ltc-controller",
+  "slug": "elnet-ltc-controller",
+  "title": "Controlador ElNet LTC | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>ElNet LTC power factor improvement controller</h3></div>\n<div class=\"rich-text\"><p><span><span>Support for up to 16 levels of capacitor activation.<br/>Continuous display of power multiplier<br/>Measurement of voltage, current, power, power factor, energy, peaks and harmonics.<br/>Average weekly and monthly display of power multiplier.<br/>Automatic identification of capacitor values ​​(at the panel factory)<br/>protection of harmonies.<br/>Defining limits for harmonics, voltage and current.<br/>measurement accuracy 0.2%<br/>1,600 samples per measurement wave<br/>Collecting energy data for 6 months.<br/>128X64 LCD display<br/>Support for multiple languages.<br/>RS485 communication channel.<br/>Support for MODBUS communication protocols as well as (option) BACNET<br/>Ethernet communication support (option).<br/>Simple installation on the front of the electrical panel.</span></span></p></div>\n<div class=\"rich-text\"><h3>Related products</h3></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/elnet-pfc-controller-content-13-3.png\" alt=\"ElNet-LTC.png\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "ElNet LTC controlador de mejora del factor de potencia",
+    "Admite hasta 16 niveles de activación de condensadores.\nVisualización continua del multiplicador de potencia.\nMedición de tensión, corriente, potencia, factor de potencia, energía, picos y armónicos.\nVisualización promedio semanal y mensual del multiplicador de potencia.\nIdentificación automática de valores de condensadores (en fábrica de paneles)\nprotección de las armonías.\nDefinición de límites de armónicos, tensión y corriente.\nprecisión de medición 0,2%\n1.600 muestras por onda de medición\nRecopilación de datos energéticos durante 6 meses.\nPantalla LCD de 128X64\nSoporte para múltiples idiomas.\nRS485 canal de comunicación.\nSoporte para protocolos de comunicación MODBUS y también (opción) BACNET\nSoporte de comunicación Ethernet (opcional).\nInstalación sencilla en el frontal del cuadro eléctrico.",
+    "Productos relacionados"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/elnet-pfc-controller-content-13-3.png",
+      "alt": "ElNet-LTC.png"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-6-5.png",
+      "alt": "50"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-7-5.png",
+      "alt": "41"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-8-5.png",
+      "alt": "21"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-9-5.png",
+      "alt": "31"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-10-5.png",
+      "alt": "11"
+    },
+    {
+      "src": "/assets/images/elnet-ltc-controller-content-11-5.png",
+      "alt": "6"
+    },
+    {
+      "src": "/assets/images/elnet-pfc-controller-content-12-3.png",
+      "alt": "ElNet LTC10 power factor improvement controller"
+    },
+    {
+      "src": "/assets/images/elnet-pfc-controller-content-5-3.png",
+      "alt": "ElNet PFC power factor improvement controller"
+    }
+  ],
+  "gallery": [],
+  "documents": [
+    {
+      "label": "שרטוטים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_23469a7561a348ad8d847b5898f1e45a.pdf",
+      "file": "9a8771_23469a7561a348ad8d847b5898f1e45a.pdf"
+    },
+    {
+      "label": "הורד מסמכים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_70766ec9427846cea1ed821c59d2df9e.pdf",
+      "file": "9a8771_70766ec9427846cea1ed821c59d2df9e.pdf"
+    }
+  ]
+}

@@ -1,0 +1,580 @@
+{
+  "url": "https://www.ddc.co.il/products",
+  "slug": "products",
+  "title": "מוצרים | ישומי בקרה - עברית",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><p> ישומי בקרה בע״מ</p></div>\n<div class=\"rich-text\"><p>יצירת קשר</p>\n<p>טלפון: +972-3-6474998​</p>\n<p>פקס: +972-3-6474598</p>\n<p><span>דואר אלקטרוני: <a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>שעות פתיחה</p>\n<p>ישומי בקרה בע״מ</p>\n<p>ראשון - חמישי</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>כתובת</p>\n<p>רחוב הברזל 25, תל אביב</p>\n<p>6971035</p>\n<p>ישראל</p></div>\n<div class=\"rich-text\"><p>© Copyright - ישומי בקרה בע״מ</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-14-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-8-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-10-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/elnet-billing-and-pq-software.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-17-6.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-18-8.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-19-6.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-15-4.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-16-8.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-15-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-16-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-12-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-14-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-8-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-11-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-6-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-6-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/power-meters-control-content-7-3.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/sensor-de-inundaci-n.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation-content-12-4.png\" alt=\"\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "ישומי בקרה בע״מ",
+    "יצירת קשר\nטלפון: +972-3-6474998\n​\nפקס: +972-3-6474598\nדואר אלקטרוני:\ncal@ddc.co.il",
+    "שעות פתיחה\nישומי בקרה בע״מ\nראשון - חמישי\n08:00 - 17:00",
+    "כתובת\nרחוב הברזל 25, תל אביב\n6971035\nישראל",
+    "© Copyright - ישומי בקרה בע״מ"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/products-content-5-5.jpeg",
+      "alt": "Hotline Consultant"
+    },
+    {
+      "src": "/assets/images/building-automation-content-14-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-10-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/elnet-billing-and-pq-software.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-17-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-18-8.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-19-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-15-4.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-16-8.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-15-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-16-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-12-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-14-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-11-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-7-3.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/sensor-de-inundaci-n.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation-content-12-4.png",
+      "alt": ""
+    }
+  ],
+  "gallery": [
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-14-3.png",
+      "title": "UniArt-4W תוכנה לבקרת מבנה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-14-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "title": "ElNet MC-1 מונה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-10-3.png",
+      "title": "ElNet MC-8 מונה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-10-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/elnet-billing-and-pq-software.png",
+      "title": "תוכנת Elnet חשבונות ואיכות חשמל"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/elnet-billing-and-pq-software.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-17-6.png",
+      "title": "ElNet PFC בקר לשיפור מקדם הספק"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-17-6.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-18-8.png",
+      "title": "ElNet LTC10 בקר לשיפור מקדם הספק"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-18-8.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-19-6.png",
+      "title": "ElNet LTC בקר לשיפור מקדם הספק"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-19-6.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-15-4.png",
+      "title": "ElNet COD בקר החלפה ח״ח/ גנרטור"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-15-4.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-16-8.png",
+      "title": "ElNet CO בקר החלפה ח״ח/גנרטור"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-16-8.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-15-3.png",
+      "title": "ElNet VA מדידות חשמל כלליות"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-15-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-16-3.png",
+      "title": "ElNet VIP מדידות חשמל כלליות"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-16-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-12-3.png",
+      "title": "ElNet PIC מונה תעו״ז"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-12-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-14-3.png",
+      "title": "ElNet LTE אנרגיה ומדידות חשמל"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-14-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "title": "ElNet MC-2 מונה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-11-3.png",
+      "title": "ElNet MC-12 מונה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-11-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "title": "ElNet LT תעו״ז, הרמוניות"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "title": "ElNet LTP זרם זליגה הרמוניות ועוד"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-7-3.png",
+      "title": "ElNet PQ/GR הפרעות ומדידות חשמל"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/power-meters-control-content-7-3.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/sensor-de-inundaci-n.png",
+      "title": "Flooding sensor"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/sensor-de-inundaci-n.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-12-4.png",
+      "title": "Elnet xp בקר למשאבות ניקוז וביוב"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation-content-12-4.png",
+      "title": ""
+    }
+  ],
+  "products": [
+    {
+      "title": "UniArt-4W תוכנה לבקרת מבנה",
+      "slug": "uniart-software",
+      "category": "מערכות בקרה",
+      "subcategory": "תוכנות HMI SCADA BMS",
+      "subcategories": [
+        "תוכנות HMI SCADA BMS"
+      ],
+      "src": "/assets/images/uniart-software-content-5-5.png"
+    },
+    {
+      "title": "ElNet MC-1 מונה",
+      "slug": "elnet-mc-1-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/power-meters-control-content-8-3.png"
+    },
+    {
+      "title": "ElNet MC-8 מונה",
+      "slug": "elnet-mc-8-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/power-meters-control-content-10-3.png"
+    },
+    {
+      "title": "תוכנת Elnet חשבונות ואיכות חשמל",
+      "slug": "elnet-billing-software",
+      "category": "מערכות חשמל",
+      "subcategory": "תוכנת Elnet חשבונות ואיכות חשמל",
+      "subcategories": [
+        "תוכנת Elnet חשבונות ואיכות חשמל"
+      ],
+      "src": "/assets/images/elnet-billing-and-pq-software.png"
+    },
+    {
+      "title": "ElNet PFC בקר לשיפור מקדם הספק",
+      "slug": "elnet-pfc-controller",
+      "category": "מערכות חשמל",
+      "subcategory": "בקרים לשיפור מקדם הספק",
+      "subcategories": [
+        "בקרים לשיפור מקדם הספק"
+      ],
+      "src": "/assets/images/elnet-pfc-controller-content-5-3.png"
+    },
+    {
+      "title": "ElNet LTC10 בקר לשיפור מקדם הספק",
+      "slug": "elnet-ltc10-controller",
+      "category": "מערכות חשמל",
+      "subcategory": "בקרים לשיפור מקדם הספק",
+      "subcategories": [
+        "בקרים לשיפור מקדם הספק"
+      ],
+      "src": "/assets/images/elnet-pfc-controller-content-12-3.png"
+    },
+    {
+      "title": "ElNet LTC בקר לשיפור מקדם הספק",
+      "slug": "elnet-ltc-controller",
+      "category": "מערכות חשמל",
+      "subcategory": "בקרים לשיפור מקדם הספק",
+      "subcategories": [
+        "בקרים לשיפור מקדם הספק"
+      ],
+      "src": "/assets/images/elnet-pfc-controller-content-13-3.png"
+    },
+    {
+      "title": "ElNet COD בקר החלפה ח״ח/ גנרטור",
+      "slug": "elnet-cod-transfer-switch",
+      "category": "מערכות חשמל",
+      "subcategory": "בקרי החלפה",
+      "subcategories": [
+        "בקרי החלפה"
+      ],
+      "src": "/assets/images/elnet-cod-transfer-switch-content-5-5.png"
+    },
+    {
+      "title": "ElNet CO בקר החלפה ח״ח/גנרטור",
+      "slug": "elnet-co-transfer-switch",
+      "category": "מערכות חשמל",
+      "subcategory": "בקרי החלפה",
+      "subcategories": [
+        "בקרי החלפה"
+      ],
+      "src": "/assets/images/transfer-switch-drawings-content-7-4.png"
+    },
+    {
+      "title": "ElNet VA מדידות חשמל כלליות",
+      "slug": "elnet-va-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני חשמל",
+      "subcategories": [
+        "מוני חשמל"
+      ],
+      "src": "/assets/images/elnet-va-meter-content-5-5.png"
+    },
+    {
+      "title": "ElNet VIP מדידות חשמל כלליות",
+      "slug": "elnet-vip-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני חשמל",
+      "subcategories": [
+        "מוני חשמל"
+      ],
+      "src": "/assets/images/elnet-vip-meter-content-5-5.png"
+    },
+    {
+      "title": "ElNet PIC מונה תעו״ז",
+      "slug": "elnet-pic-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/elnet-mc-2-meter-content-15-3.png"
+    },
+    {
+      "title": "ElNet LTE אנרגיה ומדידות חשמל",
+      "slug": "elnet-lte-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/elnet-mc-2-meter-content-14-4.png"
+    },
+    {
+      "title": "ElNet MC-2 מונה",
+      "slug": "elnet-mc-2-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/elnet-mc-2-meter-content-5-3.png"
+    },
+    {
+      "title": "ElNet MC-12 מונה",
+      "slug": "elnet-mc-12-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה",
+      "subcategories": [
+        "מוני אנרגיה"
+      ],
+      "src": "/assets/images/elnet-mc-12-meter-content-5-5.png"
+    },
+    {
+      "title": "ElNet LT תעו״ז, הרמוניות",
+      "slug": "elnet-lt-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה, מודדים לאיכות חשמל",
+      "subcategories": [
+        "מוני אנרגיה",
+        "מודדים לאיכות חשמל"
+      ],
+      "src": "/assets/images/elnet-mc-2-meter-content-12-2.png"
+    },
+    {
+      "title": "ElNet LTP זרם זליגה הרמוניות ועוד",
+      "slug": "elnet-ltp-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה, מודדים לאיכות חשמל",
+      "subcategories": [
+        "מוני אנרגיה",
+        "מודדים לאיכות חשמל"
+      ],
+      "src": "/assets/images/elnet-mc-2-meter-content-12-2.png"
+    },
+    {
+      "title": "ElNet PQ/GR הפרעות ומדידות חשמל",
+      "slug": "elnet-pq-gr-meter",
+      "category": "מערכות חשמל",
+      "subcategory": "מוני אנרגיה, מודדים לאיכות חשמל",
+      "subcategories": [
+        "מוני אנרגיה",
+        "מודדים לאיכות חשמל"
+      ],
+      "src": "/assets/images/pq-gr.png"
+    },
+    {
+      "title": "Flooding sensor",
+      "slug": "flooding-sensor",
+      "category": "מערכות בקרה",
+      "subcategory": "מערכות לאיתור הצפות",
+      "subcategories": [
+        "מערכות לאיתור הצפות"
+      ],
+      "src": "/assets/images/flooding-sensor-content-5-3.png"
+    },
+    {
+      "title": "Elnet xp בקר למשאבות ניקוז וביוב",
+      "slug": "elnet-xp-controller",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרת אינסטלציה",
+      "subcategories": [
+        "בקרת אינסטלציה"
+      ],
+      "src": "/assets/images/elnet-xp-controller-content-5-5.png"
+    },
+    {
+      "title": "CO מערכות לניטור ובקרת גז",
+      "slug": "co-gas-monitoring",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרת חניונים",
+      "subcategories": [
+        "בקרת חניונים"
+      ],
+      "src": "/assets/images/co-gas-monitoring-content-5-5.png"
+    },
+    {
+      "title": "חניה חכמה",
+      "slug": "smart-parking",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרת חניונים",
+      "subcategories": [
+        "בקרת חניונים"
+      ],
+      "src": "/assets/images/smart-parking-content-5-5.jpg"
+    },
+    {
+      "title": "DigiPoint בקר מתוכנת דיגיטלי",
+      "slug": "digipoint-controller",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרים מתוכנתים (DDC+PLC)",
+      "subcategories": [
+        "בקרים מתוכנתים (DDC+PLC)"
+      ],
+      "src": "/assets/images/flooding-sensor-content-14-3.png"
+    },
+    {
+      "title": "Superbrain FC בקר ליחידות מפוח נחשון",
+      "slug": "superbrain-fc-controller",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרים מתוכנתים (DDC+PLC)",
+      "subcategories": [
+        "בקרים מתוכנתים (DDC+PLC)"
+      ],
+      "src": "/assets/images/veropoint-controller-content-8-3.png"
+    },
+    {
+      "title": "VeroPoint בקר עם כרטיסי הרחבה",
+      "slug": "veropoint-controller",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרים מתוכנתים (DDC+PLC)",
+      "subcategories": [
+        "בקרים מתוכנתים (DDC+PLC)"
+      ],
+      "src": "/assets/images/flooding-sensor-content-12-4.png"
+    },
+    {
+      "title": "SuperBrain בקר עם ספרית תוכנות",
+      "slug": "superbrain-controller",
+      "category": "מערכות בקרה",
+      "subcategory": "בקרים מתוכנתים (DDC+PLC)",
+      "subcategories": [
+        "בקרים מתוכנתים (DDC+PLC)"
+      ],
+      "src": "/assets/images/flooding-sensor-content-11-3.png"
+    }
+  ]
+}

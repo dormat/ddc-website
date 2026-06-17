@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build static HTML site from scraped Wix content."""
+"""Build static HTML site from page content JSON."""
 
 from __future__ import annotations
 
@@ -9,27 +9,43 @@ import re
 import shutil
 from pathlib import Path
 
-from config import ASSETS, CONTACT, HOME_GALLERY_IMAGES, HOME_PAGE_TITLE, HUB_DISPLAY_TITLES, HUB_PAGES, NAV, PRODUCT_CODE_ALIASES, PRODUCT_SLUGS, PRODUCT_SUBCATEGORY_EN, PROJECTS, SITE_CONFIG, WIX_TO_LOCAL_SLUG
-from image_assets import ASSETS_DIR, local_image_name, wix_original_url
+from config import ASSETS, CONTACT, HOME_GALLERY_IMAGES, HOME_PAGE_TITLE, HUB_DISPLAY_TITLES, HUB_PAGES, NAV, PRODUCT_CODE_ALIASES, PRODUCT_SLUGS, PRODUCT_SUBCATEGORY_EN, PRODUCT_SUBCATEGORY_ES, PROJECTS, SITE_CONFIG
+from image_assets import ASSETS_DIR, clear_aliases_cache, image_filename, resolve_image_src
 from slugs import (
     CANONICAL_SLUG_SET,
     CANONICAL_TITLES_EN,
+    CANONICAL_TITLES_ES,
     all_canonical_slugs,
     canonical_slug,
     resolve_source_file,
-    to_canonical_slug,
 )
 from document_assets import (
     DOCUMENT_LABELS_EN,
+    DOCUMENT_LABELS_ES,
     DOCUMENT_LABEL_ORDER,
     local_document_path,
     rewrite_document_url,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRAPED_DIR = ROOT / "scraped"
+CONTENT_DIR = ROOT / "content"
 SITE_DIR = ROOT / "site"
 TEMPLATES_DIR = Path(__file__).resolve().parent / "templates"
+
+LTR_LOCALES = frozenset({"en", "es"})
+SITE_LOCALES = tuple(SITE_CONFIG)
+
+
+def is_ltr(lang: str) -> bool:
+    return lang in LTR_LOCALES
+
+
+def ui_pick(lang: str, he: str, en: str, es: str | None = None) -> str:
+    if lang == "he":
+        return he
+    if lang == "es":
+        return es if es is not None else en
+    return en
 
 
 def asset_path(relative: str) -> str:
@@ -67,7 +83,7 @@ def split_figures(content: str) -> tuple[str, list[str]]:
 
 
 def filter_page_content(content: str, slug: str) -> str:
-    """Remove duplicate footer/header blocks scraped from Wix master page."""
+    """Remove duplicate footer/header blocks from page content."""
     if not content:
         return content
 
@@ -75,13 +91,21 @@ def filter_page_content(content: str, slug: str) -> str:
     footer_markers = [
         "יצירת קשר",
         "Contact Us",
+        "Contáctenos",
+        "making contact",
+        "haciendo contacto",
         "שעות פתיחה",
         "Opening Hour",
+        "opening hours",
+        "horario de apertura",
         "© Copyright",
         "cal@ddc.co.il",
         "כתובת",
         "Address",
         "Adress",
+        "DIRECCIÓN",
+        "Teléfono:",
+        "Phone:",
     ]
     parts = content.split('<div class="rich-text">')
     filtered = []
@@ -112,34 +136,35 @@ def filter_page_content(content: str, slug: str) -> str:
     return result.strip()
 
 
-def rewrite_wix_urls(content: str) -> str:
-    """Rewrite Wix CDN image URLs to local assets."""
-    def replacer(match: re.Match) -> str:
-        url = match.group(0)
-        basename = media_basename(url)
-        if basename:
-            local_name = local_image_name(basename)
-            if (ASSETS_DIR / local_name).exists():
-                return asset_path(f"images/{local_name}")
-            local = ASSETS_DIR / basename
-            if local.exists():
-                return asset_path(f"images/{basename}")
-        return url
-
-    return re.sub(r"https://static\.wixstatic\.com/media/[^\s\"'<>]+", replacer, content)
+def clean_rich_html(content: str) -> str:
+    """Strip inline markup noise from rich text HTML."""
+    if not content:
+        return content
+    content = re.sub(r"<span[^>]*>\s*\u200b?\s*</span>", "", content)
+    content = re.sub(r'\sclass="font_\d+[^"]*"', "", content)
+    content = re.sub(r'\sclass="color_\d+[^"]*"', "", content)
+    content = re.sub(r'\s*dir="(?:rtl|ltr)"', "", content)
+    content = re.sub(r'\s*style="[^"]*"', "", content)
+    content = re.sub(r'\s*data-auto-recognition="[^"]*"', "", content)
+    for _ in range(12):
+        prev = content
+        content = re.sub(r"<span>([^<]*)</span>", r"\1", content)
+        content = re.sub(r"<span\s*>([^<]*)</span>", r"\1", content)
+        if content == prev:
+            break
+    content = re.sub(r"<br[^>]*/?>", "<br/>", content)
+    return content
 
 
 def rewrite_image_url(url: str) -> str:
     if not url:
         return url
-    basename = media_basename(url)
-    if basename:
-        local_name = local_image_name(basename)
-        if (ASSETS_DIR / local_name).exists():
-            return asset_path(f"images/{local_name}")
-        if (ASSETS_DIR / basename).exists():
-            return asset_path(f"images/{basename}")
-    return url
+    resolved = resolve_image_src(url)
+    if resolved.startswith("/assets/"):
+        return resolved
+    if resolved.startswith("images/"):
+        return asset_path(resolved)
+    return resolved
 
 
 def render_nav(lang: str, current_slug: str) -> str:
@@ -150,7 +175,7 @@ def render_nav(lang: str, current_slug: str) -> str:
         active_cls = " active" if is_active else ""
         has_children = "children" in item and item["children"]
         if has_children:
-            expand_label = "הצג תפריט משנה" if lang == "he" else "Show submenu"
+            expand_label = ui_pick(lang, "הצג תפריט משנה", "Show submenu", "Mostrar submenú")
             parts.append(f'<li class="nav-item has-dropdown{active_cls}">')
             parts.append(
                 f'<a class="nav-link" href="{item["href"]}">{html.escape(item["label"])}</a>'
@@ -188,13 +213,14 @@ def _is_nav_active(item: dict, slug: str, lang: str) -> bool:
 
 
 def render_language_switcher(current_lang: str, current_slug: str = "") -> str:
-    labels = {"he": "עברית", "en": "English"}
+    labels = {"he": "עברית", "en": "English", "es": "Español"}
     flags = {
         "en": asset_path("images/flag-us.png"),
         "he": asset_path("images/flag-il.png"),
+        "es": asset_path("images/flag-spain.jpg"),
     }
     parts = ['<div class="lang-switcher" role="group" aria-label="Language">']
-    for lang_code in ("en", "he"):
+    for lang_code in SITE_LOCALES:
         label = labels[lang_code]
         flag = flags[lang_code]
         href = page_href(lang_code, current_slug)
@@ -218,7 +244,7 @@ def render_logo(lang: str) -> str:
     cfg = SITE_CONFIG[lang]
     brand = html.escape(cfg["brand"])
     home = f"/{lang}/"
-    if lang == "en":
+    if is_ltr(lang):
         return f"""<a href="{home}" class="logo-link logo-link-en">
   <img src="/assets/images/logo-icon.png" alt="{brand}" class="logo logo-en-icon" width="44" height="44">
   <span class="logo-en-text">{brand}</span>
@@ -243,6 +269,14 @@ CONTACT_FIELD_LABELS = {
         "hours": "Opening Hours",
         "address": "Address",
     },
+    "es": {
+        "contact": "Contáctenos",
+        "phone": "Teléfono",
+        "fax": "Fax",
+        "email": "Correo electrónico",
+        "hours": "Horario de atención",
+        "address": "Dirección",
+    },
 }
 
 PRODUCT_COMPARISON_URL = "http://c.ddc.co.il/comparison/"
@@ -257,11 +291,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "ניתן לזיהוי בפנל אחורי - קונקטור J5 בעל 7 מהדקים",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_9a131c870f074acfa894399dc914855d~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-6-5.jpg",
                         "alt": "CO17_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_24212278028b4ffca213f684e38d2448~mv2.png",
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
                         "alt": "ELNet-CO.png",
                     },
                 ],
@@ -275,11 +309,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "ניתן לזיהוי בפנל אחורי - קונקטור J5 בעל 6 מהדקים",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_6c15b3fb654b401495482c845883a34d~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-8-5.jpg",
                         "alt": "CO19_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_24212278028b4ffca213f684e38d2448~mv2.png",
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
                         "alt": "ELNet-CO.png",
                     },
                 ],
@@ -295,11 +329,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "note": "בחלק מהדגמים קונקטור J2 אינו קיים",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_c3f8fac7ba064c82a4d436c9269a7c2c~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
                         "alt": "CO20_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_ee2fe79dea3d47f0bf70d46c845e7276~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
                         "alt": "בקר CO 19.jpg",
                     },
                 ],
@@ -314,11 +348,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "ניתן לזיהוי בחזית המכשיר - בורר מצבים",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_c3f8fac7ba064c82a4d436c9269a7c2c~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
                         "alt": "CO20_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_ee2fe79dea3d47f0bf70d46c845e7276~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
                         "alt": "בקר CO 19.jpg",
                     },
                 ],
@@ -338,11 +372,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "Can be identified on the rear panel - connector J5 with 7 clamps",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_9a131c870f074acfa894399dc914855d~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-6-5.jpg",
                         "alt": "CO17_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_24212278028b4ffca213f684e38d2448~mv2.png",
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
                         "alt": "ELNet-CO.png",
                     },
                 ],
@@ -356,11 +390,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "Can be identified on the rear panel - connector J5 with 6 clamps",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_6c15b3fb654b401495482c845883a34d~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-8-5.jpg",
                         "alt": "CO19_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_24212278028b4ffca213f684e38d2448~mv2.png",
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
                         "alt": "ELNet-CO.png",
                     },
                 ],
@@ -376,11 +410,11 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "note": "In some models the J2 connector is not present",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_c3f8fac7ba064c82a4d436c9269a7c2c~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
                         "alt": "CO20_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_ee2fe79dea3d47f0bf70d46c845e7276~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
                         "alt": "CO 19 controller",
                     },
                 ],
@@ -395,12 +429,174 @@ TRANSFER_SWITCH_DRAWINGS = {
                 "description": "Can be identified on the front of the device - mode selector",
                 "images": [
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_c3f8fac7ba064c82a4d436c9269a7c2c~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
                         "alt": "CO20_Back.jpg",
                     },
                     {
-                        "src": "https://static.wixstatic.com/media/9a8771_ee2fe79dea3d47f0bf70d46c845e7276~mv2.jpg",
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
                         "alt": "CO 19 controller",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                },
+            },
+        ],
+    },
+    "es": {
+        "title": "Controladores de interruptores de transferencia - Esquemas",
+        "download_label": "Descargar esquemas",
+        "items": [
+            {
+                "title": "Controlador de interruptor de transferencia - 1.ª generación",
+                "description": "Se identifica en el panel trasero: conector J5 con 7 bornes",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-6-5.jpg",
+                        "alt": "CO17_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
+                        "alt": "ELNet-CO.png",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 2.ª generación",
+                "description": "Se identifica en el panel trasero: conector J5 con 6 bornes",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-8-5.jpg",
+                        "alt": "CO19_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
+                        "alt": "ELNet-CO.png",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 3.ª generación",
+                "subtitle": "(Sistema con 2 interruptores)",
+                "description": "Se identifica en la parte frontal del dispositivo: selector de modo",
+                "note": "En algunos modelos el conector J2 no está presente",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
+                        "alt": "CO20_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
+                        "alt": "Controlador CO 19",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 3.ª generación",
+                "subtitle": "(Sistema con 3 interruptores)",
+                "description": "Se identifica en la parte frontal del dispositivo: selector de modo",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
+                        "alt": "CO20_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
+                        "alt": "Controlador CO 19",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                    "file": "9a8771_77deb5e6f898498388ced2756713f65b.pdf",
+                },
+            },
+        ],
+    },
+    "es": {
+        "title": "Controladores de interruptores de transferencia - Esquemas",
+        "download_label": "Descargar esquemas",
+        "items": [
+            {
+                "title": "Controlador de interruptor de transferencia - 1.ª generación",
+                "description": "Se identifica en el panel trasero: conector J5 con 7 bornes",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-6-5.jpg",
+                        "alt": "CO17_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
+                        "alt": "ELNet-CO.png",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                    "file": "9a8771_79a15aeb71c24ecca86367ec9ea25818.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 2.ª generación",
+                "description": "Se identifica en el panel trasero: conector J5 con 6 bornes",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-8-5.jpg",
+                        "alt": "CO19_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-7-4.png",
+                        "alt": "ELNet-CO.png",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                    "file": "9a8771_b330554d3df1480fb6135ac66cfc2a92.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 3.ª generación",
+                "subtitle": "(Sistema con 2 interruptores)",
+                "description": "Se identifica en la parte frontal del dispositivo: selector de modo",
+                "note": "En algunos modelos el conector J2 no está presente",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
+                        "alt": "CO20_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
+                        "alt": "Controlador CO 19",
+                    },
+                ],
+                "document": {
+                    "url": "https://www.ddc.co.il/_files/ugd/9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                    "file": "9a8771_c418d80bd8024e08a29facd47123fc63.pdf",
+                },
+            },
+            {
+                "title": "Controlador de interruptor de transferencia - 3.ª generación",
+                "subtitle": "(Sistema con 3 interruptores)",
+                "description": "Se identifica en la parte frontal del dispositivo: selector de modo",
+                "images": [
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-9-5.jpg",
+                        "alt": "CO20_Back.jpg",
+                    },
+                    {
+                        "src": "/assets/images/transfer-switch-drawings-content-10-4.jpg",
+                        "alt": "Controlador CO 19",
                     },
                 ],
                 "document": {
@@ -434,6 +630,17 @@ PRODUCT_COMPARISON_COPY = {
         ],
         "button": "Open product comparison",
         "note": "Found incorrect information? Let us know at ",
+    },
+    "es": {
+        "title": "Comparación de productos",
+        "intro": "Nuestra herramienta de comparación le permite explorar modelos ElNet, comparar especificaciones y encontrar equivalentes de productos de la competencia.",
+        "features": [
+            "Compare modelos de medidores ElNet por categoría",
+            "Encuentre productos equivalentes de la competencia",
+            "Explore modelos con descuento, medidores de comunicación y energía, analizadores y más",
+        ],
+        "button": "Abrir comparación de productos",
+        "note": "¿Encontró información incorrecta? Avísenos en ",
     },
 }
 
@@ -469,6 +676,22 @@ CONTACT_FORM_COPY = {
         "error": "We could not send your message. Please try again or call us.",
         "subject": "New contact from website",
         "info_heading": "Contact details",
+    },
+    "es": {
+        "title": "Contáctenos",
+        "intro": "Nos encantaría saber de usted. Complete el formulario y nos pondremos en contacto lo antes posible.",
+        "name": "Nombre completo",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "message": "Mensaje",
+        "submit": "Enviar mensaje",
+        "sending": "Enviando...",
+        "success": "¡Gracias! Su mensaje se envió correctamente. Nos pondremos en contacto pronto.",
+        "popup_title": "Gracias",
+        "close": "Cerrar",
+        "error": "No pudimos enviar su mensaje. Inténtelo de nuevo o llámenos.",
+        "subject": "Nuevo contacto desde el sitio web",
+        "info_heading": "Datos de contacto",
     },
 }
 
@@ -577,7 +800,7 @@ def render_transfer_switch_drawings_page(lang: str) -> str:
 
     for item in copy["items"]:
         images_html = "".join(
-            f'<img src="{rewrite_image_url(wix_original_url(img["src"]))}" '
+            f'<img src="{rewrite_image_url(resolve_image_src(img["src"]))}" '
             f'alt="{html.escape(img["alt"])}" loading="lazy"/>'
             for img in item["images"]
         )
@@ -678,35 +901,23 @@ def render_footer(lang: str) -> str:
 
 
 def load_slides(lang: str) -> list[dict]:
-    path = SCRAPED_DIR / lang / "slideshow.json"
+    path = CONTENT_DIR / lang / "slideshow.json"
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return []
 
 
 def slide_background_url(slide: dict, lang: str) -> str:
-    """Full-width carousel background matching Wix fill-layer sizing."""
+    """Full-width carousel background image."""
     bg = slide.get("bg", "")
     if bg:
-        return rewrite_image_url(wix_original_url(bg))
+        return rewrite_image_url(bg)
 
     image = slide.get("image", "")
     if image:
-        base = wix_original_url(image)
-        match = re.match(
-            r"(https://static\.wixstatic\.com/media/[^/]+~mv2\.(?:png|jpg|jpeg|webp))",
-            base,
-            re.I,
-        )
-        if match:
-            height = 718 if lang == "en" else 590
-            media = match.group(1)
-            return (
-                f"{media}/v1/fill/w_1920,h_{height},al_c,q_85,"
-                f"usm_0.66_1.00_0.01,enc_avif,quality_auto"
-            )
+        return rewrite_image_url(image)
 
-    return rewrite_image_url(wix_original_url(ASSETS.get("hero_bg", "")))
+    return rewrite_image_url(ASSETS.get("hero_bg", ""))
 
 
 def slide_overlay_style(slide: dict) -> str:
@@ -788,6 +999,63 @@ HOME_SLIDE_EN = [
     },
 ]
 
+HOME_SLIDE_ES = [
+    {
+        "title": "ElNet | Monitoreo de calidad de energía",
+        "subtitle": "Monitorea y controla su red eléctrica.",
+        "description": (
+            "El sistema de control de calidad de energía ElNet se basa en hardware confiable y preciso "
+            "y una interfaz fácil de usar.\n"
+            "El sistema genera informes y resúmenes ejecutivos conformes con EN50160, "
+            "incluyendo informes completos y precisos de eventos eléctricos."
+        ),
+    },
+    {
+        "title": "UniWEB",
+        "subtitle": "Su clave para un edificio eficiente y tecnológico.",
+        "description": (
+            "Sistemas de control de edificios y energía\n"
+            "Una plataforma innovadora y avanzada.\n"
+            "Optimización y gestión de energía"
+        ),
+        "accent_subtitle": True,
+    },
+    {
+        "title": "Controladores avanzados para edificios públicos e industria.",
+        "subtitle": "",
+        "description": (
+            "Control y monitoreo precisos de aire acondicionado, sistemas eléctricos "
+            "y todos los demás sistemas electromecánicos del edificio."
+        ),
+    },
+    {
+        "title": "ElNet MC",
+        "subtitle": "Gestione con precisión el consumo de energía en su edificio",
+        "description": (
+            "Un sistema preciso para medición acumulativa de energía y generación "
+            "de facturas de consumo eléctrico y HVAC."
+        ),
+    },
+    {
+        "title": "Ahorro de energía",
+        "subtitle": "Ahorre energía y proteja el medio ambiente.",
+        "description": "Elija un sistema respetuoso con el medio ambiente.",
+    },
+    {
+        "title": "Como primer paso, mida el consumo de energía en sus sistemas.",
+        "subtitle": "",
+        "description": (
+            "La conciencia sobre cuánta energía se consume es la forma más efectiva "
+            "de reducir el consumo general y minimizar el impacto ambiental."
+        ),
+    },
+    {
+        "title": "Productos tecnológicos líderes a precios competitivos",
+        "subtitle": "",
+        "description": "",
+    },
+]
+
 HOME_UI = {
     "he": {
         "learn_more": "למידע נוסף",
@@ -798,6 +1066,11 @@ HOME_UI = {
         "learn_more": "Learn more",
         "featured": "Our Solutions",
         "explore": "Explore our systems",
+    },
+    "es": {
+        "learn_more": "Más información",
+        "featured": "Nuestras soluciones",
+        "explore": "Explore nuestros sistemas",
     },
 }
 
@@ -823,6 +1096,8 @@ def load_home_slides(lang: str) -> list[dict]:
         item = dict(slide)
         if lang == "en" and i < len(HOME_SLIDE_EN):
             item.update(HOME_SLIDE_EN[i])
+        elif lang == "es" and i < len(HOME_SLIDE_ES):
+            item.update(HOME_SLIDE_ES[i])
         merged.append(item)
     return merged
 
@@ -956,6 +1231,11 @@ HOME_CTA_LINKS = {
         {"label": "Power meters", "slug": "power-meters-control", "gallery_titles": ["Power meters"]},
         {"label": "Building Automation", "slug": "building-automation", "gallery_titles": ["Building Automation"]},
     ],
+    "es": [
+        {"label": "Nosotros", "slug": "about", "gallery_titles": ["Nosotros"]},
+        {"label": "Medidores eléctricos", "slug": "power-meters-control", "gallery_titles": ["Medidores eléctricos"]},
+        {"label": "Automatización de edificios", "slug": "building-automation", "gallery_titles": ["Automatización de edificios"]},
+    ],
 }
 
 ABOUT_HERO = {
@@ -966,6 +1246,10 @@ ABOUT_HERO = {
     "en": {
         "title": "About us",
         "lead": "Building automation, power metering, and control systems — committed to international quality standards.",
+    },
+    "es": {
+        "title": "Nosotros",
+        "lead": "Automatización de edificios, medición eléctrica y sistemas de control — comprometidos con estándares internacionales de calidad.",
     },
 }
 
@@ -982,6 +1266,12 @@ ABOUT_STANDARDS = {
         {"code": "CE", "label": "European conformity directives"},
         {"code": "SII", "label": "Israeli Standards Institute certified"},
     ],
+    "es": [
+        {"code": "ISO 9001", "label": "Sistemas de gestión de calidad"},
+        {"code": "ISO 9000.3", "label": "Aseguramiento de calidad en desarrollo y producción"},
+        {"code": "CE", "label": "Directivas de conformidad europea"},
+        {"code": "SII", "label": "Certificado por el Instituto de Normas de Israel"},
+    ],
 }
 
 ABOUT_QA = {
@@ -996,6 +1286,12 @@ ABOUT_QA = {
         "intro": "We are committed to exceptional product quality and efficient service — with quality control across every stage of our work.",
         "scope_heading": "Quality across all activities",
         "scope": ["Development", "Production", "Supply", "Installation"],
+    },
+    "es": {
+        "title": "Garantía de calidad",
+        "intro": "Estamos comprometidos con productos de calidad excepcional y un servicio eficiente, con control de calidad en cada etapa de nuestro trabajo.",
+        "scope_heading": "Calidad en todas las actividades",
+        "scope": ["Desarrollo", "Producción", "Suministro", "Instalación"],
     },
 }
 
@@ -1015,6 +1311,14 @@ ABOUT_EXPERTISE = {
         "Automatic Transfer Switches",
         "Power Factor Control",
         "Smart Parking Systems",
+    ],
+    "es": [
+        "Automatización de edificios (BMS)",
+        "Medidores y analizadores eléctricos",
+        "Controladores PLC / DDC",
+        "Interruptores de transferencia automática",
+        "Control de factor de potencia",
+        "Sistemas de estacionamiento inteligente",
     ],
 }
 
@@ -1087,7 +1391,7 @@ def collect_homepage_gallery(page: dict, lang: str) -> list[dict]:
     unique = dedupe_images(images)
     for img in unique:
         img["alt"] = title
-        img["src"] = wix_original_url(img["src"])
+        img["src"] = resolve_image_src(img["src"])
     return unique
 
 
@@ -1103,7 +1407,7 @@ def render_homepage_body(page: dict, lang: str) -> str:
   <div class="product-detail-main">
     <div class="product-detail-main-inner">
       <div class="product-detail-copy">
-        <div class="wix-content product-description">
+        <div class="rich-content product-description">
           
         </div>
         
@@ -1128,9 +1432,9 @@ def normalize_product_name(name: str) -> str:
 def build_slug_index(lang: str) -> dict[str, str]:
     """Map normalized product names to canonical page slugs."""
     index: dict[str, str] = {}
-    scraped_dir = SCRAPED_DIR / lang
-    for f in scraped_dir.glob("*.json"):
-        if f.name in ("manifest.json", "slideshow.json", "slideshow_wix.json", "index.json"):
+    content_dir = CONTENT_DIR / lang
+    for f in content_dir.glob("*.json"):
+        if f.name in ("manifest.json", "slideshow.json", "index.json"):
             continue
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
@@ -1149,9 +1453,9 @@ def build_slug_index(lang: str) -> dict[str, str]:
 def build_title_index(lang: str) -> dict[str, str]:
     """Map normalized page titles to slugs."""
     index: dict[str, str] = {}
-    scraped_dir = SCRAPED_DIR / lang
-    for f in scraped_dir.glob("*.json"):
-        if f.name in ("manifest.json", "slideshow.json", "slideshow_wix.json", "index.json"):
+    content_dir = CONTENT_DIR / lang
+    for f in content_dir.glob("*.json"):
+        if f.name in ("manifest.json", "slideshow.json", "index.json"):
             continue
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
@@ -1217,7 +1521,7 @@ def resolve_slug(
     if best_slug and best_len >= 8:
         return best_slug
 
-    # Truncated Wix alts: match Hebrew/English product slug overrides by prefix
+    # Truncated alts: match product slug overrides by prefix
     for lookup_lang in (lang, "he"):
         entries = sorted(
             PRODUCT_SLUGS.get(lookup_lang, {}).items(),
@@ -1252,43 +1556,36 @@ def product_canonical_slug(
 ) -> str:
     """Resolve a catalog product entry to a canonical page slug."""
     title = prod.get("title", "")
-    candidates: list[str] = []
-    for key in ("slug", "wix_slug"):
-        val = (prod.get(key) or "").strip()
-        if val and val not in candidates:
-            candidates.append(val)
+    candidate = (prod.get("slug") or "").strip()
 
-    for candidate in candidates:
-        canonical = to_canonical_slug(candidate)
+    if candidate:
+        canonical = canonical_slug(candidate)
         if canonical in CANONICAL_SLUG_SET:
             return canonical
-        for loc in (lang, "he", "en"):
-            mapped = WIX_TO_LOCAL_SLUG.get(loc, {}).get(candidate)
-            if mapped:
-                return mapped
 
     resolved = resolve_slug(title, slug_index, lang, title_index)
     if resolved in CANONICAL_SLUG_SET:
         return resolved
 
-    for candidate in candidates:
-        canonical = to_canonical_slug(candidate)
+    if candidate:
+        canonical = canonical_slug(candidate)
         if canonical in CANONICAL_SLUG_SET:
             return canonical
 
-    return resolved or (to_canonical_slug(candidates[0]) if candidates else "")
+    return resolved or canonical_slug(candidate)
 
 
 def load_product_page(slug: str, lang: str) -> dict | None:
     if not slug:
         return None
-    path = SCRAPED_DIR / lang / f"{slug}.json"
+    path = CONTENT_DIR / lang / f"{slug}.json"
     if not path.exists():
         return None
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        page = json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return None
+    return merge_product_page_documents(page, slug, lang)
 
 
 def product_thumbnail_src(slug: str, lang: str, fallback: str = "") -> str:
@@ -1301,15 +1598,19 @@ def product_thumbnail_src(slug: str, lang: str, fallback: str = "") -> str:
         if heroes:
             return rewrite_image_url(heroes[0].get("src", ""))
     if fallback:
-        return rewrite_image_url(wix_original_url(fallback))
+        return rewrite_image_url(resolve_image_src(fallback))
     return ""
 
 
 def localize_subcategory(label: str, lang: str) -> str:
-    """Map Hebrew catalog subcategory labels to English on the EN site."""
-    if lang != "en" or not label:
+    """Map Hebrew catalog subcategory labels to English/Spanish on localized sites."""
+    if not label:
         return label
-    return PRODUCT_SUBCATEGORY_EN.get(label, label)
+    if lang == "en":
+        return PRODUCT_SUBCATEGORY_EN.get(label, label)
+    if lang == "es":
+        return PRODUCT_SUBCATEGORY_ES.get(label, label)
+    return label
 
 
 def catalog_product_title(
@@ -1319,17 +1620,16 @@ def catalog_product_title(
     slug_titles: dict[str, str],
 ) -> str:
     """Display title for a product catalog card."""
-    if lang == "en" and slug:
-        en_title = slug_titles.get(slug) or CANONICAL_TITLES_EN.get(slug, "")
-        if en_title:
-            return en_title
+    if lang in ("en", "es") and slug:
+        titles = CANONICAL_TITLES_EN if lang == "en" else CANONICAL_TITLES_ES
+        localized = slug_titles.get(slug) or titles.get(slug, "")
+        if localized:
+            return localized
     return prod.get("title", "")
 
 
 def load_product_catalog(lang: str) -> list[dict]:
-    path = SCRAPED_DIR / lang / "products.json"
-    if not path.exists():
-        path = SCRAPED_DIR / lang / "תמיכה.json"
+    path = CONTENT_DIR / lang / "products.json"
     if not path.exists():
         return []
     try:
@@ -1401,7 +1701,7 @@ def lookup_hub_card_image(
                 src = product_thumbnail_src(target, lang)
 
     if src:
-        return rewrite_image_url(wix_original_url(src))
+        return rewrite_image_url(resolve_image_src(src))
     return ""
 
 
@@ -1416,35 +1716,69 @@ def hub_page_title(page: dict, lang: str, h2_fallback: str = "") -> str:
     slug = page.get("slug", "")
     if lang == "en" and slug in CANONICAL_TITLES_EN:
         return CANONICAL_TITLES_EN[slug]
+    if lang == "es" and slug in CANONICAL_TITLES_ES:
+        return CANONICAL_TITLES_ES[slug]
     fallback = html.unescape(h2_fallback.strip()) if h2_fallback else ""
     return fallback or slug
 
 
 HUB_HERO_HEADING_RE = re.compile(r"font-size:7\d+px")
-HUB_PRODUCT_NAME_RE = re.compile(
+HUB_WIX_HEADING_RE = re.compile(r'font-family:[^;]+;">([^<]+)</span>')
+HUB_PLAIN_HEADING_RE = re.compile(r"<h([1-3])[^>]*>([^<]+)</h\1>")
+HUB_WIX_PRODUCT_RE = re.compile(
     r'<h4[^>]*>.*?color:#000000;">([^<]+)</span>',
     re.DOTALL,
 )
+HUB_PLAIN_PRODUCT_RE = re.compile(r"<h4[^>]*>([^<]+)</h4>")
 
 
 def extract_hub_heading_text(block: str) -> str:
-    """Extract visible heading label from a Wix rich-text block."""
-    matches = re.findall(r'font-family:[^;]+;">([^<]+)</span>', block)
-    if matches:
-        return html.unescape(matches[-1].strip())
-    plain = re.sub(r"<[^>]+>", " ", block)
-    return html.unescape(re.sub(r"\s+", " ", plain).strip())
+    """Extract visible heading label from a rich-text block."""
+    wix = HUB_WIX_HEADING_RE.findall(block)
+    if wix:
+        return html.unescape(wix[-1].strip())
+    plain = HUB_PLAIN_HEADING_RE.search(block)
+    if plain:
+        return html.unescape(plain.group(2).strip())
+    text = re.sub(r"<[^>]+>", " ", block)
+    return html.unescape(re.sub(r"\s+", " ", text).strip())
+
+
+def extract_hub_product_name(block: str) -> str:
+    """Extract product headline from an h4 rich-text block."""
+    wix = HUB_WIX_PRODUCT_RE.search(block)
+    if wix:
+        return html.unescape(wix.group(1).strip())
+    plain = HUB_PLAIN_PRODUCT_RE.search(block)
+    if plain:
+        return html.unescape(plain.group(1).strip())
+    return ""
 
 
 def is_hub_hero_heading(block: str) -> bool:
     return bool(HUB_HERO_HEADING_RE.search(block))
 
 
+def find_clean_html_hero_title(content: str) -> str:
+    """First h2 is a page hero when another h2 appears before the first h4."""
+    h2_titles: list[str] = []
+    for block in re.findall(r'<div class="rich-text">(.*?)</div>', content, re.DOTALL):
+        if extract_hub_product_name(block):
+            break
+        if "<h2" in block:
+            title = extract_hub_heading_text(block)
+            if title:
+                h2_titles.append(title)
+    if len(h2_titles) >= 2:
+        return h2_titles[0]
+    return ""
+
+
 def parse_hub_sections(content: str) -> list[dict]:
     """Group hub product cards under their preceding h2 category headings."""
     sections: list[dict] = []
     current: dict | None = None
-    hero_title = ""
+    hero_title = find_clean_html_hero_title(content)
 
     def ensure_section(title: str) -> dict:
         nonlocal current
@@ -1454,21 +1788,19 @@ def parse_hub_sections(content: str) -> list[dict]:
         return current
 
     for block in re.findall(r'<div class="rich-text">(.*?)</div>', content, re.DOTALL):
-        h4_match = HUB_PRODUCT_NAME_RE.search(block)
         if "<h2" in block:
             title = extract_hub_heading_text(block)
             if not title:
                 continue
-            if is_hub_hero_heading(block):
-                hero_title = title
+            if is_hub_hero_heading(block) or title == hero_title:
+                if not hero_title:
+                    hero_title = title
                 continue
             current = {"title": title, "products": []}
             sections.append(current)
             continue
-        if h4_match:
-            name = html.unescape(h4_match.group(1).strip())
-            if not name:
-                continue
+        name = extract_hub_product_name(block)
+        if name:
             section = current
             if section is None:
                 section = ensure_section(hero_title)
@@ -1488,7 +1820,7 @@ def build_hub_card(
     lang: str,
 ) -> dict:
     target = resolve_slug(name, slug_index, lang, title_index)
-    target = to_canonical_slug(target) if target else ""
+    target = canonical_slug(target) if target else ""
     href = page_href(lang, target) if target else "#"
     src = lookup_hub_card_image(
         name, image_index, catalog, slug_index, title_index, lang
@@ -1511,7 +1843,7 @@ def render_hub_product_card(card: dict) -> str:
 
 
 def parse_hub_cards(page: dict, lang: str) -> str:
-    """Build categorized hub sections from scraped h2/h4 headings + images."""
+    """Build categorized hub sections from page h2/h4 headings + images."""
     slug_index = build_slug_index(lang)
     title_index = build_title_index(lang)
     catalog = load_product_catalog(lang)
@@ -1522,11 +1854,8 @@ def parse_hub_cards(page: dict, lang: str) -> str:
     if not sections:
         return ""
 
-    h2_sections = re.findall(
-        r'<h2[^>]*>.*?font-family:[^;]+;">([^<]+)</span>',
-        content,
-    )
-    main_title = hub_page_title(page, lang, h2_sections[0] if h2_sections else "")
+    hero_h2 = find_clean_html_hero_title(content)
+    main_title = hub_page_title(page, lang, hero_h2)
 
     html_parts = ['<div class="hub-page">']
     if main_title:
@@ -1556,7 +1885,19 @@ def parse_hub_cards(page: dict, lang: str) -> str:
     return "\n".join(html_parts)
 
 
-RELATED_PRODUCT_MARKERS = ("מוצרים קשורים", "related products", "related items")
+RELATED_PRODUCT_MARKERS = (
+    "מוצרים קשורים",
+    "related products",
+    "related items",
+    "productos relacionados",
+    "producto relacionado",
+)
+
+
+CORRUPT_BLOCK_RE = re.compile(
+    r"dotum,helvetica,sans-serif;[\"']?\s*class=|&gt;(?:Related|Productos)",
+    re.I,
+)
 
 
 def text_has_related_marker(text: str) -> bool:
@@ -1609,9 +1950,118 @@ def product_display_title(page: dict) -> str:
     return rich[0] if rich else page.get("slug", "")
 
 
+FOOTER_RICH_TEXT_MARKERS = (
+    "contact us",
+    "contáctenos",
+    "making contact",
+    "haciendo contacto",
+    "opening hour",
+    "opening hours",
+    "horario de apertura",
+    "© copyright",
+    "phone:",
+    "teléfono:",
+    "fax:",
+    "email:",
+    "correo electrónico",
+    "address",
+    "dirección",
+    "adress",
+)
+
+
+def is_footer_rich_text(block: str) -> bool:
+    lower = block.lower()
+    return any(marker in lower for marker in FOOTER_RICH_TEXT_MARKERS)
+
+
+def product_description_from_rich_text(page: dict) -> str:
+    """Build clean product copy for Spanish from translated rich_text blocks."""
+    rich = page.get("rich_text") or []
+    content_blocks: list[str] = []
+    for block in rich:
+        plain = block.strip()
+        if not plain:
+            continue
+        # Footer blocks always appear after the related-products marker.
+        if text_has_related_marker(plain):
+            break
+        content_blocks.append(plain)
+    if not content_blocks:
+        return ""
+
+    heading = content_blocks[0].split("\n", 1)[0].strip()
+    paragraphs: list[str] = []
+    for block in content_blocks:
+        for line in block.split("\n"):
+            line = line.strip().replace("\u200b", "")
+            if not line or line == heading:
+                continue
+            paragraphs.append(line)
+
+    parts = [
+        '<div class="rich-text product-description-heading">',
+        f"<h3>{html.escape(heading)}</h3>",
+        "</div>",
+        '<div class="rich-text product-description-body">',
+    ]
+    parts.extend(f"<p>{html.escape(p)}</p>" for p in paragraphs)
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def product_description_from_meta(page: dict) -> str:
+    """Fallback Spanish copy from the translated meta description field."""
+    desc = (page.get("description") or "").strip()
+    if not desc:
+        return ""
+    lines = [line.strip().replace("\u200b", "") for line in desc.split("\n")]
+    lines = [line for line in lines if line]
+    if not lines:
+        return ""
+    heading = product_display_title(page)
+    parts = [
+        '<div class="rich-text product-description-heading">',
+        f"<h3>{html.escape(heading)}</h3>",
+        "</div>",
+        '<div class="rich-text product-description-body">',
+    ]
+    parts.extend(f"<p>{html.escape(line)}</p>" for line in lines)
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def rich_html_plain_len(content: str) -> int:
+    plain = re.sub(r"<[^>]+>", " ", content or "")
+    return len(re.sub(r"\s+", " ", plain).strip())
+
+
 def media_basename(url: str) -> str:
-    match = re.search(r"/media/([^/]+)", url)
-    return match.group(1) if match else ""
+    return image_filename(url)
+
+
+# Language-switcher / carousel UI scraped into product pages (not product photos).
+SCRAPED_UI_IMAGES = frozenset({
+    "home-content-1-9.png",
+    "home-content-2-10.png",
+    "home-content-3-10.png",
+    "home-content-4-6.png",
+})
+
+
+def is_junk_scraped_image(src: str, alt: str = "") -> bool:
+    src_l = (src or "").lower()
+    alt_l = (alt or "").strip().lower()
+    if alt_l in JUNK_PROJECT_ALTS:
+        return True
+    if "bullet_ball" in src_l or "bullet_ball" in alt_l:
+        return True
+    basename = media_basename(src) or image_filename(src)
+    if basename in SCRAPED_UI_IMAGES:
+        return True
+    if re.search(r"flag-(us|il|spain)|flag-of-|/us2\.png", src_l):
+        return True
+    return False
 
 
 def is_screen_or_icon(src: str, alt: str = "") -> bool:
@@ -1647,6 +2097,8 @@ def is_related_product_image(src: str, alt: str = "") -> bool:
 
 
 def is_gallery_product_image(src: str, alt: str = "") -> bool:
+    if is_junk_scraped_image(src, alt):
+        return False
     if is_screen_or_icon(src, alt):
         return False
     if is_product_variant_image(src, alt):
@@ -1683,6 +2135,8 @@ def filter_product_description(content: str, slug: str) -> str:
         block_text = re.sub(r"<[^>]+>", " ", block)
         plain = re.sub(r"\s+", " ", block_text).strip()
         if plain.casefold() in _HUB_CATEGORY_BLOCKS_CF:
+            continue
+        if CORRUPT_BLOCK_RE.search(block):
             continue
         filtered.append(block)
     return "".join(filtered).strip()
@@ -1780,7 +2234,7 @@ def collect_product_gallery(page: dict, figures: list[str]) -> tuple[list[dict],
     screens: list[dict] = []
     for img in unique:
         raw_src = img["src"]
-        img["src"] = wix_original_url(raw_src)
+        img["src"] = resolve_image_src(raw_src)
         if is_ui_screen_capture(raw_src, img.get("alt", "")):
             screens.append(img)
         else:
@@ -1848,9 +2302,9 @@ def catalog_product_for_slug(
     slug: str,
     title: str = "",
 ) -> dict | None:
-    slug = to_canonical_slug(slug)
+    slug = canonical_slug(slug)
     for prod in catalog:
-        if to_canonical_slug(prod.get("slug", "")) == slug:
+        if canonical_slug(prod.get("slug", "")) == slug:
             return prod
     if title:
         norm_title = normalize_product_name(title)
@@ -1865,7 +2319,7 @@ def catalog_product_for_slug(
     return None
 
 
-# Generic placeholder reused for many unrelated catalog thumbs on Wix.
+# Generic placeholder reused for many unrelated catalog thumbs.
 CATALOG_PLACEHOLDER_BASENAMES = {
     "9a8771_f40920370b1b4d27892aafe3d29c090e~mv2.png",
 }
@@ -1887,7 +2341,7 @@ def is_tiny_chrome_image(src: str, alt: str = "") -> bool:
 
 
 def extract_page_card_image(page: dict) -> str:
-    """Pick the best product photo from a scraped product page."""
+    """Pick the best product photo from a product page."""
     candidates: list[str] = []
 
     og = page.get("og_image", "")
@@ -1926,15 +2380,15 @@ def extract_page_card_image(page: dict) -> str:
         return ""
 
     best = max(candidates, key=image_size_score)
-    return wix_original_url(best)
+    return resolve_image_src(best)
 
 
 def build_product_page_image_index(lang: str) -> dict[str, str]:
-    """Map product slug -> best card image from its scraped page."""
+    """Map product slug -> best card image from its page JSON."""
     index: dict[str, str] = {}
-    scraped_dir = SCRAPED_DIR / lang
-    for path in scraped_dir.glob("*.json"):
-        if path.name in ("manifest.json", "slideshow.json", "index.json", "תמיכה.json", "products.json"):
+    content_dir = CONTENT_DIR / lang
+    for path in content_dir.glob("*.json"):
+        if path.name in ("manifest.json", "slideshow.json", "index.json", "products.json"):
             continue
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -1964,18 +2418,18 @@ def pick_card_image(
         candidates.append(fallback_src)
 
     for src in candidates:
-        original = wix_original_url(src)
+        original = resolve_image_src(src)
         if original:
             return original
     return ""
 
 
 def build_slug_title_index(lang: str) -> dict[str, str]:
-    """Map product slug -> display title from scraped pages."""
+    """Map product slug -> display title from page JSON."""
     index: dict[str, str] = {}
-    scraped_dir = SCRAPED_DIR / lang
-    for path in scraped_dir.glob("*.json"):
-        if path.name in ("manifest.json", "slideshow.json", "index.json", "תמיכה.json", "products.json"):
+    content_dir = CONTENT_DIR / lang
+    for path in content_dir.glob("*.json"):
+        if path.name in ("manifest.json", "slideshow.json", "index.json", "products.json"):
             continue
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -2045,10 +2499,11 @@ def collect_related_products(
         )
 
     for rel_slug in page.get("related_slugs", []):
+        canonical_titles = CANONICAL_TITLES_EN if lang == "en" else CANONICAL_TITLES_ES if lang == "es" else {}
         title = (
             slug_titles.get(rel_slug)
             or HUB_DISPLAY_TITLES.get(rel_slug)
-            or CANONICAL_TITLES_EN.get(rel_slug, "")
+            or canonical_titles.get(rel_slug, "")
         )
         prod = catalog_product_for_slug(catalog, rel_slug, title)
         add_card(prod, page_images.get(rel_slug, ""), title)
@@ -2145,7 +2600,7 @@ def render_product_screens(images: list[dict], default_alt: str, lang: str) -> s
     if not images:
         return ""
 
-    heading = "תצוגות מסך" if lang == "he" else "Screen views"
+    heading = ui_pick(lang, "תצוגות מסך", "Screen views", "Vistas de pantalla")
     parts = [
         '<section class="product-screens" aria-label="Product screen views">',
         f'<h3 class="product-screens-title">{html.escape(heading)}</h3>',
@@ -2163,7 +2618,7 @@ def render_related_product_cards(cards: list[dict], lang: str) -> str:
     if not cards:
         return ""
 
-    heading = "מוצרים קשורים" if lang == "he" else "Related Items"
+    heading = ui_pick(lang, "מוצרים קשורים", "Related Items", "Productos relacionados")
     parts = [
         '<section class="related-products">',
         f'<h2 class="related-products-title">{html.escape(heading)}</h2>',
@@ -2173,7 +2628,7 @@ def render_related_product_cards(cards: list[dict], lang: str) -> str:
         title = card.get("title", "")
         slug = card.get("slug", "")
         href = page_href(lang, slug) if slug else "#"
-        src = rewrite_image_url(wix_original_url(card.get("src", "")))
+        src = rewrite_image_url(resolve_image_src(card.get("src", "")))
         img_html = (
             f'<img src="{src}" alt="{html.escape(title)}" loading="lazy"/>'
             if src
@@ -2205,7 +2660,12 @@ def render_product_documents(page: dict, lang: str) -> str:
         if not local_document_path(filename).exists():
             continue
         href = rewrite_document_url(filename)
-        display = DOCUMENT_LABELS_EN.get(label, label) if lang == "en" else label
+        if lang == "en":
+            display = DOCUMENT_LABELS_EN.get(label, label)
+        elif lang == "es":
+            display = DOCUMENT_LABELS_ES.get(label, label)
+        else:
+            display = label
         buttons.append(
             f'<a class="btn btn-doc" href="{href}" target="_blank" '
             f'rel="noopener noreferrer">{html.escape(display)}</a>'
@@ -2219,20 +2679,30 @@ def render_product_documents(page: dict, lang: str) -> str:
 
 def render_product_detail_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
+    page = merge_product_page_documents(page, slug, lang)
     display_title = product_display_title(page)
     raw = page.get("content_html", "")
     text_part, figures = split_figures(raw)
     text_part = split_content_before_related(text_part)
-    content = filter_product_description(text_part, slug)
-    content = rewrite_wix_urls(content)
+    if lang == "es":
+        content = product_description_from_rich_text(page)
+        if rich_html_plain_len(content) < 80:
+            meta_content = product_description_from_meta(page)
+            if rich_html_plain_len(meta_content) > rich_html_plain_len(content):
+                content = meta_content
+        if rich_html_plain_len(content) < 80:
+            content = filter_product_description(text_part, slug)
+    else:
+        content = clean_rich_html(filter_product_description(text_part, slug))
 
-    content = re.sub(
-        r'<div class="rich-text"><h[1-3][^>]*>.*?</h[1-3]></div>\s*',
-        "",
-        content,
-        count=1,
-        flags=re.DOTALL,
-    )
+    if lang != "es":
+        content = re.sub(
+            r'<div class="rich-text"><h[1-3][^>]*>.*?</h[1-3]></div>\s*',
+            "",
+            content,
+            count=1,
+            flags=re.DOTALL,
+        )
 
     catalog = load_product_catalog(lang)
     slug_index = build_slug_index(lang)
@@ -2252,7 +2722,7 @@ def render_product_detail_page(page: dict, lang: str) -> str:
   <div class="product-detail-main">
     <div class="product-detail-main-inner">
       <div class="product-detail-copy">
-        <div class="wix-content product-description">
+        <div class="rich-content product-description">
           {content}
         </div>
         {documents_html}
@@ -2267,9 +2737,30 @@ def render_product_detail_page(page: dict, lang: str) -> str:
 </article>"""
 
 
+def load_project_page(lang: str, slug: str) -> dict | None:
+    """Load a project vertical page, falling back to Hebrew media when needed."""
+    for locale in (lang, CANONICAL_MEDIA_LANG):
+        path = CONTENT_DIR / locale / f"{slug}.json"
+        if path.exists():
+            page = json.loads(path.read_text(encoding="utf-8"))
+            return merge_project_page_images(page, slug)
+    return None
+
+
+def project_card_image_src(lang: str, proj: dict) -> str:
+    """Thumbnail for project cards — same hero image as the project detail page."""
+    page = load_project_page(lang, proj["slug"])
+    if not page:
+        return ""
+    raw = page.get("content_html", "")
+    _, figures = split_figures(raw)
+    hero = find_project_hero_image(page, figures, proj["img"], proj["slug"])
+    src = hero.get("src", "")
+    return rewrite_image_url(src) if src else ""
+
+
 def render_projects_grid(
     lang: str,
-    images: list[dict],
     *,
     heading: str | None = None,
     section_id: str = "",
@@ -2286,14 +2777,7 @@ def render_projects_grid(
     parts.append('<div class="card-grid">')
 
     for proj in projects:
-        img_src = ""
-        for img in images:
-            src = img.get("src", "")
-            alt = img.get("alt", "")
-            if proj["img"] in src or proj["img"] in alt:
-                if "Screen" not in src:
-                    img_src = rewrite_image_url(wix_original_url(src))
-                    break
+        img_src = project_card_image_src(lang, proj)
         img_html = (
             f'<img src="{img_src}" alt="{html.escape(proj["title"])}" loading="lazy"/>'
             if img_src
@@ -2313,23 +2797,69 @@ def render_projects_grid(
 
 CANONICAL_MEDIA_LANG = "he"
 
+SITE_DOCUMENT_BASE = {
+    "he": "https://www.ddc.co.il",
+    "en": "https://www.elnet-meter.com",
+    "es": "https://www.elnet-meter.com",
+}
 
-def load_typical_projects_images(_lang: str) -> list[dict]:
-    """Project card images always come from the Hebrew scrape for parity."""
-    scraped_dir = SCRAPED_DIR / CANONICAL_MEDIA_LANG
-    for stem in ("typical-projects", "הפרוייקטים-שלנו"):
-        path = scraped_dir / f"{stem}.json"
-        if path.exists():
-            page = json.loads(path.read_text(encoding="utf-8"))
-            return page.get("images", [])
-    return []
+
+def localize_document_url(url: str, lang: str) -> str:
+    if not url:
+        return url
+    base = SITE_DOCUMENT_BASE.get(lang, SITE_DOCUMENT_BASE["he"])
+    return re.sub(r"https?://[^/]+", base, url)
+
+
+def merge_product_page_documents(page: dict, slug: str, lang: str) -> dict:
+    """Ensure EN/ES product pages inherit sketch/download PDFs from Hebrew."""
+    merged = dict(page)
+    if lang == CANONICAL_MEDIA_LANG:
+        return merged
+
+    he_path = CONTENT_DIR / CANONICAL_MEDIA_LANG / f"{slug}.json"
+    if not he_path.exists():
+        return merged
+
+    try:
+        he_page = json.loads(he_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return merged
+
+    he_docs = he_page.get("documents") or []
+    if not he_docs:
+        return merged
+
+    by_file: dict[str, dict] = {}
+    for doc in he_docs:
+        filename = doc.get("file", "")
+        if not filename:
+            continue
+        by_file[filename] = {
+            "label": doc.get("label", ""),
+            "url": localize_document_url(doc.get("url", ""), lang),
+            "file": filename,
+        }
+
+    for doc in page.get("documents") or []:
+        filename = doc.get("file", "")
+        if filename and filename in by_file and doc.get("url"):
+            by_file[filename]["url"] = doc["url"]
+
+    order = {label: index for index, label in enumerate(DOCUMENT_LABEL_ORDER)}
+
+    def sort_key(item: dict) -> tuple:
+        return (order.get(item.get("label", ""), 99), item.get("file", ""))
+
+    merged["documents"] = sorted(by_file.values(), key=sort_key)
+    return merged
 
 
 def merge_project_page_images(page: dict, slug: str) -> dict:
     """Prefer Hebrew media assets so EN/HE project pages share the same images."""
     merged = dict(page)
     images = list(page.get("images", []))
-    he_path = SCRAPED_DIR / CANONICAL_MEDIA_LANG / f"{slug}.json"
+    he_path = CONTENT_DIR / CANONICAL_MEDIA_LANG / f"{slug}.json"
     if he_path.exists():
         he_page = json.loads(he_path.read_text(encoding="utf-8"))
         images = dedupe_images(images + he_page.get("images", []))
@@ -2338,15 +2868,15 @@ def merge_project_page_images(page: dict, slug: str) -> dict:
 
 
 def normalize_about_markup(content: str, lang: str) -> str:
-    """Strip Wix inline styling so Hebrew and English about pages share one design."""
-    content = re.sub(r'<span class="wixGuard[^"]*">[^<]*</span>', "", content)
+    """Strip inline styling so localized about pages share one design."""
+    content = clean_rich_html(content)
     content = re.sub(r"\s*dir=\"(?:rtl|ltr)\"", "", content)
     content = re.sub(r'\s*style="[^"]*"', "", content)
     content = re.sub(r"<br[^>]*/?>", " ", content)
     content = re.sub(r"<p>\s*</p>", "", content)
     content = re.sub(r"<p[^>]*>\s*(?:<span[^>]*>\s*)*</p>", "", content)
 
-    if lang == "en":
+    if is_ltr(lang):
         content = re.sub(
             r'(<div class="rich-text">)\s*'
             r'<p[^>]*>\s*(?:<span[^>]*>\s*)*Control Applications Ltd\.?\s*(?:</span>\s*)*</p>\s*'
@@ -2365,7 +2895,7 @@ def normalize_about_markup(content: str, lang: str) -> str:
 
     content = re.sub(r"<h3[^>]*>.*?</h3>", strip_empty_h3, content, flags=re.DOTALL)
 
-    if lang == "en":
+    if is_ltr(lang):
         content = re.sub(
             r"(<h3[^>]*>\s*(?:<span[^>]*>\s*)*Quality Assurance\s*(?:</span>\s*)*</h3>\s*)"
             r"<h3[^>]*>(.*?)</h3>",
@@ -2385,10 +2915,9 @@ def normalize_about_markup(content: str, lang: str) -> str:
 
 
 def filter_about_content(content: str, lang: str) -> str:
-    """Clean scraped Wix about-page markup for static layout."""
+    """Clean about-page markup for static layout."""
     content = filter_page_content(content, "about")
 
-    # Remove Wix hero titles (page h1 is rendered separately)
     content = re.sub(
         r'<div class="rich-text"><h[12][^>]*>.*?</h[12]></div>\s*',
         "",
@@ -2416,8 +2945,8 @@ def filter_about_content(content: str, lang: str) -> str:
             continue
         if "color_11" in block:
             continue
-        # English scrape includes a duplicated body paragraph block
-        if lang == "en" and "stands at the center" in block_text:
+        # English copy includes a duplicated body paragraph block
+        if is_ltr(lang) and "stands at the center" in block_text:
             continue
         if "Control Applications" in block_text and len(block_text.strip()) < 35:
             continue
@@ -2443,7 +2972,7 @@ def _clean_about_paragraph(paragraph_html: str) -> str:
 
 def parse_about_sections(content: str, lang: str) -> dict[str, str | list[str]]:
     """Split filtered about HTML into story paragraphs and quality block."""
-    quality_heading = "Quality Assurance" if lang == "en" else "אבטחת איכות"
+    quality_heading = ui_pick(lang, "אבטחת איכות", "Quality Assurance", "Garantía de calidad")
     quality_html = ""
     qa_pattern = (
         r'<div class="rich-text">\s*<h3[^>]*>.*?'
@@ -2465,7 +2994,7 @@ def parse_about_sections(content: str, lang: str) -> dict[str, str | list[str]]:
 
 
 def render_about_hero_standards(lang: str) -> str:
-    aria = "תקני איכות" if lang == "he" else "Quality standards"
+    aria = ui_pick(lang, "תקני איכות", "Quality standards", "Estándares de calidad")
     items = "".join(
         f'<li class="about-hero-standard">{html.escape(item["code"])}</li>'
         for item in ABOUT_STANDARDS[lang]
@@ -2486,7 +3015,7 @@ def render_about_highlights(lang: str) -> str:
 
 
 def render_about_expertise(lang: str) -> str:
-    heading = "What we do" if lang == "en" else "תחומי פעילות"
+    heading = ui_pick(lang, "תחומי פעילות", "What we do", "Qué hacemos")
     items = "".join(
         f'<li class="about-expertise-item">{html.escape(label)}</li>'
         for label in ABOUT_EXPERTISE[lang]
@@ -2529,22 +3058,20 @@ def render_about_page(page: dict, lang: str) -> str:
     raw = page.get("content_html", "")
     text_part, _figures = split_figures(raw)
     content = filter_about_content(text_part, lang)
-    content = rewrite_wix_urls(content)
     sections = parse_about_sections(content, lang)
 
     logo_src = "/assets/images/logo.png" if lang == "he" else "/assets/images/logo-icon.png"
     logo_class = "about-hero-logo" if lang == "he" else "about-hero-logo about-hero-logo-en"
-    logo_alt = "ישומי בקרה" if lang == "he" else "Control Applications"
+    logo_alt = ui_pick(lang, "ישומי בקרה", "Control Applications", "Control Applications")
 
     story_html = "".join(sections["story"])
     story_block = (
         f'<div class="about-story">{story_html}</div>' if story_html else ""
     )
 
-    projects_heading = "הפרוייקטים שלנו" if lang == "he" else "Typical Projects"
+    projects_heading = ui_pick(lang, "הפרוייקטים שלנו", "Typical Projects", "Proyectos típicos")
     projects_html = render_projects_grid(
         lang,
-        load_typical_projects_images(lang),
         heading=projects_heading,
         section_id="projects",
     )
@@ -2570,12 +3097,6 @@ def render_about_page(page: dict, lang: str) -> str:
   {render_about_quality(lang)}
   {projects_html}
 </article>"""
-
-
-def render_projects_page(page: dict, lang: str) -> str:
-    """Render projects listing with linked cards."""
-    heading = "הפרוייקטים שלנו" if lang == "he" else "Typical Projects"
-    return render_projects_grid(lang, page.get("images", []), heading=heading)
 
 
 PROJECT_DETAIL_SLUGS = {proj["slug"] for proj in PROJECTS["he"]}
@@ -2745,9 +3266,9 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 
 def render_products_page(page: dict, lang: str) -> str:
     """Render full product catalog with category filter."""
-    page_title = "מוצרים" if lang == "he" else "Products"
-    filter_label = "בחרו תת קטגוריה" if lang == "he" else "Select subcategory"
-    all_label = "הכל" if lang == "he" else "All"
+    page_title = ui_pick(lang, "מוצרים", "Products", "Productos")
+    filter_label = ui_pick(lang, "בחרו תת קטגוריה", "Select subcategory", "Seleccionar subcategoría")
+    all_label = ui_pick(lang, "הכל", "All", "Todos")
 
     products = page.get("products") or []
     if not products:
@@ -2854,9 +3375,6 @@ def render_page_body(lang: str, page: dict) -> str:
     if slug == "transfer-switch-drawings":
         return render_transfer_switch_drawings_page(lang)
 
-    if slug == "typical-projects":
-        return render_projects_page(page, lang)
-
     if slug in PROJECT_DETAIL_SLUGS:
         return render_project_detail_page(page, lang)
 
@@ -2877,15 +3395,13 @@ def render_page_body(lang: str, page: dict) -> str:
     # Standard content page
     raw = page.get("content_html", "")
     text_part, figures = split_figures(raw)
-    content = filter_page_content(text_part, slug)
-    content = rewrite_wix_urls(content)
+    content = clean_rich_html(filter_page_content(text_part, slug))
 
-    # Re-attach figures
     fig_html = ""
     for fig in figures:
         if "Screen" in fig:
             continue
-        fig_html += rewrite_wix_urls(fig)
+        fig_html += clean_rich_html(fig)
 
     display_title = ""
     if slug:
@@ -2897,7 +3413,7 @@ def render_page_body(lang: str, page: dict) -> str:
     return f"""
 <article class="page-content">
   {f'<h1 class="page-title">{html.escape(display_title)}</h1>' if display_title else ''}
-  <div class="wix-content">
+  <div class="rich-content">
     {content if content else ''}
     {fig_html}
   </div>
@@ -2949,27 +3465,10 @@ def render_page(lang: str, page: dict) -> str:
 </html>"""
 
 
-def render_slug_redirect(lang: str, target_slug: str, anchor: str = "") -> str:
-    target = page_href(lang, target_slug) + anchor
-    cfg = SITE_CONFIG[lang]
-    return f"""<!DOCTYPE html>
-<html lang="{cfg['lang']}" dir="{cfg['dir']}">
-<head>
-  <meta charset="utf-8"/>
-  <meta http-equiv="refresh" content="0;url={target}"/>
-  <link rel="canonical" href="{target}"/>
-  <title>Redirecting…</title>
-</head>
-<body>
-  <p><a href="{target}">Continue</a></p>
-</body>
-</html>"""
-
-
 def build_language(lang: str) -> int:
-    scraped_dir = SCRAPED_DIR / lang
-    if not scraped_dir.exists():
-        print(f"No scraped data for {lang}")
+    content_dir = CONTENT_DIR / lang
+    if not content_dir.exists():
+        print(f"No content data for {lang}")
         return 0
 
     out_base = SITE_DIR / lang
@@ -2978,15 +3477,15 @@ def build_language(lang: str) -> int:
 
     for slug in page_slugs:
         if slug == "":
-            json_path = scraped_dir / "index.json"
+            json_path = content_dir / "index.json"
             if not json_path.exists():
                 continue
             page = json.loads(json_path.read_text(encoding="utf-8"))
             page["slug"] = ""
             out_dir = out_base
         else:
-            stem = resolve_source_file(lang, slug, scraped_dir) or slug
-            json_path = scraped_dir / f"{stem}.json"
+            stem = resolve_source_file(lang, slug, content_dir) or slug
+            json_path = content_dir / f"{stem}.json"
             if not json_path.exists():
                 continue
             page = json.loads(json_path.read_text(encoding="utf-8"))
@@ -2994,10 +3493,7 @@ def build_language(lang: str) -> int:
             out_dir = out_base / slug
 
         out_dir.mkdir(parents=True, exist_ok=True)
-        if slug == "typical-projects":
-            html_content = render_slug_redirect(lang, "about", "#projects")
-        else:
-            html_content = render_page(lang, page)
+        html_content = render_page(lang, page)
         (out_dir / "index.html").write_text(html_content, encoding="utf-8")
         count += 1
         print(f"  Built: /{lang}/{slug or ''}")
@@ -3038,7 +3534,9 @@ def copy_assets() -> None:
 def main():
     print("Building image aliases...")
     import build_image_aliases
+
     build_image_aliases.main()
+    clear_aliases_cache()
 
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     copy_assets()

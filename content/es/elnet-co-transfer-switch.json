@@ -1,0 +1,60 @@
+{
+  "url": "https://www.elnet-meter.com/es/elnet-co-transfer-switch",
+  "slug": "elnet-co-transfer-switch",
+  "title": "Interruptor de transferencia ElNet CO | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>ElNet CO exchange controller HV/generator</h3></div>\n<div class=\"rich-text\"><p>The Elant CO system is designed for an efficient exchange between two power supply sources (electricity company / generator) in the event of a malfunction in one of the power supply systems.</p>\n<p></p>\n<p>The system is more reliable than any other replacement system.</p>\n<p></p>\n<p>The system saves installation of command and delay relays and lack of voltage relays, switches, voltmeters and more.</p>\n<p><br/>\n<span><span>Elant CO includes a friendly color graphic screen in the Hebrew language that enables, among other things, the following actions:<br/>- Registration of up to 1000 alerts and electrical events including date, hour and second.<br/>- RS485 communication for building control in an open protocol.<br/>- Perfect protection for the generator (Double Interlock).<br/>- Sophisticated test software for the board manufacturer and the user to test all wiring and operations.<br/>- The possibility of running a generator in Shabbat operation with reference to the Hebrew astronomical calendar.<br/>- Changing parameters and timers and more.<br/>- For a full Israeli standard system that includes EMC and - Safety.</span></span></p></div>\n<div class=\"rich-text\"><h3>Related products</h3></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>",
+  "rich_text": [
+    "ElNet Controlador de intercambio de CO HV/generador",
+    "El sistema Elant CO está diseñado para un intercambio eficiente entre dos fuentes de suministro de energía (compañía eléctrica / generador) en caso de un mal funcionamiento en uno de los sistemas de suministro de energía.\n​\nEl sistema es más confiable que cualquier otro sistema de reemplazo.\n​\nEl sistema ahorra la instalación de relés de comando y retardo y la falta de relés de voltaje, interruptores, voltímetros y más.\nElant CO incluye una amigable pantalla gráfica a color en idioma hebreo que permite, entre otras cosas, las siguientes acciones:\n- Registro de hasta 1000 alertas y eventos eléctricos incluyendo fecha, hora y segundo.\n- RS485 comunicación para el control del edificio en protocolo abierto.\n- Perfecta protección para el generador (Double Interlock).\n- Software de prueba sofisticado para que el fabricante de la placa y el usuario prueben todo el cableado y las operaciones.\n- La posibilidad de hacer funcionar un generador en funcionamiento Shabat con referencia al calendario astronómico hebreo.\n- Cambio de parámetros y temporizadores y más.\n- Para un sistema estándar israelí completo que incluye EMC y - Seguridad.",
+    "Productos relacionados"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/elnet-co-transfer-switch-content-5-3.png",
+      "alt": "ELNet CO.png"
+    },
+    {
+      "src": "/assets/images/elnet-co-transfer-switch-content-6-5.png",
+      "alt": "CO-EN-Mode"
+    },
+    {
+      "src": "/assets/images/elnet-co-transfer-switch-content-7-5.png",
+      "alt": "CO-EN-Main"
+    },
+    {
+      "src": "/assets/images/elnet-co-transfer-switch-content-8-5.png",
+      "alt": "CO-EN-Alarm0"
+    }
+  ],
+  "gallery": [],
+  "documents": [
+    {
+      "label": "שרטוטים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_07a9600974c04690b117e2bc7df869f5.pdf",
+      "file": "9a8771_07a9600974c04690b117e2bc7df869f5.pdf"
+    },
+    {
+      "label": "הורד מסמכים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_2eb50dbaaaee4a7ab48d43fc14f69cb7.pdf",
+      "file": "9a8771_2eb50dbaaaee4a7ab48d43fc14f69cb7.pdf"
+    }
+  ]
+}

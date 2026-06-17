@@ -1,0 +1,39 @@
+{
+  "url": "https://www.elnet-meter.com/es/flooding-sensor",
+  "slug": "flooding-sensor",
+  "title": "Sensor de inundación | Control Applications",
+  "description": "El Sensor de Inundación FLs es un sensor electrónico diseñado para la detección de cualquier tipo de inundación o derrame de líquidos y la prevención de posibles daños causados ​​por dicha inundación.",
+  "og_image": "/assets/images/flooding-sensor-content-5-3.png",
+  "content_html": "<div class=\"rich-text\"><h3>Sensor de inundación</h3></div>\n<div class=\"rich-text\"><p>El Sensor de Inundación FLs es un sensor electrónico diseñado para la detección de cualquier tipo de inundación o derrame de líquidos y la prevención de posibles daños causados ​​por dicha inundación.</p>\n<p></p>\n<p>El sensor está especialmente diseñado para aplicaciones de detección de inundaciones en edificios comerciales y planeado específicamente para instalaciones debajo de pisos de salas de computadoras, canalones de drenaje, salas eléctricas, cuartos de almacenamiento, etc.</p></div>\n<div class=\"rich-text\"><h3>Artículos relacionados</h3></div>\n<figure class=\"content-image\"><img alt=\"Flooding sensor\" loading=\"lazy\" src=\"/assets/images/flooding-sensor-content-5-3.png\"/></figure>",
+  "rich_text": [
+    "Sensor de inundación",
+    "El Sensor de Inundación FLs es un sensor electrónico diseñado para la detección de cualquier tipo de inundación o derrame de líquidos y la prevención de posibles daños causados ​​por dicha inundación.\n\nEl sensor está especialmente diseñado para aplicaciones de detección de inundaciones en edificios comerciales y planeado específicamente para instalaciones debajo de pisos de salas de computadoras, canalones de drenaje, salas eléctricas, cuartos de almacenamiento, etc.",
+    "Artículos relacionados"
+  ],
+  "related_slugs": [
+    "flood-detection-systems",
+    "power-factor-control",
+    "bms-scada-software",
+    "parking-control",
+    "plc-ddc-controllers"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/flooding-sensor-content-5-3.png",
+      "alt": "Flooding sensor"
+    }
+  ],
+  "gallery": [],
+  "documents": [
+    {
+      "label": "שרטוטים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_e8bdf00f6bd94a148c016441f945c830.pdf",
+      "file": "9a8771_e8bdf00f6bd94a148c016441f945c830.pdf"
+    },
+    {
+      "label": "הורד מסמכים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_84963ef107c34175b1698eb57511233e.pdf",
+      "file": "9a8771_84963ef107c34175b1698eb57511233e.pdf"
+    }
+  ]
+}

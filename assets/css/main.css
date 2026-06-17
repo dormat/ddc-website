@@ -100,7 +100,8 @@ img.logo {
   display: block;
 }
 
-.lang-en img.logo-en-icon {
+.lang-en img.logo-en-icon,
+.lang-es img.logo-en-icon {
   height: 36px;
   width: 36px;
 }
@@ -262,7 +263,7 @@ img.logo {
   background: var(--color-navy);
 }
 
-/* Hero carousel — full-width Wix-style slideshow */
+/* Hero carousel — full-width slideshow */
 .hero-carousel {
   position: relative;
   width: 100vw;
@@ -1421,7 +1422,7 @@ html[dir="rtl"] .project-site-list li::before {
   margin: 0 auto;
 }
 
-/* Hero (legacy fallback) */
+/* Hero fallback */
 .hero {
   background-size: cover;
   background-position: center;
@@ -1512,33 +1513,33 @@ html[dir="rtl"] .project-site-list li::before {
   border-bottom: 3px solid var(--color-primary);
 }
 
-.wix-content {
+.rich-content {
   font-size: 1rem;
 }
 
-.wix-content .rich-text {
+.rich-content .rich-text {
   margin-bottom: 1.25rem;
 }
 
-.wix-content h1,
-.wix-content h2,
-.wix-content h3 {
+.rich-content h1,
+.rich-content h2,
+.rich-content h3 {
   color: var(--color-navy);
 }
 
-.wix-content img {
+.rich-content img {
   border-radius: 4px;
   margin: 1rem 0;
 }
 
-.wix-content .gallery-card,
-.wix-content .content-image {
+.rich-content .gallery-card,
+.rich-content .content-image {
   display: inline-block;
   margin: 0.5rem;
   vertical-align: top;
 }
 
-.wix-content .gallery-card {
+.rich-content .gallery-card {
   max-width: 220px;
   text-align: center;
   border: 1px solid #e0e0e0;
@@ -1547,18 +1548,18 @@ html[dir="rtl"] .project-site-list li::before {
   transition: box-shadow 0.2s;
 }
 
-.wix-content .gallery-card:hover {
+.rich-content .gallery-card:hover {
   box-shadow: var(--shadow);
 }
 
-.wix-content .gallery-card span {
+.rich-content .gallery-card span {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.85rem;
 }
 
-.wix-content .gallery-image,
-.wix-content .content-image {
+.rich-content .gallery-image,
+.rich-content .content-image {
   display: inline-block;
   margin: 0.75rem;
   vertical-align: top;

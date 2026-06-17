@@ -1,0 +1,101 @@
+{
+  "url": "https://www.ddc.co.il",
+  "slug": "",
+  "title": "ישומי בקרה בע\"מ - בקרת מבנה, ניטור רשתות חשמל ומניית חשמל ואנרגיה",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h2>אלנט | ניטור איכות החשמל<br/>\nמנטרת ומבקרת את רשת החשמל שלך.</h2></div>\n<div class=\"rich-text\"><h2>מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה , מדויקת וממשק ידידותי בעברית.</h2>\n<h2><br/>\nהמערכת מפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דו\"ח אירועי חשמל מקיף ומדויק.</h2></div>\n<div class=\"rich-text\"><p> ישומי בקרה בע״מ</p></div>\n<div class=\"rich-text\"><p>יצירת קשר</p>\n<p>טלפון: +972-3-6474998​</p>\n<p>פקס: +972-3-6474598</p>\n<p><span>דואר אלקטרוני: <a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>שעות פתיחה</p>\n<p>ישומי בקרה בע״מ</p>\n<p>ראשון - חמישי</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>כתובת</p>\n<p>רחוב הברזל 25, תל אביב</p>\n<p>6971035</p>\n<p>ישראל</p></div>\n<div class=\"rich-text\"><p>© Copyright - ישומי בקרה בע״מ</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/home-content-6.png\" alt=\"ELNet-GR-PQ.png\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/about-us.jpg\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/home-content-8-2.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/pq-gr.png\" alt=\"\" loading=\"lazy\"/></figure>\n<figure class=\"gallery-image\"><img src=\"/assets/images/building-automation.png\" alt=\"\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "אלנט | ניטור איכות החשמל\nמנטרת ומבקרת את רשת החשמל שלך.",
+    "מערכת\nאלנט\nלבקרת איכות החשמל מבוססת על חומרה אמינה , מדויקת וממשק ידידותי בעברית.\nהמערכת מפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דו\"ח אירועי חשמל מקיף ומדויק.",
+    "ישומי בקרה בע״מ",
+    "יצירת קשר\nטלפון: +972-3-6474998\n​\nפקס: +972-3-6474598\nדואר אלקטרוני:\ncal@ddc.co.il",
+    "שעות פתיחה\nישומי בקרה בע״מ\nראשון - חמישי\n08:00 - 17:00",
+    "כתובת\nרחוב הברזל 25, תל אביב\n6971035\nישראל",
+    "© Copyright - ישומי בקרה בע״מ"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-5-2.jpg",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-6.png",
+      "alt": "ELNet-GR-PQ.png"
+    },
+    {
+      "src": "/assets/images/about-us.jpg",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-8-2.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/pq-gr.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/building-automation.png",
+      "alt": ""
+    }
+  ],
+  "gallery": [
+    {
+      "href": "",
+      "src": "/assets/images/about-us.jpg",
+      "title": "אודותינו"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/about-us.jpg",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/home-content-8-2.png",
+      "title": "פרויקטים"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/home-content-8-2.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/pq-gr.png",
+      "title": "מערכות חשמל"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/pq-gr.png",
+      "title": ""
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation.png",
+      "title": "מערכות בקרה"
+    },
+    {
+      "href": "",
+      "src": "/assets/images/building-automation.png",
+      "title": ""
+    }
+  ]
+}

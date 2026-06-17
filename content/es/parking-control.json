@@ -1,0 +1,44 @@
+{
+  "url": "https://www.elnet-meter.com/es/parking-control",
+  "slug": "parking-control",
+  "title": "Control de estacionamientos | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h2>Control de estacionamiento</h2></div>\n<div class=\"rich-text\"><h4>Sistemas de seguimiento y control de gases CO</h4></div>\n<div class=\"rich-text\"><h4>Aparcamiento inteligente</h4></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>haciendo contacto</p>\n<p>Teléfono: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Correo electrónico:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>horario de apertura</p>\n<p>Control Applications Ltd</p>\n<p>domingo - jueves</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>DIRECCIÓN</p>\n<p>Calle Barzel 25, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\" src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"CO מערכות לניטור ובקרת גז\" loading=\"lazy\" src=\"/assets/images/building-automation-content-10-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"חניה חכמה\" loading=\"lazy\" src=\"/assets/images/building-automation-content-11-5.png\"/></figure>",
+  "rich_text": [
+    "Control de estacionamiento",
+    "Sistemas de seguimiento y control de gases CO",
+    "Aparcamiento inteligente"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/parking-control-content-5-5.jpg",
+      "alt": "Parking Lot"
+    },
+    {
+      "src": "/assets/images/building-automation-content-10-3.png",
+      "alt": "CO gas monitoring and control systems"
+    },
+    {
+      "src": "/assets/images/building-automation-content-11-5.png",
+      "alt": "Smart parking"
+    }
+  ],
+  "gallery": []
+}

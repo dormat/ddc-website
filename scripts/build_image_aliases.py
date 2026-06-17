@@ -9,12 +9,14 @@ import shutil
 from pathlib import Path
 from urllib.parse import unquote
 
-from image_assets import ASSETS_DIR, media_basename
-from slugs import canonical_slug, resolve_source_file, all_canonical_slugs
+from image_assets import ASSETS_DIR, image_filename, url_tail_filename
+from slugs import all_canonical_slugs, resolve_source_file
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRAPED_DIR = ROOT / "scraped"
+CONTENT_DIR = ROOT / "content"
 ALIASES_PATH = ROOT / "assets" / "image_aliases.json"
+SITE_LANGS = ("he", "en", "es")
+IMAGE_REF_RE = re.compile(r"/assets/images/[^\s\"'<>?\\]+|images/[^\s\"'<>?\\]+")
 
 KEEP_NAMES = {
     "logo.png",
@@ -39,7 +41,9 @@ def is_hash_name(name: str) -> bool:
     if name in KEEP_NAMES:
         return False
     base = name.rsplit(".", 1)[0]
-    return bool(HASH_RE.search(base)) or base.startswith(("9a8771_", "035244_", "422dc5_", "871799_", "b25591_", "11062b_"))
+    return bool(HASH_RE.search(base)) or base.startswith(
+        ("9a8771_", "035244_", "422dc5_", "871799_", "b25591_", "11062b_")
+    )
 
 
 def meaningful_alt(alt: str) -> str:
@@ -65,17 +69,18 @@ def collect_image_refs() -> list[dict]:
     refs: list[dict] = []
     pages: list[tuple[str, str, dict]] = []
 
-    for lang in ("he", "en"):
-        scraped_dir = SCRAPED_DIR / lang
+    for lang in SITE_LANGS:
+        content_dir = CONTENT_DIR / lang
+        if not content_dir.exists():
+            continue
         for canonical in [""] + all_canonical_slugs():
             if canonical == "":
-                stem = "index"
-                path = scraped_dir / "index.json"
+                path = content_dir / "index.json"
             else:
-                stem = resolve_source_file(lang, canonical, scraped_dir) or canonical
-                path = scraped_dir / f"{stem}.json"
+                stem = resolve_source_file(lang, canonical, content_dir) or canonical
+                path = content_dir / f"{stem}.json"
                 if not path.exists():
-                    path = scraped_dir / f"{canonical}.json"
+                    path = content_dir / f"{canonical}.json"
             if not path.exists():
                 continue
             page = json.loads(path.read_text(encoding="utf-8"))
@@ -85,22 +90,24 @@ def collect_image_refs() -> list[dict]:
         for idx, img in enumerate(page.get("images", [])):
             refs.append(
                 {
-                    "basename": media_basename(img.get("src", "")),
+                    "basename": image_filename(img.get("src", "")),
                     "page": page_slug,
                     "role": "content",
                     "index": idx,
                     "alt": img.get("alt", ""),
+                    "src": img.get("src", ""),
                     "lang": lang,
                 }
             )
         for idx, item in enumerate(page.get("gallery", [])):
             refs.append(
                 {
-                    "basename": media_basename(item.get("src", "")),
+                    "basename": image_filename(item.get("src", "")),
                     "page": page_slug,
                     "role": "gallery",
                     "index": idx,
                     "alt": item.get("title", ""),
+                    "src": item.get("src", ""),
                     "lang": lang,
                 }
             )
@@ -109,27 +116,69 @@ def collect_image_refs() -> list[dict]:
                 if prod.get(key):
                     refs.append(
                         {
-                            "basename": media_basename(prod[key]),
+                            "basename": image_filename(prod[key]),
                             "page": page_slug,
                             "role": role,
                             "index": idx,
                             "alt": prod.get("title", ""),
+                            "src": prod[key],
                             "lang": lang,
                         }
                     )
             for sidx, src in enumerate(prod.get("screens", [])):
                 refs.append(
                     {
-                        "basename": media_basename(src),
+                        "basename": image_filename(src),
                         "page": page_slug,
                         "role": "screen",
                         "index": sidx,
                         "alt": prod.get("title", ""),
+                        "src": src,
                         "lang": lang,
                     }
                 )
+        for idx, match in enumerate(IMAGE_REF_RE.findall(page.get("content_html", ""))):
+            refs.append(
+                {
+                    "basename": image_filename(match),
+                    "page": page_slug,
+                    "role": "html",
+                    "index": idx,
+                    "alt": image_filename(match),
+                    "src": match,
+                    "lang": lang,
+                }
+            )
 
     return refs
+
+
+def find_existing_file(refs: list[dict], basename: str) -> str | None:
+    """Match a hash basename to an already-renamed local file."""
+    ext = Path(basename).suffix or ".jpg"
+    candidates: list[str] = []
+
+    for ref in refs:
+        alt = unquote(ref.get("alt", "")).strip()
+        if alt:
+            candidates.append(alt)
+        alt_name = meaningful_alt(alt)
+        if alt_name:
+            candidates.append(f"{alt_name}{ext}")
+        src = ref.get("src", "")
+        if src:
+            tail = image_filename(src) if src.startswith("/assets/") else url_tail_filename(src)
+            if tail:
+                candidates.append(tail)
+
+    seen: set[str] = set()
+    for name in candidates:
+        if not name or name in seen:
+            continue
+        seen.add(name)
+        if (ASSETS_DIR / name).is_file():
+            return name
+    return None
 
 
 def choose_alias_name(basename: str, refs: list[dict], used: set[str]) -> str:
@@ -147,8 +196,7 @@ def choose_alias_name(basename: str, refs: list[dict], used: set[str]) -> str:
                 return candidate
 
     for r in refs:
-        url_name = url_display_name(r.get("src", "")) if "src" in r else ""
-        # basename from wix tail in original - try from basename itself
+        url_name = url_display_name(r.get("src", ""))
         if not url_name:
             stem = Path(basename).stem
             if not is_hash_name(basename):
@@ -176,28 +224,45 @@ def main() -> None:
         refs_by_base.setdefault(base, []).append(ref)
 
     aliases: dict[str, str] = {}
-    used_names: set[str] = set(KEEP_NAMES)
+    if ALIASES_PATH.exists():
+        stored = json.loads(ALIASES_PATH.read_text(encoding="utf-8"))
+        for old_base, new_name in stored.items():
+            if (ASSETS_DIR / new_name).is_file():
+                aliases[old_base] = new_name
 
-    # Preserve existing friendly names
+    used_names: set[str] = set(KEEP_NAMES)
+    used_names.update(aliases.values())
+
     for path in ASSETS_DIR.glob("*"):
         if path.is_file() and not is_hash_name(path.name):
             used_names.add(path.name)
 
     for basename in sorted(refs_by_base):
+        refs = refs_by_base[basename]
         src = ASSETS_DIR / basename
+
         if not src.exists():
+            existing = find_existing_file(refs, basename)
+            if existing:
+                aliases[basename] = existing
+                used_names.add(existing)
             continue
+
         if basename in KEEP_NAMES or not is_hash_name(basename):
             aliases[basename] = basename
             used_names.add(basename)
             continue
-        new_name = choose_alias_name(basename, refs_by_base[basename], used_names)
+
+        if basename in aliases:
+            used_names.add(aliases[basename])
+            continue
+
+        new_name = choose_alias_name(basename, refs, used_names)
         aliases[basename] = new_name
         used_names.add(new_name)
 
-    # Rename files on disk
     renamed = 0
-    for old_base, new_name in aliases.items():
+    for old_base, new_name in sorted(aliases.items()):
         if old_base == new_name:
             continue
         old_path = ASSETS_DIR / old_base

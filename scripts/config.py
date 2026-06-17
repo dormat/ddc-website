@@ -17,6 +17,14 @@ SITE_CONFIG = {
         "brand": "Control Applications",
         "locale_path": "en",
     },
+    "es": {
+        "base_url": "https://www.elnet-meter.com",
+        "sitemap": "es-sitemap.xml",
+        "lang": "es",
+        "dir": "ltr",
+        "brand": "Control Applications",
+        "locale_path": "es",
+    },
 }
 
 HOME_PAGE_TITLE = {
@@ -24,6 +32,10 @@ HOME_PAGE_TITLE = {
     "en": (
         "Control Applications - Building automation, electrical network monitoring, "
         "and power & energy metering"
+    ),
+    "es": (
+        "Control Applications - Automatización de edificios, monitoreo de redes eléctricas "
+        "y medición de energía"
     ),
 }
 
@@ -45,10 +57,12 @@ CONTACT = {
     "address": {
         "he": "רחוב הברזל 25, תל אביב, 6971035, ישראל",
         "en": "Habarzel 25, Tel Aviv, 6971035, Israel",
+        "es": "Habarzel 25, Tel Aviv, 6971035, Israel",
     },
     "hours": {
         "he": "ראשון - חמישי, 08:00 - 17:00",
         "en": "Sun - Thu, 08:00 - 17:00",
+        "es": "Dom - Jue, 08:00 - 17:00",
     },
 }
 
@@ -125,15 +139,50 @@ NAV = {
         {"label": "Products", "href": "/en/products/"},
         {"label": "Contact", "href": "/en/contact/"},
     ],
+    "es": [
+        {"label": "Inicio", "href": "/es/"},
+        {
+            "label": "Nosotros",
+            "href": "/es/about/",
+        },
+        {
+            "label": "Automatización de edificios",
+            "href": "/es/building-automation/",
+            "children": [
+                {"label": "Controladores PLC y DDC", "href": "/es/plc-ddc-controllers/"},
+                {"label": "Sistema CO", "href": "/es/parking-control/"},
+                {"label": "Sistemas de detección y control de inundaciones", "href": "/es/flood-detection-systems/"},
+                {"label": "Paquetes de software BMS", "href": "/es/bms-scada-software/"},
+                {"label": "Controladores de interruptores de transferencia automática", "href": "/es/transfer-switches/"},
+                {"label": "Controladores de factor de potencia", "href": "/es/power-factor-control/"},
+            ],
+        },
+        {
+            "label": "Medidores y control eléctrico",
+            "href": "/es/power-meters-control/",
+            "children": [
+                {"label": "Analizadores de energía", "href": "/es/power-quality-analyzers/"},
+                {"label": "Medidores de energía", "href": "/es/energy-meters/"},
+                {"label": "Medidores eléctricos", "href": "/es/electrical-meters/"},
+                {"label": "Controladores de interruptores de transferencia automática", "href": "/es/transfer-switches/"},
+                {"label": "Esquemas de interruptores de transferencia", "href": "/es/transfer-switch-drawings/"},
+                {"label": "Controladores de factor de potencia", "href": "/es/power-factor-control/"},
+                {"label": "Paquetes de software ElNet", "href": "/es/elnet-billing-software/"},
+                {"label": "Comparación de productos", "href": "/es/product-comparison/"},
+            ],
+        },
+        {"label": "Productos", "href": "/es/products/"},
+        {"label": "Contacto", "href": "/es/contact/"},
+    ],
 }
 
-# Key assets from Wix CDN
+# Key template assets (local files under assets/images/)
 ASSETS = {
-    "logo": "https://static.wixstatic.com/media/9a8771_df05eef3c0b04e8f9e8e8e8e8e8e8e8e~mv2.png/v1/fill/w_280,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screen%20Shot%202021-01-20%20at%2022_15_.png",
-    "favicon": "https://static.wixstatic.com/media/9a8771_b7141d8709c54fe6b8da55c9e41efa99~mv2.png/v1/fill/w_32,h_32,lg_1,usm_0.66_1.00_0.01/9a8771_b7141d8709c54fe6b8da55c9e41efa99~mv2.png",
-    "hero_product": "https://static.wixstatic.com/media/9a8771_9a27f8af0e0e4e8f9e8e8e8e8e8e8e8e~mv2.png/v1/fill/w_400,h_400,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ELNet-GR-PQ.png",
-    "hero_bg": "https://static.wixstatic.com/media/422dc5_38073d395d004d5bb035fae027a974ff~mv2.jpg/v1/fill/w_1920,h_600,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/422dc5_38073d395d004d5bb035fae027a974ff~mv2.jpg",
-    "bullet": "https://static.wixstatic.com/media/bullet_ball_green_edited.png",
+    "logo": "logo.png",
+    "favicon": "favicon.png",
+    "hero_product": "hero-product.png",
+    "hero_bg": "hero-bg.jpg",
+    "bullet": "bullet_ball_green_edited.png",
 }
 
 SKIP_PATH_PREFIXES = (
@@ -168,50 +217,16 @@ PROJECTS = {
         {"slug": "industrial-hi-tech", "title": "Industrial & Hi-Tech", "img": "industrial"},
         {"slug": "pharmaceutical-clean-rooms", "title": "Pharmaceutical & Clean Rooms", "img": "Pharmaceutical"},
     ],
-}
-
-# Wix CMS slug (9dbimb5bm/...) -> local static site slug
-WIX_TO_LOCAL_SLUG = {
-    "he": {
-        "uniart-4w-תוכנה-לבקרת-מבנה": "uniart-software",
-        "elnet-mc-1-מונה": "elnet-mc-1-meter",
-        "elnet-mc-8-מונה": "elnet-mc-8-meter",
-        "elnet-mc-2-מונה-": "elnet-mc-2-meter",
-        "elnet-mc-12-מונה": "elnet-mc-12-meter",
-        "elnet-cod-בקר-החלפה-ח״ח/-גנרטור": "elnet-cod-transfer-switch",
-        "elnet-co-בקר-החלפה-ח״ח/גנרטור": "elnet-co-transfer-switch",
-        "elnet-lt-תעו״ז,-הרמוניות": "elnet-lt-meter",
-        "elnet-pq/gr-הפרעות-ומדידות-חשמל": "elnet-pq-gr-meter",
-        "elnet-xp-בקר-למשאבות-ניקוז-וביוב": "elnet-xp-controller",
-        "co-מערכות-לניטור-ובקרת-גז": "co-gas-monitoring",
-        "superbrain-fc-בקר-ליחידות-מפוח-נחשון": "superbrain-fc-controller",
-    },
-    "en": {
-        "elnet-mc-1/2": "elnet-mc-2-meter",
-        "elnet-mc8/12": "elnet-mc-8-meter",
-        "billing-software-": "elnet-billing-software",
-        "elnet-pfc": "elnet-pfc-controller",
-        "elnet-ltc10-": "elnet-ltc10-controller",
-        "elnet-ltc": "elnet-ltc-controller",
-        "elnet-cod": "elnet-cod-transfer-switch",
-        "elnet-co": "elnet-co-transfer-switch",
-        "elnet-va": "elnet-va-meter",
-        "elnet-vip": "elnet-vip-meter",
-        "elnet-pic": "elnet-pic-meter",
-        "elnet-lte": "elnet-lte-meter",
-        "elnet-lt": "elnet-lt-meter",
-        "elnet-ltp": "elnet-ltp-meter",
-        "elnet-pq-gr": "elnet-pq-gr-meter",
-        "uniart-hmi-/-scada-software": "uniart-software",
-        "uniweb": "uniweb-software",
-        "elnet-xp": "elnet-xp-controller",
-        "co-detecting-and-control-systems": "co-gas-monitoring",
-        "smart-parking": "smart-parking",
-        "digipoint": "digipoint-controller",
-        "superbrain-fc": "superbrain-fc-controller",
-        "veropoint": "veropoint-controller",
-        "superbrain": "superbrain-controller",
-    },
+    "es": [
+        {"slug": "public-buildings", "title": "Edificios públicos", "img": "typical-projects"},
+        {"slug": "hospitals", "title": "Hospitales", "img": "hospitals"},
+        {"slug": "hotels", "title": "Hoteles", "img": "hotels"},
+        {"slug": "universities", "title": "Universidades", "img": "universities"},
+        {"slug": "museums", "title": "Museos", "img": "museums"},
+        {"slug": "shopping-malls", "title": "Centros comerciales", "img": "shopping-malls"},
+        {"slug": "industrial-hi-tech", "title": "Industrial y alta tecnología", "img": "industrial"},
+        {"slug": "pharmaceutical-clean-rooms", "title": "Farmacéutica y salas limpias", "img": "Pharmaceutical"},
+    ],
 }
 
 # Short product image labels -> canonical slug (related-product thumbnails)
@@ -262,7 +277,7 @@ PRODUCT_CODE_ALIASES = {
     "veropoint": "veropoint-controller",
 }
 
-# Legacy gallery title overrides (fallback when products[] missing)
+# Gallery title overrides when products[] is missing
 PRODUCT_SLUGS = {
     "he": {
         "UniArt-4W תוכנה לבקרת מבנה": "uniart-software",
@@ -314,6 +329,43 @@ PRODUCT_SLUGS = {
         "SuperBrain": "superbrain-controller",
         "SuperBrain DR": "superbrain-dr-controller",
     },
+    "es": {
+        "ElNet MC-1 counter": "elnet-mc-1-meter",
+        "ElNet MC-2 counter": "elnet-mc-2-meter",
+        "ElNet MC-8 counter": "elnet-mc-8-meter",
+        "ElNet MC-12 counter": "elnet-mc-12-meter",
+        "ELNet MC-1/2": "elnet-mc-2-meter",
+        "ElNet MC8/12": "elnet-mc-8-meter",
+        "BILLING-SOFTWARE": "elnet-billing-software",
+        "ELNET PFC": "elnet-pfc-controller",
+        "ElNet LTC10": "elnet-ltc10-controller",
+        "ElNet LTC": "elnet-ltc-controller",
+        "ElNet COD": "elnet-cod-transfer-switch",
+        "ElNet CO": "elnet-co-transfer-switch",
+        "ElNet VA": "elnet-va-meter",
+        "ElNet VIP": "elnet-vip-meter",
+        "ElNet PIC": "elnet-pic-meter",
+        "ElNet LTE": "elnet-lte-meter",
+        "ElNet LT": "elnet-lt-meter",
+        "ElNet LTP": "elnet-ltp-meter",
+        "ElNet PQ GR": "elnet-pq-gr-meter",
+        "UNIART HMI / SCADA SOFTWARE": "uniart-software",
+        "UniWeb": "uniweb-software",
+        "Elnet xp": "elnet-xp-controller",
+        "CO detecting and control systems": "co-gas-monitoring",
+        "Flooding sensor": "flooding-sensor",
+        "Flood detecting and control systems": "flood-detection-systems",
+        "Power factor controllers": "power-factor-control",
+        "BMS software packages": "bms-scada-software",
+        "CO System": "parking-control",
+        "PLC & DDC controllers": "plc-ddc-controllers",
+        "Smart parking": "smart-parking",
+        "DigiPoint": "digipoint-controller",
+        "SuperBrain FC": "superbrain-fc-controller",
+        "VeroPoint": "veropoint-controller",
+        "SuperBrain": "superbrain-controller",
+        "SuperBrain DR": "superbrain-dr-controller",
+    },
 }
 
 # English nav-style labels for hub pages shown as related items
@@ -325,7 +377,7 @@ HUB_DISPLAY_TITLES = {
     "plc-ddc-controllers": "PLC & DDC controllers",
 }
 
-# Hebrew product filter labels (from Wix catalog) -> English
+# Hebrew catalog subcategory labels -> English
 PRODUCT_SUBCATEGORY_EN = {
     "בקרי החלפה": "Automatic transfer switch controllers",
     "בקרים לשיפור מקדם הספק": "Power factor controllers",
@@ -340,6 +392,20 @@ PRODUCT_SUBCATEGORY_EN = {
     "תוכנת Elnet חשבונות ואיכות חשמל": "ElNet software packages",
 }
 
+PRODUCT_SUBCATEGORY_ES = {
+    "בקרי החלפה": "Controladores de interruptores de transferencia automática",
+    "בקרים לשיפור מקדם הספק": "Controladores de factor de potencia",
+    "בקרים מתוכנתים (DDC+PLC)": "Controladores PLC y DDC",
+    "בקרת אינסטלציה": "Control de fontanería",
+    "בקרת חניונים": "Sistema CO",
+    "מודדים לאיכות חשמל": "Analizadores de energía",
+    "מוני אנרגיה": "Medidores de energía",
+    "מוני חשמל": "Medidores eléctricos",
+    "מערכות לאיתור הצפות": "Sistemas de detección y control de inundaciones",
+    "תוכנות HMI SCADA BMS": "Paquetes de software BMS",
+    "תוכנת Elnet חשבונות ואיכות חשמל": "Paquetes de software ElNet",
+}
+
 # Hub pages that should render as product/category card grids
 HUB_PAGES = {
     "he": [
@@ -350,6 +416,13 @@ HUB_PAGES = {
         "co-gas-monitoring", "smart-parking",
     ],
     "en": [
+        "building-automation", "power-meters-control",
+        "plc-ddc-controllers", "parking-control", "plumbing-control",
+        "flood-detection-systems", "bms-scada-software", "transfer-switches",
+        "power-factor-control", "power-quality-analyzers", "energy-meters", "electrical-meters",
+        "co-gas-monitoring", "smart-parking",
+    ],
+    "es": [
         "building-automation", "power-meters-control",
         "plc-ddc-controllers", "parking-control", "plumbing-control",
         "flood-detection-systems", "bms-scada-software", "transfer-switches",

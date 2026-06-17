@@ -1,0 +1,73 @@
+{
+  "url": "https://www.elnet-meter.com/es/elnet-pq-gr-meter",
+  "slug": "elnet-pq-gr-meter",
+  "title": "Medidor ElNet PQ/GR | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>ElNet PQ GR Interference and electrical measurements</h3></div>\n<div class=\"rich-text\"><p><span><span>Elant PQ is certified by a testing laboratory to the exclusive Class A standard for measuring the quality of electricity.<br/>Elant PQ enables the generation of EN50160 reports.<br/>Allant PQ enables recording of waves in electrical events.<br/>Has a sampling rate of 1600 samples per cycle 3 voltages + 4 currents<br/>Has a measurement accuracy of 0.2% (0.1% by special order).<br/>Data collection for 24 months (voltage, current, power factor, energy, THD and more..)<br/>Measurement of leakage current and current in the zero line (4 current transformers)<br/>Clock with foreign exchange rates.<br/>Measuring harmonies up to the 64th harmony.<br/>RS485 + TCP/IP communication channels are built into the device.<br/>Support for MODBUS/BACNET communication protocols.<br/>Programming 3 digital outputs including delay.<br/>Huge high quality color screen (144X144).<br/>Graphical wave display and 3D harmonics display.<br/>Simple and easy panel installation in front of the electrical panel or on a DIN rail.<br/>Internet TCP/IP communication, e-mail support and WEB surfing to the device using a browser.<br/>Built-in fast data collection.<br/>Collection of up to 1000 alarms / events.</span></span></p>\n<p>and more…</p></div>\n<div class=\"rich-text\"><h3>Related products</h3></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/pq-gr.png\" alt=\"PQ-GR.png\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "ElNet PQ GR Interferencias y medidas eléctricas",
+    "Elant PQ está certificado por un laboratorio de pruebas según el estándar exclusivo Clase A para medir la calidad de la electricidad.\nElant PQ permite la generación de informes EN50160.\nAllant PQ permite el registro de ondas en eventos eléctricos.\nTiene una tasa de muestreo de 1600 muestras por ciclo 3 voltajes + 4 corrientes\nבעל דיוק מדידה 0,2% (0,1% בהזמנה מיוחדת).\nRecopilación de datos durante 24 meses (voltaje, corriente, factor de potencia, energía, THD y más...)\nMedición de corriente de fuga y corriente en la línea cero (4 transformadores de corriente)\nReloj con tipos de cambio de divisas.\nMedición de armonías hasta la armonía 64.\nLos canales de comunicación RS485 + TCP/IP están integrados en el dispositivo.\nSoporte para protocolos de comunicación MODBUS/BACNET.\nProgramación de 3 salidas digitales incluido retardo.\nEnorme pantalla a color de alta calidad (144X144).\nVisualización gráfica de ondas y visualización de armónicos 3D.\nSencilla y fácil instalación en cuadro delante del cuadro eléctrico o sobre carril DIN.\nComunicación por Internet TCP/IP, soporte por correo electrónico y navegación WEB en el dispositivo mediante un navegador.\nRecolección de datos rápida incorporada.\nColección de hasta 1000 alarmas/eventos.\ny más…",
+    "Productos relacionados"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/pq-gr.png",
+      "alt": "PQ-GR.png"
+    },
+    {
+      "src": "/assets/images/elnet-pq-gr-meter-content-6-5.png",
+      "alt": "PQ-GR-3"
+    },
+    {
+      "src": "/assets/images/elnet-pq-gr-meter-content-7-5.png",
+      "alt": "PQ-GR-1"
+    },
+    {
+      "src": "/assets/images/elnet-pq-gr-meter-content-8-5.png",
+      "alt": "PQ-GR-2"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "gallery": [],
+  "documents": []
+}

@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "ddc-temp",
     "public": "site",
     "ignore": [
       "firebase.json",

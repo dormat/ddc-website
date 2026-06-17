@@ -18,6 +18,11 @@ DOCUMENT_LABELS_EN = {
     "הורד מסמכים": "Download Docs",
 }
 
+DOCUMENT_LABELS_ES = {
+    "שרטוטים": "Esquemas",
+    "הורד מסמכים": "Descargar documentos",
+}
+
 DOCUMENT_LABEL_ALIASES = {
     "Schematics": "שרטוטים",
     "Sketches": "שרטוטים",
@@ -60,7 +65,7 @@ def download_document(url: str, dest: Path) -> bool:
 
 
 def download_documents(docs: list[dict], *, force: bool = False) -> tuple[int, int]:
-    """Download document files referenced in scraped page data."""
+    """Download document files referenced in page content data."""
     ok = 0
     failed = 0
     seen: set[str] = set()

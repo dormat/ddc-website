@@ -1,0 +1,71 @@
+{
+  "url": "https://www.elnet-meter.com/es/energy-meters",
+  "slug": "energy-meters",
+  "title": "Medidores de energía | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h2>Medidores de energía</h2></div>\n<div class=\"rich-text\"><h4>ElNet Contador MC-1</h4></div>\n<div class=\"rich-text\"><h4>ElNet Contador MC-2</h4></div>\n<div class=\"rich-text\"><h4>ElNet Interferencia PQ/GR y mediciones de potencia</h4></div>\n<div class=\"rich-text\"><h4>ElNet Contador MC-8</h4></div>\n<div class=\"rich-text\"><h4>ElNet Contador MC-12</h4></div>\n<div class=\"rich-text\"><h4>ElNet Contador de PIC</h4></div>\n<div class=\"rich-text\"><h4>ElNet LT Ta'az, armonías</h4></div>\n<div class=\"rich-text\"><h4>ElNet Mediciones de energía y electricidad LTE</h4></div>\n<div class=\"rich-text\"><h4>ElNet Armónicos de corriente de fuga LTP y más</h4></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>haciendo contacto</p>\n<p>Teléfono: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Correo electrónico:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>horario de apertura</p>\n<p>Control Applications Ltd</p>\n<p>domingo - jueves</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>DIRECCIÓN</p>\n<p>Calle Barzel 25, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\" src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet MC-1 מונה\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-8-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet MC-2 מונה \" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-8-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet PQ/GR הפרעות ומדידות חשמל\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-7-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet MC-8 מונה\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-10-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet MC-12 מונה\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-11-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet PIC מונה תעו״ז\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-12-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet LT תעו״ז, הרמוניות\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-6-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet LTE אנרגיה ומדידות חשמל\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-14-3.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"ElNet LTP זרם זליגה הרמוניות ועוד\" loading=\"lazy\" src=\"/assets/images/power-meters-control-content-6-3.png\"/></figure>",
+  "rich_text": [
+    "Medidores de energía",
+    "ElNet Contador MC-1",
+    "ElNet Contador MC-2",
+    "ElNet Interferencia PQ/GR y mediciones de potencia",
+    "ElNet Contador MC-8",
+    "ElNet Contador MC-12",
+    "ElNet Contador de PIC",
+    "ElNet LT Ta'az, armonías",
+    "ElNet Mediciones de energía y electricidad LTE",
+    "ElNet Armónicos de corriente de fuga LTP y más"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/energy-meters-content-5-5.jpg",
+      "alt": "A woman looking at charts on the screen"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-8-3.png",
+      "alt": "ElNet MC-1 counter"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-7-3.png",
+      "alt": "ElNet PQ/GR interference and power measurements"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-10-3.png",
+      "alt": "ElNet MC-8 counter"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-11-3.png",
+      "alt": "ElNet MC-12 counter"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-12-3.png",
+      "alt": "ElNet PIC counter"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-6-3.png",
+      "alt": "ElNet LT Ta'az, harmonies"
+    },
+    {
+      "src": "/assets/images/power-meters-control-content-14-3.png",
+      "alt": "ElNet LTE energy and electricity measurements"
+    }
+  ],
+  "gallery": []
+}

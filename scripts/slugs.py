@@ -4,10 +4,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-# All published pages (English slug paths under /he/ and /en/)
+# All published pages (English slug paths under /he/, /en/, and /es/)
 CANONICAL_SLUGS: list[str] = [
     "about",
-    "typical-projects",
     "building-automation",
     "power-meters-control",
     "products",
@@ -67,7 +66,6 @@ CANONICAL_SLUGS: list[str] = [
 
 CANONICAL_TITLES_EN: dict[str, str] = {
     "about": "About",
-    "typical-projects": "Typical Projects",
     "building-automation": "Building Automation",
     "power-meters-control": "Power Meters & Control",
     "products": "Products",
@@ -125,109 +123,84 @@ CANONICAL_TITLES_EN: dict[str, str] = {
     "elnet-xp-controller": "ElNet XP Controller",
 }
 
-CANONICAL_SLUG_SET = frozenset(CANONICAL_SLUGS)
-
-# Old Wix / Hebrew URL paths -> canonical English slug (for link resolution only)
-LEGACY_SLUG_MAP: dict[str, str] = {
-    "אודות": "about",
-    "הפרוייקטים-שלנו": "typical-projects",
-    "בקרת-מבנים-1": "building-automation",
-    "מדידות-ובקרת-חשמל": "power-meters-control",
-    "תמיכה": "products",
-    "צרו-קשר": "contact",
-    "copy-of-צרו-קשר": "quote-request",
-    "אבטחת-איכות": "quality-assurance",
-    "השוואת-מוצרים": "product-comparison",
-    "co": "transfer-switch-drawings",
-    "בקרים-מתוכנתים-ddc-plc": "plc-ddc-controllers",
-    "בקרת-חניונים": "parking-control",
-    "בקרת-אינסטלציה": "plumbing-control",
-    "מערכות-לאיתור-הצפות": "flood-detection-systems",
-    "תוכנות-hmi-bms-scada": "bms-scada-software",
-    "בקרי-החלפה": "transfer-switches",
-    "בקרה-לשיפור-מקדם-הספק": "power-factor-control",
-    "חניה-חכמה": "smart-parking",
-    "מערכות-לניטור-ובקרת-גזco": "co-gas-monitoring",
-    "מודדים-לאיכות-חשמל": "power-quality-analyzers",
-    "מוני-אנרגיה": "energy-meters",
-    "מוני-חשמל": "electrical-meters",
-    "תוכנת-elnet-חשבונות-ואיכות-חשמל": "elnet-billing-software",
-    "מבנים-ציבוריים": "public-buildings",
-    "copy-of-public-buildings": "public-buildings",
-    "בתי-חולים": "hospitals",
-    "copy-of-hospitals": "hospitals",
-    "בתי-מלון": "hotels",
-    "copy-of-hotels": "hotels",
-    "אוניברסיטאות": "universities",
-    "copy-of-universities": "universities",
-    "מוזיאונים": "museums",
-    "copy-of-museums": "museums",
-    "קניונים-ומרכזי-מסחר": "shopping-malls",
-    "copy-of-shoping-malls": "shopping-malls",
-    "מפעלי-תעשייה-והיי-טק": "industrial-hi-tech",
-    "copy-of-industrial-factories-and-hi-tech": "industrial-hi-tech",
-    "תעשיית-התרופות-וחדרים-נקיים": "pharmaceutical-clean-rooms",
-    "copy-of-pharmaceutical-industry-and-c": "pharmaceutical-clean-rooms",
-    "תוכנת-uniart-לבקרת-מבנים": "uniart-software",
-    "תוכנת-uniweb-לבקרת-מבנים": "uniweb-software",
-    "digipoint-בקר-מתוכנת-דיגיטלי": "digipoint-controller",
-    "veropoint-בקר-עם-כרטיסי-הרחבה": "veropoint-controller",
-    "superbrain-בקר-עם-ספרית-תוכנות": "superbrain-controller",
-    "superbrain-dr-בקר-עם-ספרית-תוכנות": "superbrain-dr-controller",
-    "superbrain-fc-בקר-ליחידות-מפוח-נחשו": "superbrain-fc-controller",
-    "elnet-mc-1-מונה": "elnet-mc-1-meter",
-    "elnet-mc-2-מונה-6-2-ערוצים": "elnet-mc-2-meter",
-    "elnet-mc-2-מונה-": "elnet-mc-2-meter",
-    "elnet-mc-8-מונה-8-24-ערוצים": "elnet-mc-8-meter",
-    "elnet-mc-8-מונה": "elnet-mc-8-meter",
-    "elnet-mc12-מונה-36-12-ערוצים": "elnet-mc-12-meter",
-    "elnet-mc-12-מונה": "elnet-mc-12-meter",
-    "elnet-co-בקר-החלפה-ח-ח-גנרטור": "elnet-co-transfer-switch",
-    "elnet-co-בקר-החלפה-ח״ח/גנרטור": "elnet-co-transfer-switch",
-    "elnet-cod-בקר-החלפה-ח-ח-גנרטור": "elnet-cod-transfer-switch",
-    "elnet-cod-בקר-החלפה-ח״ח/-גנרטור": "elnet-cod-transfer-switch",
-    "elnet-pfc-בקר-לשיפור-מקדם-הספק": "elnet-pfc-controller",
-    "elnet-ltc-בקר-לשיפור-מקדם-הספק": "elnet-ltc-controller",
-    "elnet-ltc10-בקר-לשיפור-מקדם-הספק": "elnet-ltc10-controller",
-    "elnet-va-מדידות-חשמל-כלליות": "elnet-va-meter",
-    "elnet-vip-מדידות-חשמל-כלליות": "elnet-vip-meter",
-    "elnet-pic-מונה-תעו-ז": "elnet-pic-meter",
-    "elnet-pic-מונה-תעו״ז": "elnet-pic-meter",
-    "elnet-lte-אנרגיה-ומדידות-חשמל": "elnet-lte-meter",
-    "elnet-lt-תעו-ז-הרמוניות-ועוד": "elnet-lt-meter",
-    "elnet-lt-תעו״ז,-הרמוניות": "elnet-lt-meter",
-    "elnet-ltp-זרם-זליגה-הרמוניות-ועוד": "elnet-ltp-meter",
-    "elnet-pq-gr-הפרעות-ומדידות-חשמל": "elnet-pq-gr-meter",
-    "elnet-pq/gr-הפרעות-ומדידות-חשמל": "elnet-pq-gr-meter",
-    "elnet-xp-בקר-למשאבות-ניקוד-וביוב": "elnet-xp-controller",
-    "elnet-xp-בקר-למשאבות-ניקוז-וביוב": "elnet-xp-controller",
-    "co-מערכות-לניטור-ובקרת-גז": "co-gas-monitoring",
+CANONICAL_TITLES_ES: dict[str, str] = {
+    "about": "Nosotros",
+    "building-automation": "Automatización de edificios",
+    "power-meters-control": "Medidores y control eléctrico",
+    "products": "Productos",
+    "contact": "Contacto",
+    "quality-assurance": "Garantía de calidad",
+    "product-comparison": "Comparación de productos",
+    "transfer-switch-drawings": "Esquemas de interruptores de transferencia",
+    "bms-certifications": "Certificaciones BMS",
+    "elnet-certifications": "Certificaciones ElNet",
+    "plc-ddc-controllers": "Controladores PLC y DDC",
+    "parking-control": "Control de estacionamientos",
+    "plumbing-control": "Control de fontanería",
+    "flood-detection-systems": "Sistemas de detección de inundaciones",
+    "flooding-sensor": "Sensor de inundación",
+    "bms-scada-software": "Software BMS / SCADA",
+    "transfer-switches": "Interruptores de transferencia",
+    "power-factor-control": "Control de factor de potencia",
+    "smart-parking": "Estacionamiento inteligente",
+    "co-gas-monitoring": "Monitoreo de gas CO",
+    "power-quality-analyzers": "Analizadores de calidad de energía",
+    "energy-meters": "Medidores de energía",
+    "electrical-meters": "Medidores eléctricos",
+    "elnet-billing-software": "Software de facturación ElNet",
+    "public-buildings": "Edificios públicos",
+    "hospitals": "Hospitales",
+    "hotels": "Hoteles",
+    "universities": "Universidades",
+    "museums": "Museos",
+    "shopping-malls": "Centros comerciales",
+    "industrial-hi-tech": "Industrial y alta tecnología",
+    "pharmaceutical-clean-rooms": "Farmacéutica y salas limpias",
+    "uniart-software": "Software UniArt",
+    "uniweb-software": "Software UniWeb",
+    "digipoint-controller": "Controlador DigiPoint",
+    "veropoint-controller": "Controlador VeroPoint",
+    "superbrain-controller": "Controlador SuperBrain",
+    "superbrain-dr-controller": "Controlador SuperBrain DR",
+    "superbrain-fc-controller": "Controlador SuperBrain FC",
+    "elnet-mc-1-meter": "Medidor ElNet MC-1",
+    "elnet-mc-2-meter": "Medidor ElNet MC-2",
+    "elnet-mc-8-meter": "Medidor ElNet MC-8",
+    "elnet-mc-12-meter": "Medidor ElNet MC-12",
+    "elnet-co-transfer-switch": "Interruptor de transferencia ElNet CO",
+    "elnet-cod-transfer-switch": "Interruptor de transferencia ElNet COD",
+    "elnet-pfc-controller": "Controlador ElNet PFC",
+    "elnet-ltc-controller": "Controlador ElNet LTC",
+    "elnet-ltc10-controller": "Controlador ElNet LTC10",
+    "elnet-va-meter": "Medidor ElNet VA",
+    "elnet-vip-meter": "Medidor ElNet VIP",
+    "elnet-pic-meter": "Medidor ElNet PIC",
+    "elnet-lte-meter": "Medidor ElNet LTE",
+    "elnet-lt-meter": "Medidor ElNet LT",
+    "elnet-ltp-meter": "Medidor ElNet LTP",
+    "elnet-pq-gr-meter": "Medidor ElNet PQ/GR",
+    "elnet-xp-controller": "Controlador ElNet XP",
 }
 
-
-def to_canonical_slug(raw: str) -> str:
-    """Map a legacy or Wix slug to the canonical English URL slug."""
-    if not raw:
-        return ""
-    raw = raw.strip()
-    if raw in CANONICAL_SLUG_SET:
-        return raw
-    return LEGACY_SLUG_MAP.get(raw, raw)
+CANONICAL_SLUG_SET = frozenset(CANONICAL_SLUGS)
 
 
 def canonical_slug(slug: str) -> str:
-    return to_canonical_slug(slug)
+    if not slug:
+        return ""
+    slug = slug.strip()
+    return slug if slug in CANONICAL_SLUG_SET else slug
 
 
 def all_canonical_slugs() -> list[str]:
     return list(CANONICAL_SLUGS)
 
 
-def resolve_source_file(lang: str, canonical: str, scraped_dir) -> str | None:
+def resolve_source_file(lang: str, canonical: str, content_dir) -> str | None:
     """Return JSON filename stem for a canonical page in a language."""
     if canonical == "":
-        return "index" if (scraped_dir / "index.json").exists() else None
-    path = scraped_dir / f"{canonical}.json"
+        return "index" if (content_dir / "index.json").exists() else None
+    path = content_dir / f"{canonical}.json"
     if path.exists():
         return canonical
     return None

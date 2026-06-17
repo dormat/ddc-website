@@ -1,16 +1,12 @@
 # DDC Website (ישומי בקרה / Control Applications)
 
-Static bilingual site for DDC / Control Applications, deployable to Firebase Hosting or GCP.
-
-**Live sources (reference):**
-- Hebrew: [ddc.co.il](https://www.ddc.co.il/)
-- English: [elnet-meter.com](https://www.elnet-meter.com/)
+Static trilingual site for DDC / Control Applications, deployable to Firebase Hosting.
 
 ## What's included
 
-- **58 pages per language** — products, categories, projects, about, contact
-- Bilingual navigation with dropdown menus
-- RTL layout for Hebrew, LTR for English
+- **57 pages per language** — products, categories, projects, about, contact
+- Trilingual navigation with dropdown menus
+- RTL layout for Hebrew, LTR for English and Spanish
 - Homepage carousel, contact footer with map
 
 ## Project structure
@@ -18,18 +14,20 @@ Static bilingual site for DDC / Control Applications, deployable to Firebase Hos
 ```
 ddc-website/
 ├── site/              # Deployable static site (build output)
-│   ├── he/            # Hebrew pages (canonical English URL slugs)
+│   ├── he/            # Hebrew pages
 │   ├── en/            # English pages
+│   ├── es/            # Spanish pages
 │   └── assets/        # CSS, JS, images
-├── scraped/           # Page content (JSON, one file per page per language)
+├── content/           # Page content (JSON, one file per page per language)
 │   ├── he/
-│   └── en/
+│   ├── en/
+│   └── es/
 ├── scripts/
-│   ├── build_site.py       # Generate HTML from scraped JSON
+│   ├── build_site.py       # Generate HTML from content JSON
 │   ├── config.py           # Navigation, projects, site config
 │   ├── slugs.py            # Canonical page slug list
 │   ├── build_image_aliases.py
-│   ├── download_assets.py  # Optional: fetch images from Wix CDN
+│   ├── download_assets.py  # Verify local images exist
 │   ├── image_assets.py
 │   └── document_assets.py
 ├── assets/            # Source CSS/JS/images (copied to site/ on build)
@@ -59,6 +57,7 @@ python -m http.server 8080
 
 - Hebrew: http://localhost:8080/he/
 - English: http://localhost:8080/en/
+- Spanish: http://localhost:8080/es/
 
 ## Deploy to Firebase Hosting
 
@@ -74,19 +73,19 @@ firebase deploy
 
 | Change | Edit | Then |
 |--------|------|------|
-| Page copy | `scraped/he/<slug>.json` and `scraped/en/<slug>.json` | `python scripts/build_site.py` |
+| Page copy | `content/he/<slug>.json` and `content/en/<slug>.json` | `python scripts/build_site.py` |
 | Nav / contact / projects | `scripts/config.py` | rebuild |
 | Layout / design | `assets/css/main.css` (and `assets/js/main.js` if needed) | rebuild |
-| New product page | Add JSON for both langs + update `scripts/slugs.py`, `config.py` | rebuild |
-| New images (Wix URLs in JSON) | Optional: `python scripts/download_assets.py` | rebuild |
+| New product page | Add JSON for each language + update `scripts/slugs.py`, `config.py` | rebuild |
+| New images | Add file to `assets/images/` and reference `/assets/images/<file>` in content JSON | rebuild |
 
-Homepage carousel data lives in `scraped/{he,en}/slideshow.json`.
+Homepage carousel data lives in `content/{he,en,es}/slideshow.json`.
 
 ## Notes
 
-- Images are stored locally under `assets/images/` with friendly aliases in `assets/image_aliases.json`.
-- Run `python scripts/download_assets.py` when you add pages that reference new Wix CDN image URLs.
-- Edit Hebrew and English content separately in `scraped/` — there is no auto-translation step in the build.
+- Images live under `assets/images/` with friendly aliases in `assets/image_aliases.json`.
+- Content JSON uses local paths (`/assets/images/...`) only.
+- Edit each language separately in `content/` — there is no auto-translation step in the build.
 
 ## Contact
 

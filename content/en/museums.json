@@ -1,0 +1,40 @@
+{
+  "url": "https://www.elnet-meter.com/museums",
+  "slug": "museums",
+  "title": "Museums | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>museums</h3></div>\n<div class=\"rich-text\"><p>Tel Aviv Museum</p>\n<p>Israel Museum, Jerusalem</p>\n<p>Yad Vashem Museum, Jerusalem</p>\n<p>Science Museum, Jerusalem</p>\n<p>Mormon Museum, Jerusalem</p>\n<p>Metsudat David Hotel, Jerusalem</p>\n<p>Magic Palace Hotel, Eilat</p>\n<p>Adi Hotel, Eilat</p>\n<p>Hod Hotel, Dead Sea</p></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/typical-projects-content-10-4.png\" alt=\"museums320.png\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "museums",
+    "Tel Aviv Museum\nIsrael Museum, Jerusalem\nYad Vashem Museum, Jerusalem\nScience Museum, Jerusalem\nMormon Museum, Jerusalem\nMetsudat David Hotel, Jerusalem\nMagic Palace Hotel, Eilat\nAdi Hotel, Eilat\nHod Hotel, Dead Sea",
+    "Control Applications Ltd",
+    "making contact\nPhone: +972-3-6474998\n​\nFax: +972-3-6474598\nEmail:\ncal@ddc.co.il",
+    "opening hours\nControl Applications Ltd\nSunday - Thursday\n08:00 - 17:00",
+    "Address\n25 Barzel Street, Tel Aviv\n6971035\nIsrael",
+    "© Copyright - Control Applications Ltd"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/typical-projects-content-10-4.png",
+      "alt": "museums320.png"
+    }
+  ],
+  "gallery": []
+}

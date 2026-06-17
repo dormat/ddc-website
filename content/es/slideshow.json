@@ -1,0 +1,93 @@
+[
+  {
+    "title": "ELNET | SISTEMA DE CALIDAD DE ENERGÍA",
+    "subtitle": "MONITOREA TU RED ELÉCTRICA",
+    "description": "El sistema de calidad de energía Elnet le proporcionará los componentes de hardware más precisos y confiables, así como el software generador de informes y registrador de eventos EN50160 más fácil de usar.",
+    "link": "/es/power-quality-analyzers/",
+    "image": "/assets/images/home-content-6.png",
+    "bg": "/assets/images/home-content-5-2.jpg",
+    "bg_opacity": 0.34,
+    "bg_overlay": "white",
+    "layout": "split-image-start",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "UNIARTE\nAUTOMATIZACIÓN DE EDIFICIOS\nAHORRO DE ENERGÍA Y CONTROL",
+    "subtitle": "UNIART BMS es la solución más potente para el ahorro de energía en edificios públicos e industria, un sistema puro distribuido TCP/IP basado en el software Web SCADA",
+    "description": "",
+    "link": "/es/bms-scada-software/",
+    "image": "/assets/images/home-content-1-9.png",
+    "bg": "/assets/images/da9d83ef63014589acac69d0c0f44f45.jpg",
+    "bg_opacity": 0.31,
+    "bg_overlay": "white",
+    "layout": "split-image-end",
+    "text_theme": "dark",
+    "accent_subtitle": true
+  },
+  {
+    "title": "BMS\nSISTEMA DE GESTIÓN DE EDIFICIOS La clave para una construcción eficiente.",
+    "subtitle": "",
+    "description": "",
+    "link": "/es/plc-ddc-controllers/",
+    "image": "",
+    "bg": "/assets/images/f715c7cf8d6c4f4a8d719a58c9562aca.jpg",
+    "bg_opacity": 1.0,
+    "bg_overlay": "white",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "EMS\nSISTEMA DE GESTIÓN ENERGÉTICA",
+    "subtitle": "",
+    "description": "Gestionar el consumo energético al mínimo necesario.",
+    "link": "/es/energy-meters/",
+    "image": "/assets/images/9a8771_4ebb72cec4f14c95b411194b4b22c78f~mv2.png",
+    "bg": "/assets/images/11062b_5966e3de2e5745c1bb409fab44548d6f~mv2_d_4608_3456_s_4_2.jpg",
+    "bg_opacity": 0.15,
+    "bg_overlay": "white",
+    "layout": "image-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "AHORRE ENERGÍA\nSALVAR EL MEDIO AMBIENTE",
+    "subtitle": "",
+    "description": "Ahorra energía y previene el cambio climático",
+    "link": "/es/power-factor-control/",
+    "image": "",
+    "bg": "/assets/images/3d2098412dbf46189d3998ae4392e5bc.jpg",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "MEDICIÓN DE SU CONSUMO DE ENERGÍA",
+    "subtitle": "",
+    "description": "Ser consciente de cuánta energía utiliza es una excelente manera de reducir el costo de la energía y el impacto ambiental.",
+    "link": "/es/energy-meters/",
+    "image": "",
+    "bg": "/assets/images/9a8771_50b436f862cd4168acf3388b76828742~mv2.png",
+    "bg_opacity": 1.0,
+    "bg_overlay": "white",
+    "layout": "hero-text",
+    "text_theme": "hero",
+    "accent_subtitle": false
+  },
+  {
+    "title": "UTILICE NUESTRA TECNOLOGÍA LÍDER Para impulsar su negocio",
+    "subtitle": "",
+    "description": "",
+    "link": "/es/bms-scada-software/",
+    "image": "",
+    "bg": "/assets/images/422dc5_da5aafb54aa841339583602754d715b0~mv2.jpg",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "title-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  }
+]

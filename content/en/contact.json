@@ -1,0 +1,46 @@
+{
+  "url": "https://www.elnet-meter.com/contact",
+  "slug": "contact",
+  "title": "Contact  | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>Contact us</h3></div>\n<div class=\"rich-text\"><p>Thanks for submitting!</p></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998</p>\n<p>Fax: +972-3-6474598</p>\n<p><span><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></span></p></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "Contact us",
+    "Thanks for submitting!",
+    "Control Applications Ltd\n25 Barzel Street, Tel Aviv\n6971035\nIsrael",
+    "making contact\nPhone: +972-3-6474998\nFax: +972-3-6474598\nEmail:\ncal@ddc.co.il",
+    "Control Applications Ltd",
+    "making contact\nPhone: +972-3-6474998\n​\nFax: +972-3-6474598\nEmail:\ncal@ddc.co.il",
+    "opening hours\nControl Applications Ltd\nSunday - Thursday\n08:00 - 17:00",
+    "Address\n25 Barzel Street, Tel Aviv\n6971035\nIsrael",
+    "© Copyright - Control Applications Ltd"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/2266a47c83d9453893b933944f7a426a.jpg",
+      "alt": "Using a Touch Phone"
+    },
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    }
+  ],
+  "gallery": []
+}

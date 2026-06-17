@@ -1,0 +1,10 @@
+﻿python : Traceback (most recent call last):
+At C:\Users\User\AppData\Local\Temp\ps-script-334e3425-a412-4776-ae31-6f8ffeb024da.ps1:107 char:42
++ cd "c:\Users\User\Projects\ddc-website"; python -c "
++                                          ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "<string>", line 4, in <module>
+    from document_assets import local_document_path
+ModuleNotFoundError: No module named 'document_assets'

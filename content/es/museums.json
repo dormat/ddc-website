@@ -1,0 +1,35 @@
+{
+  "url": "https://www.elnet-meter.com/es/museums",
+  "slug": "museums",
+  "title": "Museos | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>museos</h3></div>\n<div class=\"rich-text\"><p>Museo de Tel Aviv</p>\n<p>Museo de Israel, Jerusalén</p>\n<p>Museo Yad Vashem, Jerusalén</p>\n<p>Museo de Ciencias, Jerusalén</p>\n<p>Museo Mormón, Jerusalén</p>\n<p>Metsudat David Hotel, Jerusalén</p>\n<p>Magic Palace Hotel, Eilat</p>\n<p>Adi Hotel, Eilat</p>\n<p>Hod Hotel, Mar Muerto</p></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>haciendo contacto</p>\n<p>Teléfono: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Correo electrónico:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>horario de apertura</p>\n<p>Control Applications Ltd</p>\n<p>domingo - jueves</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>DIRECCIÓN</p>\n<p>Calle Barzel 25, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\" src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\"/></figure>\n<figure class=\"content-image\"><img alt=\"museums320.png\" loading=\"lazy\" src=\"/assets/images/typical-projects-content-10-4.png\"/></figure>",
+  "rich_text": [
+    "museos",
+    "Museo de Tel Aviv\nMuseo de Israel, Jerusalén\nMuseo Yad Vashem, Jerusalén\nMuseo de Ciencias, Jerusalén\nMuseo Mormón, Jerusalén\nMetsudat David Hotel, Jerusalén\nMagic Palace Hotel, Eilat\nAdi Hotel, Eilat\nHod Hotel, Mar Muerto"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/typical-projects-content-10-4.png",
+      "alt": "museums320.png"
+    }
+  ],
+  "gallery": []
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "title": "אלנט | ניטור איכות החשמל",
+    "subtitle": "מנטרת ומבקרת את רשת החשמל שלך.",
+    "description": "מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה , מדויקת וממשק ידידותי בעברית.\nהמערכת מפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דו\"ח אירועי חשמל מקיף ומדויק.",
+    "link": "/he/מודדים-לאיכות-חשמל/",
+    "image": "/assets/images/home-content-6.png",
+    "bg": "/assets/images/home-content-5-2.jpg",
+    "bg_opacity": 0.34,
+    "bg_overlay": "white",
+    "layout": "split-image-start",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "UniWEB",
+    "subtitle": "המפתח שלך לבניין יעיל וטכנולוגי .",
+    "description": "בקרת מבנים ומערכות אנרגיה\nמערכת חדשנית ומשוכללת.\nמערכת ליעול ולשליטה אנרגטית",
+    "link": "/he/תוכנות-hmi-bms-scada/",
+    "image": "/assets/images/home-content-1-9.png",
+    "bg": "/assets/images/da9d83ef63014589acac69d0c0f44f45.jpg",
+    "bg_opacity": 0.31,
+    "bg_overlay": "white",
+    "layout": "split-image-end",
+    "text_theme": "dark",
+    "accent_subtitle": true
+  },
+  {
+    "title": "בקרים מתקדמים למבני ציבור ותעשייה.",
+    "subtitle": "",
+    "description": "שליטה מדידה ובקרה על מערכות מיזוג האוויר, חשמל וכל שאר המערכות האלקטרו מכניות בבניין.",
+    "link": "/he/בקרים-מתוכנתים-ddc-plc/",
+    "image": "",
+    "bg": "/assets/images/f715c7cf8d6c4f4a8d719a58c9562aca.jpg",
+    "bg_opacity": 0.42,
+    "bg_overlay": "white",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "אלנט MC",
+    "subtitle": "נהל במדויק את צריכת האנרגיה בבניין",
+    "description": "מערכת מדויקת למדידת צריכת אנרגיה בצובר והפקת חשבונות צריכת חשמל ומיזוג אויר.",
+    "link": "/he/מוני-אנרגיה/",
+    "image": "/assets/images/9a8771_4ebb72cec4f14c95b411194b4b22c78f~mv2.png",
+    "bg": "/assets/images/11062b_5966e3de2e5745c1bb409fab44548d6f~mv2_d_4608_3456_s_4_2.jpg",
+    "bg_opacity": 0.15,
+    "bg_overlay": "white",
+    "layout": "image-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "חיסכון באנרגיה",
+    "subtitle": "חסוך באנרגיה ומנע פגיעה בסביבה.",
+    "description": "בחר במערכת ידידותית לסביבה.",
+    "link": "/he/בקרה-לשיפור-מקדם-הספק/",
+    "image": "",
+    "bg": "/assets/images/3d2098412dbf46189d3998ae4392e5bc.jpg",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "text-only",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  },
+  {
+    "title": "כצעד ראשון ,מדוד את צריכת האנרגיה במערכות השונות.",
+    "subtitle": "",
+    "description": "מודעות לכמות האנרגיה הנצרכת , היא הדרך היעילה ביותר להפחתה כוללת של צריכת האנרגיה ומזעור הנזק לסביבה.",
+    "link": "/he/מוני-אנרגיה/",
+    "image": "",
+    "bg": "/assets/images/9a8771_50b436f862cd4168acf3388b76828742~mv2.png",
+    "bg_opacity": 0.71,
+    "bg_overlay": "white",
+    "layout": "hero-text",
+    "text_theme": "hero",
+    "accent_subtitle": false
+  },
+  {
+    "title": "שימוש במוצרים מובילים טכנולוגית במחירים תחרותיים",
+    "subtitle": "",
+    "description": "",
+    "link": "/he/תוכנות-hmi-bms-scada/",
+    "image": "",
+    "bg": "/assets/images/422dc5_da5aafb54aa841339583602754d715b0~mv2.jpg",
+    "bg_opacity": 0,
+    "bg_overlay": "none",
+    "layout": "title-bottom",
+    "text_theme": "dark",
+    "accent_subtitle": false
+  }
+]

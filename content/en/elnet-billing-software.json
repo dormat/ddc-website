@@ -1,0 +1,71 @@
+{
+  "url": "https://www.elnet-meter.com/elnet-billing-software",
+  "slug": "elnet-billing-software",
+  "title": "ElNet Billing & PQ Software | Control Applications",
+  "description": "ELNetWeb Billing logs energy consumption from ELNet Powermeters and generates electrical bills. ELNetWeb PQ enables power quality monitoring and reporting via a web browser.",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>ElNet Billing &amp; PQ Software</h3></div>\n<div class=\"rich-text\"><h4>ELNetWeb Billing</h4>\n<p>ELNetWeb Billing is a user friendly software package that is especially designed for logging electrical energy consumption from ELNet Powermeters and generating electrical bills.</p>\n<p>ELNetWeb Billing provides detailed energy reports on a daily, monthly and annual basis, as well as advanced T.O.U billing capabilities.</p>\n<p>Data can be exported to Excel data base.</p>\n<h4>ELNET WEB PQ SOFTWARE</h4>\n<p>ELNetWeb PQ is a Web Server software package that is especially designed to enable monitoring and generating reports by using a standard web browser.</p>\n<ul>\n<li>Historical data reports.</li>\n<li>Logs: events, waveforms, faults.</li>\n<li>EN50160 reports for power quality.</li>\n<li>Historical Alarms report.</li>\n</ul></div>\n<figure class=\"content-image\"><img src=\"/assets/images/elnet-billing-and-pq-software.png\" alt=\"ElNet Billing & PQ Software\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/elnetweb-1png.png\" alt=\"ELNetWeb Billing\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/elnetweb-pq-catalog.png\" alt=\"ELNetWeb PQ catalog\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/elnet-pqweb-1png.png\" alt=\"ELNetWeb PQ\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/billing-3png.png\" alt=\"ELNetWeb Billing screen\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/billing-20png.png\" alt=\"ELNetWeb Billing screen\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "ElNet Billing & PQ Software",
+    "ELNetWeb Billing\nELNetWeb Billing is a user friendly software package that is especially designed for logging electrical energy consumption from ELNet Powermeters and generating electrical bills.\nELNetWeb Billing provides detailed energy reports on a daily, monthly and annual basis, as well as advanced T.O.U billing capabilities.\nData can be exported to Excel data base.\nELNET WEB PQ SOFTWARE\nELNetWeb PQ is a Web Server software package that is especially designed to enable monitoring and generating reports by using a standard web browser.\nHistorical data reports.\nLogs: events, waveforms, faults.\nEN50160 reports for power quality.\nHistorical Alarms report."
+  ],
+  "images": [
+    {
+      "src": "/assets/images/elnet-billing-and-pq-software.png",
+      "alt": "ElNet Billing & PQ Software"
+    },
+    {
+      "src": "/assets/images/elnetweb-1png.png",
+      "alt": "ELNetWeb Billing"
+    },
+    {
+      "src": "/assets/images/elnetweb-pq-catalog.png",
+      "alt": "ELNetWeb PQ catalog"
+    },
+    {
+      "src": "/assets/images/elnet-pqweb-1png.png",
+      "alt": "ELNetWeb PQ"
+    },
+    {
+      "src": "/assets/images/billing-3png.png",
+      "alt": "ELNetWeb Billing screen"
+    },
+    {
+      "src": "/assets/images/billing-20png.png",
+      "alt": "ELNetWeb Billing screen"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/assets/images/elnet-billing-and-pq-software.png",
+      "alt": "ElNet Billing & PQ Software"
+    },
+    {
+      "src": "/assets/images/elnetweb-1png.png",
+      "alt": "ELNetWeb Billing"
+    },
+    {
+      "src": "/assets/images/elnetweb-pq-catalog.png",
+      "alt": "ELNetWeb PQ catalog"
+    },
+    {
+      "src": "/assets/images/elnet-pqweb-1png.png",
+      "alt": "ELNetWeb PQ"
+    },
+    {
+      "src": "/assets/images/billing-3png.png",
+      "alt": "ELNetWeb Billing screen"
+    },
+    {
+      "src": "/assets/images/billing-20png.png",
+      "alt": "ELNetWeb Billing screen"
+    }
+  ],
+  "documents": [
+    {
+      "label": "הורד מסמכים",
+      "url": "https://www.elnet-meter.com/_files/ugd/9a8771_e716e2cb850d4f1187df4be5222ed69c.pdf",
+      "file": "9a8771_e716e2cb850d4f1187df4be5222ed69c.pdf"
+    }
+  ]
+}

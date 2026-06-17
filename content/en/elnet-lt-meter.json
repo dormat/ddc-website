@@ -1,0 +1,94 @@
+{
+  "url": "https://www.elnet-meter.com/elnet-lt-meter",
+  "slug": "elnet-lt-meter",
+  "title": "ElNet LT Meter | Control Applications",
+  "description": "",
+  "og_image": "",
+  "content_html": "<div class=\"rich-text\"><h3>ElNet LT Ta'az, harmonies and more</h3></div>\n<div class=\"rich-text\"><p><span><span><span>Has a measurement accuracy of 0.2% (0.1% by special order).<br/>1600 samples per wave (3 voltage waves + 4 current waves).<br/>Option to measure leakage current and current on the zero line.<br/>Collecting energy data for 6 months.<br/>Clock with foreign exchange rates.</span></span><br/>\n<span><span>Measuring harmonies up to the 64th harmony.<br/>Support for multiple languages ​​including Hebrew<br/>RS485 communication channel.<br/>ModBus communication protocol support.<br/>Digital output programming.<br/>High quality 320X240 color graphic screen.<br/>Graphical wave display and 3D harmonics display.<br/>Simple and easy panel installation on the front of the board.<br/>Option for TCP/IP communication, e-mail support, and WEB surfing to the device via a browser.<br/>Option for BACnet protocol and built-in data collection.</span></span></span></p></div>\n<div class=\"rich-text\"><h3>Related products</h3></div>\n<div class=\"rich-text\"><p>Control Applications Ltd</p></div>\n<div class=\"rich-text\"><p>making contact</p>\n<p>Phone: +972-3-6474998​</p>\n<p>Fax: +972-3-6474598</p>\n<p><span>Email:<a href=\"mailto:cal@ddc.co.il\">cal@ddc.co.il</a></span></p></div>\n<div class=\"rich-text\"><p>opening hours</p>\n<p>Control Applications Ltd</p>\n<p>Sunday - Thursday</p>\n<p>08:00 - 17:00</p></div>\n<div class=\"rich-text\"><p>address</p>\n<p>25 Barzel Street, Tel Aviv</p>\n<p>6971035</p>\n<p>Israel</p></div>\n<div class=\"rich-text\"><p>© Copyright - Control Applications Ltd</p></div>\n<figure class=\"content-image\"><img src=\"/assets/images/screen-shot-2021-01-20-at-22-15.png\" alt=\"Screen%20Shot%202021-01-20%20at%2022.15_\" loading=\"lazy\"/></figure>\n<figure class=\"content-image\"><img src=\"/assets/images/elnet-mc-2-meter-content-12-2.png\" alt=\"LT.png\" loading=\"lazy\"/></figure>",
+  "rich_text": [
+    "ElNet LT Ta'az, harmonies and more",
+    "Has a measurement accuracy of 0.2% (0.1% by special order).\n1600 samples per wave (3 voltage waves + 4 current waves).\nOption to measure leakage current and current on the zero line.\nCollecting energy data for 6 months.\nClock with foreign exchange rates.\nMeasuring harmonies up to the 64th harmony.\nSupport for multiple languages including Hebrew\nRS485 communication channel.\nModBus communication protocol support.\nDigital output programming.\nHigh quality 320X240 color graphic screen.\nGraphical wave display and 3D harmonics display.\nSimple and easy panel installation on the front of the board.\nOption for TCP/IP communication, e-mail support, and WEB surfing to the device via a browser.\nOption for BACnet protocol and built-in data collection.",
+    "Related Products",
+    "Control Applications Ltd",
+    "making contact\nPhone: +972-3-6474998\n​\nFax: +972-3-6474598\nEmail:\ncal@ddc.co.il",
+    "opening hours\nControl Applications Ltd\nSunday - Thursday\n08:00 - 17:00",
+    "Address\n25 Barzel Street, Tel Aviv\n6971035\nIsrael",
+    "© Copyright - Control Applications Ltd"
+  ],
+  "images": [
+    {
+      "src": "/assets/images/screen-shot-2021-01-20-at-22-15.png",
+      "alt": "Screen%20Shot%202021-01-20%20at%2022.15_"
+    },
+    {
+      "src": "/assets/images/home-content-2-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-3-10.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/home-content-4-6.png",
+      "alt": ""
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "LT.png"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1"
+    },
+    {
+      "src": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5"
+    },
+    {
+      "src": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LTP leakage current harmonics and more"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "src": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels"
+    }
+  ],
+  "gallery": [],
+  "documents": []
+}
