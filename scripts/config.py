@@ -512,8 +512,7 @@ SOLUTION_PRODUCTS = {
     ),
 }
 
-# Modern building photo — darker than the PQ panel, not the mixer close-up.
-HOME_HERO_IMAGE = "f715c7cf8d6c4f4a8d719a58c9562aca.jpg"
+HOME_HERO_IMAGE = "home-hero-abstract.png"
 
 SOLUTION_IMAGES = {
     "power-quality-analyzers": "home-content-5-2.jpg",
