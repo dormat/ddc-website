@@ -1290,10 +1290,8 @@ def render_home_content(lang: str) -> str:
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
     cards: list[str] = []
-    for slug in SOLUTION_ORDER:
+    for index, slug in enumerate(SOLUTION_ORDER):
         label = SOLUTION_LABELS[lang][slug]
-        framing = SOLUTION_FRAMING[lang][slug]
-        teaser = first_sentences(framing, 1)
         image = SOLUTION_IMAGES.get(slug, "")
         src = asset_path(f"images/{image}") if image else ""
         img = (
@@ -1302,19 +1300,19 @@ def render_home_solutions_grid(lang: str) -> str:
             else '<div class="card-placeholder"></div>'
         )
         href = page_href(lang, slug)
+        flip = " home-solution-row--flip" if index % 2 else ""
         cards.append(
-            f'<a class="home-solution-tile" href="{href}">'
-            f'<div class="home-solution-tile-image">{img}</div>'
-            f'<div class="home-solution-tile-body">'
-            f'<h3 class="home-solution-tile-title">{html.escape(label)}</h3>'
-            f'<p class="home-solution-tile-text">{html.escape(teaser)}</p>'
+            f'<a class="home-solution-row{flip}" href="{href}">'
+            f'<div class="home-solution-row-image">{img}</div>'
+            f'<div class="home-solution-row-body">'
+            f'<h3 class="home-solution-row-title">{html.escape(label)}</h3>'
             f"</div></a>"
         )
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-solution-tiles">{"".join(cards)}</div>
+  <div class="home-solution-rows">{"".join(cards)}</div>
   {render_home_projects_strip(lang)}
 </section>"""
 
