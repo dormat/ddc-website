@@ -189,7 +189,7 @@ img.logo {
   padding: 0.3rem 0;
   font-family: inherit;
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   line-height: 1.3;
   white-space: nowrap;
 }
@@ -1828,7 +1828,7 @@ html[dir="rtl"] .project-site-list li::before {
 
 .home-nav-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   max-width: var(--max-width);
   margin: 0 auto;
@@ -2603,5 +2603,184 @@ body.contact-popup-open {
 
   .transfer-drawing-download {
     display: inline-block;
+  }
+}
+
+/* Use-case oriented layout */
+.use-case-index {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.75rem 1.5rem 1.25rem;
+}
+
+.home-use-cases {
+  padding-top: 3rem;
+}
+
+.use-case-card-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+}
+
+.use-case-card {
+  border: 0;
+  box-shadow: 0 8px 28px rgba(16, 28, 68, 0.08);
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.use-case-card:hover {
+  color: var(--color-white);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(16, 28, 68, 0.16);
+}
+
+.use-case-card-image {
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  background: #0f1b44;
+}
+
+.use-case-card-image img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+}
+
+.use-case-card .product-card-title {
+  border-top: 0;
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.95rem 1rem 1.1rem;
+  text-align: start;
+}
+
+.use-case-page .project-detail-header,
+.use-case-page .project-detail-main {
+  max-width: var(--max-width);
+}
+
+.use-case-about {
+  margin-bottom: 1.75rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-dark);
+}
+
+.use-case-about p {
+  margin: 0 0 1rem;
+}
+
+.use-case-products,
+.product-use-cases {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.use-case-product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.25rem 0 0;
+}
+
+.use-case-product {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.25rem;
+  background: var(--color-white);
+  border: 1px solid #e6ebf3;
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(16, 28, 68, 0.05);
+}
+
+.use-case-product-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 0.75rem;
+  background: var(--color-light);
+  border-radius: 8px;
+}
+
+.use-case-product-media img {
+  max-height: 140px;
+  width: auto;
+  object-fit: contain;
+}
+
+.use-case-product-title {
+  margin: 0 0 0.65rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.use-case-product-title a {
+  color: var(--color-navy);
+}
+
+.use-case-product-title a:hover {
+  color: var(--color-primary);
+}
+
+.use-case-product-excerpt p {
+  margin: 0 0 0.75rem;
+  color: var(--color-gray);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.use-case-product-excerpt p:last-child {
+  margin-bottom: 0;
+}
+
+.product-use-case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.product-use-case-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-light);
+  border: 1px solid #d9e1ec;
+  color: var(--color-navy);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.product-use-case-link:hover {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.hub-page .use-case-product-list {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .home-nav-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .use-case-product {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-nav-grid {
+    grid-template-columns: 1fr;
   }
 }
