@@ -1284,7 +1284,13 @@ def render_home_content(lang: str) -> str:
 
     hero = render_home_hero(slides[0], lang)
     solutions = render_home_solutions_grid(lang)
-    return f'<div class="home-page">{hero}{solutions}</div>'
+    projects = render_projects_grid(
+        lang,
+        heading=projects_nav_label(lang),
+        section_id="projects",
+        extra_class="home-projects",
+    )
+    return f'<div class="home-page">{hero}{solutions}{projects}{render_home_proof(lang)}</div>'
 
 
 def render_home_solutions_grid(lang: str) -> str:
@@ -1292,7 +1298,6 @@ def render_home_solutions_grid(lang: str) -> str:
     cards: list[str] = []
     for slug in SOLUTION_ORDER:
         label = SOLUTION_LABELS[lang][slug]
-        teaser = first_sentences(SOLUTION_FRAMING[lang][slug], 1)
         image = SOLUTION_IMAGES.get(slug, "")
         src = asset_path(f"images/{image}") if image else ""
         img = (
@@ -1302,35 +1307,39 @@ def render_home_solutions_grid(lang: str) -> str:
         )
         href = page_href(lang, slug)
         cards.append(
-            f'<a class="home-solution-row" href="{href}">'
-            f'<div class="home-solution-row-image">{img}</div>'
-            f'<div class="home-solution-row-body">'
-            f'<h3 class="home-solution-row-title">{html.escape(label)}</h3>'
-            f'<p class="home-solution-row-text">{html.escape(teaser)}</p>'
-            f"</div></a>"
+            f'<a class="home-solution-tile" href="{href}">'
+            f'<div class="home-solution-tile-image">{img}</div>'
+            f'<h3 class="home-solution-tile-title">{html.escape(label)}</h3>'
+            f"</a>"
         )
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-solution-rows">{"".join(cards)}</div>
-  {render_home_projects_strip(lang)}
+  <div class="home-solution-tiles">{"".join(cards)}</div>
 </section>"""
 
 
-def render_home_projects_strip(lang: str) -> str:
-    links = [
-        f'<a href="{page_href(lang, proj["slug"])}">{html.escape(proj["title"])}</a>'
-        for proj in PROJECTS.get(lang, [])
-    ]
-    if not links:
-        return ""
-    return (
-        f'<div class="home-projects-strip" id="projects">'
-        f'<p class="home-projects-label">{html.escape(projects_nav_label(lang))}</p>'
-        f'<div class="home-projects-links">{"".join(links)}</div>'
-        f"</div>"
+def render_home_proof(lang: str) -> str:
+    qa = ABOUT_QA[lang]
+    standards = "".join(
+        f'<li><strong>{html.escape(item["code"])}</strong>'
+        f'<span>{html.escape(item["label"])}</span></li>'
+        for item in ABOUT_STANDARDS[lang]
     )
+    about = page_href(lang, "about")
+    contact = page_href(lang, "contact")
+    return f"""<section class="home-proof" aria-label="{html.escape(qa["title"])}">
+  <div class="home-proof-inner">
+    <h2 class="home-section-title">{html.escape(qa["title"])}</h2>
+    <p class="home-proof-lead">{html.escape(qa["intro"])}</p>
+    <ul class="home-proof-standards">{standards}</ul>
+    <div class="home-proof-actions">
+      <a class="home-btn home-btn--primary" href="{about}">{html.escape(ui_pick(lang, "אודות", "About us", "Nosotros"))}</a>
+      <a class="home-btn home-btn--text" href="{contact}">{html.escape(ui_pick(lang, "צרו קשר", "Contact", "Contacto"))}</a>
+    </div>
+  </div>
+</section>"""
 
 
 HOME_CTA_LINKS = {
