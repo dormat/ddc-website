@@ -9,7 +9,28 @@ import re
 import shutil
 from pathlib import Path
 
-from config import ASSETS, CONTACT, HOME_GALLERY_IMAGES, HOME_PAGE_TITLE, HUB_DISPLAY_TITLES, HUB_PAGES, NAV, PRODUCT_CODE_ALIASES, PRODUCT_SLUGS, PRODUCT_SUBCATEGORY_EN, PRODUCT_SUBCATEGORY_ES, PROJECTS, SITE_CONFIG
+from config import (
+    ASSETS,
+    CONTACT,
+    HOME_GALLERY_IMAGES,
+    HOME_PAGE_TITLE,
+    HUB_DISPLAY_TITLES,
+    HUB_PAGES,
+    INDUSTRY_FRAMING,
+    NAV,
+    PRODUCT_CODE_ALIASES,
+    PRODUCT_SLUGS,
+    PRODUCT_SUBCATEGORY_EN,
+    PRODUCT_SUBCATEGORY_ES,
+    PROJECTS,
+    SITE_CONFIG,
+    SOLUTION_FRAMING,
+    SOLUTION_IMAGES,
+    SOLUTION_LABELS,
+    SOLUTION_ORDER,
+    SOLUTION_PRODUCTS,
+    USE_CASE_PATTERNS,
+)
 from image_assets import ASSETS_DIR, clear_aliases_cache, image_filename, resolve_image_src
 from slugs import (
     CANONICAL_SLUG_SET,
@@ -167,8 +188,59 @@ def rewrite_image_url(url: str) -> str:
     return resolved
 
 
+def solutions_nav_label(lang: str) -> str:
+    return ui_pick(lang, "הפתרונות שלנו", "Our Solutions", "Nuestras soluciones")
+
+
+def projects_nav_label(lang: str) -> str:
+    return ui_pick(lang, "פרויקטים", "Typical projects", "Proyectos típicos")
+
+
+def clients_heading(lang: str) -> str:
+    return ui_pick(lang, "לקוחות בתחומים אלה", "Clients in these fields", "Clientes en estos ámbitos")
+
+
+def field_clients_heading(lang: str) -> str:
+    return ui_pick(lang, "לקוחות בתחום", "Clients in this field", "Clientes en este ámbito")
+
+
+def related_products_heading(lang: str) -> str:
+    return ui_pick(lang, "מוצרים קשורים", "Related Items", "Productos relacionados")
+
+
+def assemble_nav(lang: str) -> list[dict]:
+    loc = SITE_CONFIG[lang]["locale_path"]
+    solution_children = [
+        {
+            "label": SOLUTION_LABELS[lang][slug],
+            "href": page_href(lang, slug),
+        }
+        for slug in SOLUTION_ORDER
+    ]
+    project_children = [
+        {"label": proj["title"], "href": page_href(lang, proj["slug"])}
+        for proj in PROJECTS.get(lang, [])
+    ]
+    return [
+        {"label": ui_pick(lang, "בית", "Home", "Inicio"), "href": f"/{loc}/"},
+        {
+            "label": solutions_nav_label(lang),
+            "href": f"/{loc}/#solutions",
+            "children": solution_children,
+        },
+        {
+            "label": projects_nav_label(lang),
+            "href": f"/{loc}/about/#projects",
+            "children": project_children,
+        },
+        {"label": ui_pick(lang, "מוצרים", "Products", "Productos"), "href": page_href(lang, "products")},
+        {"label": ui_pick(lang, "אודות", "About", "Nosotros"), "href": page_href(lang, "about")},
+        {"label": ui_pick(lang, "צרו קשר", "Contact", "Contacto"), "href": page_href(lang, "contact")},
+    ]
+
+
 def render_nav(lang: str, current_slug: str) -> str:
-    items = NAV[lang]
+    items = assemble_nav(lang)
     parts = ['<nav class="main-nav" aria-label="Main navigation"><ul class="nav-list">']
     for item in items:
         is_active = _is_nav_active(item, current_slug, lang)
@@ -1190,51 +1262,66 @@ def render_home_content(lang: str) -> str:
     if not slides:
         return ""
 
-    labels = HOME_UI[lang]
     hero = render_home_hero(slides[0], lang)
-    featured = ""
-    if len(slides) > 3:
-        featured = f"""<section class="home-solutions" aria-label="{html.escape(labels['featured'])}">
+    solutions = render_home_solutions_grid(lang)
+    projects = render_projects_grid(
+        lang,
+        heading=projects_nav_label(lang),
+        section_id="projects",
+        extra_class="home-use-cases",
+    )
+    return f'<div class="home-page">{hero}{solutions}{projects}</div>'
+
+
+def render_home_solutions_grid(lang: str) -> str:
+    heading = solutions_nav_label(lang)
+    cards: list[str] = []
+    for slug in SOLUTION_ORDER:
+        label = SOLUTION_LABELS[lang][slug]
+        framing = SOLUTION_FRAMING[lang][slug]
+        teaser = framing.split(".")[0].strip() + "."
+        image = SOLUTION_IMAGES.get(slug, "")
+        src = asset_path(f"images/{image}") if image else ""
+        img = (
+            f'<img src="{src}" alt="{html.escape(label)}" loading="lazy"/>'
+            if src
+            else '<div class="card-placeholder"></div>'
+        )
+        href = page_href(lang, slug)
+        cards.append(
+            f'<a class="home-solution-tile" href="{href}">'
+            f'<div class="home-solution-tile-image">{img}</div>'
+            f'<div class="home-solution-tile-body">'
+            f'<h3 class="home-solution-tile-title">{html.escape(label)}</h3>'
+            f'<p class="home-solution-tile-text">{html.escape(teaser)}</p>'
+            f"</div></a>"
+        )
+    return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
-    <h2 class="home-section-title">{html.escape(labels["featured"])}</h2>
+    <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-solutions-grid">
-    {render_home_solution_card(slides[1], lang, 1, accent="cyan")}
-    {render_home_solution_card(slides[3], lang, 3, accent="navy")}
-  </div>
+  <div class="home-solution-tiles">{"".join(cards)}</div>
 </section>"""
-
-    values = ""
-    if len(slides) > 5:
-        value_cards = [
-            render_home_capability_card(slides[2], lang, 2),
-            render_home_capability_card(slides[4], lang, 4),
-            render_home_capability_card(slides[5], lang, 5),
-        ]
-        values = f"""<section class="home-capabilities">
-  <div class="home-capabilities-grid">{"".join(value_cards)}</div>
-</section>"""
-
-    closing = render_home_closing(slides[6], lang) if len(slides) > 6 else ""
-
-    return f'<div class="home-page">{hero}{featured}{values}{closing}</div>'
 
 
 HOME_CTA_LINKS = {
     "he": [
         {"label": "אודותינו", "slug": "about", "gallery_titles": ["אודותינו"]},
-        {"label": "מערכות חשמל", "slug": "power-meters-control", "gallery_titles": ["מערכות חשמל"]},
-        {"label": "מערכות בקרה", "slug": "building-automation", "gallery_titles": ["מערכות בקרה"]},
+        {"label": "פרויקטים", "slug": "about", "hash": "projects", "gallery_titles": ["פרויקטים"]},
+        {"label": "מוצרים", "slug": "products", "gallery_titles": ["מוצרים"]},
+        {"label": "צרו קשר", "slug": "contact", "gallery_titles": ["צרו קשר"]},
     ],
     "en": [
         {"label": "About us", "slug": "about", "gallery_titles": ["About us"]},
-        {"label": "Power meters", "slug": "power-meters-control", "gallery_titles": ["Power meters"]},
-        {"label": "Building Automation", "slug": "building-automation", "gallery_titles": ["Building Automation"]},
+        {"label": "Typical projects", "slug": "about", "hash": "projects", "gallery_titles": ["Typical projects"]},
+        {"label": "Products", "slug": "products", "gallery_titles": ["Products"]},
+        {"label": "Contact", "slug": "contact", "gallery_titles": ["Contact"]},
     ],
     "es": [
         {"label": "Nosotros", "slug": "about", "gallery_titles": ["Nosotros"]},
-        {"label": "Medidores eléctricos", "slug": "power-meters-control", "gallery_titles": ["Medidores eléctricos"]},
-        {"label": "Automatización de edificios", "slug": "building-automation", "gallery_titles": ["Automatización de edificios"]},
+        {"label": "Proyectos típicos", "slug": "about", "hash": "projects", "gallery_titles": ["Proyectos típicos"]},
+        {"label": "Productos", "slug": "products", "gallery_titles": ["Productos"]},
+        {"label": "Contacto", "slug": "contact", "gallery_titles": ["Contacto"]},
     ],
 }
 
@@ -1343,6 +1430,8 @@ def render_home_cta_grid(page: dict, lang: str) -> str:
 
     for item in links:
         href = page_href(lang, item["slug"])
+        if item.get("hash"):
+            href = f"{href}#{item['hash']}"
         label = html.escape(item["label"])
         cards.append(
             f'<a class="home-nav-card" href="{href}">'
@@ -2714,6 +2803,7 @@ def render_product_detail_page(page: dict, lang: str) -> str:
     screens_html = render_product_screens(screens, display_title, lang)
     documents_html = render_product_documents(page, lang)
     related_html = render_related_product_cards(related, lang)
+    use_cases_html = render_product_use_case_links(slug, lang)
 
     return f"""<article class="page-content product-detail-page">
   <header class="product-detail-header">
@@ -2733,6 +2823,7 @@ def render_product_detail_page(page: dict, lang: str) -> str:
       </div>
     </div>
   </div>
+  {use_cases_html}
   {related_html}
 </article>"""
 
@@ -2764,6 +2855,7 @@ def render_projects_grid(
     *,
     heading: str | None = None,
     section_id: str = "",
+    extra_class: str = "",
 ) -> str:
     """Render linked project category cards."""
     projects = PROJECTS.get(lang, [])
@@ -2771,10 +2863,13 @@ def render_projects_grid(
         return ""
 
     id_attr = f' id="{html.escape(section_id)}"' if section_id else ""
-    parts = [f'<section class="about-projects hub-page"{id_attr}>']
+    classes = "about-projects hub-page use-case-index"
+    if extra_class:
+        classes += f" {extra_class}"
+    parts = [f'<section class="{classes}"{id_attr}>']
     if heading:
         parts.append(f'<h2 class="hub-section-title about-projects-title">{html.escape(heading)}</h2>')
-    parts.append('<div class="card-grid">')
+    parts.append('<div class="card-grid use-case-card-grid">')
 
     for proj in projects:
         img_src = project_card_image_src(lang, proj)
@@ -2785,8 +2880,8 @@ def render_projects_grid(
         )
         href = page_href(lang, proj["slug"])
         parts.append(
-            f'<a class="product-card project-card" href="{href}">'
-            f'<div class="product-card-image">{img_html}</div>'
+            f'<a class="product-card project-card use-case-card" href="{href}">'
+            f'<div class="product-card-image use-case-card-image">{img_html}</div>'
             f'<span class="product-card-title">{html.escape(proj["title"])}</span>'
             f"</a>"
         )
@@ -3224,6 +3319,240 @@ def render_project_site_list(items: list[str]) -> str:
     return f'<ul class="project-site-list">{lis}</ul>'
 
 
+def _strip_zero_width(text: str) -> str:
+    return (text or "").replace("\u200b", "").strip()
+
+
+def product_copy_blocks(page: dict) -> list[str]:
+    blocks: list[str] = []
+    for block in page.get("rich_text") or []:
+        if not isinstance(block, str):
+            continue
+        plain = _strip_zero_width(block)
+        if not plain:
+            continue
+        if text_has_related_marker(plain):
+            break
+        if "©" in plain:
+            continue
+        if any(marker in plain for marker in ("making contact", "Contact Us", "יצירת קשר", "opening hours", "Opening Hour", "שעות פתיחה")):
+            continue
+        blocks.append(plain)
+    return blocks
+
+
+def product_copy_paragraphs(page: dict) -> list[str]:
+    heading = ""
+    paragraphs: list[str] = []
+    for block in product_copy_blocks(page):
+        lines = [_strip_zero_width(line) for line in block.splitlines()]
+        lines = [line for line in lines if line and line != "​"]
+        if not lines:
+            continue
+        if not heading:
+            heading = lines[0]
+        lines = [line for line in lines if line != heading]
+        buf = ""
+        for line in lines:
+            if not buf:
+                buf = line
+            elif not re.search(r"[.!?…:]$", buf):
+                buf = f"{buf} {line}"
+            else:
+                paragraphs.append(buf)
+                buf = line
+        if buf:
+            paragraphs.append(buf)
+    return paragraphs
+
+
+def text_matches_patterns(text: str, patterns: tuple[str, ...]) -> bool:
+    return any(re.search(pattern, text, flags=re.I) for pattern in patterns)
+
+
+def product_mentions_use_case(page: dict, use_case_slug: str, lang: str) -> bool:
+    patterns = USE_CASE_PATTERNS.get(lang, {}).get(use_case_slug, ())
+    if not patterns:
+        return False
+    return text_matches_patterns("\n".join(product_copy_blocks(page)), patterns)
+
+
+def product_use_case_paragraphs(page: dict, use_case_slug: str, lang: str) -> list[str]:
+    patterns = USE_CASE_PATTERNS.get(lang, {}).get(use_case_slug, ())
+    paragraphs = product_copy_paragraphs(page)
+    matched = [para for para in paragraphs if text_matches_patterns(para, patterns)]
+    return matched or paragraphs[:2]
+
+
+def solutions_for_product(product_slug: str) -> list[str]:
+    return [slug for slug in SOLUTION_ORDER if product_slug in SOLUTION_PRODUCTS.get(slug, ())]
+
+
+def collect_use_case_products(use_case_slug: str, lang: str) -> list[dict]:
+    cards: list[dict] = []
+    for slug in SOLUTION_PRODUCTS.get(use_case_slug, ()):
+        page = load_product_page(slug, lang)
+        if not page:
+            continue
+        cards.append(
+            {
+                "slug": slug,
+                "title": product_display_title(page),
+                "src": product_thumbnail_src(slug, lang),
+                "excerpts": product_copy_paragraphs(page)[:2],
+            }
+        )
+    return cards
+
+
+def collect_industry_products(industry_slug: str, lang: str) -> list[dict]:
+    cards: list[dict] = []
+    seen: set[str] = set()
+    for product_slug in SOLUTION_PRODUCTS.get("building-automation", ()) + SOLUTION_PRODUCTS.get("plumbing-control", ()):
+        if product_slug in seen:
+            continue
+        page = load_product_page(product_slug, lang)
+        if not page or not product_mentions_use_case(page, industry_slug, lang):
+            continue
+        seen.add(product_slug)
+        cards.append(
+            {
+                "slug": product_slug,
+                "title": product_display_title(page),
+                "src": product_thumbnail_src(product_slug, lang),
+                "excerpts": product_use_case_paragraphs(page, industry_slug, lang),
+            }
+        )
+    return cards
+
+
+def render_excerpt_paragraphs(paragraphs: list[str]) -> str:
+    return "".join(f"<p>{html.escape(para)}</p>" for para in paragraphs)
+
+
+def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
+    if not cards:
+        return ""
+    heading = related_products_heading(lang)
+    parts = [
+        '<section class="use-case-products">',
+        f'<h2 class="related-products-title">{html.escape(heading)}</h2>',
+        '<div class="use-case-product-list">',
+    ]
+    for card in cards:
+        href = page_href(lang, card["slug"])
+        title = card.get("title", "")
+        src = rewrite_image_url(resolve_image_src(card.get("src", "")))
+        img_html = (
+            f'<img src="{src}" alt="{html.escape(title)}" loading="lazy"/>'
+            if src
+            else '<div class="card-placeholder"></div>'
+        )
+        excerpt_html = render_excerpt_paragraphs(card.get("excerpts") or [])
+        parts.append(
+            f'<article class="use-case-product">'
+            f'<a class="use-case-product-media" href="{href}">{img_html}</a>'
+            f'<div class="use-case-product-copy">'
+            f'<h3 class="use-case-product-title"><a href="{href}">{html.escape(title)}</a></h3>'
+            f'<div class="use-case-product-excerpt">{excerpt_html}</div>'
+            f"</div></article>"
+        )
+    parts.append("</div></section>")
+    return "\n".join(parts)
+
+
+def render_page_ctas(lang: str) -> str:
+    contact = page_href(lang, "contact")
+    products = page_href(lang, "products")
+    return (
+        f'<div class="use-case-ctas">'
+        f'<a class="home-btn home-btn--primary" href="{contact}">'
+        f'{html.escape(ui_pick(lang, "צרו קשר", "Contact", "Contacto"))}</a>'
+        f'<a class="home-btn home-btn--text" href="{products}">'
+        f'{html.escape(ui_pick(lang, "מוצרים", "Products", "Productos"))}</a>'
+        f"</div>"
+    )
+
+
+def render_typical_project_links(lang: str) -> str:
+    links = [
+        f'<a class="product-use-case-link" href="{page_href(lang, proj["slug"])}">{html.escape(proj["title"])}</a>'
+        for proj in PROJECTS.get(lang, [])
+    ]
+    return (
+        f'<section class="product-use-cases">'
+        f'<h2 class="related-products-title">{html.escape(clients_heading(lang))}</h2>'
+        f'<p class="use-case-clients-note">{html.escape(INDUSTRY_FRAMING[lang])}</p>'
+        f'<div class="product-use-case-links">{"".join(links)}</div>'
+        f"</section>"
+    )
+
+
+def render_solution_page(page: dict, lang: str) -> str:
+    slug = page.get("slug", "")
+    title = SOLUTION_LABELS[lang][slug]
+    framing = SOLUTION_FRAMING[lang][slug]
+    products_html = render_use_case_product_cards(collect_use_case_products(slug, lang), lang)
+    image = SOLUTION_IMAGES.get(slug, "")
+    media = ""
+    if image:
+        src = asset_path(f"images/{image}")
+        media = (
+            f'<div class="project-hero-frame">'
+            f'<img src="{src}" alt="{html.escape(title)}" class="project-hero-image" loading="lazy"/>'
+            f"</div>"
+        )
+    return f"""<article class="page-content project-detail-page use-case-page">
+  <header class="project-detail-header">
+    <h1 class="page-title">{html.escape(title)}</h1>
+  </header>
+  <div class="project-detail-main">
+    <div class="project-detail-main-inner">
+      <div class="project-detail-copy">
+        <div class="use-case-about rich-content"><p>{html.escape(framing)}</p></div>
+        {render_page_ctas(lang)}
+      </div>
+      <div class="project-detail-media">{media}</div>
+    </div>
+  </div>
+  {products_html}
+  {render_typical_project_links(lang)}
+</article>"""
+
+
+def render_product_use_case_links(product_slug: str, lang: str) -> str:
+    solution_links = []
+    for slug in solutions_for_product(product_slug):
+        href = page_href(lang, slug)
+        label = SOLUTION_LABELS[lang][slug]
+        solution_links.append(f'<a class="product-use-case-link" href="{href}">{html.escape(label)}</a>')
+    page = load_product_page(product_slug, lang)
+    project_links = []
+    if page:
+        for proj in PROJECTS.get(lang, []):
+            if product_mentions_use_case(page, proj["slug"], lang):
+                href = page_href(lang, proj["slug"])
+                project_links.append(
+                    f'<a class="product-use-case-link" href="{href}">{html.escape(proj["title"])}</a>'
+                )
+    parts: list[str] = []
+    if solution_links:
+        parts.append(
+            f'<section class="product-use-cases">'
+            f'<h2 class="related-products-title">{html.escape(solutions_nav_label(lang))}</h2>'
+            f'<div class="product-use-case-links">{"".join(solution_links)}</div>'
+            f"</section>"
+        )
+    if project_links:
+        parts.append(
+            f'<section class="product-use-cases">'
+            f'<h2 class="related-products-title">{html.escape(projects_nav_label(lang))}</h2>'
+            f'<div class="product-use-case-links">{"".join(project_links)}</div>'
+            f"</section>"
+        )
+    return "".join(parts)
+
+
 def render_project_detail_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     page = merge_project_page_images(page, slug)
@@ -3247,20 +3576,46 @@ def render_project_detail_page(page: dict, lang: str) -> str:
             f"</div>"
         )
 
-    return f"""<article class="page-content project-detail-page">
+    framing = INDUSTRY_FRAMING.get(lang, "")
+    industry_products = collect_industry_products(slug, lang)
+    products_html = render_use_case_product_cards(industry_products, lang)
+    matching_solutions = []
+    industry_slugs = {card["slug"] for card in industry_products}
+    for solution_slug in SOLUTION_ORDER:
+        if industry_slugs & set(SOLUTION_PRODUCTS.get(solution_slug, ())):
+            matching_solutions.append(
+                f'<a class="product-use-case-link" href="{page_href(lang, solution_slug)}">'
+                f'{html.escape(SOLUTION_LABELS[lang][solution_slug])}</a>'
+            )
+    solutions_block = ""
+    if matching_solutions:
+        solutions_block = (
+            f'<section class="product-use-cases">'
+            f'<h2 class="related-products-title">{html.escape(solutions_nav_label(lang))}</h2>'
+            f'<div class="product-use-case-links">{"".join(matching_solutions)}</div>'
+            f"</section>"
+        )
+    clients_label = field_clients_heading(lang)
+
+    return f"""<article class="page-content project-detail-page use-case-page">
   <header class="project-detail-header">
     <h1 class="page-title">{html.escape(title)}</h1>
   </header>
   <div class="project-detail-main">
     <div class="project-detail-main-inner">
       <div class="project-detail-copy">
+        <div class="use-case-about rich-content"><p>{html.escape(framing)}</p></div>
+        <h2 class="related-products-title">{html.escape(clients_label)}</h2>
         {list_html}
+        {render_page_ctas(lang)}
       </div>
       <div class="project-detail-media">
         {media_html}
       </div>
     </div>
   </div>
+  {products_html}
+  {solutions_block}
 </article>"""
 
 
@@ -3377,6 +3732,9 @@ def render_page_body(lang: str, page: dict) -> str:
 
     if slug in PROJECT_DETAIL_SLUGS:
         return render_project_detail_page(page, lang)
+
+    if slug in SOLUTION_ORDER:
+        return render_solution_page(page, lang)
 
     if slug == "products":
         return render_products_page(page, lang)

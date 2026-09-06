@@ -430,3 +430,262 @@ HUB_PAGES = {
         "co-gas-monitoring", "smart-parking",
     ],
 }
+
+# First-class application doors (existing slugs). Product lists are existing catalog items only.
+SOLUTION_ORDER = (
+    "power-quality-analyzers",
+    "energy-meters",
+    "building-automation",
+    "parking-control",
+    "flood-detection-systems",
+    "transfer-switches",
+    "power-factor-control",
+    "plumbing-control",
+)
+
+SOLUTION_PRODUCTS = {
+    "power-quality-analyzers": (
+        "elnet-pq-gr-meter",
+        "elnet-lt-meter",
+        "elnet-ltp-meter",
+        "elnet-billing-software",
+    ),
+    "energy-meters": (
+        "elnet-mc-1-meter",
+        "elnet-mc-2-meter",
+        "elnet-mc-8-meter",
+        "elnet-mc-12-meter",
+        "elnet-pic-meter",
+        "elnet-lte-meter",
+        "elnet-lt-meter",
+        "elnet-ltp-meter",
+        "elnet-va-meter",
+        "elnet-vip-meter",
+        "elnet-billing-software",
+    ),
+    "building-automation": (
+        "digipoint-controller",
+        "veropoint-controller",
+        "superbrain-controller",
+        "superbrain-dr-controller",
+        "superbrain-fc-controller",
+        "uniart-software",
+        "uniweb-software",
+    ),
+    "parking-control": (
+        "co-gas-monitoring",
+        "smart-parking",
+    ),
+    "flood-detection-systems": (
+        "flooding-sensor",
+    ),
+    "transfer-switches": (
+        "elnet-cod-transfer-switch",
+        "elnet-co-transfer-switch",
+    ),
+    "power-factor-control": (
+        "elnet-pfc-controller",
+        "elnet-ltc10-controller",
+        "elnet-ltc-controller",
+    ),
+    "plumbing-control": (
+        "elnet-xp-controller",
+    ),
+}
+
+SOLUTION_IMAGES = {
+    "power-quality-analyzers": "pq-gr.png",
+    "energy-meters": "power-meters-control-content-8-3.png",
+    "building-automation": "building-automation.png",
+    "parking-control": "building-automation-content-10-3.png",
+    "flood-detection-systems": "sensor-de-inundaci-n.png",
+    "transfer-switches": "building-automation-content-15-4.png",
+    "power-factor-control": "building-automation-content-17-6.png",
+    "plumbing-control": "elnet-xp-controller-content-5-5.png",
+}
+
+SOLUTION_LABELS = {
+    "he": {
+        "power-quality-analyzers": "איכות חשמל",
+        "energy-meters": "ניהול אנרגיה",
+        "building-automation": "בקרת מבנים / BMS",
+        "parking-control": "בקרת חניונים",
+        "flood-detection-systems": "מערכות לאיתור הצפות",
+        "transfer-switches": "בקרי החלפה",
+        "power-factor-control": "מקדם הספק",
+        "plumbing-control": "בקרת אינסטלציה",
+    },
+    "en": {
+        "power-quality-analyzers": "Power quality",
+        "energy-meters": "Energy management",
+        "building-automation": "Building automation / BMS",
+        "parking-control": "Parking / CO",
+        "flood-detection-systems": "Flood detection",
+        "transfer-switches": "Generator / transfer switching",
+        "power-factor-control": "Power factor",
+        "plumbing-control": "Plumbing / drainage pumps",
+    },
+    "es": {
+        "power-quality-analyzers": "Calidad de energía",
+        "energy-meters": "Gestión de energía",
+        "building-automation": "Automatización de edificios / BMS",
+        "parking-control": "Estacionamiento / CO",
+        "flood-detection-systems": "Detección de inundaciones",
+        "transfer-switches": "Transferencia / generador",
+        "power-factor-control": "Factor de potencia",
+        "plumbing-control": "Fontanería / bombas de drenaje",
+    },
+}
+
+# Framing built from existing slideshow / about / hub copy, tightened for the page.
+SOLUTION_FRAMING = {
+    "he": {
+        "power-quality-analyzers": (
+            "מנטרת ומבקרת את רשת החשמל שלך. מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה ומדויקת וממשק ידידותי, "
+            "ומפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דוח אירועי חשמל מקיף ומדויק."
+        ),
+        "energy-meters": (
+            "ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה. מודעות לכמות האנרגיה הנצרכת היא הדרך היעילה להפחתת צריכה "
+            "ולהפקת חשבונות צריכת חשמל ומיזוג אוויר."
+        ),
+        "building-automation": (
+            "בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל. שליטה, מדידה ובקרה על מיזוג אוויר, חשמל ושאר המערכות "
+            "האלקטרו-מכניות, עם תוכנת BMS מבוססת TCP/IP ו-Web SCADA."
+        ),
+        "parking-control": (
+            "בקרת חניונים: ניטור גז CO במפלסי חניה, ושליטה בתפוסת חניה חכמה — המערכות המופיעות בקטלוג בקרת החניונים."
+        ),
+        "flood-detection-systems": (
+            "מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות."
+        ),
+        "transfer-switches": (
+            "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקה — אותם בקרי ElNet CO ו-COD שמופיעים בקטלוג."
+        ),
+        "power-factor-control": (
+            "חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10."
+        ),
+        "plumbing-control": (
+            "בקר למשאבות ניקוז וביוב: בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות, כפי שמתואר במוצר Elnet XP."
+        ),
+    },
+    "en": {
+        "power-quality-analyzers": (
+            "Monitor your electrical network. The ElNet power quality system is built on accurate, reliable hardware "
+            "and an EN50160 reports generator and events recorder — the same capability already described for ElNet power quality."
+        ),
+        "energy-meters": (
+            "An energy management system starts by measuring consumption and keeping it to the minimum needed. "
+            "Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills."
+        ),
+        "building-automation": (
+            "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and "
+            "electromechanical systems. UniArt / UniWeb BMS is the distributed TCP/IP and Web SCADA platform already "
+            "described for saving energy in public buildings and industry."
+        ),
+        "parking-control": (
+            "Parking lot control: CO gas monitoring in parking levels, and smart parking occupancy — the systems "
+            "already listed under parking control."
+        ),
+        "flood-detection-systems": (
+            "Flood detecting and control systems, including the flooding sensor, for finding water in the building "
+            "before it damages electromechanical systems."
+        ),
+        "transfer-switches": (
+            "Automatic transfer switch controllers for utility / generator changeover — the ElNet CO and COD controllers "
+            "already in the catalog."
+        ),
+        "power-factor-control": (
+            "Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10."
+        ),
+        "plumbing-control": (
+            "Plumbing control for drainage and sewage pumps: automatic level control and pump changeover, as already "
+            "described for the Elnet XP controller."
+        ),
+    },
+    "es": {
+        "power-quality-analyzers": (
+            "Monitoree su red eléctrica. El sistema de calidad de energía ElNet se basa en hardware preciso y confiable "
+            "y en un generador de informes EN50160 y un registrador de eventos."
+        ),
+        "energy-meters": (
+            "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía "
+            "se usa permite reducir el costo y generar facturas de electricidad y climatización."
+        ),
+        "building-automation": (
+            "Automatización de edificios y BMS: control y medición de aire acondicionado, electricidad y sistemas "
+            "electromecánicos. UniArt / UniWeb es la plataforma TCP/IP y Web SCADA ya descrita para ahorro de energía "
+            "en edificios públicos e industria."
+        ),
+        "parking-control": (
+            "Control de estacionamientos: monitoreo de gas CO y estacionamiento inteligente, los sistemas ya listados "
+            "en control de estacionamientos."
+        ),
+        "flood-detection-systems": (
+            "Sistemas de detección y control de inundaciones, incluido el sensor de inundación, para detectar agua "
+            "en el edificio antes de que dañe los sistemas electromecánicos."
+        ),
+        "transfer-switches": (
+            "Controladores de transferencia automática red / generador — los controladores ElNet CO y COD del catálogo."
+        ),
+        "power-factor-control": (
+            "Ahorre energía y proteja el medio ambiente con controladores de factor de potencia — ElNet PFC, LTC y LTC10."
+        ),
+        "plumbing-control": (
+            "Control de fontanería para bombas de drenaje y aguas residuales: control automático de nivel y conmutación "
+            "de bombas, como ya se describe en el controlador Elnet XP."
+        ),
+    },
+}
+
+INDUSTRY_FRAMING = {
+    "he": (
+        "מוצרי החברה מודדים, מנטרים ומנהלים רשתות חשמל ומערכות אלקטרו-מכניות. "
+        "הם פועלים בתעשייה, במבנים ציבוריים, בתי מלון, בתי חולים, אוניברסיטאות, מרכזי קניות וקניונים."
+    ),
+    "en": (
+        "Control Applications measures, monitors and controls electrical networks, air conditioning and the "
+        "electromechanical systems installed in public buildings. The products are intended for use in industry, "
+        "public buildings, hotels, hospitals, universities, shopping centres and more."
+    ),
+    "es": (
+        "Control Applications mide, monitorea y controla redes eléctricas, climatización y los sistemas "
+        "electromecánicos de edificios públicos. Los productos se destinan a industria, edificios públicos, "
+        "hoteles, hospitales, universidades, centros comerciales y más."
+    ),
+}
+
+USE_CASE_PATTERNS = {
+    "he": {
+        "hotels": (r"מלון", r"מלונות"),
+        "hospitals": (r"בית חולים", r"בתי חולים", r"בתי-חולים"),
+        "universities": (r"אוניברסיט",),
+        "museums": (r"מוזיאון", r"מוזיאונים", r"מוזאונים"),
+        "shopping-malls": (r"קניון", r"מרכזי קניות", r"מרכזי מסחר"),
+        "public-buildings": (r"מבני ציבור", r"מבנה ציבור", r"בנייני ציבור", r"מבנים ציבוריים"),
+        "industrial-hi-tech": (r"תעשייה", r"מפעל", r"היי-טק", r"הייטק"),
+        "pharmaceutical-clean-rooms": (r"תרופות", r"חדרים נקיים", r"חדר נקי", r"תעשייה נקייה"),
+    },
+    "en": {
+        "hotels": (r"hotel",),
+        "hospitals": (r"hospital",),
+        "universities": (r"universit", r"college", r"collage"),
+        "museums": (r"museum",),
+        "shopping-malls": (r"mall", r"shopping"),
+        "public-buildings": (r"public building", r"office building", r"public and industrial"),
+        "industrial-hi-tech": (r"industrial", r"industry", r"hi-?tech", r"factory"),
+        "pharmaceutical-clean-rooms": (r"pharmaceutical", r"clean room", r"clean industry"),
+    },
+    "es": {
+        "hotels": (r"hotel",),
+        "hospitals": (r"hospital",),
+        "universities": (r"universit", r"college", r"collage"),
+        "museums": (r"museo", r"museum"),
+        "shopping-malls": (r"centro(?:s)? comercial", r"mall", r"shopping"),
+        "public-buildings": (r"edificio(?:s)? p[uú]blic", r"public building", r"office building"),
+        "industrial-hi-tech": (r"industrial", r"industria", r"hi-?tech", r"f[aá]brica", r"factory"),
+        "pharmaceutical-clean-rooms": (
+            r"farmac[eé]utic", r"sala(?:s)? limpia", r"industria(?:s)? limpia",
+            r"pharmaceutical", r"clean room", r"clean industry",
+        ),
+    },
+}
