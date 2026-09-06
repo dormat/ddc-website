@@ -1290,7 +1290,7 @@ def render_home_content(lang: str) -> str:
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
     cards: list[str] = []
-    for index, slug in enumerate(SOLUTION_ORDER):
+    for slug in SOLUTION_ORDER:
         label = SOLUTION_LABELS[lang][slug]
         teaser = first_sentences(SOLUTION_FRAMING[lang][slug], 1)
         image = SOLUTION_IMAGES.get(slug, "")
@@ -1301,9 +1301,8 @@ def render_home_solutions_grid(lang: str) -> str:
             else '<div class="card-placeholder"></div>'
         )
         href = page_href(lang, slug)
-        flip = " home-solution-row--flip" if (index // 2) % 2 else ""
         cards.append(
-            f'<a class="home-solution-row{flip}" href="{href}">'
+            f'<a class="home-solution-row" href="{href}">'
             f'<div class="home-solution-row-image">{img}</div>'
             f'<div class="home-solution-row-body">'
             f'<h3 class="home-solution-row-title">{html.escape(label)}</h3>'

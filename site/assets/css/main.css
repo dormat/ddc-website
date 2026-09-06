@@ -2665,30 +2665,22 @@ body.contact-popup-open {
 }
 
 .home-solution-rows {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
 }
 
 .home-solution-row {
   display: grid;
-  grid-template-columns: 148px minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 32%) minmax(0, 1fr);
   align-items: stretch;
-  min-height: 148px;
+  min-height: 200px;
   overflow: hidden;
   background: #fff;
   border: 1px solid #e6ebf3;
   border-radius: 8px;
   color: var(--color-navy);
   text-decoration: none;
-}
-
-.home-solution-row--flip {
-  grid-template-columns: minmax(0, 1fr) 148px;
-}
-
-.home-solution-row--flip .home-solution-row-image {
-  order: 2;
 }
 
 .home-solution-row:hover {
@@ -2698,7 +2690,7 @@ body.contact-popup-open {
 }
 
 .home-solution-row-image {
-  min-height: 148px;
+  min-height: 200px;
   background: #0b1533;
 }
 
@@ -2714,25 +2706,22 @@ body.contact-popup-open {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0.95rem 1.1rem;
+  padding: 1.6rem 2rem;
 }
 
 .home-solution-row-title {
-  margin: 0 0 0.35rem;
-  font-size: 1.08rem;
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 .home-solution-row-text {
   margin: 0;
-  display: -webkit-box;
-  overflow: hidden;
+  max-width: 38rem;
   color: var(--color-gray);
-  font-size: 0.88rem;
-  line-height: 1.45;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .home-projects-strip {
@@ -3032,28 +3021,33 @@ body.contact-popup-open {
     grid-template-columns: 1fr;
   }
 
-  .home-solution-rows,
   .use-case-card-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .home-solution-row {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+
+  .home-solution-row-body {
+    padding: 1.2rem 1.25rem;
   }
 }
 
 @media (max-width: 640px) {
-  .home-solution-rows,
   .use-case-card-grid {
     grid-template-columns: 1fr;
   }
 
-  .home-solution-row,
-  .home-solution-row--flip {
-    grid-template-columns: 120px minmax(0, 1fr);
-  }
-
-  .home-solution-row--flip .home-solution-row-image {
-    order: 0;
+  .home-solution-row {
+    grid-template-columns: 1fr;
   }
 
   .home-solution-row-image {
-    min-height: 120px;
+    min-height: 180px;
+  }
+
+  .home-solution-row-body {
+    padding: 1.15rem 1.1rem 1.3rem;
   }
 }
