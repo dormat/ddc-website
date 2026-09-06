@@ -494,14 +494,14 @@ SOLUTION_PRODUCTS = {
 }
 
 SOLUTION_IMAGES = {
-    "power-quality-analyzers": "pq-gr.png",
-    "energy-meters": "power-meters-control-content-8-3.png",
-    "building-automation": "building-automation.png",
-    "parking-control": "building-automation-content-10-3.png",
-    "flood-detection-systems": "sensor-de-inundaci-n.png",
-    "transfer-switches": "building-automation-content-15-4.png",
-    "power-factor-control": "building-automation-content-17-6.png",
-    "plumbing-control": "elnet-xp-controller-content-5-5.png",
+    "power-quality-analyzers": "home-content-5-2.jpg",
+    "energy-meters": "energy-meters-content-5-5.jpg",
+    "building-automation": "building-automation-content-5-5.jpg",
+    "parking-control": "parking-control-content-5-5.jpg",
+    "flood-detection-systems": "flood-detection-systems-content-5-5.jpg",
+    "transfer-switches": "transfer-switches-content-5-5.jpg",
+    "power-factor-control": "3d2098412dbf46189d3998ae4392e5bc.jpg",
+    "plumbing-control": "plumbing-control-content-5-5.jpg",
 }
 
 SOLUTION_LABELS = {

@@ -16,7 +16,6 @@ from config import (
     HOME_PAGE_TITLE,
     HUB_DISPLAY_TITLES,
     HUB_PAGES,
-    INDUSTRY_FRAMING,
     NAV,
     PRODUCT_CODE_ALIASES,
     PRODUCT_SLUGS,
@@ -1207,13 +1206,23 @@ def render_home_cta(lang: str, index: int, label: str | None = None, *, variant:
     )
 
 
-def render_home_hero(slide: dict, lang: str) -> str:
-    body = render_home_slide_body(slide, title_tag="h1", title_class="home-hero-title")
-    cta = render_home_cta(lang, 0)
+def first_sentences(text: str, count: int = 1) -> str:
+    parts = [part.strip() for part in re.split(r"(?<=[.!?])\s+", text or "") if part.strip()]
+    return " ".join(parts[:count])
 
-    return f"""<section class="home-hero" aria-label="{html.escape(HOME_UI[lang]['explore'])}">
+
+def render_home_hero(slide: dict, lang: str) -> str:
+    title = fmt_home_text(slide.get("title", ""))
+    subtitle = first_sentences(slide.get("subtitle") or slide.get("description") or "", 1)
+    cta = render_home_cta(lang, 0)
+    bg = slide_background_url(slide, lang)
+    style = f' style="background-image:url(\'{bg}\')"' if bg else ""
+
+    return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}"{style}>
+  <div class="home-hero-shade"></div>
   <div class="home-hero-inner">
-    {body}
+    <h1 class="home-hero-title">{title}</h1>
+    {f'<p class="home-text-subtitle">{html.escape(subtitle)}</p>' if subtitle else ''}
     <div class="home-hero-actions">{cta}</div>
   </div>
 </section>"""
@@ -1279,7 +1288,7 @@ def render_home_solutions_grid(lang: str) -> str:
     for slug in SOLUTION_ORDER:
         label = SOLUTION_LABELS[lang][slug]
         framing = SOLUTION_FRAMING[lang][slug]
-        teaser = framing.split(".")[0].strip() + "."
+        teaser = first_sentences(framing, 1)
         image = SOLUTION_IMAGES.get(slug, "")
         src = asset_path(f"images/{image}") if image else ""
         img = (
@@ -3437,7 +3446,7 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
     parts = [
         '<section class="use-case-products">',
         f'<h2 class="related-products-title">{html.escape(heading)}</h2>',
-        '<div class="use-case-product-list">',
+        '<div class="card-grid use-case-product-grid">',
     ]
     for card in cards:
         href = page_href(lang, card["slug"])
@@ -3448,14 +3457,11 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
             if src
             else '<div class="card-placeholder"></div>'
         )
-        excerpt_html = render_excerpt_paragraphs(card.get("excerpts") or [])
         parts.append(
-            f'<article class="use-case-product">'
-            f'<a class="use-case-product-media" href="{href}">{img_html}</a>'
-            f'<div class="use-case-product-copy">'
-            f'<h3 class="use-case-product-title"><a href="{href}">{html.escape(title)}</a></h3>'
-            f'<div class="use-case-product-excerpt">{excerpt_html}</div>'
-            f"</div></article>"
+            f'<a class="product-card" href="{href}">'
+            f'<div class="product-card-image">{img_html}</div>'
+            f'<span class="product-card-title">{html.escape(title)}</span>'
+            f"</a>"
         )
     parts.append("</div></section>")
     return "\n".join(parts)
@@ -3482,7 +3488,6 @@ def render_typical_project_links(lang: str) -> str:
     return (
         f'<section class="product-use-cases">'
         f'<h2 class="related-products-title">{html.escape(clients_heading(lang))}</h2>'
-        f'<p class="use-case-clients-note">{html.escape(INDUSTRY_FRAMING[lang])}</p>'
         f'<div class="product-use-case-links">{"".join(links)}</div>'
         f"</section>"
     )
@@ -3491,30 +3496,20 @@ def render_typical_project_links(lang: str) -> str:
 def render_solution_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     title = SOLUTION_LABELS[lang][slug]
-    framing = SOLUTION_FRAMING[lang][slug]
+    framing = first_sentences(SOLUTION_FRAMING[lang][slug], 2)
     products_html = render_use_case_product_cards(collect_use_case_products(slug, lang), lang)
     image = SOLUTION_IMAGES.get(slug, "")
-    media = ""
-    if image:
-        src = asset_path(f"images/{image}")
-        media = (
-            f'<div class="project-hero-frame">'
-            f'<img src="{src}" alt="{html.escape(title)}" class="project-hero-image" loading="lazy"/>'
-            f"</div>"
-        )
-    return f"""<article class="page-content project-detail-page use-case-page">
-  <header class="project-detail-header">
-    <h1 class="page-title">{html.escape(title)}</h1>
-  </header>
-  <div class="project-detail-main">
-    <div class="project-detail-main-inner">
-      <div class="project-detail-copy">
-        <div class="use-case-about rich-content"><p>{html.escape(framing)}</p></div>
-        {render_page_ctas(lang)}
-      </div>
-      <div class="project-detail-media">{media}</div>
+    src = asset_path(f"images/{image}") if image else ""
+    style = f' style="background-image:url(\'{src}\')"' if src else ""
+    return f"""<article class="page-content solution-page">
+  <header class="solution-hero"{style}>
+    <div class="solution-hero-shade"></div>
+    <div class="solution-hero-inner">
+      <h1 class="page-title">{html.escape(title)}</h1>
+      <p class="use-case-about">{html.escape(framing)}</p>
+      {render_page_ctas(lang)}
     </div>
-  </div>
+  </header>
   {products_html}
   {render_typical_project_links(lang)}
 </article>"""
@@ -3567,16 +3562,13 @@ def render_project_detail_page(page: dict, lang: str) -> str:
     list_html = render_project_site_list(site_list)
 
     hero_src = rewrite_image_url(hero.get("src", "")) if hero.get("src") else ""
-    hero_alt = html.escape(title)
-    media_html = ""
-    if hero_src:
-        media_html = (
-            f'<div class="project-hero-frame">'
-            f'<img src="{hero_src}" alt="{hero_alt}" class="project-hero-image" loading="lazy"/>'
-            f"</div>"
-        )
 
-    framing = INDUSTRY_FRAMING.get(lang, "")
+    framing = ui_pick(
+        lang,
+        "לקוחות ואתרים בתחום זה.",
+        "Clients and sites in this field.",
+        "Clientes y sitios en este campo.",
+    )
     industry_products = collect_industry_products(slug, lang)
     products_html = render_use_case_product_cards(industry_products, lang)
     matching_solutions = []
@@ -3596,24 +3588,21 @@ def render_project_detail_page(page: dict, lang: str) -> str:
             f"</section>"
         )
     clients_label = field_clients_heading(lang)
+    hero_style = f' style="background-image:url(\'{hero_src}\')"' if hero_src else ""
 
-    return f"""<article class="page-content project-detail-page use-case-page">
-  <header class="project-detail-header">
-    <h1 class="page-title">{html.escape(title)}</h1>
-  </header>
-  <div class="project-detail-main">
-    <div class="project-detail-main-inner">
-      <div class="project-detail-copy">
-        <div class="use-case-about rich-content"><p>{html.escape(framing)}</p></div>
-        <h2 class="related-products-title">{html.escape(clients_label)}</h2>
-        {list_html}
-        {render_page_ctas(lang)}
-      </div>
-      <div class="project-detail-media">
-        {media_html}
-      </div>
+    return f"""<article class="page-content solution-page">
+  <header class="solution-hero"{hero_style}>
+    <div class="solution-hero-shade"></div>
+    <div class="solution-hero-inner">
+      <h1 class="page-title">{html.escape(title)}</h1>
+      <p class="use-case-about">{html.escape(framing)}</p>
+      {render_page_ctas(lang)}
     </div>
-  </div>
+  </header>
+  <section class="use-case-clients">
+    <h2 class="related-products-title">{html.escape(clients_label)}</h2>
+    {list_html}
+  </section>
   {products_html}
   {solutions_block}
 </article>"""
@@ -3703,14 +3692,10 @@ def render_products_page(page: dict, lang: str) -> str:
 
 
 def render_hero(lang: str, page: dict) -> str:
-    """Render homepage sections and CTA image cards."""
+    """Render homepage hero, solutions, and typical projects."""
     if page.get("slug") != "":
         return ""
-    home_content = render_home_content(lang)
-    cta_grid = render_home_cta_grid(page, lang)
-    if not cta_grid:
-        return home_content
-    return f"{home_content}\n{cta_grid}"
+    return render_home_content(lang)
 
 
 def render_page_body(lang: str, page: dict) -> str:
