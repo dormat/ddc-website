@@ -138,16 +138,63 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-project-slider]").forEach((root) => {
     const track = root.querySelector(".project-slider-track");
     if (!track) return;
+    const originals = Array.from(track.children);
+    if (!originals.length) return;
+
+    const setHtml = originals.map((el) => el.outerHTML).join("");
+    track.innerHTML = setHtml + setHtml + setHtml;
+
     const section = root.closest(".home-projects-slider") || root;
     const prev = section.querySelector(".project-slider-prev");
     const next = section.querySelector(".project-slider-next");
-    const rtl = document.documentElement.dir === "rtl";
+    let jumping = false;
+
+    const gap = () => {
+      const style = getComputedStyle(track);
+      return parseFloat(style.columnGap || style.gap) || 0;
+    };
+    const setSize = () => {
+      const cards = track.children;
+      const count = originals.length;
+      if (cards.length < count * 2) return 0;
+      return cards[count].offsetLeft - cards[0].offsetLeft;
+    };
+    const goToMiddle = () => {
+      jumping = true;
+      track.scrollLeft = setSize();
+      requestAnimationFrame(() => {
+        jumping = false;
+      });
+    };
+    const wrap = () => {
+      if (jumping) return;
+      const size = setSize();
+      if (!size) return;
+      if (track.scrollLeft < size * 0.5) {
+        jumping = true;
+        track.scrollLeft += size;
+        jumping = false;
+      } else if (track.scrollLeft >= size * 1.5) {
+        jumping = true;
+        track.scrollLeft -= size;
+        jumping = false;
+      }
+    };
+
+    goToMiddle();
+    track.addEventListener("scrollend", wrap);
+    track.addEventListener("scroll", () => {
+      window.clearTimeout(track._loopTimer);
+      track._loopTimer = window.setTimeout(wrap, 180);
+    }, { passive: true });
+    window.addEventListener("resize", goToMiddle);
+
     const step = () => Math.max(track.clientWidth * 0.7, 200);
     prev?.addEventListener("click", () => {
-      track.scrollBy({ left: (rtl ? 1 : -1) * step(), behavior: "smooth" });
+      track.scrollBy({ left: -step(), behavior: "smooth" });
     });
     next?.addEventListener("click", () => {
-      track.scrollBy({ left: (rtl ? -1 : 1) * step(), behavior: "smooth" });
+      track.scrollBy({ left: step(), behavior: "smooth" });
     });
   });
 

@@ -1776,6 +1776,12 @@ html[dir="rtl"] .project-site-list li::before {
   padding: 3rem 1.5rem 1.5rem;
 }
 
+.home-solutions .home-section-head {
+  max-width: 46rem;
+  margin: 0 auto 1rem;
+  padding: 0;
+}
+
 .home-solutions-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2840,6 +2846,7 @@ body.contact-popup-open {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  direction: ltr;
 }
 
 .project-slider-track::-webkit-scrollbar {
@@ -3061,6 +3068,10 @@ body.contact-popup-open {
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.use-case-clients .related-products-title {
+  text-align: center;
 }
 
 .use-case-clients .project-site-list {

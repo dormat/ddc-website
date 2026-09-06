@@ -2846,6 +2846,7 @@ body.contact-popup-open {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  direction: ltr;
 }
 
 .project-slider-track::-webkit-scrollbar {

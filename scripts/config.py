@@ -229,6 +229,12 @@ PROJECTS = {
     ],
 }
 
+# Hero / card photos for typical-project pages (overrides watermarked Wix images).
+PROJECT_IMAGES = {
+    "public-buildings": "813b164e6ecd49b0b09f5f9913d34577.jpg",
+    "museums": "museums-hero.jpg",
+}
+
 # Short product image labels -> canonical slug (related-product thumbnails)
 PRODUCT_CODE_ALIASES = {
     "pq-gr-6": "elnet-pq-gr-meter",

@@ -22,6 +22,7 @@ from config import (
     PRODUCT_SUBCATEGORY_EN,
     PRODUCT_SUBCATEGORY_ES,
     PROJECTS,
+    PROJECT_IMAGES,
     SITE_CONFIG,
     SOLUTION_FRAMING,
     SOLUTION_IMAGES,
@@ -3365,6 +3366,10 @@ def find_project_hero_image(
     img_key: str,
     slug: str,
 ) -> dict[str, str]:
+    override = PROJECT_IMAGES.get(slug, "")
+    if override:
+        return {"src": asset_path(f"images/{override}"), "alt": ""}
+
     candidates: list[dict[str, str]] = []
     for fig in figures:
         img = figure_to_image(fig)
