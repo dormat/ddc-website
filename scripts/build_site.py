@@ -1163,7 +1163,7 @@ HOME_UI = {
         "explore": "גלו את המערכות שלנו",
     },
     "en": {
-        "learn_more": "Learn more",
+        "learn_more": "More information",
         "featured": "Our Solutions",
         "explore": "Explore our systems",
     },
@@ -1255,9 +1255,6 @@ def render_home_hero(slide: dict, lang: str) -> str:
     cta = f'<a class="home-btn home-btn--primary" href="#solutions">{cta_label}</a>'
     bg = slide_background_url(slide, lang)
     style = f' style="background-image:url(\'{bg}\')"' if bg else ""
-    standards = "".join(
-        f'<li>{html.escape(item["code"])}</li>' for item in ABOUT_STANDARDS[lang]
-    )
 
     return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}"{style}>
   <div class="home-hero-shade"></div>
@@ -1266,7 +1263,6 @@ def render_home_hero(slide: dict, lang: str) -> str:
     <h1 class="home-hero-title">{brand}</h1>
     <p class="home-text-subtitle">{lead}</p>
     <p class="home-text-desc">{proof}</p>
-    <ul class="home-hero-standards" aria-label="{html.escape(ui_pick(lang, "תקני איכות", "Quality standards", "Estándares de calidad"))}">{standards}</ul>
     <div class="home-hero-actions">{cta}</div>
   </div>
 </section>"""
@@ -1321,34 +1317,56 @@ def render_home_content(lang: str) -> str:
     return f'<div class="home-page">{hero}{solutions}{projects}{render_home_proof(lang)}</div>'
 
 
+def render_home_solution_media(
+    lang: str,
+    slug: str,
+    *,
+    extra_class: str,
+    teaser_sentences: int,
+) -> str:
+    label = SOLUTION_LABELS[lang][slug]
+    teaser = first_sentences(SOLUTION_FRAMING[lang][slug], teaser_sentences)
+    image = SOLUTION_IMAGES.get(slug, "")
+    src = asset_path(f"images/{image}") if image else ""
+    img = (
+        f'<img src="{src}" alt="{html.escape(label)}" loading="lazy"/>'
+        if src
+        else '<div class="card-placeholder"></div>'
+    )
+    more = html.escape(HOME_UI[lang]["learn_more"])
+    teaser_html = f'<p class="home-media-text">{html.escape(teaser)}</p>' if teaser else ""
+    return (
+        f'<a class="{extra_class}" href="{page_href(lang, slug)}">'
+        f'<div class="home-media-image">{img}</div>'
+        f'<div class="home-media-shade"></div>'
+        f'<div class="home-media-body">'
+        f'<h3 class="home-media-title">{html.escape(label)}</h3>'
+        f"{teaser_html}"
+        f'<span class="home-media-more">{more}</span>'
+        f"</div></a>"
+    )
+
+
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
-    cards: list[str] = []
-    for index, slug in enumerate(SOLUTION_ORDER):
-        label = SOLUTION_LABELS[lang][slug]
-        teaser = first_sentences(SOLUTION_FRAMING[lang][slug], 2)
-        image = SOLUTION_IMAGES.get(slug, "")
-        src = asset_path(f"images/{image}") if image else ""
-        img = (
-            f'<img src="{src}" alt="{html.escape(label)}" loading="lazy"/>'
-            if src
-            else '<div class="card-placeholder"></div>'
+    featured = [
+        render_home_solution_media(
+            lang, slug, extra_class="home-feature-panel", teaser_sentences=1
         )
-        href = page_href(lang, slug)
-        flip = " home-solution-row--flip" if index % 2 else ""
-        cards.append(
-            f'<a class="home-solution-row{flip}" href="{href}">'
-            f'<div class="home-solution-row-image">{img}</div>'
-            f'<div class="home-solution-row-body">'
-            f'<h3 class="home-solution-row-title">{html.escape(label)}</h3>'
-            f'<p class="home-solution-row-text">{html.escape(teaser)}</p>'
-            f"</div></a>"
+        for slug in SOLUTION_ORDER[:2]
+    ]
+    tiles = [
+        render_home_solution_media(
+            lang, slug, extra_class="home-solution-tile", teaser_sentences=1
         )
+        for slug in SOLUTION_ORDER[2:]
+    ]
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-solution-rows">{"".join(cards)}</div>
+  <div class="home-featured-pair">{"".join(featured)}</div>
+  <div class="home-solution-tiles">{"".join(tiles)}</div>
 </section>"""
 
 
@@ -1368,6 +1386,7 @@ def render_home_projects_slider(lang: str) -> str:
         slides.append(
             f'<a class="project-slider-card" href="{href}">'
             f'<div class="project-slider-image">{img}</div>'
+            f'<div class="home-media-shade"></div>'
             f'<span class="project-slider-title">{html.escape(proj["title"])}</span>'
             f"</a>"
         )
