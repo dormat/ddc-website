@@ -233,7 +233,20 @@ PROJECTS = {
 PROJECT_IMAGES = {
     "public-buildings": "813b164e6ecd49b0b09f5f9913d34577.jpg",
     "museums": "museums-hero.jpg",
+    "hospitals": "hospitals-hero.jpg",
+    "hotels": "hotels-hero.jpg",
 }
+
+# A short ElNet highlight set for the home product slider.
+HOME_FEATURED_PRODUCTS = (
+    "elnet-pq-gr-meter",
+    "elnet-lt-meter",
+    "elnet-mc-8-meter",
+    "elnet-lte-meter",
+    "elnet-co-transfer-switch",
+    "elnet-pfc-controller",
+    "elnet-xp-controller",
+)
 
 # Short product image labels -> canonical slug (related-product thumbnails)
 PRODUCT_CODE_ALIASES = {

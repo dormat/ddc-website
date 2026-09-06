@@ -23,6 +23,7 @@ from config import (
     PRODUCT_SUBCATEGORY_ES,
     PROJECTS,
     PROJECT_IMAGES,
+    HOME_FEATURED_PRODUCTS,
     SITE_CONFIG,
     SOLUTION_FRAMING,
     SOLUTION_IMAGES,
@@ -1313,8 +1314,9 @@ def render_home_content(lang: str) -> str:
 
     hero = render_home_hero(slides[0], lang)
     solutions = render_home_solutions_grid(lang)
+    products = render_home_products_slider(lang)
     projects = render_home_projects_slider(lang)
-    return f'<div class="home-page">{hero}{solutions}{projects}{render_home_proof(lang)}</div>'
+    return f'<div class="home-page">{hero}{solutions}{products}{projects}{render_home_proof(lang)}</div>'
 
 
 def render_home_solution_media(
@@ -1370,6 +1372,65 @@ def render_home_solutions_grid(lang: str) -> str:
 </section>"""
 
 
+def product_home_teaser(page: dict) -> str:
+    """First existing product sentence — no new claims."""
+    rich = page.get("rich_text") or []
+    heading = rich[0].split("\n", 1)[0].strip() if rich else ""
+    for block in rich:
+        if text_has_related_marker(block) or is_footer_rich_text(block):
+            break
+        for line in block.split("\n"):
+            line = line.strip().replace("\u200b", "")
+            if not line or line == heading:
+                continue
+            return first_sentences(line, 1)
+    return ""
+
+
+def render_home_products_slider(lang: str) -> str:
+    heading = related_products_heading(lang)
+    prev_label = ui_pick(lang, "הקודם", "Previous", "Anterior")
+    next_label = ui_pick(lang, "הבא", "Next", "Siguiente")
+    slides: list[str] = []
+    for slug in HOME_FEATURED_PRODUCTS:
+        page = load_product_page(slug, lang)
+        if not page:
+            continue
+        title = product_display_title(page)
+        teaser = product_home_teaser(page)
+        img_src = product_thumbnail_src(slug, lang)
+        img = (
+            f'<img src="{img_src}" alt="{html.escape(title)}" loading="lazy"/>'
+            if img_src
+            else '<div class="card-placeholder"></div>'
+        )
+        teaser_html = (
+            f'<p class="product-slider-text">{html.escape(teaser)}</p>' if teaser else ""
+        )
+        slides.append(
+            f'<a class="product-slider-card" href="{page_href(lang, slug)}">'
+            f'<div class="product-slider-image">{img}</div>'
+            f'<div class="product-slider-body">'
+            f'<span class="product-slider-title">{html.escape(title)}</span>'
+            f"{teaser_html}"
+            f"</div></a>"
+        )
+    if not slides:
+        return ""
+    return f"""<section class="home-projects-slider home-products-slider" id="home-products" data-slider-section aria-label="{html.escape(heading)}">
+  <header class="home-section-head home-projects-slider-head">
+    <h2 class="home-section-title">{html.escape(heading)}</h2>
+    <div class="project-slider-nav">
+      <button type="button" class="project-slider-prev" aria-label="{html.escape(prev_label)}"></button>
+      <button type="button" class="project-slider-next" aria-label="{html.escape(next_label)}"></button>
+    </div>
+  </header>
+  <div class="project-slider" data-loop-slider>
+    <div class="project-slider-track">{"".join(slides)}</div>
+  </div>
+</section>"""
+
+
 def render_home_projects_slider(lang: str) -> str:
     heading = projects_nav_label(lang)
     prev_label = ui_pick(lang, "הקודם", "Previous", "Anterior")
@@ -1392,7 +1453,7 @@ def render_home_projects_slider(lang: str) -> str:
         )
     if not slides:
         return ""
-    return f"""<section class="home-projects-slider" id="projects" aria-label="{html.escape(heading)}">
+    return f"""<section class="home-projects-slider" id="projects" data-slider-section aria-label="{html.escape(heading)}">
   <header class="home-section-head home-projects-slider-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
     <div class="project-slider-nav">
@@ -1400,7 +1461,7 @@ def render_home_projects_slider(lang: str) -> str:
       <button type="button" class="project-slider-next" aria-label="{html.escape(next_label)}"></button>
     </div>
   </header>
-  <div class="project-slider" data-project-slider>
+  <div class="project-slider" data-loop-slider>
     <div class="project-slider-track">{"".join(slides)}</div>
   </div>
 </section>"""

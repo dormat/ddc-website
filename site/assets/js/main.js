@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     productFilter.addEventListener("change", applyFilter);
   }
 
-  document.querySelectorAll("[data-project-slider]").forEach((root) => {
+  document.querySelectorAll("[data-loop-slider], [data-project-slider]").forEach((root) => {
     const track = root.querySelector(".project-slider-track");
     if (!track) return;
     const originals = Array.from(track.children);
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const setHtml = originals.map((el) => el.outerHTML).join("");
     track.innerHTML = setHtml + setHtml + setHtml;
 
-    const section = root.closest(".home-projects-slider") || root;
+    const section = root.closest("[data-slider-section], .home-projects-slider") || root;
     const prev = section.querySelector(".project-slider-prev");
     const next = section.querySelector(".project-slider-next");
     let jumping = false;
