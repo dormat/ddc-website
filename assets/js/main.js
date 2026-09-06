@@ -135,6 +135,22 @@ document.addEventListener("DOMContentLoaded", () => {
     productFilter.addEventListener("change", applyFilter);
   }
 
+  document.querySelectorAll("[data-project-slider]").forEach((root) => {
+    const track = root.querySelector(".project-slider-track");
+    if (!track) return;
+    const section = root.closest(".home-projects-slider") || root;
+    const prev = section.querySelector(".project-slider-prev");
+    const next = section.querySelector(".project-slider-next");
+    const rtl = document.documentElement.dir === "rtl";
+    const step = () => Math.max(track.clientWidth * 0.7, 200);
+    prev?.addEventListener("click", () => {
+      track.scrollBy({ left: (rtl ? 1 : -1) * step(), behavior: "smooth" });
+    });
+    next?.addEventListener("click", () => {
+      track.scrollBy({ left: (rtl ? -1 : 1) * step(), behavior: "smooth" });
+    });
+  });
+
   const contactForm = document.getElementById("contact-form");
   const contactPopup = document.getElementById("contact-popup");
   const contactError = document.getElementById("contact-form-error");

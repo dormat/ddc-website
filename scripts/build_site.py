@@ -935,15 +935,47 @@ def render_product_comparison_page(lang: str) -> str:
 </article>"""
 
 
+def render_footer_link_list(title: str, links: list[tuple[str, str]]) -> str:
+    items = "".join(
+        f'<li><a href="{html.escape(href)}">{html.escape(label)}</a></li>'
+        for label, href in links
+    )
+    return (
+        f'<nav class="footer-sitemap" aria-label="{html.escape(title)}">'
+        f"<h3>{html.escape(title)}</h3>"
+        f"<ul>{items}</ul>"
+        f"</nav>"
+    )
+
+
 def render_footer(lang: str) -> str:
     cfg = SITE_CONFIG[lang]
     lbl = contact_field_labels(lang)
     brand_block = f"""<div class="footer-brand">
       <p class="footer-brand-name">{html.escape(cfg['brand'])}</p>
     </div>"""
+    solution_links = [
+        (SOLUTION_LABELS[lang][slug], page_href(lang, slug)) for slug in SOLUTION_ORDER
+    ]
+    project_links = [
+        (proj["title"], page_href(lang, proj["slug"])) for proj in PROJECTS.get(lang, [])
+    ]
+    company_links = [
+        (ui_pick(lang, "בית", "Home", "Inicio"), page_href(lang, "")),
+        (ui_pick(lang, "אודות", "About us", "Nosotros"), page_href(lang, "about")),
+        (ui_pick(lang, "מוצרים", "Products", "Productos"), page_href(lang, "products")),
+        (
+            ui_pick(lang, "אבטחת איכות", "Quality Assurance", "Garantía de calidad"),
+            page_href(lang, "quality-assurance"),
+        ),
+        (ui_pick(lang, "צרו קשר", "Contact", "Contacto"), page_href(lang, "contact")),
+    ]
     return f"""<footer class="site-footer">
   <div class="footer-grid">
     {brand_block}
+    {render_footer_link_list(solutions_nav_label(lang), solution_links)}
+    {render_footer_link_list(projects_nav_label(lang), project_links)}
+    {render_footer_link_list(ui_pick(lang, "החברה", "Company", "Empresa"), company_links)}
     <div class="footer-contact">
       <h3>{lbl['contact']}</h3>
       <p><strong>{lbl['phone']}:</strong> <a href="tel:{CONTACT['phone']}">{CONTACT['phone']}</a></p>
@@ -1284,20 +1316,16 @@ def render_home_content(lang: str) -> str:
 
     hero = render_home_hero(slides[0], lang)
     solutions = render_home_solutions_grid(lang)
-    projects = render_projects_grid(
-        lang,
-        heading=projects_nav_label(lang),
-        section_id="projects",
-        extra_class="home-projects",
-    )
+    projects = render_home_projects_slider(lang)
     return f'<div class="home-page">{hero}{solutions}{projects}{render_home_proof(lang)}</div>'
 
 
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
     cards: list[str] = []
-    for slug in SOLUTION_ORDER:
+    for index, slug in enumerate(SOLUTION_ORDER):
         label = SOLUTION_LABELS[lang][slug]
+        teaser = first_sentences(SOLUTION_FRAMING[lang][slug], 2)
         image = SOLUTION_IMAGES.get(slug, "")
         src = asset_path(f"images/{image}") if image else ""
         img = (
@@ -1306,17 +1334,55 @@ def render_home_solutions_grid(lang: str) -> str:
             else '<div class="card-placeholder"></div>'
         )
         href = page_href(lang, slug)
+        flip = " home-solution-row--flip" if index % 2 else ""
         cards.append(
-            f'<a class="home-solution-tile" href="{href}">'
-            f'<div class="home-solution-tile-image">{img}</div>'
-            f'<h3 class="home-solution-tile-title">{html.escape(label)}</h3>'
-            f"</a>"
+            f'<a class="home-solution-row{flip}" href="{href}">'
+            f'<div class="home-solution-row-image">{img}</div>'
+            f'<div class="home-solution-row-body">'
+            f'<h3 class="home-solution-row-title">{html.escape(label)}</h3>'
+            f'<p class="home-solution-row-text">{html.escape(teaser)}</p>'
+            f"</div></a>"
         )
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-solution-tiles">{"".join(cards)}</div>
+  <div class="home-solution-rows">{"".join(cards)}</div>
+</section>"""
+
+
+def render_home_projects_slider(lang: str) -> str:
+    heading = projects_nav_label(lang)
+    prev_label = ui_pick(lang, "הקודם", "Previous", "Anterior")
+    next_label = ui_pick(lang, "הבא", "Next", "Siguiente")
+    slides: list[str] = []
+    for proj in PROJECTS.get(lang, []):
+        img_src = project_card_image_src(lang, proj)
+        img = (
+            f'<img src="{img_src}" alt="" loading="lazy"/>'
+            if img_src
+            else '<div class="card-placeholder"></div>'
+        )
+        href = page_href(lang, proj["slug"])
+        slides.append(
+            f'<a class="project-slider-card" href="{href}">'
+            f'<div class="project-slider-image">{img}</div>'
+            f'<span class="project-slider-title">{html.escape(proj["title"])}</span>'
+            f"</a>"
+        )
+    if not slides:
+        return ""
+    return f"""<section class="home-projects-slider" id="projects" aria-label="{html.escape(heading)}">
+  <header class="home-section-head home-projects-slider-head">
+    <h2 class="home-section-title">{html.escape(heading)}</h2>
+    <div class="project-slider-nav">
+      <button type="button" class="project-slider-prev" aria-label="{html.escape(prev_label)}"></button>
+      <button type="button" class="project-slider-next" aria-label="{html.escape(next_label)}"></button>
+    </div>
+  </header>
+  <div class="project-slider" data-project-slider>
+    <div class="project-slider-track">{"".join(slides)}</div>
+  </div>
 </section>"""
 
 
