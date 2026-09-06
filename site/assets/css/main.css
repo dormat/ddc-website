@@ -2694,15 +2694,16 @@ body.contact-popup-open {
 .home-solution-rows {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.9rem;
+  max-width: 46rem;
+  margin: 0 auto;
 }
 
 .home-solution-row {
   display: grid;
-  grid-template-columns: 132px minmax(0, 1fr);
+  grid-template-columns: 200px minmax(0, 1fr);
   align-items: stretch;
-  min-height: 120px;
-  max-height: 132px;
+  min-height: 188px;
   overflow: hidden;
   background: #fff;
   border: 1px solid #e6ebf3;
@@ -2712,7 +2713,7 @@ body.contact-popup-open {
 }
 
 .home-solution-row--flip {
-  grid-template-columns: minmax(0, 1fr) 132px;
+  grid-template-columns: minmax(0, 1fr) 200px;
 }
 
 .home-solution-row--flip .home-solution-row-image {
@@ -2726,8 +2727,8 @@ body.contact-popup-open {
 }
 
 .home-solution-row-image {
-  width: 132px;
-  height: 132px;
+  width: 200px;
+  height: 188px;
   overflow: hidden;
   background: #0b1533;
 }
@@ -2745,12 +2746,12 @@ body.contact-popup-open {
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  padding: 0.75rem 1.1rem;
+  padding: 1rem 1.25rem;
 }
 
 .home-solution-row-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.05rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.25;
 }
@@ -3065,6 +3066,7 @@ body.contact-popup-open {
 .use-case-clients .project-site-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0;
   margin: 0 0 1.5rem;
@@ -3073,13 +3075,19 @@ body.contact-popup-open {
 
 .use-case-clients .project-site-list li {
   display: inline-flex;
-  padding: 0.35rem 0.75rem;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
   border: 1px solid #d9e1ec;
   border-radius: 999px;
   background: var(--color-light);
   color: var(--color-navy);
   font-size: 0.88rem;
   font-weight: 600;
+  line-height: 1.3;
+}
+
+.use-case-clients .project-site-list li::before {
+  display: none;
 }
 
 .use-case-index {
@@ -3262,8 +3270,7 @@ body.contact-popup-open {
 
   .home-solution-row,
   .home-solution-row--flip {
-    grid-template-columns: 96px minmax(0, 1fr);
-    max-height: none;
+    grid-template-columns: 140px minmax(0, 1fr);
   }
 
   .home-solution-row--flip .home-solution-row-image {
@@ -3271,7 +3278,7 @@ body.contact-popup-open {
   }
 
   .home-solution-row-image {
-    width: 96px;
-    height: 96px;
+    width: 140px;
+    height: 148px;
   }
 }

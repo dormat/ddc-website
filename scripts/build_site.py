@@ -3417,9 +3417,17 @@ def extract_project_site_list(page: dict, title: str) -> list[str]:
 
 
 def render_project_site_list(items: list[str]) -> str:
-    if not items:
+    unique: list[str] = []
+    seen: set[str] = set()
+    for item in items:
+        key = re.sub(r"\s+", " ", item).strip().casefold()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        unique.append(item.strip())
+    if not unique:
         return ""
-    lis = "".join(f"<li>{html.escape(item)}</li>" for item in items)
+    lis = "".join(f"<li>{html.escape(item)}</li>" for item in unique)
     return f'<ul class="project-site-list">{lis}</ul>'
 
 
@@ -3630,12 +3638,6 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 
     hero_src = rewrite_image_url(hero.get("src", "")) if hero.get("src") else ""
 
-    framing = ui_pick(
-        lang,
-        "לקוחות ואתרים בתחום זה.",
-        "Clients and sites in this field.",
-        "Clientes y sitios en este campo.",
-    )
     industry_products = collect_industry_products(slug, lang)
     products_html = render_use_case_product_cards(industry_products, lang)
     matching_solutions = []
@@ -3662,7 +3664,6 @@ def render_project_detail_page(page: dict, lang: str) -> str:
     <div class="solution-hero-shade"></div>
     <div class="solution-hero-inner">
       <h1 class="page-title">{html.escape(title)}</h1>
-      <p class="use-case-about">{html.escape(framing)}</p>
     </div>
   </header>
   <section class="use-case-clients">
