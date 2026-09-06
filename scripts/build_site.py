@@ -24,6 +24,7 @@ from config import (
     PROJECTS,
     PROJECT_IMAGES,
     HOME_FEATURED_PRODUCTS,
+    HOME_HERO_IMAGE,
     SITE_CONFIG,
     SOLUTION_FRAMING,
     SOLUTION_IMAGES,
@@ -1252,9 +1253,7 @@ def render_home_hero(slide: dict, lang: str) -> str:
             "La empresa líder en Israel: calidad y eficiencia reconocidas por clientes en todo el mundo.",
         )
     )
-    cta_label = html.escape(solutions_nav_label(lang))
-    cta = f'<a class="home-btn home-btn--primary" href="#solutions">{cta_label}</a>'
-    bg = slide_background_url(slide, lang)
+    bg = rewrite_image_url(asset_path(f"images/{HOME_HERO_IMAGE}"))
     style = f' style="background-image:url(\'{bg}\')"' if bg else ""
 
     return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}"{style}>
@@ -1264,7 +1263,6 @@ def render_home_hero(slide: dict, lang: str) -> str:
     <h1 class="home-hero-title">{brand}</h1>
     <p class="home-text-subtitle">{lead}</p>
     <p class="home-text-desc">{proof}</p>
-    <div class="home-hero-actions">{cta}</div>
   </div>
 </section>"""
 
@@ -1351,24 +1349,17 @@ def render_home_solution_media(
 
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
-    featured = [
+    panels = [
         render_home_solution_media(
             lang, slug, extra_class="home-feature-panel", teaser_sentences=1
         )
-        for slug in SOLUTION_ORDER[:2]
-    ]
-    tiles = [
-        render_home_solution_media(
-            lang, slug, extra_class="home-solution-tile", teaser_sentences=1
-        )
-        for slug in SOLUTION_ORDER[2:]
+        for slug in SOLUTION_ORDER
     ]
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-featured-pair">{"".join(featured)}</div>
-  <div class="home-solution-tiles">{"".join(tiles)}</div>
+  <div class="home-featured-pair">{"".join(panels)}</div>
 </section>"""
 
 

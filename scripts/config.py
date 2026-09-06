@@ -512,6 +512,9 @@ SOLUTION_PRODUCTS = {
     ),
 }
 
+# Dark equipment photo — not the bright power-quality panel used on that solution tile.
+HOME_HERO_IMAGE = "transfer-switches-content-5-5.jpg"
+
 SOLUTION_IMAGES = {
     "power-quality-analyzers": "home-content-5-2.jpg",
     "energy-meters": "energy-meters-content-5-5.jpg",

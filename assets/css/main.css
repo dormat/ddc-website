@@ -1598,9 +1598,9 @@ html[dir="rtl"] .project-site-list li::before {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(8, 14, 36, 0.82) 0%,
-    rgba(8, 14, 36, 0.38) 48%,
-    rgba(8, 14, 36, 0.18) 100%
+    rgba(8, 14, 36, 0.86) 0%,
+    rgba(8, 14, 36, 0.48) 48%,
+    rgba(8, 14, 36, 0.28) 100%
   );
 }
 
