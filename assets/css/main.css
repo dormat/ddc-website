@@ -8,8 +8,8 @@
   --color-gray: #666;
   --color-light: #f5f7fa;
   --color-white: #ffffff;
-  --font-he: "Heebo", "Segoe UI", Arial, sans-serif;
-  --font-en: "Spinnaker", "Segoe UI", Arial, sans-serif;
+  --font-he: "IBM Plex Sans Hebrew", "Segoe UI", Arial, sans-serif;
+  --font-en: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
   --header-height: 72px;
   --max-width: 1200px;
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
