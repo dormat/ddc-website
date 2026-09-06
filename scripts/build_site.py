@@ -1208,7 +1208,7 @@ def first_sentences(text: str, count: int = 1) -> str:
 
 
 def render_home_hero(slide: dict, lang: str) -> str:
-    brand = html.escape(SITE_CONFIG[lang]["brand"])
+    brand = html.escape(ui_pick(lang, "ישומי בקרה", "Control Applications", "Control Applications"))
     lead = html.escape(ABOUT_HERO[lang]["lead"])
     proof = html.escape(
         ui_pick(
