@@ -1596,6 +1596,18 @@ html[dir="rtl"] .project-site-list li::before {
 .solution-hero-shade {
   position: absolute;
   inset: 0;
+}
+
+.home-hero-shade {
+  background: linear-gradient(
+    to top,
+    rgba(8, 14, 36, 0.38) 0%,
+    rgba(8, 14, 36, 0.14) 52%,
+    rgba(8, 14, 36, 0.06) 100%
+  );
+}
+
+.solution-hero-shade {
   background: linear-gradient(
     to top,
     rgba(8, 14, 36, 0.86) 0%,
@@ -2741,9 +2753,9 @@ body.contact-popup-open {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(8, 14, 36, 0.88) 8%,
-    rgba(8, 14, 36, 0.28) 55%,
-    rgba(8, 14, 36, 0.08) 100%
+    rgba(8, 14, 36, 0.92) 6%,
+    rgba(8, 14, 36, 0.4) 52%,
+    rgba(8, 14, 36, 0.12) 100%
   );
 }
 
@@ -2917,6 +2929,12 @@ body.contact-popup-open {
 
 .home-products-slider {
   padding-top: 2.25rem;
+}
+
+.home-products-slider-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .product-slider-card {

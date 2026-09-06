@@ -1379,7 +1379,13 @@ def product_home_teaser(page: dict) -> str:
 
 
 def render_home_products_slider(lang: str) -> str:
-    heading = related_products_heading(lang)
+    heading = ui_pick(
+        lang,
+        "המוצרים הבולטים שלנו",
+        "Our highlight products",
+        "Nuestros productos destacados",
+    )
+    all_label = ui_pick(lang, "כל המוצרים", "All products", "Todos los productos")
     prev_label = ui_pick(lang, "הקודם", "Previous", "Anterior")
     next_label = ui_pick(lang, "הבא", "Next", "Siguiente")
     slides: list[str] = []
@@ -1411,9 +1417,12 @@ def render_home_products_slider(lang: str) -> str:
     return f"""<section class="home-projects-slider home-products-slider" id="home-products" data-slider-section aria-label="{html.escape(heading)}">
   <header class="home-section-head home-projects-slider-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
-    <div class="project-slider-nav">
-      <button type="button" class="project-slider-prev" aria-label="{html.escape(prev_label)}"></button>
-      <button type="button" class="project-slider-next" aria-label="{html.escape(next_label)}"></button>
+    <div class="home-products-slider-actions">
+      <a class="home-btn home-btn--text" href="{page_href(lang, "products")}">{html.escape(all_label)}</a>
+      <div class="project-slider-nav">
+        <button type="button" class="project-slider-prev" aria-label="{html.escape(prev_label)}"></button>
+        <button type="button" class="project-slider-next" aria-label="{html.escape(next_label)}"></button>
+      </div>
     </div>
   </header>
   <div class="project-slider" data-loop-slider>
