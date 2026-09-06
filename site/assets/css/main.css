@@ -1617,30 +1617,59 @@ html[dir="rtl"] .project-site-list li::before {
   padding-top: clamp(6rem, 14vw, 9rem);
 }
 
+.home-hero-kicker {
+  margin: 0 0 0.55rem;
+  color: var(--color-cyan);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .home-hero-title {
-  margin: 0 0 0.85rem;
-  font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
   font-weight: 700;
   color: var(--color-white);
-  line-height: 1.15;
-  max-width: 46rem;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 16ch;
 }
 
 .home-hero .home-text-subtitle {
   color: rgba(255, 255, 255, 0.92);
-  font-size: 1.2rem;
-  max-width: 38rem;
+  font-size: 1.12rem;
+  max-width: 36rem;
 }
 
 .home-hero .home-text-desc {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 1.05rem;
-  max-width: 40rem;
-  margin-bottom: 1.75rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.98rem;
+  max-width: 36rem;
+  margin: 0.55rem 0 0;
+}
+
+.home-hero-standards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-hero-standards li {
+  padding: 0.28rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .home-hero-actions {
-  margin-top: 0.25rem;
+  margin-top: 1.25rem;
 }
 
 .home-section-head {
@@ -2707,6 +2736,46 @@ body.contact-popup-open {
   line-height: 1.4;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.home-projects-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 0.85rem;
+  margin-top: 1.35rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid #e6ebf3;
+}
+
+.home-projects-label {
+  margin: 0;
+  color: var(--color-navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-projects-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.home-projects-links a {
+  padding: 0.28rem 0.7rem;
+  border: 1px solid #d9e1ec;
+  border-radius: 999px;
+  background: var(--color-light);
+  color: var(--color-navy);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.home-projects-links a:hover {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
 }
 
 .solution-page {

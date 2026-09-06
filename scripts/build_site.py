@@ -195,16 +195,12 @@ def projects_nav_label(lang: str) -> str:
     return ui_pick(lang, "פרויקטים", "Typical projects", "Proyectos típicos")
 
 
-def clients_heading(lang: str) -> str:
-    return ui_pick(lang, "לקוחות בתחומים אלה", "Clients in these fields", "Clientes en estos ámbitos")
-
-
 def field_clients_heading(lang: str) -> str:
     return ui_pick(lang, "לקוחות בתחום", "Clients in this field", "Clientes en este ámbito")
 
 
 def related_products_heading(lang: str) -> str:
-    return ui_pick(lang, "מוצרים קשורים", "Related Items", "Productos relacionados")
+    return ui_pick(lang, "המוצרים", "Products", "Productos")
 
 
 def assemble_nav(lang: str) -> list[dict]:
@@ -1212,17 +1208,32 @@ def first_sentences(text: str, count: int = 1) -> str:
 
 
 def render_home_hero(slide: dict, lang: str) -> str:
-    title = fmt_home_text(slide.get("title", ""))
-    subtitle = first_sentences(slide.get("subtitle") or slide.get("description") or "", 1)
-    cta = render_home_cta(lang, 0)
+    brand = html.escape(SITE_CONFIG[lang]["brand"])
+    lead = html.escape(ABOUT_HERO[lang]["lead"])
+    proof = html.escape(
+        ui_pick(
+            lang,
+            "החברה המובילה בישראל — איכות ויעילות המוצרים מוכרות אצל לקוחות מרוצים בארץ ובעולם.",
+            "The leading company in Israel — product quality and efficiency recognized by customers worldwide.",
+            "La empresa líder en Israel: calidad y eficiencia reconocidas por clientes en todo el mundo.",
+        )
+    )
+    cta_label = html.escape(solutions_nav_label(lang))
+    cta = f'<a class="home-btn home-btn--primary" href="#solutions">{cta_label}</a>'
     bg = slide_background_url(slide, lang)
     style = f' style="background-image:url(\'{bg}\')"' if bg else ""
+    standards = "".join(
+        f'<li>{html.escape(item["code"])}</li>' for item in ABOUT_STANDARDS[lang]
+    )
 
     return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}"{style}>
   <div class="home-hero-shade"></div>
   <div class="home-hero-inner">
-    <h1 class="home-hero-title">{title}</h1>
-    {f'<p class="home-text-subtitle">{html.escape(subtitle)}</p>' if subtitle else ''}
+    <p class="home-hero-kicker">{html.escape(ui_pick(lang, "הוקמה בשנת 1992", "Established 1992", "Fundada en 1992"))}</p>
+    <h1 class="home-hero-title">{brand}</h1>
+    <p class="home-text-subtitle">{lead}</p>
+    <p class="home-text-desc">{proof}</p>
+    <ul class="home-hero-standards" aria-label="{html.escape(ui_pick(lang, "תקני איכות", "Quality standards", "Estándares de calidad"))}">{standards}</ul>
     <div class="home-hero-actions">{cta}</div>
   </div>
 </section>"""
@@ -1273,13 +1284,7 @@ def render_home_content(lang: str) -> str:
 
     hero = render_home_hero(slides[0], lang)
     solutions = render_home_solutions_grid(lang)
-    projects = render_projects_grid(
-        lang,
-        heading=projects_nav_label(lang),
-        section_id="projects",
-        extra_class="home-use-cases",
-    )
-    return f'<div class="home-page">{hero}{solutions}{projects}</div>'
+    return f'<div class="home-page">{hero}{solutions}</div>'
 
 
 def render_home_solutions_grid(lang: str) -> str:
@@ -1310,7 +1315,23 @@ def render_home_solutions_grid(lang: str) -> str:
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
   <div class="home-solution-tiles">{"".join(cards)}</div>
+  {render_home_projects_strip(lang)}
 </section>"""
+
+
+def render_home_projects_strip(lang: str) -> str:
+    links = [
+        f'<a href="{page_href(lang, proj["slug"])}">{html.escape(proj["title"])}</a>'
+        for proj in PROJECTS.get(lang, [])
+    ]
+    if not links:
+        return ""
+    return (
+        f'<div class="home-projects-strip" id="projects">'
+        f'<p class="home-projects-label">{html.escape(projects_nav_label(lang))}</p>'
+        f'<div class="home-projects-links">{"".join(links)}</div>'
+        f"</div>"
+    )
 
 
 HOME_CTA_LINKS = {
@@ -3467,32 +3488,6 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
     return "\n".join(parts)
 
 
-def render_page_ctas(lang: str) -> str:
-    contact = page_href(lang, "contact")
-    products = page_href(lang, "products")
-    return (
-        f'<div class="use-case-ctas">'
-        f'<a class="home-btn home-btn--primary" href="{contact}">'
-        f'{html.escape(ui_pick(lang, "צרו קשר", "Contact", "Contacto"))}</a>'
-        f'<a class="home-btn home-btn--text" href="{products}">'
-        f'{html.escape(ui_pick(lang, "מוצרים", "Products", "Productos"))}</a>'
-        f"</div>"
-    )
-
-
-def render_typical_project_links(lang: str) -> str:
-    links = [
-        f'<a class="product-use-case-link" href="{page_href(lang, proj["slug"])}">{html.escape(proj["title"])}</a>'
-        for proj in PROJECTS.get(lang, [])
-    ]
-    return (
-        f'<section class="product-use-cases">'
-        f'<h2 class="related-products-title">{html.escape(clients_heading(lang))}</h2>'
-        f'<div class="product-use-case-links">{"".join(links)}</div>'
-        f"</section>"
-    )
-
-
 def render_solution_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     title = SOLUTION_LABELS[lang][slug]
@@ -3507,11 +3502,9 @@ def render_solution_page(page: dict, lang: str) -> str:
     <div class="solution-hero-inner">
       <h1 class="page-title">{html.escape(title)}</h1>
       <p class="use-case-about">{html.escape(framing)}</p>
-      {render_page_ctas(lang)}
     </div>
   </header>
   {products_html}
-  {render_typical_project_links(lang)}
 </article>"""
 
 
@@ -3596,7 +3589,6 @@ def render_project_detail_page(page: dict, lang: str) -> str:
     <div class="solution-hero-inner">
       <h1 class="page-title">{html.escape(title)}</h1>
       <p class="use-case-about">{html.escape(framing)}</p>
-      {render_page_ctas(lang)}
     </div>
   </header>
   <section class="use-case-clients">
