@@ -1859,6 +1859,9 @@ html[dir="rtl"] .project-site-list li::before {
 }
 
 .home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-top: 1.6rem;
 }
 
@@ -1870,6 +1873,19 @@ html[dir="rtl"] .project-site-list li::before {
 .home-hero--photo .home-btn--primary:hover {
   background: var(--color-white);
   color: var(--color-navy);
+}
+
+.home-hero--photo .home-btn--ghost {
+  padding: 0.7rem 1.4rem;
+  color: var(--color-white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.home-hero--photo .home-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-white);
+  color: var(--color-white);
 }
 
 .home-section-head {
@@ -1986,6 +2002,10 @@ html[dir="rtl"] .project-site-list li::before {
   gap: 1rem;
   max-width: min(1320px, calc(100% - 3rem));
   margin: 0 auto;
+}
+
+.home-icon-grid--five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .home-icon-card {
@@ -3788,6 +3808,10 @@ body.contact-popup-open {
   .home-solution-tiles {
     grid-template-columns: 1fr 1fr;
     max-width: min(1320px, calc(100% - 2.3rem));
+  }
+
+  .home-icon-grid--five {
+    grid-template-columns: 1fr 1fr;
   }
 
   .home-feature-panel {

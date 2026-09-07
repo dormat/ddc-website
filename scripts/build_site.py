@@ -200,7 +200,7 @@ def rewrite_image_url(url: str) -> str:
 
 
 def solutions_nav_label(lang: str) -> str:
-    return ui_pick(lang, "הפתרונות שלנו", "Our Solutions", "Nuestras soluciones")
+    return ui_pick(lang, "יישומים", "Applications", "Aplicaciones")
 
 
 def projects_nav_label(lang: str) -> str:
@@ -228,7 +228,7 @@ def assemble_nav(lang: str) -> list[dict]:
         {"label": ui_pick(lang, "בית", "Home", "Inicio"), "href": f"/{loc}/"},
         {
             "label": solutions_nav_label(lang),
-            "href": f"/{loc}/#solutions",
+            "href": f"/{loc}/#applications",
             "children": solution_children,
         },
         {"label": ui_pick(lang, "מוצרים", "Products", "Productos"), "href": page_href(lang, "products")},
@@ -325,9 +325,9 @@ def render_search_control(lang: str) -> str:
     label = ui_pick(lang, "חיפוש", "Search", "Buscar")
     placeholder = ui_pick(
         lang,
-        "חפשו פתרונות, מוצרים ופרויקטים",
-        "Search solutions, products, and projects",
-        "Buscar soluciones, productos y proyectos",
+        "חפשו יישומים, מוצרים ופרויקטים",
+        "Search applications, products, and projects",
+        "Buscar aplicaciones, productos y proyectos",
     )
     empty = ui_pick(lang, "אין תוצאות", "No results", "Sin resultados")
     close = ui_pick(lang, "סגור", "Close", "Cerrar")
@@ -1273,18 +1273,24 @@ HOME_SLIDE_ES = [
 HOME_UI = {
     "he": {
         "learn_more": "למידע נוסף",
-        "featured": "הפתרונות שלנו",
+        "featured": "יישומים",
         "explore": "גלו את המערכות שלנו",
+        "path_applications": "יישומים",
+        "path_products": "קטלוג מוצרים",
     },
     "en": {
         "learn_more": "More information",
-        "featured": "Our Solutions",
+        "featured": "Applications",
         "explore": "Explore our systems",
+        "path_applications": "Applications",
+        "path_products": "Product catalog",
     },
     "es": {
         "learn_more": "Más información",
-        "featured": "Nuestras soluciones",
+        "featured": "Aplicaciones",
         "explore": "Explore nuestros sistemas",
+        "path_applications": "Aplicaciones",
+        "path_products": "Catálogo de productos",
     },
 }
 
@@ -1357,14 +1363,11 @@ def first_sentences(text: str, count: int = 1) -> str:
 def render_home_hero(slide: dict, lang: str) -> str:
     brand = html.escape(ui_pick(lang, "ישומי בקרה", "Control Applications", "Control Applications"))
     lead = html.escape(ABOUT_HERO[lang]["lead"])
-    proof = html.escape(
-        ui_pick(
-            lang,
-            "החברה המובילה בישראל — איכות ויעילות המוצרים מוכרות אצל לקוחות מרוצים בארץ ובעולם.",
-            "The leading company in Israel — product quality and efficiency recognized by customers worldwide.",
-            "La empresa líder en Israel: calidad y eficiencia reconocidas por clientes en todo el mundo.",
-        )
-    )
+    loc = SITE_CONFIG[lang]["locale_path"]
+    apps_label = html.escape(HOME_UI[lang]["path_applications"])
+    products_label = html.escape(HOME_UI[lang]["path_products"])
+    apps_href = f"/{loc}/#applications"
+    products_href = page_href(lang, "products")
     bg = rewrite_image_url(asset_path(f"images/{HOME_HERO_IMAGE}"))
     photo = (
         f'<div class="home-hero-photo" style="background-image:url(\'{bg}\')"></div>'
@@ -1379,7 +1382,10 @@ def render_home_hero(slide: dict, lang: str) -> str:
     <p class="home-hero-kicker">{html.escape(ui_pick(lang, "הוקמה בשנת 1992", "Established 1992", "Fundada en 1992"))}</p>
     <h1 class="home-hero-title">{brand}</h1>
     <p class="home-text-subtitle">{lead}</p>
-    <p class="home-text-desc">{proof}</p>
+    <div class="home-hero-actions">
+      <a class="home-btn home-btn--primary" href="{apps_href}">{apps_label}</a>
+      <a class="home-btn home-btn--ghost" href="{products_href}">{products_label}</a>
+    </div>
   </div>
 </section>"""
 
@@ -1477,11 +1483,11 @@ def render_home_solutions_grid(lang: str) -> str:
         )
         for slug in SOLUTION_ORDER
     ]
-    return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
+    return f"""<section class="home-solutions" id="applications" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-icon-grid">{"".join(panels)}</div>
+  <div class="home-icon-grid home-icon-grid--five">{"".join(panels)}</div>
 </section>"""
 
 

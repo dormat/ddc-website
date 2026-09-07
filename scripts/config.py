@@ -481,16 +481,14 @@ HUB_PAGES = {
     ],
 }
 
-# First-class application doors (existing slugs). Product lists are existing catalog items only.
+# First-class application doors (existing slugs). Five doors fold the old eight hubs
+# where the job is the same. Product lists are existing catalog items only.
 SOLUTION_ORDER = (
-    "power-quality-analyzers",
-    "energy-meters",
+    "power-quality-analyzers",  # Energy and power quality (absorbs energy-meters)
     "building-automation",
     "parking-control",
-    "flood-detection-systems",
-    "transfer-switches",
-    "power-factor-control",
-    "plumbing-control",
+    "transfer-switches",  # Generator transfer and power factor
+    "flood-detection-systems",  # Water in the building (absorbs plumbing-control)
 )
 
 SOLUTION_PRODUCTS = {
@@ -498,17 +496,12 @@ SOLUTION_PRODUCTS = {
         "elnet-pq-gr-meter",
         "elnet-lt-meter",
         "elnet-ltp-meter",
-        "elnet-billing-software",
-    ),
-    "energy-meters": (
         "elnet-mc-1-meter",
         "elnet-mc-2-meter",
         "elnet-mc-8-meter",
         "elnet-mc-12-meter",
         "elnet-pic-meter",
         "elnet-lte-meter",
-        "elnet-lt-meter",
-        "elnet-ltp-meter",
         "elnet-va-meter",
         "elnet-vip-meter",
         "elnet-billing-software",
@@ -526,19 +519,15 @@ SOLUTION_PRODUCTS = {
         "co-gas-monitoring",
         "smart-parking",
     ),
-    "flood-detection-systems": (
-        "flooding-sensor",
-    ),
     "transfer-switches": (
         "elnet-cod-transfer-switch",
         "elnet-co-transfer-switch",
-    ),
-    "power-factor-control": (
         "elnet-pfc-controller",
         "elnet-ltc10-controller",
         "elnet-ltc-controller",
     ),
-    "plumbing-control": (
+    "flood-detection-systems": (
+        "flooding-sensor",
         "elnet-xp-controller",
     ),
 }
@@ -547,45 +536,33 @@ HOME_HERO_IMAGE = "home-hero-abstract.png"
 
 SOLUTION_IMAGES = {
     "power-quality-analyzers": "home-content-5-2.jpg",
-    "energy-meters": "energy-meters-content-5-5.jpg",
     "building-automation": "building-automation-content-5-5.jpg",
     "parking-control": "parking-control-content-5-5.jpg",
-    "flood-detection-systems": "flood-detection-systems-content-5-5.jpg",
     "transfer-switches": "transfer-switches-content-5-5.jpg",
-    "power-factor-control": "3d2098412dbf46189d3998ae4392e5bc.jpg",
-    "plumbing-control": "plumbing-control-content-5-5.jpg",
+    "flood-detection-systems": "flood-detection-systems-content-5-5.jpg",
 }
 
 SOLUTION_LABELS = {
     "he": {
-        "power-quality-analyzers": "איכות חשמל",
-        "energy-meters": "ניהול אנרגיה",
+        "power-quality-analyzers": "אנרגיה ואיכות חשמל",
         "building-automation": "בקרת מבנים / BMS",
-        "parking-control": "בקרת חניונים",
-        "flood-detection-systems": "מערכות לאיתור הצפות",
-        "transfer-switches": "בקרי החלפה",
-        "power-factor-control": "מקדם הספק",
-        "plumbing-control": "בקרת אינסטלציה",
+        "parking-control": "בקרת חניונים / CO",
+        "transfer-switches": "החלפת גנרטור ומקדם הספק",
+        "flood-detection-systems": "מים במבנה",
     },
     "en": {
-        "power-quality-analyzers": "Power quality",
-        "energy-meters": "Energy management",
+        "power-quality-analyzers": "Energy and power quality",
         "building-automation": "Building automation / BMS",
         "parking-control": "Parking / CO",
-        "flood-detection-systems": "Flood detection",
-        "transfer-switches": "Generator / transfer switching",
-        "power-factor-control": "Power factor",
-        "plumbing-control": "Plumbing / drainage pumps",
+        "transfer-switches": "Generator transfer and power factor",
+        "flood-detection-systems": "Water in the building",
     },
     "es": {
-        "power-quality-analyzers": "Calidad de energía",
-        "energy-meters": "Gestión de energía",
+        "power-quality-analyzers": "Energía y calidad de energía",
         "building-automation": "Automatización de edificios / BMS",
         "parking-control": "Estacionamiento / CO",
-        "flood-detection-systems": "Detección de inundaciones",
-        "transfer-switches": "Transferencia / generador",
-        "power-factor-control": "Factor de potencia",
-        "plumbing-control": "Fontanería / bombas de drenaje",
+        "transfer-switches": "Transferencia de generador y factor de potencia",
+        "flood-detection-systems": "Agua en el edificio",
     },
 }
 
@@ -593,12 +570,8 @@ SOLUTION_LABELS = {
 SOLUTION_FRAMING = {
     "he": {
         "power-quality-analyzers": (
-            "מנטרת ומבקרת את רשת החשמל שלך. מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה ומדויקת וממשק ידידותי, "
-            "ומפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דוח אירועי חשמל מקיף ומדויק."
-        ),
-        "energy-meters": (
-            "ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה. מודעות לכמות האנרגיה הנצרכת היא הדרך היעילה להפחתת צריכה "
-            "ולהפקת חשבונות צריכת חשמל ומיזוג אוויר."
+            "מדידת צריכה ובקרת איכות החשמל באותה דלת. מערכת אלנט מנטרת את הרשת לפי EN50160, "
+            "מפיקה דוחות ואירועים, ומאפשרת ניהול אנרגיה והפקת חשבונות צריכה."
         ),
         "building-automation": (
             "בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל. שליטה, מדידה ובקרה על מיזוג אוויר, חשמל ושאר המערכות "
@@ -607,27 +580,17 @@ SOLUTION_FRAMING = {
         "parking-control": (
             "ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול."
         ),
-        "flood-detection-systems": (
-            "מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות."
-        ),
         "transfer-switches": (
-            "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור."
+            "רציפות אספקה וחיסכון באנרגיה: בקרי החלפה חברת חשמל / גנרטור, ובקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10."
         ),
-        "power-factor-control": (
-            "חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10."
-        ),
-        "plumbing-control": (
-            "בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך."
+        "flood-detection-systems": (
+            "מים במבנה — איתור הצפות לפני נזק למערכות האלקטרו-מכניות, ובקרת מפלס למשאבות ניקוז מי גשם או ביוב."
         ),
     },
     "en": {
         "power-quality-analyzers": (
-            "Monitor your electrical network. The ElNet power quality system is built on accurate, reliable hardware "
-            "and an EN50160 reports generator and events recorder."
-        ),
-        "energy-meters": (
-            "An energy management system starts by measuring consumption and keeping it to the minimum needed. "
-            "Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills."
+            "Measure consumption and watch power quality in one place. ElNet monitors the network to EN50160, "
+            "records events, and supports energy management and consumption billing."
         ),
         "building-automation": (
             "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and "
@@ -638,29 +601,19 @@ SOLUTION_FRAMING = {
             "CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space "
             "is free or taken."
         ),
-        "flood-detection-systems": (
-            "Flood detecting and control systems, including the flooding sensor, for finding water in the building "
-            "before it damages electromechanical systems."
-        ),
         "transfer-switches": (
-            "Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous."
+            "Keep supply continuous and improve efficiency: utility / generator transfer switch controllers, "
+            "plus power factor improvement with ElNet PFC, LTC and LTC10."
         ),
-        "power-factor-control": (
-            "Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10."
-        ),
-        "plumbing-control": (
-            "Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps "
-            "and bringing a standby pump in when extra capacity is needed."
+        "flood-detection-systems": (
+            "Water in the building — flood detection before electromechanical damage, and automatic rainwater "
+            "or sewage level control for drainage pumps."
         ),
     },
     "es": {
         "power-quality-analyzers": (
-            "Monitoree su red eléctrica. El sistema de calidad de energía ElNet se basa en hardware preciso y confiable "
-            "y en un generador de informes EN50160 y un registrador de eventos."
-        ),
-        "energy-meters": (
-            "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía "
-            "se usa permite reducir el costo y generar facturas de electricidad y climatización."
+            "Mida el consumo y vigile la calidad de energía en un solo lugar. ElNet monitorea la red según EN50160, "
+            "registra eventos y apoya la gestión energética y la facturación del consumo."
         ),
         "building-automation": (
             "Automatización de edificios y BMS: control y medición de aire acondicionado, electricidad y sistemas "
@@ -671,19 +624,13 @@ SOLUTION_FRAMING = {
             "Monitoreo de gas CO en niveles de estacionamiento y control de ocupación que indica si una plaza "
             "está libre o ocupada."
         ),
-        "flood-detection-systems": (
-            "Sistemas de detección y control de inundaciones, incluido el sensor de inundación, para detectar agua "
-            "en el edificio antes de que dañe los sistemas electromecánicos."
-        ),
         "transfer-switches": (
-            "Controladores de transferencia automática red / generador, para mantener el suministro eléctrico continuo."
+            "Mantenga el suministro continuo y mejore la eficiencia: controladores de transferencia red / generador "
+            "y mejora del factor de potencia con ElNet PFC, LTC y LTC10."
         ),
-        "power-factor-control": (
-            "Ahorre energía y proteja el medio ambiente con controladores de factor de potencia — ElNet PFC, LTC y LTC10."
-        ),
-        "plumbing-control": (
-            "Control automático del nivel de agua de lluvia o residuales para bombas de drenaje, con conmutación "
-            "entre bombas y refuerzo de una bomba en espera cuando hace falta."
+        "flood-detection-systems": (
+            "Agua en el edificio: detección de inundaciones antes del daño electromecánico, y control automático "
+            "del nivel de lluvia o residuales para bombas de drenaje."
         ),
     },
 }

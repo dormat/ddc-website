@@ -17,7 +17,7 @@
 "title": "Automatización de edificios / BMS",
 "url": "/es/building-automation/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Aplicaciones",
 "text": "Automatización de edificios y BMS: control y medición de aire acondicionado, electricidad y sistemas electromecánicos. UniArt / UniWeb es una plataforma TCP/IP y Web SCADA para ahorro de energía en edificios públicos e industria. Controlador DigiPoint Controlador VeroPoint Controlador SuperBrain Controlador SuperBrain DR Controlador SuperBrain FC Software UniArt Software UniWeb"
 },
 {
@@ -87,22 +87,22 @@
 "title": "Estacionamiento / CO",
 "url": "/es/parking-control/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Aplicaciones",
 "text": "Monitoreo de gas CO en niveles de estacionamiento y control de ocupación que indica si una plaza está libre o ocupada. Monitoreo de gas CO Estacionamiento inteligente"
 },
 {
-"title": "Fontanería / bombas de drenaje",
+"title": "Control de fontanería",
 "url": "/es/plumbing-control/",
-"kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "Control automático del nivel de agua de lluvia o residuales para bombas de drenaje, con conmutación entre bombas y refuerzo de una bomba en espera cuando hace falta. Controlador ElNet XP"
+"kind": "page",
+"kindLabel": "Página",
+"text": "Control de fontanería Controlador Elnet xp para bombas de drenaje y aguas residuales."
 },
 {
-"title": "Detección de inundaciones",
+"title": "Agua en el edificio",
 "url": "/es/flood-detection-systems/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "Sistemas de detección y control de inundaciones, incluido el sensor de inundación, para detectar agua en el edificio antes de que dañe los sistemas electromecánicos. Sensor de inundación"
+"kindLabel": "Aplicaciones",
+"text": "Agua en el edificio: detección de inundaciones antes del daño electromecánico, y control automático del nivel de lluvia o residuales para bombas de drenaje. Sensor de inundación Controlador ElNet XP"
 },
 {
 "title": "Sensor de inundación",
@@ -119,18 +119,18 @@
 "text": "Software BMS / SCADA UniArt-4W software para control de estructuras"
 },
 {
-"title": "Transferencia / generador",
+"title": "Transferencia de generador y factor de potencia",
 "url": "/es/transfer-switches/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "Controladores de transferencia automática red / generador, para mantener el suministro eléctrico continuo. Interruptor de transferencia ElNet COD Interruptor de transferencia ElNet CO"
+"kindLabel": "Aplicaciones",
+"text": "Mantenga el suministro continuo y mejore la eficiencia: controladores de transferencia red / generador y mejora del factor de potencia con ElNet PFC, LTC y LTC10. Interruptor de transferencia ElNet COD Interruptor de transferencia ElNet CO Controlador ElNet PFC Controlador ElNet LTC10 Controlador ElNet LTC"
 },
 {
-"title": "Factor de potencia",
+"title": "Control de factor de potencia",
 "url": "/es/power-factor-control/",
-"kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "Ahorre energía y proteja el medio ambiente con controladores de factor de potencia — ElNet PFC, LTC y LTC10. Controlador ElNet PFC Controlador ElNet LTC10 Controlador ElNet LTC"
+"kind": "page",
+"kindLabel": "Página",
+"text": "Control de factor de potencia ElNet PFC controlador de mejora del factor de potencia ElNet LTC10 controlador de mejora del factor de potencia ElNet LTC controlador de mejora del factor de potencia"
 },
 {
 "title": "Estacionamiento inteligente",
@@ -147,18 +147,18 @@
 "text": "Monitoreo de gas CO UniCo es un sensor diseñado para medir el nivel de gases tóxicos del tipo oxígeno. CO monocarbono que es un subproducto del funcionamiento de motores de gasolina en estacionamientos. La sensación tiene una excelente estabilidad, incluido un bajo nivel de reacción a los cambios de temperatura. y otros gases encontrados en el estacionamiento."
 },
 {
-"title": "Calidad de energía",
+"title": "Energía y calidad de energía",
 "url": "/es/power-quality-analyzers/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "Monitoree su red eléctrica. El sistema de calidad de energía ElNet se basa en hardware preciso y confiable y en un generador de informes EN50160 y un registrador de eventos. Medidor ElNet PQ/GR Medidor ElNet LT Medidor ElNet LTP Software de facturación ElNet"
+"kindLabel": "Aplicaciones",
+"text": "Mida el consumo y vigile la calidad de energía en un solo lugar. ElNet monitorea la red según EN50160, registra eventos y apoya la gestión energética y la facturación del consumo. Medidor ElNet PQ/GR Medidor ElNet LT Medidor ElNet LTP Medidor ElNet MC-1 Medidor ElNet MC-2 Medidor ElNet MC-8 Medidor ElNet MC-12 Medidor ElNet PIC Medidor ElNet LTE Medidor ElNet VA Medidor ElNet VIP Software de facturación ElNet"
 },
 {
-"title": "Gestión de energía",
+"title": "Medidores de energía",
 "url": "/es/energy-meters/",
-"kind": "solution",
-"kindLabel": "Nuestras soluciones",
-"text": "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía se usa permite reducir el costo y generar facturas de electricidad y climatización. Medidor ElNet MC-1 Medidor ElNet MC-2 Medidor ElNet MC-8 Medidor ElNet MC-12 Medidor ElNet PIC Medidor ElNet LTE Medidor ElNet LT Medidor ElNet LTP Medidor ElNet VA Medidor ElNet VIP Software de facturación ElNet"
+"kind": "page",
+"kindLabel": "Página",
+"text": "Medidores de energía ElNet Contador MC-1 ElNet Contador MC-2 ElNet Interferencia PQ/GR y mediciones de potencia ElNet Contador MC-8"
 },
 {
 "title": "Medidores eléctricos",

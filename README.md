@@ -86,8 +86,9 @@ After the secret is in place:
 
 - Every push to `main` deploys to **ddc-temp** — https://ddc-temp.web.app
 - Every push to `cursor/solutions-first-site-ee14` deploys to **ddc-temp2** — https://ddc-temp2.web.app (and https://ddc-temp2.firebaseapp.com)
+- Every push to `cursor/application-doors-ee14` deploys to **ddc-temp3** — https://ddc-temp3.web.app (and https://ddc-temp3.firebaseapp.com)
 
-The first solutions-first deploy creates the `ddc-temp2` Hosting site in the **harokdim** project if it does not already exist. `main` is unchanged and still goes only to `ddc-temp`.
+The first solutions-first deploy creates the `ddc-temp2` Hosting site in the **harokdim** project if it does not already exist. The first application-doors deploy creates `ddc-temp3` the same way. `main` is unchanged and still goes only to `ddc-temp`.
 
 ### Manual deploy
 
