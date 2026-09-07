@@ -235,6 +235,8 @@ PROJECT_IMAGES = {
     "museums": "museums-hero.jpg",
     "hospitals": "hospitals-hero.jpg",
     "hotels": "hotels-hero.jpg",
+    "shopping-malls": "shopping-malls-hero.jpg",
+    "pharmaceutical-clean-rooms": "pharmaceutical-clean-rooms-hero.jpg",
 }
 
 # A short ElNet highlight set for the home product slider.
