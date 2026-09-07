@@ -215,21 +215,12 @@ def assemble_nav(lang: str) -> list[dict]:
         }
         for slug in SOLUTION_ORDER
     ]
-    project_children = [
-        {"label": proj["title"], "href": page_href(lang, proj["slug"])}
-        for proj in PROJECTS.get(lang, [])
-    ]
     return [
         {"label": ui_pick(lang, "בית", "Home", "Inicio"), "href": f"/{loc}/"},
         {
             "label": solutions_nav_label(lang),
             "href": f"/{loc}/#solutions",
             "children": solution_children,
-        },
-        {
-            "label": projects_nav_label(lang),
-            "href": f"/{loc}/about/#projects",
-            "children": project_children,
         },
         {"label": ui_pick(lang, "מוצרים", "Products", "Productos"), "href": page_href(lang, "products")},
         {"label": ui_pick(lang, "אודות", "About", "Nosotros"), "href": page_href(lang, "about")},
