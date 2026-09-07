@@ -24,12 +24,16 @@ from config import (
     PRODUCT_SUBCATEGORY_ES,
     PRODUCT_SUBCATEGORY_ORDER,
     PRODUCT_SUBCATEGORY_SLUGS,
+    PRODUCT_GROUP_SUBCATEGORIES,
     PROJECTS,
     PROJECT_IMAGES,
     HOME_FEATURED_PRODUCTS,
     HOME_HERO_IMAGE,
+    INDUSTRY_FRAMING,
+    INDUSTRY_OFFERS,
     SITE_CONFIG,
     SOLUTION_FRAMING,
+    SOLUTION_GROUPS,
     SOLUTION_IMAGES,
     SOLUTION_LABELS,
     SOLUTION_ORDER,
@@ -200,11 +204,11 @@ def rewrite_image_url(url: str) -> str:
 
 
 def solutions_nav_label(lang: str) -> str:
-    return ui_pick(lang, "הפתרונות שלנו", "Our Solutions", "Nuestras soluciones")
+    return ui_pick(lang, "פתרונות", "Solutions", "Soluciones")
 
 
 def projects_nav_label(lang: str) -> str:
-    return ui_pick(lang, "פרויקטים", "Typical projects", "Proyectos típicos")
+    return ui_pick(lang, "תעשיות", "Industries", "Industrias")
 
 
 def field_clients_heading(lang: str) -> str:
@@ -217,21 +221,30 @@ def related_products_heading(lang: str) -> str:
 
 def assemble_nav(lang: str) -> list[dict]:
     loc = SITE_CONFIG[lang]["locale_path"]
-    solution_children = [
-        {
-            "label": SOLUTION_LABELS[lang][slug],
-            "href": page_href(lang, slug),
-        }
-        for slug in SOLUTION_ORDER
-    ]
+    solution_groups = []
+    for group in SOLUTION_GROUPS:
+        solution_groups.append(
+            {
+                "id": group["id"],
+                "label": group["labels"][lang],
+                "items": [
+                    {
+                        "label": SOLUTION_LABELS[lang][slug],
+                        "href": page_href(lang, slug),
+                    }
+                    for slug in group["slugs"]
+                ],
+            }
+        )
     return [
         {"label": ui_pick(lang, "בית", "Home", "Inicio"), "href": f"/{loc}/"},
         {
             "label": solutions_nav_label(lang),
             "href": f"/{loc}/#solutions",
-            "children": solution_children,
+            "groups": solution_groups,
         },
         {"label": ui_pick(lang, "מוצרים", "Products", "Productos"), "href": page_href(lang, "products")},
+        {"label": projects_nav_label(lang), "href": page_href(lang, "industries")},
         {"label": ui_pick(lang, "אודות", "About", "Nosotros"), "href": page_href(lang, "about")},
         {"label": ui_pick(lang, "צרו קשר", "Contact", "Contacto"), "href": page_href(lang, "contact")},
     ]
@@ -243,10 +256,13 @@ def render_nav(lang: str, current_slug: str) -> str:
     for item in items:
         is_active = _is_nav_active(item, current_slug, lang)
         active_cls = " active" if is_active else ""
-        has_children = "children" in item and item["children"]
-        if has_children:
+        groups = item.get("groups") or []
+        children = item.get("children") or []
+        has_menu = bool(groups or children)
+        if has_menu:
             expand_label = ui_pick(lang, "הצג תפריט משנה", "Show submenu", "Mostrar submenú")
-            parts.append(f'<li class="nav-item has-dropdown{active_cls}">')
+            mega_cls = " has-mega" if groups else ""
+            parts.append(f'<li class="nav-item has-dropdown{mega_cls}{active_cls}">')
             parts.append(
                 f'<a class="nav-link" href="{item["href"]}">{html.escape(item["label"])}</a>'
             )
@@ -255,12 +271,27 @@ def render_nav(lang: str, current_slug: str) -> str:
                 f'aria-label="{html.escape(expand_label)}">'
                 f'<span class="nav-submenu-chevron" aria-hidden="true"></span></button>'
             )
-            parts.append('<ul class="dropdown">')
-            for child in item["children"]:
-                parts.append(
-                    f'<li><a href="{child["href"]}">{html.escape(child["label"])}</a></li>'
-                )
-            parts.append("</ul></li>")
+            if groups:
+                parts.append('<div class="dropdown mega-dropdown" role="menu">')
+                for group in groups:
+                    parts.append(
+                        f'<div class="mega-dropdown-col" data-group="{html.escape(group["id"])}">'
+                        f'<p class="mega-dropdown-heading">{html.escape(group["label"])}</p>'
+                        f"<ul>"
+                    )
+                    for child in group["items"]:
+                        parts.append(
+                            f'<li><a href="{child["href"]}">{html.escape(child["label"])}</a></li>'
+                        )
+                    parts.append("</ul></div>")
+                parts.append("</div></li>")
+            else:
+                parts.append('<ul class="dropdown">')
+                for child in children:
+                    parts.append(
+                        f'<li><a href="{child["href"]}">{html.escape(child["label"])}</a></li>'
+                    )
+                parts.append("</ul></li>")
         else:
             parts.append(f'<li class="nav-item{active_cls}">')
             parts.append(
@@ -279,8 +310,14 @@ def _is_nav_active(item: dict, slug: str, lang: str) -> bool:
         child_slug = canonical_slug(child["href"].strip("/").split("/", 1)[-1].rstrip("/"))
         if child_slug == current:
             return True
+    for group in item.get("groups", []):
+        for child in group.get("items", []):
+            child_slug = canonical_slug(child["href"].strip("/").split("/", 1)[-1].rstrip("/"))
+            if child_slug == current:
+                return True
+    if current in SOLUTION_ORDER and item.get("groups"):
+        return True
     return False
-
 
 def render_language_switcher(current_lang: str, current_slug: str = "") -> str:
     names = {"en": "English", "he": "עברית", "es": "Español"}
@@ -382,6 +419,10 @@ def search_record_for_page(lang: str, page: dict) -> dict | None:
         kind = "page"
         title = ui_pick(lang, "בית", "Home", "Inicio")
         text = ABOUT_HERO[lang]["lead"]
+    elif slug == "industries":
+        kind = "page"
+        title = projects_nav_label(lang)
+        text = INDUSTRY_FRAMING[lang]
     elif slug in SOLUTION_ORDER:
         kind = "solution"
         title = SOLUTION_LABELS[lang][slug]
@@ -931,30 +972,10 @@ def render_contact_page(lang: str) -> str:
           <dd><a href="tel:{CONTACT['phone']}">{CONTACT['phone']}</a></dd>
         </div>
         <div>
-          <dt>{html.escape(lbl['fax'])}</dt>
-          <dd>{CONTACT['fax']}</dd>
-        </div>
-        <div>
           <dt>{html.escape(lbl['email'])}</dt>
           <dd><a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></dd>
         </div>
-        <div>
-          <dt>{html.escape(lbl['hours'])}</dt>
-          <dd>{html.escape(CONTACT['hours'][lang])}</dd>
-        </div>
-        <div>
-          <dt>{html.escape(lbl['address'])}</dt>
-          <dd>{html.escape(CONTACT['address'][lang])}</dd>
-        </div>
       </dl>
-      <div class="contact-map">
-        <iframe
-          title="Map"
-          src="https://maps.google.com/maps?q=Habarzel+25+Tel+Aviv&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
     </aside>
   </div>
   <div class="contact-popup" id="contact-popup" hidden>
@@ -1073,16 +1094,14 @@ def render_footer(lang: str) -> str:
         (SOLUTION_LABELS[lang][slug], page_href(lang, slug)) for slug in SOLUTION_ORDER
     ]
     project_links = [
-        (proj["title"], page_href(lang, proj["slug"])) for proj in PROJECTS.get(lang, [])
+        (proj["title"], industry_anchor_href(lang, proj["slug"]))
+        for proj in PROJECTS.get(lang, [])
     ]
     company_links = [
         (ui_pick(lang, "בית", "Home", "Inicio"), page_href(lang, "")),
         (ui_pick(lang, "אודות", "About us", "Nosotros"), page_href(lang, "about")),
+        (projects_nav_label(lang), page_href(lang, "industries")),
         (ui_pick(lang, "מוצרים", "Products", "Productos"), page_href(lang, "products")),
-        (
-            ui_pick(lang, "אבטחת איכות", "Quality Assurance", "Garantía de calidad"),
-            page_href(lang, "quality-assurance"),
-        ),
         (ui_pick(lang, "צרו קשר", "Contact", "Contacto"), page_href(lang, "contact")),
     ]
     return f"""<footer class="site-footer">
@@ -1094,18 +1113,7 @@ def render_footer(lang: str) -> str:
     <div class="footer-contact">
       <h3>{lbl['contact']}</h3>
       <p><strong>{lbl['phone']}:</strong> <a href="tel:{CONTACT['phone']}">{CONTACT['phone']}</a></p>
-      <p><strong>{lbl['fax']}:</strong> {CONTACT['fax']}</p>
       <p><strong>{lbl['email']}:</strong> <a href="mailto:{CONTACT['email']}">{CONTACT['email']}</a></p>
-      <p><strong>{lbl['hours']}:</strong> {CONTACT['hours'][lang]}</p>
-      <p><strong>{lbl['address']}:</strong> {CONTACT['address'][lang]}</p>
-    </div>
-    <div class="footer-map">
-      <iframe
-        title="Map"
-        src="https://maps.google.com/maps?q=Habarzel+25+Tel+Aviv&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1273,17 +1281,17 @@ HOME_SLIDE_ES = [
 HOME_UI = {
     "he": {
         "learn_more": "למידע נוסף",
-        "featured": "הפתרונות שלנו",
+        "featured": "פתרונות",
         "explore": "גלו את המערכות שלנו",
     },
     "en": {
         "learn_more": "More information",
-        "featured": "Our Solutions",
+        "featured": "Solutions",
         "explore": "Explore our systems",
     },
     "es": {
         "learn_more": "Más información",
-        "featured": "Nuestras soluciones",
+        "featured": "Soluciones",
         "explore": "Explore nuestros sistemas",
     },
 }
@@ -1429,9 +1437,7 @@ def render_home_content(lang: str) -> str:
 
     hero = render_home_hero(slides[0], lang)
     solutions = render_home_solutions_grid(lang)
-    products = render_home_products_slider(lang)
-    projects = render_home_projects_slider(lang)
-    return f'<div class="home-page">{hero}{solutions}{products}{projects}{render_home_proof(lang)}</div>'
+    return f'<div class="home-page">{hero}{solutions}</div>'
 
 
 def solution_icon_svg(slug: str) -> str:
@@ -1469,19 +1475,83 @@ def render_home_solution_media(
     )
 
 
+def render_home_solution_group_visual(group_id: str) -> str:
+    if group_id == "power-meters":
+        return """<div class="home-solution-group-visual home-solution-group-visual--power" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <path class="home-solution-anim-wave home-solution-anim-wave--a" d="M0 62 C35 32, 55 92, 90 62 S145 32, 180 62 235 92, 280 62" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-wave home-solution-anim-wave--b" d="M0 78 C40 58, 60 98, 100 78 S160 58, 200 78 250 98, 280 78" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+    <circle class="home-solution-anim-pulse" cx="90" cy="62" r="4.5" fill="currentColor"/>
+    <circle class="home-solution-anim-pulse home-solution-anim-pulse--delay" cx="180" cy="62" r="3.5" fill="currentColor"/>
+  </svg>
+</div>"""
+    return """<div class="home-solution-group-visual home-solution-group-visual--building" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <rect x="48" y="28" width="72" height="72" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="136" y="44" width="56" height="56" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="208" y="18" width="40" height="82" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <path class="home-solution-anim-window" d="M62 44h12M62 58h12M62 72h12M88 44h12M88 58h12M88 72h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay" d="M148 58h10M148 70h10M168 58h10M168 70h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay2" d="M218 36h12M218 50h12M218 64h12M218 78h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
+</div>"""
+
+
+def render_home_solution_group_item(lang: str, slug: str, index: int) -> str:
+    label = html.escape(SOLUTION_LABELS[lang][slug])
+    teaser = html.escape(first_sentences(SOLUTION_FRAMING[lang][slug], 1))
+    more = html.escape(HOME_UI[lang]["learn_more"])
+    teaser_html = (
+        f'<span class="home-solution-group-item-text">{teaser}</span>' if teaser else ""
+    )
+    return (
+        f'<a class="home-solution-group-item" href="{page_href(lang, slug)}" style="--item-i:{index}">'
+        f'<span class="home-solution-group-icon">{solution_icon_svg(slug)}</span>'
+        f'<span class="home-solution-group-copy">'
+        f'<span class="home-solution-group-item-title">{label}</span>'
+        f"{teaser_html}"
+        f'<span class="home-solution-group-item-more">{more}</span>'
+        f"</span>"
+        f"</a>"
+    )
+
+
+def render_home_solution_group(lang: str, group: dict, group_index: int) -> str:
+    title = html.escape(group["labels"][lang])
+    lead = html.escape(group.get("leads", {}).get(lang, ""))
+    lead_html = f'<p class="home-solution-group-lead">{lead}</p>' if lead else ""
+    items = "".join(
+        render_home_solution_group_item(lang, slug, i)
+        for i, slug in enumerate(group["slugs"])
+    )
+    visual = render_home_solution_group_visual(group["id"])
+    index_label = f"{group_index + 1:02d}"
+    return f"""<article class="home-solution-group" data-group="{html.escape(group["id"])}" style="--group-i:{group_index}">
+  <header class="home-solution-group-head">
+    <div class="home-solution-group-head-copy">
+      <span class="home-solution-group-index">{index_label}</span>
+      <h3 class="home-solution-group-title">{title}</h3>
+      {lead_html}
+    </div>
+    {visual}
+  </header>
+  <div class="home-solution-group-list">{items}</div>
+</article>"""
+
+
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
-    panels = [
-        render_home_solution_media(
-            lang, slug, extra_class="home-icon-card", teaser_sentences=1
-        )
-        for slug in SOLUTION_ORDER
-    ]
+    groups = "".join(
+        render_home_solution_group(lang, group, i)
+        for i, group in enumerate(SOLUTION_GROUPS)
+    )
     return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
-  <header class="home-section-head">
-    <h2 class="home-section-title">{html.escape(heading)}</h2>
-  </header>
-  <div class="home-icon-grid">{"".join(panels)}</div>
+  <div class="home-solutions-inner">
+    <header class="home-section-head home-solutions-head">
+      <h2 class="home-section-title">{html.escape(heading)}</h2>
+    </header>
+    <div class="home-solution-groups">{groups}</div>
+  </div>
 </section>"""
 
 
@@ -1565,7 +1635,7 @@ def render_home_projects_slider(lang: str) -> str:
             if img_src
             else '<div class="card-placeholder"></div>'
         )
-        href = page_href(lang, proj["slug"])
+        href = industry_anchor_href(lang, proj["slug"])
         slides.append(
             f'<a class="project-slider-card" href="{href}">'
             f'<div class="project-slider-image">{img}</div>'
@@ -1635,15 +1705,15 @@ HOME_CTA_LINKS = {
 ABOUT_HERO = {
     "he": {
         "title": "אודות",
-        "lead": "מערכות בקרה, מדידה וניטור חשמל — מחויבות לאיכות ולתקנים בינלאומיים.",
+        "lead": "מערכות בקרה, מדידה וניטור חשמל — פתרונות למבנים, אנרגיה ותעשייה.",
     },
     "en": {
         "title": "About us",
-        "lead": "Building automation, power metering, and control systems — committed to international quality standards.",
+        "lead": "Building automation, power metering, and control systems for buildings, energy and industry.",
     },
     "es": {
         "title": "Nosotros",
-        "lead": "Automatización de edificios, medición eléctrica y sistemas de control — comprometidos con estándares internacionales de calidad.",
+        "lead": "Automatización de edificios, medición eléctrica y sistemas de control para edificios, energía e industria.",
     },
 }
 
@@ -3199,7 +3269,7 @@ def render_projects_grid(
             if img_src
             else '<div class="card-placeholder"></div>'
         )
-        href = page_href(lang, proj["slug"])
+        href = industry_anchor_href(lang, proj["slug"])
         parts.append(
             f'<a class="product-card project-card use-case-card" href="{href}">'
             f'<div class="product-card-image use-case-card-image">{img_html}</div>'
@@ -3485,13 +3555,6 @@ def render_about_page(page: dict, lang: str) -> str:
         f'<div class="about-story">{story_html}</div>' if story_html else ""
     )
 
-    projects_heading = ui_pick(lang, "הפרוייקטים שלנו", "Typical Projects", "Proyectos típicos")
-    projects_html = render_projects_grid(
-        lang,
-        heading=projects_heading,
-        section_id="projects",
-    )
-
     return f"""<article class="page-content about-page">
   <header class="about-hero">
     <div class="about-hero-inner">
@@ -3501,17 +3564,13 @@ def render_about_page(page: dict, lang: str) -> str:
       <div class="about-hero-text">
         <h1 class="about-hero-title">{html.escape(hero["title"])}</h1>
         <p class="about-hero-lead">{html.escape(hero["lead"])}</p>
-        {render_about_hero_standards(lang)}
       </div>
     </div>
   </header>
-  {render_about_highlights(lang)}
   <div class="about-body">
     {story_block}
     {render_about_expertise(lang)}
   </div>
-  {render_about_quality(lang)}
-  {projects_html}
 </article>"""
 
 
@@ -3825,7 +3884,7 @@ def render_product_use_case_links(product_slug: str, lang: str) -> str:
     if page:
         for proj in PROJECTS.get(lang, []):
             if product_mentions_use_case(page, proj["slug"], lang):
-                href = page_href(lang, proj["slug"])
+                href = industry_anchor_href(lang, proj["slug"])
                 project_links.append(
                     f'<a class="product-use-case-link" href="{href}">{html.escape(proj["title"])}</a>'
                 )
@@ -3901,9 +3960,9 @@ def render_catalog_product_card(prod: dict, lang: str, slug_index: dict, title_i
 
 
 def render_products_page(page: dict, lang: str) -> str:
-    """Render full product catalog grouped like hub pages, with a subcategory filter."""
+    """Render product catalog split into Building automation and Energy management."""
     page_title = ui_pick(lang, "מוצרים", "Products", "Productos")
-    filter_label = ui_pick(lang, "בחרו תת קטגוריה", "Select subcategory", "Seleccionar subcategoría")
+    filter_label = ui_pick(lang, "בחרו קבוצה", "Select group", "Seleccionar grupo")
     all_label = ui_pick(lang, "הכל", "All", "Todos")
     other_label = ui_pick(lang, "אחר", "Other", "Otros")
 
@@ -3937,14 +3996,25 @@ def render_products_page(page: dict, lang: str) -> str:
         for key in keys:
             groups.setdefault(key, []).append(prod)
 
-    section_keys = [key for key in PRODUCT_SUBCATEGORY_ORDER if key in groups]
-    for key in groups:
-        if key not in section_keys:
-            section_keys.append(key)
+    assigned_keys: set[str] = set()
+    for group in SOLUTION_GROUPS:
+        for key in PRODUCT_GROUP_SUBCATEGORIES.get(group["id"], ()):
+            assigned_keys.add(key)
 
-    localized_labels = [(subcategory_filter_id(key), localize_subcategory(key, lang)) for key in section_keys]
-    if uncategorized:
-        localized_labels.append(("other", other_label))
+    leftover_keys = [
+        key for key in PRODUCT_SUBCATEGORY_ORDER if key in groups and key not in assigned_keys
+    ]
+    for key in groups:
+        if key not in assigned_keys and key not in leftover_keys:
+            leftover_keys.append(key)
+
+    slug_index = build_slug_index(lang)
+    title_index = build_title_index(lang)
+    slug_titles = build_slug_title_index(lang)
+
+    filter_options = [(group["id"], group["labels"][lang]) for group in SOLUTION_GROUPS]
+    if leftover_keys or uncategorized:
+        filter_options.append(("other", other_label))
 
     filter_html = [
         '<div class="product-filters">',
@@ -3953,34 +4023,72 @@ def render_products_page(page: dict, lang: str) -> str:
         f'{html.escape(filter_label)}" onchange="window.applyProductCatalogFilter && window.applyProductCatalogFilter()">',
         f'<option value="">{html.escape(all_label)}</option>',
     ]
-    for filter_id, label in localized_labels:
+    for filter_id, label in filter_options:
         filter_html.append(
             f'<option value="{html.escape(filter_id)}">{html.escape(label)}</option>'
         )
     filter_html.append("</select></div>")
 
-    slug_index = build_slug_index(lang)
-    title_index = build_title_index(lang)
-    slug_titles = build_slug_title_index(lang)
+    def render_subsections(keys: list[str]) -> str:
+        parts: list[str] = []
+        for key in keys:
+            items = groups.get(key) or []
+            if not items:
+                continue
+            cards = [
+                render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
+                for prod in items
+            ]
+            parts.append(
+                f'<section class="hub-section products-subgroup">'
+                f'<h3 class="hub-section-title products-subgroup-title">{html.escape(localize_subcategory(key, lang))}</h3>'
+                f'<div class="card-grid">{"".join(cards)}</div>'
+                "</section>"
+            )
+        return "".join(parts)
 
     sections: list[str] = []
-
-    def append_section(filter_id: str, label: str, items: list[dict]) -> None:
-        cards = [
-            render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
-            for prod in items
+    for group in SOLUTION_GROUPS:
+        group_id = group["id"]
+        keys = [
+            key
+            for key in PRODUCT_GROUP_SUBCATEGORIES.get(group_id, ())
+            if key in groups
         ]
+        body = render_subsections(keys)
+        if not body:
+            continue
         sections.append(
-            f'<section class="hub-section" data-product-group="{html.escape(filter_id)}">'
-            f'<h2 class="hub-section-title">{html.escape(label)}</h2>'
-            f'<div class="card-grid">{"".join(cards)}</div>'
+            f'<section class="products-practice" data-product-group="{html.escape(group_id)}" id="{html.escape(group_id)}">'
+            f'<header class="products-practice-head">'
+            f'<h2 class="products-practice-title">{html.escape(group["labels"][lang])}</h2>'
+            f'<p class="products-practice-lead">{html.escape(group.get("leads", {}).get(lang, ""))}</p>'
+            f"</header>"
+            f'<div class="products-practice-body">{body}</div>'
             "</section>"
         )
 
-    for key in section_keys:
-        append_section(subcategory_filter_id(key), localize_subcategory(key, lang), groups[key])
+    other_body = render_subsections(leftover_keys)
     if uncategorized:
-        append_section("other", other_label, uncategorized)
+        cards = [
+            render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
+            for prod in uncategorized
+        ]
+        other_body += (
+            f'<section class="hub-section products-subgroup">'
+            f'<h3 class="hub-section-title products-subgroup-title">{html.escape(other_label)}</h3>'
+            f'<div class="card-grid">{"".join(cards)}</div>'
+            "</section>"
+        )
+    if other_body:
+        sections.append(
+            f'<section class="products-practice" data-product-group="other" id="other-products">'
+            f'<header class="products-practice-head">'
+            f'<h2 class="products-practice-title">{html.escape(other_label)}</h2>'
+            f"</header>"
+            f'<div class="products-practice-body">{other_body}</div>'
+            "</section>"
+        )
 
     filter_script = """<script>
 window.applyProductCatalogFilter = function () {
@@ -4002,7 +4110,7 @@ document.getElementById("product-category-filter") &&
         f'<div class="hub-page products-page">'
         f'<h1 class="page-title">{page_title}</h1>'
         f'{"".join(filter_html)}'
-        f'{"".join(sections)}'
+        f'<div class="products-practices">{"".join(sections)}</div>'
         f"</div>{filter_script}</article>"
     )
 
@@ -4014,6 +4122,68 @@ def render_hero(lang: str, page: dict) -> str:
     return render_home_content(lang)
 
 
+def render_industry_block(lang: str, proj: dict) -> str:
+    slug = proj["slug"]
+    title = proj["title"]
+    page = load_project_page(lang, slug)
+    if not page:
+        page = {"slug": slug, "title": title, "rich_text": [], "content_html": "", "images": []}
+    page = merge_project_page_images(page, slug)
+    raw = page.get("content_html", "")
+    _, figures = split_figures(raw)
+    hero = find_project_hero_image(page, figures, proj["img"], slug)
+    site_list = extract_project_site_list(page, title)
+    list_html = render_project_site_list(site_list)
+    hero_src = rewrite_image_url(hero.get("src", "")) if hero.get("src") else ""
+    media = (
+        f'<div class="industry-block-media" style="background-image:url(\'{hero_src}\')" role="img" aria-label="{html.escape(title)}"></div>'
+        if hero_src
+        else '<div class="industry-block-media industry-block-media--empty" aria-hidden="true"></div>'
+    )
+    offer = (INDUSTRY_OFFERS.get(lang, {}).get(slug) or "").strip()
+    offer_html = (
+        f'<p class="industry-block-offer">{html.escape(offer)}</p>' if offer else ""
+    )
+    clients = ""
+    if list_html:
+        clients_label = field_clients_heading(lang)
+        clients = (
+            f'<div class="industry-block-clients">'
+            f'<h3 class="industry-block-clients-title">{html.escape(clients_label)}</h3>'
+            f"{list_html}"
+            f"</div>"
+        )
+    return f"""<section class="industry-block" id="{html.escape(slug)}">
+  {media}
+  <div class="industry-block-body">
+    <h2 class="industry-block-title">{html.escape(title)}</h2>
+    {offer_html}
+    {clients}
+  </div>
+</section>"""
+
+
+def render_industries_page(lang: str) -> str:
+    title = projects_nav_label(lang)
+    lead = html.escape(INDUSTRY_FRAMING[lang])
+    blocks = "".join(
+        render_industry_block(lang, proj) for proj in PROJECTS.get(lang, [])
+    )
+    return f"""<article class="page-content industries-page">
+  <header class="industries-hero">
+    <div class="industries-hero-inner">
+      <h1 class="page-title">{html.escape(title)}</h1>
+      <p class="industries-hero-lead">{lead}</p>
+    </div>
+  </header>
+  <div class="industry-blocks">{blocks}</div>
+</article>"""
+
+
+def industry_anchor_href(lang: str, slug: str) -> str:
+    return f"{page_href(lang, 'industries')}#{slug}"
+
+
 def render_page_body(lang: str, page: dict) -> str:
     slug = page.get("slug", "")
     title = page.get("title", "")
@@ -4021,6 +4191,9 @@ def render_page_body(lang: str, page: dict) -> str:
     # Special page layouts
     if slug == "about":
         return render_about_page(page, lang)
+
+    if slug == "industries":
+        return render_industries_page(lang)
 
     if slug == "contact":
         return render_contact_page(lang)
@@ -4032,7 +4205,12 @@ def render_page_body(lang: str, page: dict) -> str:
         return render_transfer_switch_drawings_page(lang)
 
     if slug in PROJECT_DETAIL_SLUGS:
-        return render_project_detail_page(page, lang)
+        # Legacy industry URLs redirect into the combined Industries page.
+        target = industry_anchor_href(lang, slug)
+        return f"""<article class="page-content">
+  <meta http-equiv="refresh" content="0;url={html.escape(target)}"/>
+  <p><a href="{html.escape(target)}">{html.escape(projects_nav_label(lang))}</a></p>
+</article>"""
 
     if slug in SOLUTION_ORDER:
         return render_solution_page(page, lang)

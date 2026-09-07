@@ -4,7 +4,7 @@
 "url": "/he/",
 "kind": "page",
 "kindLabel": "עמוד",
-"text": "מערכות בקרה, מדידה וניטור חשמל — מחויבות לאיכות ולתקנים בינלאומיים."
+"text": "מערכות בקרה, מדידה וניטור חשמל — פתרונות למבנים, אנרגיה ותעשייה."
 },
 {
 "title": "אודות",
@@ -14,10 +14,17 @@
 "text": "אודות ישומי בקרה הוקמה בשנת 1992, החברה היא חברה פרטית המייצרת מערכות בקרה, ניטור, מערכות מדידה ושליטה ממוחשבות. ישומי בקרה מייצרת, משווקת, מייצאת ומתקינה מערכות לניטור רשתות חשמל. המערכות כוללות - מערכות למדידות ברשתות חשמל, מערכות מניית אנרגיה, בקרים לתיקון מקדם הספק, בקרי החלפה חברת חשמל/גנרטור, מערכות מתקדמות לניהול מבנים – BMS – ליישומים מסחריים ותעשייתיים, מערכות חכמות לניהול חניונים מערכות הניטור והניהול של חברת ישומי בקרה, הן שילוב מלא בין מוצרי תוכנה ומוצרי חומרה, המפותחים ומיוצרים כך ש"
 },
 {
+"title": "תעשיות",
+"url": "/he/industries/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "מוצרי החברה מודדים, מנטרים ומנהלים רשתות חשמל ומערכות אלקטרו-מכניות. הם פועלים בתעשייה, במבנים ציבוריים, בתי מלון, בתי חולים, אוניברסיטאות, מרכזי קניות וקניונים."
+},
+{
 "title": "בקרת מבנים / BMS",
 "url": "/he/building-automation/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל. שליטה, מדידה ובקרה על מיזוג אוויר, חשמל ושאר המערכות האלקטרו-מכניות, עם תוכנת BMS מבוססת TCP/IP ו-Web SCADA. DigiPoint בקר מתוכנת דיגיטלי VeroPoint בקר עם כרטיסי הרחבה SuperBrain בקר עם ספרית תוכנות SuperBrain DR בקר עם ספרית תוכנות Superbrain FC בקר ליחידות מפוח נחשון תוכנת UniArt לבקרת מבנים תוכנת UniWeb לבקרת מבנים"
 },
 {
@@ -87,21 +94,21 @@
 "title": "בקרת חניונים",
 "url": "/he/parking-control/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול. מערכות לניטור ובקרת גזCO חניה חכמה"
 },
 {
 "title": "בקרת אינסטלציה",
 "url": "/he/plumbing-control/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך. Elnet xp בקר למשאבות ניקוד וביוב"
 },
 {
 "title": "מערכות לאיתור הצפות",
 "url": "/he/flood-detection-systems/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות. Flooding sensor"
 },
 {
@@ -122,14 +129,14 @@
 "title": "בקרי החלפה",
 "url": "/he/transfer-switches/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור. ElNet COD בקר החלפה ח״ח/ גנרטור ElNet CO בקר החלפה ח״ח/גנרטור"
 },
 {
 "title": "מקדם הספק",
 "url": "/he/power-factor-control/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10. ElNet PFC בקר לשיפור מקדם הספק ElNet LTC10 בקר לשיפור מקדם הספק ElNet LTC בקר לשיפור מקדם הספק"
 },
 {
@@ -150,14 +157,14 @@
 "title": "איכות חשמל",
 "url": "/he/power-quality-analyzers/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "מנטרת ומבקרת את רשת החשמל שלך. מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה ומדויקת וממשק ידידותי, ומפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דוח אירועי חשמל מקיף ומדויק. ElNet PQ GR הפרעות ומדידות חשמל ElNet LT תעו״ז, הרמוניות ועוד ElNet LTP זרם זליגה הרמוניות ועוד תוכנת Elnet חשבונות ואיכות חשמל"
 },
 {
 "title": "ניהול אנרגיה",
 "url": "/he/energy-meters/",
 "kind": "solution",
-"kindLabel": "הפתרונות שלנו",
+"kindLabel": "פתרונות",
 "text": "ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה. מודעות לכמות האנרגיה הנצרכת היא הדרך היעילה להפחתת צריכה ולהפקת חשבונות צריכת חשמל ומיזוג אוויר. ElNet MC-1 מונה ElNet MC-2 מונה 6/2 ערוצים ELNet MC-8 מונה 8/24 ערוצים ElNet MC12 מונה 36/12 ערוצים ElNet PIC מונה תעו״ז ElNet LTE אנרגיה ומדידות חשמל ElNet LT תעו״ז, הרמוניות ועוד ElNet LTP זרם זליגה הרמוניות ועוד ElNet VA מדידות חשמל כלליות ElNet VIP מדידות חשמל כלליות תוכנת Elnet חשבונות ואיכות חשמל"
 },
 {
@@ -178,56 +185,56 @@
 "title": "מבנים ציבוריים",
 "url": "/he/public-buildings/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "מבנים ציבוריים Bank of East Asia, Hong Kong Burgas Airport, Bulgaria Maple Tree Business City (MBC 2), Singapore The Knesset building, Jerusalem Congress Center, Binyanei Ha'uma, Jerusalem The Opera Tower, Tel Aviv Court of Eilat Court of Nazareth Hasharon Prison The Opera Tower, Tel Aviv Jerusalem theatre ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "בתי חולים",
 "url": "/he/hospitals/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "בתי חולים Ng Teng Fong Hospital, Singapore Poria Hospital, Tiberias Meir Hospital, Kfar Sava Haemek Hospital, Afula Sharon Hospital, Petah Tikva Kaplan Hospital, Rehovot Carmel Hospital, Haifa Sor Hospital, Beer Sheba Nahariya Hospital, Children's Department Ziv Medical Center, Zefat Laniado Hospital, Netanya ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "בתי מלון",
 "url": "/he/hotels/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "בתי מלון Hilton Abuja, Nigeria Hilton Hotel, Tel Aviv Orchidea Hotel, Eilat Holiday Inn Hotel, Dead Sea Caesar Hotel, Dead Sea Isrotel Royal Garden Hotel ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "אוניברסיטאות",
 "url": "/he/universities/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "אוניברסיטאות Singapore University of Technology and Design Tel Aviv University Ben-Gurion University, Beer Sheva Technion, Haifa Haifa University Faculty of Agriculture, Rehovot Emek Hayarden collage Interdisciplinary Center, Herzliya Hebrew University, Jerusalem ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "מוזיאונים",
 "url": "/he/museums/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "מוזיאונים Tel Aviv Museum Israel Museum, Jerusalem Yad Vashem Museum, Jerusalem Science Museum, Jerusalem Mormon Museum, Jerusalem Metsudat David Hotel, Jerusalem Magic Palace Hotel, Eilat Adi Hotel, Eilat Hod Hotel, Dead Sea ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "קניונים ומרכזי מסחר",
 "url": "/he/shopping-malls/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "קניונים ומרכזי מסחר Tri Noma Mall, Quezon City, Manila, Philippines Circuit Lane Mall, Makati City, Manila, Philippines Malcha Mall, Jerusalem Grand Canyon, Haifa Beer Sheva Mall Rav Shefa Shopping Center Haamakim Mall, Afula Power Center Ashdod The big Mall, Beer Sheva Big Center Tiberias Cinema City, Netania ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "מפעלי תעשייה והיי-טק",
 "url": "/he/industrial-hi-tech/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "מפעלי תעשייה והיי-טק Intel factory, Haifa Elisra Factory, Ramat Gan Elbit Systems, Carmiel- Haifa Comverse Efrat Technologies Amdocs Raanana, Sderot Osem Factories, Sderot Scitex factory, Herzliya ECI Telecom factory Mercury – Yehud Buildings LSI-LOGIC, Netanya ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {
 "title": "תעשיית התרופות וחדרים נקיים",
 "url": "/he/pharmaceutical-clean-rooms/",
 "kind": "project",
-"kindLabel": "פרויקטים",
+"kindLabel": "תעשיות",
 "text": "תעשיית התרופות וחדרים נקיים Teva Pharmaceutical Industries, Kfar Saba Sigma factory, Rehovot ITH factory, Migdal Haemek L'Oreal, Caesarea Vishay, Dimona, Beer Sheva, Migdal Haemek Dexel, Jerusalem Cyalandside, Modi'in Okon, Modi'in Isotope, Petah Tikva ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
 },
 {

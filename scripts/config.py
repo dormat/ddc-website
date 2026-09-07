@@ -52,7 +52,7 @@ HOME_GALLERY_IMAGES = [
 CONTACT = {
     "phone": "+972-3-6474998",
     "fax": "+972-3-6474598",
-    "email": "cal@ddc.co.il",
+    "email": "info@ddc.co.il",
     "formsubmit_id": "af7e7b6fe375e0d28a0457f291f95336",
     "address": {
         "he": "רחוב הברזל 25, תל אביב, 6971035, ישראל",
@@ -493,6 +493,67 @@ SOLUTION_ORDER = (
     "plumbing-control",
 )
 
+# Home Solutions section: two practices, side by side.
+SOLUTION_GROUPS = (
+    {
+        "id": "building-automation",
+        "slugs": (
+            "building-automation",
+            "parking-control",
+            "flood-detection-systems",
+            "plumbing-control",
+        ),
+        "labels": {
+            "he": "בקרת מבנים",
+            "en": "Building automation",
+            "es": "Automatización de edificios",
+        },
+        "leads": {
+            "he": "בקרה, ניטור וניהול של מערכות אלקטרו-מכניות במבנה.",
+            "en": "Control, monitoring and management of electromechanical systems in the building.",
+            "es": "Control, monitoreo y gestión de sistemas electromecánicos en el edificio.",
+        },
+    },
+    {
+        "id": "power-meters",
+        "slugs": (
+            "power-quality-analyzers",
+            "energy-meters",
+            "transfer-switches",
+            "power-factor-control",
+        ),
+        "labels": {
+            "he": "ניהול אנרגיה",
+            "en": "Energy management",
+            "es": "Gestión energética",
+        },
+        "leads": {
+            "he": "מדידה, איכות חשמל, החלפת מקורות ושיפור מקדם הספק.",
+            "en": "Metering, power quality, source transfer and power factor improvement.",
+            "es": "Medición, calidad de energía, transferencia de fuentes y factor de potencia.",
+        },
+    },
+)
+
+# Products catalog: map Hebrew subcategory labels into the two solution practices.
+PRODUCT_GROUP_SUBCATEGORIES = {
+    "building-automation": (
+        "בקרים מתוכנתים (DDC+PLC)",
+        "תוכנות HMI SCADA BMS",
+        "בקרת חניונים",
+        "מערכות לאיתור הצפות",
+        "בקרת אינסטלציה",
+    ),
+    "power-meters": (
+        "מודדים לאיכות חשמל",
+        "מוני אנרגיה",
+        "מוני חשמל",
+        "בקרי החלפה",
+        "בקרים לשיפור מקדם הספק",
+        "תוכנת Elnet חשבונות ואיכות חשמל",
+    ),
+}
+
 SOLUTION_PRODUCTS = {
     "power-quality-analyzers": (
         "elnet-pq-gr-meter",
@@ -703,6 +764,120 @@ INDUSTRY_FRAMING = {
         "electromecánicos de edificios públicos. Los productos se destinan a industria, edificios públicos, "
         "hoteles, hospitales, universidades, centros comerciales y más."
     ),
+}
+
+# Per-industry offer copy for the combined Industries page.
+INDUSTRY_OFFERS = {
+    "he": {
+        "public-buildings": (
+            "אנו מספקים בקרת מבנים (BMS), מדידת חשמל ואיכות חשמל, בקרת מקדם הספק והחלפת מקורות, "
+            "וכן ניטור חניונים, איתור הצפות ובקרת משאבות ניקוז — לניהול אמין של מערכות אלקטרו-מכניות במבני ציבור."
+        ),
+        "hospitals": (
+            "לבתי חולים אנו מציעים בקרת מבנים רציפה, ניטור רשת החשמל ואיכות החשמל, מעבר אוטומטי לרשת/גנרטור, "
+            "ובקרה על מיזוג, תאורה ומערכות אלקטרו-מכניות קריטיות — לשמירה על זמינות ובטיחות במתקן הרפואי."
+        ),
+        "hotels": (
+            "במלונות אנו מתקינים בקרת מבנים וחדרים, ניהול אנרגיה ומיזוג, בקרת חניונים וגז CO, "
+            "איתור הצפות ובקרת משאבות — להפחתת צריכה ולחוויית אורח יציבה."
+        ),
+        "universities": (
+            "בקמפוסים אנו מספקים BMS מבוזר, מדידת אנרגיה וחשבונות צריכה, ניטור איכות חשמל, "
+            "בקרת חניונים והגנה מפני הצפות — לניהול מרכזי של מבנים ומעבדות רבים."
+        ),
+        "museums": (
+            "במוזיאונים אנו מתמקדים בבקרת אקלים וסביבה, ניטור חשמל רציף, "
+            "התראה מוקדמת על הצפות ובקרת מערכות אלקטרו-מכניות — להגנה על אוספים ועל תנאי התצוגה."
+        ),
+        "shopping-malls": (
+            "בקניונים ומרכזי מסחר אנו מספקים בקרת מבנים, ניהול אנרגיה, ניטור חניונים וגז CO, "
+            "בקרת מקדם הספק והחלפת מקורות — להפעלה יעילה של שטחים גדולים וצריכה משתנה."
+        ),
+        "industrial-hi-tech": (
+            "בתעשייה ובהיי-טק אנו מציעים מדידת אנרגיה ואיכות חשמל, בקרת מקדם הספק, "
+            "החלפת מקורות, BMS ובקרת משאבות — לשיפור יעילות, רציפות ייצור והגנה על ציוד רגיש."
+        ),
+        "pharmaceutical-clean-rooms": (
+            "בתעשיית התרופות ובחדרים נקיים אנו מספקים בקרה מדויקת על מערכות סביבה ומיזוג, "
+            "ניטור חשמל רציף, הגנה מפני הפסקות באמצעות החלפת מקורות, ואיתור הצפות — לעמידה בדרישות תהליך ואיכות."
+        ),
+    },
+    "en": {
+        "public-buildings": (
+            "We deliver building automation (BMS), electrical metering and power quality monitoring, "
+            "power-factor and transfer-switch control, plus parking/CO monitoring, flood detection and drainage-pump control — "
+            "so electromechanical systems in public buildings stay reliable and efficient."
+        ),
+        "hospitals": (
+            "For hospitals we provide continuous building automation, electrical-network and power-quality monitoring, "
+            "automatic utility/generator transfer, and control of HVAC and other critical electromechanical systems — "
+            "supporting availability and safety across the medical campus."
+        ),
+        "hotels": (
+            "In hotels we install building and room automation, energy and HVAC management, parking and CO control, "
+            "flood detection and pump control — reducing consumption while keeping guest comfort stable."
+        ),
+        "universities": (
+            "On campuses we supply distributed BMS, energy metering and billing, power-quality monitoring, "
+            "parking control and flood protection — so many buildings and labs can be managed from one platform."
+        ),
+        "museums": (
+            "In museums we focus on climate and environment control, continuous electrical monitoring, "
+            "early flood alerts and electromechanical system supervision — protecting collections and exhibition conditions."
+        ),
+        "shopping-malls": (
+            "For malls and retail centres we provide building automation, energy management, parking and CO monitoring, "
+            "power-factor improvement and source transfer — efficient operation for large footprints and variable loads."
+        ),
+        "industrial-hi-tech": (
+            "In industry and hi-tech facilities we offer energy and power-quality metering, power-factor control, "
+            "source transfer, BMS and pump control — improving efficiency, uptime and protection for sensitive equipment."
+        ),
+        "pharmaceutical-clean-rooms": (
+            "For pharmaceutical plants and clean rooms we deliver precise environmental and HVAC control, "
+            "continuous electrical monitoring, transfer switching for supply continuity, and flood detection — "
+            "supporting process reliability and quality requirements."
+        ),
+    },
+    "es": {
+        "public-buildings": (
+            "Ofrecemos automatización de edificios (BMS), medición eléctrica y calidad de energía, "
+            "control de factor de potencia y transferencia de fuentes, además de monitoreo de estacionamiento/CO, "
+            "detección de inundaciones y control de bombas — para sistemas electromecánicos fiables en edificios públicos."
+        ),
+        "hospitals": (
+            "En hospitales proporcionamos automatización continua, monitoreo de la red y la calidad eléctrica, "
+            "transferencia automática red/generador y control de HVAC y sistemas críticos — "
+            "para disponibilidad y seguridad en el campus médico."
+        ),
+        "hotels": (
+            "En hoteles instalamos automatización de edificios y habitaciones, gestión de energía y climatización, "
+            "control de estacionamiento y CO, detección de inundaciones y control de bombas — "
+            "reduciendo consumo y manteniendo el confort del huésped."
+        ),
+        "universities": (
+            "En campus universitarios entregamos BMS distribuido, medición y facturación de energía, "
+            "monitoreo de calidad eléctrica, control de estacionamiento y protección contra inundaciones — "
+            "para gestionar muchos edificios y laboratorios desde una plataforma."
+        ),
+        "museums": (
+            "En museos nos enfocamos en control climático y ambiental, monitoreo eléctrico continuo, "
+            "alertas tempranas de inundación y supervisión electromecánica — protegiendo colecciones y condiciones de exhibición."
+        ),
+        "shopping-malls": (
+            "En centros comerciales ofrecemos automatización de edificios, gestión energética, monitoreo de estacionamiento y CO, "
+            "mejora del factor de potencia y transferencia de fuentes — operación eficiente en grandes superficies y cargas variables."
+        ),
+        "industrial-hi-tech": (
+            "En industria y alta tecnología ofrecemos medición de energía y calidad eléctrica, control de factor de potencia, "
+            "transferencia de fuentes, BMS y control de bombas — mejorando eficiencia, continuidad y protección del equipo sensible."
+        ),
+        "pharmaceutical-clean-rooms": (
+            "En plantas farmacéuticas y salas limpias entregamos control preciso de ambiente y HVAC, "
+            "monitoreo eléctrico continuo, transferencia de fuentes para continuidad del suministro y detección de inundaciones — "
+            "apoyando la fiabilidad del proceso y los requisitos de calidad."
+        ),
+    },
 }
 
 USE_CASE_PATTERNS = {

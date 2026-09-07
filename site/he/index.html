@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/assets/css/main.css?v=ad01623bea"/>
+  <link rel="stylesheet" href="/assets/css/main.css?v=578bfcb4bc"/>
 </head>
 <body class="lang-he">
   <header class="site-header">
@@ -18,21 +18,27 @@
       <nav class="main-nav" aria-label="Main navigation"><ul class="nav-list">
 <li class="nav-item">
 <a class="nav-link" href="/he/">בית</a></li>
-<li class="nav-item has-dropdown">
-<a class="nav-link" href="/he/#solutions">הפתרונות שלנו</a>
+<li class="nav-item has-dropdown has-mega">
+<a class="nav-link" href="/he/#solutions">פתרונות</a>
 <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-label="הצג תפריט משנה"><span class="nav-submenu-chevron" aria-hidden="true"></span></button>
-<ul class="dropdown">
-<li><a href="/he/power-quality-analyzers/">איכות חשמל</a></li>
-<li><a href="/he/energy-meters/">ניהול אנרגיה</a></li>
+<div class="dropdown mega-dropdown" role="menu">
+<div class="mega-dropdown-col" data-group="building-automation"><p class="mega-dropdown-heading">בקרת מבנים</p><ul>
 <li><a href="/he/building-automation/">בקרת מבנים / BMS</a></li>
 <li><a href="/he/parking-control/">בקרת חניונים</a></li>
 <li><a href="/he/flood-detection-systems/">מערכות לאיתור הצפות</a></li>
+<li><a href="/he/plumbing-control/">בקרת אינסטלציה</a></li>
+</ul></div>
+<div class="mega-dropdown-col" data-group="power-meters"><p class="mega-dropdown-heading">ניהול אנרגיה</p><ul>
+<li><a href="/he/power-quality-analyzers/">איכות חשמל</a></li>
+<li><a href="/he/energy-meters/">ניהול אנרגיה</a></li>
 <li><a href="/he/transfer-switches/">בקרי החלפה</a></li>
 <li><a href="/he/power-factor-control/">מקדם הספק</a></li>
-<li><a href="/he/plumbing-control/">בקרת אינסטלציה</a></li>
-</ul></li>
+</ul></div>
+</div></li>
 <li class="nav-item">
 <a class="nav-link" href="/he/products/">מוצרים</a></li>
+<li class="nav-item">
+<a class="nav-link" href="/he/industries/">תעשיות</a></li>
 <li class="nav-item">
 <a class="nav-link" href="/he/about/">אודות</a></li>
 <li class="nav-item">
@@ -65,48 +71,51 @@
   <div class="home-hero-inner">
     <p class="home-hero-kicker">הוקמה בשנת 1992</p>
     <h1 class="home-hero-title">ישומי בקרה</h1>
-    <p class="home-text-subtitle">מערכות בקרה, מדידה וניטור חשמל — מחויבות לאיכות ולתקנים בינלאומיים.</p>
+    <p class="home-text-subtitle">מערכות בקרה, מדידה וניטור חשמל — פתרונות למבנים, אנרגיה ותעשייה.</p>
     <p class="home-text-desc">החברה המובילה בישראל — איכות ויעילות המוצרים מוכרות אצל לקוחות מרוצים בארץ ובעולם.</p>
   </div>
-</section><section class="home-solutions" id="solutions" aria-label="הפתרונות שלנו">
-  <header class="home-section-head">
-    <h2 class="home-section-title">הפתרונות שלנו</h2>
-  </header>
-  <div class="home-icon-grid"><a class="home-icon-card" href="/he/power-quality-analyzers/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-wave" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M10 28c3-10 5 10 8 0s5 10 8 0 5 10 8 0 4-8 6-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3 class="home-icon-title">איכות חשמל</h3><p class="home-icon-text">מנטרת ומבקרת את רשת החשמל שלך.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/energy-meters/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-gauge" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="1.7"/><path d="M14 36c2.4 3 6 5 10 5s7.6-2 10-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="home-icon-needle" d="M24 26 L34 16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="24" cy="26" r="2.2" fill="currentColor"/></svg></span><h3 class="home-icon-title">ניהול אנרגיה</h3><p class="home-icon-text">ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/building-automation/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-building" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 40V16l14-8 14 8v24" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18 40V24h12v16" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-windows" d="M16 20h4M16 26h4M28 20h4M28 26h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">בקרת מבנים / BMS</h3><p class="home-icon-text">בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/parking-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-parking" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 32h32M12 32l3-12h18l3 12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="home-icon-wheel" cx="18" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-wheel" cx="30" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M18 20h8a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="34" cy="14" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M34 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">בקרת חניונים</h3><p class="home-icon-text">ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/flood-detection-systems/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-drop" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path class="home-icon-drop-shape" d="M24 8c0 0 12 14 12 22a12 12 0 0 1-24 0C12 22 24 8 24 8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M24 26v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">מערכות לאיתור הצפות</h3><p class="home-icon-text">מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/transfer-switches/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-switch" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="20" rx="10" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-knob" cx="31" cy="24" r="6.5" fill="currentColor"/></svg></span><h3 class="home-icon-title">בקרי החלפה</h3><p class="home-icon-text">בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/power-factor-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-pf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M24 24 L38 24 A14 14 0 0 0 31 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span><h3 class="home-icon-title">מקדם הספק</h3><p class="home-icon-text">חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10.</p><span class="home-icon-more">למידע נוסף</span></a><a class="home-icon-card" href="/he/plumbing-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-pump" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 30h10l4-8h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle class="home-icon-rotor" cx="18" cy="30" r="6" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-rotor" d="M18 26v8M14 30h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M38 22v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">בקרת אינסטלציה</h3><p class="home-icon-text">בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך.</p><span class="home-icon-more">למידע נוסף</span></a></div>
-</section><section class="home-projects-slider home-products-slider" id="home-products" data-slider-section aria-label="המוצרים הבולטים שלנו">
-  <header class="home-section-head home-projects-slider-head">
-    <h2 class="home-section-title">המוצרים הבולטים שלנו</h2>
-    <div class="home-products-slider-actions">
-      <a class="home-btn home-btn--text" href="/he/products/">כל המוצרים</a>
-      <div class="project-slider-nav">
-        <button type="button" class="project-slider-prev" aria-label="הקודם"></button>
-        <button type="button" class="project-slider-next" aria-label="הבא"></button>
-      </div>
+</section><section class="home-solutions" id="solutions" aria-label="פתרונות">
+  <div class="home-solutions-inner">
+    <header class="home-section-head home-solutions-head">
+      <h2 class="home-section-title">פתרונות</h2>
+    </header>
+    <div class="home-solution-groups"><article class="home-solution-group" data-group="building-automation" style="--group-i:0">
+  <header class="home-solution-group-head">
+    <div class="home-solution-group-head-copy">
+      <span class="home-solution-group-index">01</span>
+      <h3 class="home-solution-group-title">בקרת מבנים</h3>
+      <p class="home-solution-group-lead">בקרה, ניטור וניהול של מערכות אלקטרו-מכניות במבנה.</p>
     </div>
+    <div class="home-solution-group-visual home-solution-group-visual--building" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <rect x="48" y="28" width="72" height="72" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="136" y="44" width="56" height="56" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="208" y="18" width="40" height="82" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <path class="home-solution-anim-window" d="M62 44h12M62 58h12M62 72h12M88 44h12M88 58h12M88 72h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay" d="M148 58h10M148 70h10M168 58h10M168 70h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay2" d="M218 36h12M218 50h12M218 64h12M218 78h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
+</div>
   </header>
-  <div class="project-slider" data-loop-slider>
-    <div class="project-slider-track"><a class="product-slider-card" href="/he/elnet-pq-gr-meter/"><div class="product-slider-image"><img src="/assets/images/pq-gr.png" alt="ElNet PQ GR הפרעות ומדידות חשמל" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet PQ GR הפרעות ומדידות חשמל</span><p class="product-slider-text">אלנט PQ מאושר מעבדת בדיקה לתקן Class A בלעדי למדידת איכות החשמל.</p></div></a><a class="product-slider-card" href="/he/elnet-lt-meter/"><div class="product-slider-image"><img src="/assets/images/elnet-mc-2-meter-content-12-2.png" alt="ElNet LT תעו״ז, הרמוניות ועוד" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet LT תעו״ז, הרמוניות ועוד</span><p class="product-slider-text">בעל דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת).</p></div></a><a class="product-slider-card" href="/he/elnet-mc-8-meter/"><div class="product-slider-image"><img src="/assets/images/power-meters-control-content-10-3.png" alt="ELNet MC-8 מונה 8/24 ערוצים" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ELNet MC-8 מונה 8/24 ערוצים</span><p class="product-slider-text">מדידות אנרגיה תלת פאזי בתעו“ז</p></div></a><a class="product-slider-card" href="/he/elnet-lte-meter/"><div class="product-slider-image"><img src="/assets/images/elnet-mc-2-meter-content-14-4.png" alt="ElNet LTE אנרגיה ומדידות חשמל" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet LTE אנרגיה ומדידות חשמל</span><p class="product-slider-text">מדידה של מתח, זרם , אנרגיה ,תדר, הספק וכופל הספק.</p></div></a><a class="product-slider-card" href="/he/elnet-co-transfer-switch/"><div class="product-slider-image"><img src="/assets/images/elnet-co-transfer-switch-content-5-3.png" alt="ElNet CO בקר החלפה ח״ח/גנרטור" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet CO בקר החלפה ח״ח/גנרטור</span><p class="product-slider-text">מערכת אלנט CO מיועדת להחלפה יעילה בין שני מקורות אספקת מתח (חברת חשמל / גנרטור) בעת תקלה באחת ממערכות אספקת המתח.</p></div></a><a class="product-slider-card" href="/he/elnet-pfc-controller/"><div class="product-slider-image"><img src="/assets/images/elnet-pfc-controller-content-5-3.png" alt="ElNet PFC בקר לשיפור מקדם הספק" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet PFC בקר לשיפור מקדם הספק</span><p class="product-slider-text">תמיכה ב-עד 6 דרגות.</p></div></a><a class="product-slider-card" href="/he/elnet-xp-controller/"><div class="product-slider-image"><img src="/assets/images/elnet-xp-controller-content-5-5.png" alt="Elnet xp בקר למשאבות ניקוד וביוב" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">Elnet xp בקר למשאבות ניקוד וביוב</span><p class="product-slider-text">בקר החלפה אוטומטי משמש לתפעול משאבות ניקוז וביוב נמצא כיום כמעט בכל מבנה ציבור , הבקר משמש לבקרה אוטומטית של מפלס מי גשם או מי ביוב לרבות החלפה אוטומטית בין שתי משאבות בכל הפעלה על מנת לאזן את שעות העבודה והכנסת משאבה בלתי תורנית לתגבור בעת הצורך .</p></div></a></div>
-  </div>
-</section><section class="home-projects-slider" id="projects" data-slider-section aria-label="פרויקטים">
-  <header class="home-section-head home-projects-slider-head">
-    <h2 class="home-section-title">פרויקטים</h2>
-    <div class="project-slider-nav">
-      <button type="button" class="project-slider-prev" aria-label="הקודם"></button>
-      <button type="button" class="project-slider-next" aria-label="הבא"></button>
+  <div class="home-solution-group-list"><a class="home-solution-group-item" href="/he/building-automation/" style="--item-i:0"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-building" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 40V16l14-8 14 8v24" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18 40V24h12v16" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-windows" d="M16 20h4M16 26h4M28 20h4M28 26h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">בקרת מבנים / BMS</span><span class="home-solution-group-item-text">בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/parking-control/" style="--item-i:1"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-parking" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 32h32M12 32l3-12h18l3 12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="home-icon-wheel" cx="18" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-wheel" cx="30" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M18 20h8a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="34" cy="14" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M34 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">בקרת חניונים</span><span class="home-solution-group-item-text">ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/flood-detection-systems/" style="--item-i:2"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-drop" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path class="home-icon-drop-shape" d="M24 8c0 0 12 14 12 22a12 12 0 0 1-24 0C12 22 24 8 24 8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M24 26v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">מערכות לאיתור הצפות</span><span class="home-solution-group-item-text">מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/plumbing-control/" style="--item-i:3"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-pump" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 30h10l4-8h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle class="home-icon-rotor" cx="18" cy="30" r="6" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-rotor" d="M18 26v8M14 30h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M38 22v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">בקרת אינסטלציה</span><span class="home-solution-group-item-text">בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a></div>
+</article><article class="home-solution-group" data-group="power-meters" style="--group-i:1">
+  <header class="home-solution-group-head">
+    <div class="home-solution-group-head-copy">
+      <span class="home-solution-group-index">02</span>
+      <h3 class="home-solution-group-title">ניהול אנרגיה</h3>
+      <p class="home-solution-group-lead">מדידה, איכות חשמל, החלפת מקורות ושיפור מקדם הספק.</p>
     </div>
+    <div class="home-solution-group-visual home-solution-group-visual--power" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <path class="home-solution-anim-wave home-solution-anim-wave--a" d="M0 62 C35 32, 55 92, 90 62 S145 32, 180 62 235 92, 280 62" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-wave home-solution-anim-wave--b" d="M0 78 C40 58, 60 98, 100 78 S160 58, 200 78 250 98, 280 78" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+    <circle class="home-solution-anim-pulse" cx="90" cy="62" r="4.5" fill="currentColor"/>
+    <circle class="home-solution-anim-pulse home-solution-anim-pulse--delay" cx="180" cy="62" r="3.5" fill="currentColor"/>
+  </svg>
+</div>
   </header>
-  <div class="project-slider" data-loop-slider>
-    <div class="project-slider-track"><a class="project-slider-card" href="/he/public-buildings/"><div class="project-slider-image"><img src="/assets/images/813b164e6ecd49b0b09f5f9913d34577.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">מבנים ציבוריים</span></a><a class="project-slider-card" href="/he/hospitals/"><div class="project-slider-image"><img src="/assets/images/hospitals-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">בתי חולים</span></a><a class="project-slider-card" href="/he/hotels/"><div class="project-slider-image"><img src="/assets/images/hotels-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">בתי מלון</span></a><a class="project-slider-card" href="/he/universities/"><div class="project-slider-image"><img src="/assets/images/typical-projects-content-7-5.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">אוניברסיטאות</span></a><a class="project-slider-card" href="/he/museums/"><div class="project-slider-image"><img src="/assets/images/museums-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">מוזיאונים</span></a><a class="project-slider-card" href="/he/shopping-malls/"><div class="project-slider-image"><img src="/assets/images/shopping-malls-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">קניונים ומרכזי מסחר</span></a><a class="project-slider-card" href="/he/industrial-hi-tech/"><div class="project-slider-image"><img src="/assets/images/typical-projects-content-8-4.png" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">מפעלי תעשייה והיי-טק</span></a><a class="project-slider-card" href="/he/pharmaceutical-clean-rooms/"><div class="project-slider-image"><img src="/assets/images/pharmaceutical-clean-rooms-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">תעשיית התרופות וחדרים נקיים</span></a></div>
-  </div>
-</section><section class="home-proof" aria-label="אבטחת איכות">
-  <div class="home-proof-inner">
-    <h2 class="home-section-title">אבטחת איכות</h2>
-    <p class="home-proof-lead">אנו מחויבים לספק מוצרים באיכות גבוהה ושירות יעיל — עם בקרת איכות בכל שלבי הפעילות.</p>
-    <ul class="home-proof-standards"><li><strong>ISO 9001</strong><span>מערכת ניהול איכות</span></li><li><strong>ISO 9000.3</strong><span>אבטחת איכות בפיתוח וייצור</span></li><li><strong>CE</strong><span>עמידה בתקן ובדרישות אירופיות</span></li><li><strong>מכון התקנים</strong><span>הסמכה מטעם מכון התקנים הישראלי</span></li></ul>
-    <div class="home-proof-actions">
-      <a class="home-btn home-btn--primary" href="/he/about/">אודות</a>
-      <a class="home-btn home-btn--text" href="/he/contact/">צרו קשר</a>
-    </div>
+  <div class="home-solution-group-list"><a class="home-solution-group-item" href="/he/power-quality-analyzers/" style="--item-i:0"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-wave" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M10 28c3-10 5 10 8 0s5 10 8 0 5 10 8 0 4-8 6-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">איכות חשמל</span><span class="home-solution-group-item-text">מנטרת ומבקרת את רשת החשמל שלך.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/energy-meters/" style="--item-i:1"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-gauge" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="1.7"/><path d="M14 36c2.4 3 6 5 10 5s7.6-2 10-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="home-icon-needle" d="M24 26 L34 16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="24" cy="26" r="2.2" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">ניהול אנרגיה</span><span class="home-solution-group-item-text">ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/transfer-switches/" style="--item-i:2"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-switch" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="20" rx="10" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-knob" cx="31" cy="24" r="6.5" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">בקרי החלפה</span><span class="home-solution-group-item-text">בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a><a class="home-solution-group-item" href="/he/power-factor-control/" style="--item-i:3"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-pf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M24 24 L38 24 A14 14 0 0 0 31 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">מקדם הספק</span><span class="home-solution-group-item-text">חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10.</span><span class="home-solution-group-item-more">למידע נוסף</span></span></a></div>
+</article></div>
   </div>
 </section></div>
     
@@ -116,24 +125,13 @@
     <div class="footer-brand">
       <p class="footer-brand-name">ישומי בקרה בע&quot;מ</p>
     </div>
-    <nav class="footer-sitemap" aria-label="הפתרונות שלנו"><h3>הפתרונות שלנו</h3><ul><li><a href="/he/power-quality-analyzers/">איכות חשמל</a></li><li><a href="/he/energy-meters/">ניהול אנרגיה</a></li><li><a href="/he/building-automation/">בקרת מבנים / BMS</a></li><li><a href="/he/parking-control/">בקרת חניונים</a></li><li><a href="/he/flood-detection-systems/">מערכות לאיתור הצפות</a></li><li><a href="/he/transfer-switches/">בקרי החלפה</a></li><li><a href="/he/power-factor-control/">מקדם הספק</a></li><li><a href="/he/plumbing-control/">בקרת אינסטלציה</a></li></ul></nav>
-    <nav class="footer-sitemap" aria-label="פרויקטים"><h3>פרויקטים</h3><ul><li><a href="/he/public-buildings/">מבנים ציבוריים</a></li><li><a href="/he/hospitals/">בתי חולים</a></li><li><a href="/he/hotels/">בתי מלון</a></li><li><a href="/he/universities/">אוניברסיטאות</a></li><li><a href="/he/museums/">מוזיאונים</a></li><li><a href="/he/shopping-malls/">קניונים ומרכזי מסחר</a></li><li><a href="/he/industrial-hi-tech/">מפעלי תעשייה והיי-טק</a></li><li><a href="/he/pharmaceutical-clean-rooms/">תעשיית התרופות וחדרים נקיים</a></li></ul></nav>
-    <nav class="footer-sitemap" aria-label="החברה"><h3>החברה</h3><ul><li><a href="/he/">בית</a></li><li><a href="/he/about/">אודות</a></li><li><a href="/he/products/">מוצרים</a></li><li><a href="/he/quality-assurance/">אבטחת איכות</a></li><li><a href="/he/contact/">צרו קשר</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="פתרונות"><h3>פתרונות</h3><ul><li><a href="/he/power-quality-analyzers/">איכות חשמל</a></li><li><a href="/he/energy-meters/">ניהול אנרגיה</a></li><li><a href="/he/building-automation/">בקרת מבנים / BMS</a></li><li><a href="/he/parking-control/">בקרת חניונים</a></li><li><a href="/he/flood-detection-systems/">מערכות לאיתור הצפות</a></li><li><a href="/he/transfer-switches/">בקרי החלפה</a></li><li><a href="/he/power-factor-control/">מקדם הספק</a></li><li><a href="/he/plumbing-control/">בקרת אינסטלציה</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="תעשיות"><h3>תעשיות</h3><ul><li><a href="/he/industries/#public-buildings">מבנים ציבוריים</a></li><li><a href="/he/industries/#hospitals">בתי חולים</a></li><li><a href="/he/industries/#hotels">בתי מלון</a></li><li><a href="/he/industries/#universities">אוניברסיטאות</a></li><li><a href="/he/industries/#museums">מוזיאונים</a></li><li><a href="/he/industries/#shopping-malls">קניונים ומרכזי מסחר</a></li><li><a href="/he/industries/#industrial-hi-tech">מפעלי תעשייה והיי-טק</a></li><li><a href="/he/industries/#pharmaceutical-clean-rooms">תעשיית התרופות וחדרים נקיים</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="החברה"><h3>החברה</h3><ul><li><a href="/he/">בית</a></li><li><a href="/he/about/">אודות</a></li><li><a href="/he/industries/">תעשיות</a></li><li><a href="/he/products/">מוצרים</a></li><li><a href="/he/contact/">צרו קשר</a></li></ul></nav>
     <div class="footer-contact">
       <h3>יצירת קשר</h3>
       <p><strong>טלפון:</strong> <a href="tel:+972-3-6474998">+972-3-6474998</a></p>
-      <p><strong>פקס:</strong> +972-3-6474598</p>
-      <p><strong>דואר אלקטרוני:</strong> <a href="mailto:cal@ddc.co.il">cal@ddc.co.il</a></p>
-      <p><strong>שעות פתיחה:</strong> ראשון - חמישי, 08:00 - 17:00</p>
-      <p><strong>כתובת:</strong> רחוב הברזל 25, תל אביב, 6971035, ישראל</p>
-    </div>
-    <div class="footer-map">
-      <iframe
-        title="Map"
-        src="https://maps.google.com/maps?q=Habarzel+25+Tel+Aviv&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      <p><strong>דואר אלקטרוני:</strong> <a href="mailto:info@ddc.co.il">info@ddc.co.il</a></p>
     </div>
   </div>
   <div class="footer-bottom">

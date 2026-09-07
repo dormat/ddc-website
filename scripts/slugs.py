@@ -7,6 +7,7 @@ from pathlib import Path
 # All published pages (English slug paths under /he/, /en/, and /es/)
 CANONICAL_SLUGS: list[str] = [
     "about",
+    "industries",
     "building-automation",
     "power-meters-control",
     "products",
@@ -66,6 +67,7 @@ CANONICAL_SLUGS: list[str] = [
 
 CANONICAL_TITLES_EN: dict[str, str] = {
     "about": "About",
+    "industries": "Industries",
     "building-automation": "Building Automation",
     "power-meters-control": "Power Meters & Control",
     "products": "Products",
@@ -125,6 +127,7 @@ CANONICAL_TITLES_EN: dict[str, str] = {
 
 CANONICAL_TITLES_ES: dict[str, str] = {
     "about": "Nosotros",
+    "industries": "Industrias",
     "building-automation": "Automatización de edificios",
     "power-meters-control": "Medidores y control eléctrico",
     "products": "Productos",

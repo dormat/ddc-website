@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/assets/css/main.css?v=ad01623bea"/>
+  <link rel="stylesheet" href="/assets/css/main.css?v=578bfcb4bc"/>
 </head>
 <body class="lang-en">
   <header class="site-header">
@@ -21,21 +21,27 @@
       <nav class="main-nav" aria-label="Main navigation"><ul class="nav-list">
 <li class="nav-item">
 <a class="nav-link" href="/en/">Home</a></li>
-<li class="nav-item has-dropdown">
-<a class="nav-link" href="/en/#solutions">Our Solutions</a>
+<li class="nav-item has-dropdown has-mega">
+<a class="nav-link" href="/en/#solutions">Solutions</a>
 <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-label="Show submenu"><span class="nav-submenu-chevron" aria-hidden="true"></span></button>
-<ul class="dropdown">
-<li><a href="/en/power-quality-analyzers/">Power quality</a></li>
-<li><a href="/en/energy-meters/">Energy management</a></li>
+<div class="dropdown mega-dropdown" role="menu">
+<div class="mega-dropdown-col" data-group="building-automation"><p class="mega-dropdown-heading">Building automation</p><ul>
 <li><a href="/en/building-automation/">Building automation / BMS</a></li>
 <li><a href="/en/parking-control/">Parking / CO</a></li>
 <li><a href="/en/flood-detection-systems/">Flood detection</a></li>
+<li><a href="/en/plumbing-control/">Plumbing / drainage pumps</a></li>
+</ul></div>
+<div class="mega-dropdown-col" data-group="power-meters"><p class="mega-dropdown-heading">Energy management</p><ul>
+<li><a href="/en/power-quality-analyzers/">Power quality</a></li>
+<li><a href="/en/energy-meters/">Energy management</a></li>
 <li><a href="/en/transfer-switches/">Generator / transfer switching</a></li>
 <li><a href="/en/power-factor-control/">Power factor</a></li>
-<li><a href="/en/plumbing-control/">Plumbing / drainage pumps</a></li>
-</ul></li>
+</ul></div>
+</div></li>
 <li class="nav-item">
 <a class="nav-link" href="/en/products/">Products</a></li>
+<li class="nav-item">
+<a class="nav-link" href="/en/industries/">Industries</a></li>
 <li class="nav-item">
 <a class="nav-link" href="/en/about/">About</a></li>
 <li class="nav-item">
@@ -68,48 +74,51 @@
   <div class="home-hero-inner">
     <p class="home-hero-kicker">Established 1992</p>
     <h1 class="home-hero-title">Control Applications</h1>
-    <p class="home-text-subtitle">Building automation, power metering, and control systems — committed to international quality standards.</p>
+    <p class="home-text-subtitle">Building automation, power metering, and control systems for buildings, energy and industry.</p>
     <p class="home-text-desc">The leading company in Israel — product quality and efficiency recognized by customers worldwide.</p>
   </div>
-</section><section class="home-solutions" id="solutions" aria-label="Our Solutions">
-  <header class="home-section-head">
-    <h2 class="home-section-title">Our Solutions</h2>
-  </header>
-  <div class="home-icon-grid"><a class="home-icon-card" href="/en/power-quality-analyzers/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-wave" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M10 28c3-10 5 10 8 0s5 10 8 0 5 10 8 0 4-8 6-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3 class="home-icon-title">Power quality</h3><p class="home-icon-text">Monitor your electrical network.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/energy-meters/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-gauge" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="1.7"/><path d="M14 36c2.4 3 6 5 10 5s7.6-2 10-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="home-icon-needle" d="M24 26 L34 16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="24" cy="26" r="2.2" fill="currentColor"/></svg></span><h3 class="home-icon-title">Energy management</h3><p class="home-icon-text">An energy management system starts by measuring consumption and keeping it to the minimum needed.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/building-automation/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-building" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 40V16l14-8 14 8v24" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18 40V24h12v16" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-windows" d="M16 20h4M16 26h4M28 20h4M28 26h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">Building automation / BMS</h3><p class="home-icon-text">Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and electromechanical systems.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/parking-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-parking" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 32h32M12 32l3-12h18l3 12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="home-icon-wheel" cx="18" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-wheel" cx="30" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M18 20h8a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="34" cy="14" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M34 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">Parking / CO</h3><p class="home-icon-text">CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space is free or taken.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/flood-detection-systems/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-drop" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path class="home-icon-drop-shape" d="M24 8c0 0 12 14 12 22a12 12 0 0 1-24 0C12 22 24 8 24 8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M24 26v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">Flood detection</h3><p class="home-icon-text">Flood detecting and control systems, including the flooding sensor, for finding water in the building before it damages electromechanical systems.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/transfer-switches/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-switch" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="20" rx="10" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-knob" cx="31" cy="24" r="6.5" fill="currentColor"/></svg></span><h3 class="home-icon-title">Generator / transfer switching</h3><p class="home-icon-text">Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/power-factor-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-pf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M24 24 L38 24 A14 14 0 0 0 31 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span><h3 class="home-icon-title">Power factor</h3><p class="home-icon-text">Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10.</p><span class="home-icon-more">More information</span></a><a class="home-icon-card" href="/en/plumbing-control/"><span class="home-icon-mark"><svg class="home-icon-svg home-icon-pump" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 30h10l4-8h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle class="home-icon-rotor" cx="18" cy="30" r="6" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-rotor" d="M18 26v8M14 30h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M38 22v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3 class="home-icon-title">Plumbing / drainage pumps</h3><p class="home-icon-text">Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps and bringing a standby pump in when extra capacity is needed.</p><span class="home-icon-more">More information</span></a></div>
-</section><section class="home-projects-slider home-products-slider" id="home-products" data-slider-section aria-label="Our highlight products">
-  <header class="home-section-head home-projects-slider-head">
-    <h2 class="home-section-title">Our highlight products</h2>
-    <div class="home-products-slider-actions">
-      <a class="home-btn home-btn--text" href="/en/products/">All products</a>
-      <div class="project-slider-nav">
-        <button type="button" class="project-slider-prev" aria-label="Previous"></button>
-        <button type="button" class="project-slider-next" aria-label="Next"></button>
-      </div>
+</section><section class="home-solutions" id="solutions" aria-label="Solutions">
+  <div class="home-solutions-inner">
+    <header class="home-section-head home-solutions-head">
+      <h2 class="home-section-title">Solutions</h2>
+    </header>
+    <div class="home-solution-groups"><article class="home-solution-group" data-group="building-automation" style="--group-i:0">
+  <header class="home-solution-group-head">
+    <div class="home-solution-group-head-copy">
+      <span class="home-solution-group-index">01</span>
+      <h3 class="home-solution-group-title">Building automation</h3>
+      <p class="home-solution-group-lead">Control, monitoring and management of electromechanical systems in the building.</p>
     </div>
+    <div class="home-solution-group-visual home-solution-group-visual--building" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <rect x="48" y="28" width="72" height="72" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="136" y="44" width="56" height="56" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <rect x="208" y="18" width="40" height="82" rx="4" stroke="currentColor" stroke-width="1.8"/>
+    <path class="home-solution-anim-window" d="M62 44h12M62 58h12M62 72h12M88 44h12M88 58h12M88 72h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay" d="M148 58h10M148 70h10M168 58h10M168 70h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-window home-solution-anim-window--delay2" d="M218 36h12M218 50h12M218 64h12M218 78h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  </svg>
+</div>
   </header>
-  <div class="project-slider" data-loop-slider>
-    <div class="project-slider-track"><a class="product-slider-card" href="/en/elnet-pq-gr-meter/"><div class="product-slider-image"><img src="/assets/images/pq-gr.png" alt="ElNet PQ/GR Meter" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet PQ/GR Meter</span><p class="product-slider-text">ElNet PQ is certified by a testing laboratory to the exclusive Class A standard for measuring the quality of electricity.</p></div></a><a class="product-slider-card" href="/en/elnet-lt-meter/"><div class="product-slider-image"><img src="/assets/images/elnet-mc-2-meter-content-12-2.png" alt="ElNet LT Meter" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet LT Meter</span><p class="product-slider-text">Has a measurement accuracy of 0.2% (0.1% by special order).</p></div></a><a class="product-slider-card" href="/en/elnet-mc-8-meter/"><div class="product-slider-image"><img src="/assets/images/power-meters-control-content-10-3.png" alt="ElNet MC-8 Meter" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet MC-8 Meter</span><p class="product-slider-text">Three-phase energy measurements in Touz</p></div></a><a class="product-slider-card" href="/en/elnet-lte-meter/"><div class="product-slider-image"><img src="/assets/images/elnet-mc-2-meter-content-14-4.png" alt="ElNet LTE Meter" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet LTE Meter</span><p class="product-slider-text">Measurement of voltage, current, energy, frequency, power and power multiplier.</p></div></a><a class="product-slider-card" href="/en/elnet-co-transfer-switch/"><div class="product-slider-image"><img src="/assets/images/elnet-co-transfer-switch-content-5-3.png" alt="ElNet CO Transfer Switch" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet CO Transfer Switch</span><p class="product-slider-text">The ElNet CO system is designed for an efficient exchange between two power supply sources (electricity company / generator) in the event of a malfunction in one of the power supply systems.</p></div></a><a class="product-slider-card" href="/en/elnet-pfc-controller/"><div class="product-slider-image"><img src="/assets/images/elnet-pfc-controller-content-5-3.png" alt="ElNet PFC Controller" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet PFC Controller</span><p class="product-slider-text">Support for up to 6 levels.</p></div></a><a class="product-slider-card" href="/en/elnet-xp-controller/"><div class="product-slider-image"><img src="/assets/images/elnet-xp-controller-content-5-5.png" alt="ElNet XP Controller" loading="lazy"/></div><div class="product-slider-body"><span class="product-slider-title">ElNet XP Controller</span><p class="product-slider-text">An automatic switching controller is used to operate drainage and sewage pumps and is found in almost every public building today, the controller is used to automatically control the level of rainwater or sewage, including automatic switching between two pumps in each operation in order to balance the working hours and the introduction of an off-duty pump for reinforcement when necessary.</p></div></a></div>
-  </div>
-</section><section class="home-projects-slider" id="projects" data-slider-section aria-label="Typical projects">
-  <header class="home-section-head home-projects-slider-head">
-    <h2 class="home-section-title">Typical projects</h2>
-    <div class="project-slider-nav">
-      <button type="button" class="project-slider-prev" aria-label="Previous"></button>
-      <button type="button" class="project-slider-next" aria-label="Next"></button>
+  <div class="home-solution-group-list"><a class="home-solution-group-item" href="/en/building-automation/" style="--item-i:0"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-building" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 40V16l14-8 14 8v24" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18 40V24h12v16" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-windows" d="M16 20h4M16 26h4M28 20h4M28 26h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Building automation / BMS</span><span class="home-solution-group-item-text">Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and electromechanical systems.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/parking-control/" style="--item-i:1"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-parking" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 32h32M12 32l3-12h18l3 12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="home-icon-wheel" cx="18" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-wheel" cx="30" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M18 20h8a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="34" cy="14" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M34 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Parking / CO</span><span class="home-solution-group-item-text">CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space is free or taken.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/flood-detection-systems/" style="--item-i:2"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-drop" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path class="home-icon-drop-shape" d="M24 8c0 0 12 14 12 22a12 12 0 0 1-24 0C12 22 24 8 24 8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M24 26v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Flood detection</span><span class="home-solution-group-item-text">Flood detecting and control systems, including the flooding sensor, for finding water in the building before it damages electromechanical systems.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/plumbing-control/" style="--item-i:3"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-pump" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 30h10l4-8h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle class="home-icon-rotor" cx="18" cy="30" r="6" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-rotor" d="M18 26v8M14 30h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M38 22v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Plumbing / drainage pumps</span><span class="home-solution-group-item-text">Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps and bringing a standby pump in when extra capacity is needed.</span><span class="home-solution-group-item-more">More information</span></span></a></div>
+</article><article class="home-solution-group" data-group="power-meters" style="--group-i:1">
+  <header class="home-solution-group-head">
+    <div class="home-solution-group-head-copy">
+      <span class="home-solution-group-index">02</span>
+      <h3 class="home-solution-group-title">Energy management</h3>
+      <p class="home-solution-group-lead">Metering, power quality, source transfer and power factor improvement.</p>
     </div>
+    <div class="home-solution-group-visual home-solution-group-visual--power" aria-hidden="true">
+  <svg class="home-solution-anim-svg" viewBox="0 0 280 120" fill="none">
+    <path class="home-solution-anim-wave home-solution-anim-wave--a" d="M0 62 C35 32, 55 92, 90 62 S145 32, 180 62 235 92, 280 62" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="home-solution-anim-wave home-solution-anim-wave--b" d="M0 78 C40 58, 60 98, 100 78 S160 58, 200 78 250 98, 280 78" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+    <circle class="home-solution-anim-pulse" cx="90" cy="62" r="4.5" fill="currentColor"/>
+    <circle class="home-solution-anim-pulse home-solution-anim-pulse--delay" cx="180" cy="62" r="3.5" fill="currentColor"/>
+  </svg>
+</div>
   </header>
-  <div class="project-slider" data-loop-slider>
-    <div class="project-slider-track"><a class="project-slider-card" href="/en/public-buildings/"><div class="project-slider-image"><img src="/assets/images/813b164e6ecd49b0b09f5f9913d34577.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Public Buildings</span></a><a class="project-slider-card" href="/en/hospitals/"><div class="project-slider-image"><img src="/assets/images/hospitals-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Hospitals</span></a><a class="project-slider-card" href="/en/hotels/"><div class="project-slider-image"><img src="/assets/images/hotels-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Hotels</span></a><a class="project-slider-card" href="/en/universities/"><div class="project-slider-image"><img src="/assets/images/typical-projects-content-7-5.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Universities</span></a><a class="project-slider-card" href="/en/museums/"><div class="project-slider-image"><img src="/assets/images/museums-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Museums</span></a><a class="project-slider-card" href="/en/shopping-malls/"><div class="project-slider-image"><img src="/assets/images/shopping-malls-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Shopping Malls</span></a><a class="project-slider-card" href="/en/industrial-hi-tech/"><div class="project-slider-image"><img src="/assets/images/typical-projects-content-8-4.png" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Industrial &amp; Hi-Tech</span></a><a class="project-slider-card" href="/en/pharmaceutical-clean-rooms/"><div class="project-slider-image"><img src="/assets/images/pharmaceutical-clean-rooms-hero.jpg" alt="" loading="lazy"/></div><div class="home-media-shade"></div><span class="project-slider-title">Pharmaceutical &amp; Clean Rooms</span></a></div>
-  </div>
-</section><section class="home-proof" aria-label="Quality Assurance">
-  <div class="home-proof-inner">
-    <h2 class="home-section-title">Quality Assurance</h2>
-    <p class="home-proof-lead">We are committed to exceptional product quality and efficient service — with quality control across every stage of our work.</p>
-    <ul class="home-proof-standards"><li><strong>ISO 9001</strong><span>Quality management systems</span></li><li><strong>ISO 9000.3</strong><span>Development &amp; production QA</span></li><li><strong>CE</strong><span>European conformity directives</span></li><li><strong>SII</strong><span>Israeli Standards Institute certified</span></li></ul>
-    <div class="home-proof-actions">
-      <a class="home-btn home-btn--primary" href="/en/about/">About us</a>
-      <a class="home-btn home-btn--text" href="/en/contact/">Contact</a>
-    </div>
+  <div class="home-solution-group-list"><a class="home-solution-group-item" href="/en/power-quality-analyzers/" style="--item-i:0"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-wave" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M10 28c3-10 5 10 8 0s5 10 8 0 5 10 8 0 4-8 6-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Power quality</span><span class="home-solution-group-item-text">Monitor your electrical network.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/energy-meters/" style="--item-i:1"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-gauge" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="1.7"/><path d="M14 36c2.4 3 6 5 10 5s7.6-2 10-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="home-icon-needle" d="M24 26 L34 16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="24" cy="26" r="2.2" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Energy management</span><span class="home-solution-group-item-text">An energy management system starts by measuring consumption and keeping it to the minimum needed.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/transfer-switches/" style="--item-i:2"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-switch" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="20" rx="10" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-knob" cx="31" cy="24" r="6.5" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Generator / transfer switching</span><span class="home-solution-group-item-text">Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous.</span><span class="home-solution-group-item-more">More information</span></span></a><a class="home-solution-group-item" href="/en/power-factor-control/" style="--item-i:3"><span class="home-solution-group-icon"><svg class="home-icon-svg home-icon-pf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M24 24 L38 24 A14 14 0 0 0 31 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg></span><span class="home-solution-group-copy"><span class="home-solution-group-item-title">Power factor</span><span class="home-solution-group-item-text">Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10.</span><span class="home-solution-group-item-more">More information</span></span></a></div>
+</article></div>
   </div>
 </section></div>
     
@@ -119,24 +128,13 @@
     <div class="footer-brand">
       <p class="footer-brand-name">Control Applications</p>
     </div>
-    <nav class="footer-sitemap" aria-label="Our Solutions"><h3>Our Solutions</h3><ul><li><a href="/en/power-quality-analyzers/">Power quality</a></li><li><a href="/en/energy-meters/">Energy management</a></li><li><a href="/en/building-automation/">Building automation / BMS</a></li><li><a href="/en/parking-control/">Parking / CO</a></li><li><a href="/en/flood-detection-systems/">Flood detection</a></li><li><a href="/en/transfer-switches/">Generator / transfer switching</a></li><li><a href="/en/power-factor-control/">Power factor</a></li><li><a href="/en/plumbing-control/">Plumbing / drainage pumps</a></li></ul></nav>
-    <nav class="footer-sitemap" aria-label="Typical projects"><h3>Typical projects</h3><ul><li><a href="/en/public-buildings/">Public Buildings</a></li><li><a href="/en/hospitals/">Hospitals</a></li><li><a href="/en/hotels/">Hotels</a></li><li><a href="/en/universities/">Universities</a></li><li><a href="/en/museums/">Museums</a></li><li><a href="/en/shopping-malls/">Shopping Malls</a></li><li><a href="/en/industrial-hi-tech/">Industrial &amp; Hi-Tech</a></li><li><a href="/en/pharmaceutical-clean-rooms/">Pharmaceutical &amp; Clean Rooms</a></li></ul></nav>
-    <nav class="footer-sitemap" aria-label="Company"><h3>Company</h3><ul><li><a href="/en/">Home</a></li><li><a href="/en/about/">About us</a></li><li><a href="/en/products/">Products</a></li><li><a href="/en/quality-assurance/">Quality Assurance</a></li><li><a href="/en/contact/">Contact</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="Solutions"><h3>Solutions</h3><ul><li><a href="/en/power-quality-analyzers/">Power quality</a></li><li><a href="/en/energy-meters/">Energy management</a></li><li><a href="/en/building-automation/">Building automation / BMS</a></li><li><a href="/en/parking-control/">Parking / CO</a></li><li><a href="/en/flood-detection-systems/">Flood detection</a></li><li><a href="/en/transfer-switches/">Generator / transfer switching</a></li><li><a href="/en/power-factor-control/">Power factor</a></li><li><a href="/en/plumbing-control/">Plumbing / drainage pumps</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="Industries"><h3>Industries</h3><ul><li><a href="/en/industries/#public-buildings">Public Buildings</a></li><li><a href="/en/industries/#hospitals">Hospitals</a></li><li><a href="/en/industries/#hotels">Hotels</a></li><li><a href="/en/industries/#universities">Universities</a></li><li><a href="/en/industries/#museums">Museums</a></li><li><a href="/en/industries/#shopping-malls">Shopping Malls</a></li><li><a href="/en/industries/#industrial-hi-tech">Industrial &amp; Hi-Tech</a></li><li><a href="/en/industries/#pharmaceutical-clean-rooms">Pharmaceutical &amp; Clean Rooms</a></li></ul></nav>
+    <nav class="footer-sitemap" aria-label="Company"><h3>Company</h3><ul><li><a href="/en/">Home</a></li><li><a href="/en/about/">About us</a></li><li><a href="/en/industries/">Industries</a></li><li><a href="/en/products/">Products</a></li><li><a href="/en/contact/">Contact</a></li></ul></nav>
     <div class="footer-contact">
       <h3>Contact Us</h3>
       <p><strong>Phone:</strong> <a href="tel:+972-3-6474998">+972-3-6474998</a></p>
-      <p><strong>Fax:</strong> +972-3-6474598</p>
-      <p><strong>Email:</strong> <a href="mailto:cal@ddc.co.il">cal@ddc.co.il</a></p>
-      <p><strong>Opening Hours:</strong> Sun - Thu, 08:00 - 17:00</p>
-      <p><strong>Address:</strong> Habarzel 25, Tel Aviv, 6971035, Israel</p>
-    </div>
-    <div class="footer-map">
-      <iframe
-        title="Map"
-        src="https://maps.google.com/maps?q=Habarzel+25+Tel+Aviv&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      <p><strong>Email:</strong> <a href="mailto:info@ddc.co.il">info@ddc.co.il</a></p>
     </div>
   </div>
   <div class="footer-bottom">

@@ -4,7 +4,7 @@
 "url": "/en/",
 "kind": "page",
 "kindLabel": "Page",
-"text": "Building automation, power metering, and control systems — committed to international quality standards."
+"text": "Building automation, power metering, and control systems for buildings, energy and industry."
 },
 {
 "title": "About",
@@ -14,10 +14,17 @@
 "text": "About About us Control Applications Ltd. Control Applications (CA) is a private company that manufacture computerized control systems PLC/DDC & controllers, Building Automation systems (BMS), Electrical Power meters and Analysers, Power factor correction controllers, Automatic Transfer Switches (ATS) and more… CA’s measurements and control systems consist of both hardware and software products that are user-friendly as well as being technically superior."
 },
 {
+"title": "Industries",
+"url": "/en/industries/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Control Applications measures, monitors and controls electrical networks, air conditioning and the electromechanical systems installed in public buildings. The products are intended for use in industry, public buildings, hotels, hospitals, universities, shopping centres and more."
+},
+{
 "title": "Building automation / BMS",
 "url": "/en/building-automation/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and electromechanical systems. UniArt / UniWeb is a distributed TCP/IP and Web SCADA platform for saving energy in public buildings and industry. DigiPoint Controller VeroPoint Controller SuperBrain Controller SuperBrain DR Controller SuperBrain FC Controller UniArt Software UniWeb Software"
 },
 {
@@ -87,21 +94,21 @@
 "title": "Parking / CO",
 "url": "/en/parking-control/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space is free or taken. CO Gas Monitoring Smart Parking"
 },
 {
 "title": "Plumbing / drainage pumps",
 "url": "/en/plumbing-control/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps and bringing a standby pump in when extra capacity is needed. ElNet XP Controller"
 },
 {
 "title": "Flood detection",
 "url": "/en/flood-detection-systems/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Flood detecting and control systems, including the flooding sensor, for finding water in the building before it damages electromechanical systems. Flooding sensor"
 },
 {
@@ -122,14 +129,14 @@
 "title": "Generator / transfer switching",
 "url": "/en/transfer-switches/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous. ElNet COD Transfer Switch ElNet CO Transfer Switch"
 },
 {
 "title": "Power factor",
 "url": "/en/power-factor-control/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10. ElNet PFC Controller ElNet LTC10 Controller ElNet LTC Controller"
 },
 {
@@ -150,14 +157,14 @@
 "title": "Power quality",
 "url": "/en/power-quality-analyzers/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "Monitor your electrical network. The ElNet power quality system is built on accurate, reliable hardware and an EN50160 reports generator and events recorder. ElNet PQ/GR Meter ElNet LT Meter ElNet LTP Meter ElNet Billing & PQ Software"
 },
 {
 "title": "Energy management",
 "url": "/en/energy-meters/",
 "kind": "solution",
-"kindLabel": "Our Solutions",
+"kindLabel": "Solutions",
 "text": "An energy management system starts by measuring consumption and keeping it to the minimum needed. Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills. ElNet MC-1 Meter ElNet MC-2 Meter ElNet MC-8 Meter ElNet MC-12 Meter ElNet PIC Meter ElNet LTE Meter ElNet LT Meter ElNet LTP Meter ElNet VA Meter ElNet VIP Meter ElNet Billing & PQ Software"
 },
 {
@@ -178,56 +185,56 @@
 "title": "Public Buildings",
 "url": "/en/public-buildings/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "Public buildings Bank of East Asia, Hong Kong Burgas Airport, Bulgaria Maple Tree Business City (MBC 2), Singapore The Knesset building, Jerusalem Congress Center, Binyanei Ha'uma, Jerusalem The Opera Tower, Tel Aviv Court of Eilat Court of Nazareth Hasharon Prison The Opera Tower, Tel Aviv Jerusalem theatre Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Hospitals",
 "url": "/en/hospitals/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "Hospitals Ng Teng Fong Hospital, Singapore Poria Hospital, Tiberias Meir Hospital, Kfar Sava Haemek Hospital, Afula Sharon Hospital, Petah Tikva Kaplan Hospital, Rehovot Carmel Hospital, Haifa Sor Hospital, Beer Sheba Nahariya Hospital, Children's Department Ziv Medical Center, Zefat Laniado Hospital, Netanya Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Hotels",
 "url": "/en/hotels/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "Hotels Hilton Abuja, Nigeria Hilton Hotel, Tel Aviv Orchidea Hotel, Eilat Holiday Inn Hotel, Dead Sea Caesar Hotel, Dead Sea Isrotel Royal Garden Hotel Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Universities",
 "url": "/en/universities/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "UNIVERSITIES Singapore University of Technology and Design Tel Aviv University Ben-Gurion University, Beer Sheva Technion, Haifa Haifa University Faculty of Agriculture, Rehovot Emek Hayarden collage Interdisciplinary Center, Herzliya Hebrew University, Jerusalem Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Museums",
 "url": "/en/museums/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "Museums Tel Aviv Museum Israel Museum, Jerusalem Yad Vashem Museum, Jerusalem Science Museum, Jerusalem Mormon Museum, Jerusalem Metsudat David Hotel, Jerusalem Magic Palace Hotel, Eilat Adi Hotel, Eilat Hod Hotel, Dead Sea Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Shopping Malls",
 "url": "/en/shopping-malls/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "SHOPING MALLS Tri Noma Mall, Quezon City, Manila, Philippines Circuit Lane Mall, Makati City, Manila, Philippines Malcha Mall, Jerusalem Grand Canyon, Haifa Beer Sheva Mall Rav Shefa Shopping Center Haamakim Mall, Afula Power Center Ashdod The big Mall, Beer Sheva Big Center Tiberias Cinema City, Netania Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Industrial & Hi-Tech",
 "url": "/en/industrial-hi-tech/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "INDUSTRIAL FACTORIES AND HI TECH Intel factory, Haifa Elisra Factory, Ramat Gan Elbit Systems, Carmiel- Haifa Comverse Efrat Technologies Amdocs Raanana, Sderot Osem Factories, Sderot Scitex factory, Herzliya ECI Telecom factory Mercury – Yehud Buildings LSI-LOGIC, Netanya Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {
 "title": "Pharmaceutical & Clean Rooms",
 "url": "/en/pharmaceutical-clean-rooms/",
 "kind": "project",
-"kindLabel": "Typical projects",
+"kindLabel": "Industries",
 "text": "PHARMACEUTICAL INDUSTRY AND C... Teva Pharmaceutical Industries, Kfar Saba Sigma factory, Rehovot ITH factory, Migdal Haemek L'Oreal, Caesarea Vishay, Dimona, Beer Sheva, Migdal Haemek Dexel, Jerusalem Cyalandside, Modi'in Okon, Modi'in Isotope, Petah Tikva Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
 },
 {

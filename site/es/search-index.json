@@ -4,7 +4,7 @@
 "url": "/es/",
 "kind": "page",
 "kindLabel": "Página",
-"text": "Automatización de edificios, medición eléctrica y sistemas de control — comprometidos con estándares internacionales de calidad."
+"text": "Automatización de edificios, medición eléctrica y sistemas de control para edificios, energía e industria."
 },
 {
 "title": "Nosotros",
@@ -14,10 +14,17 @@
 "text": "Nosotros"
 },
 {
+"title": "Industrias",
+"url": "/es/industries/",
+"kind": "page",
+"kindLabel": "Página",
+"text": "Control Applications mide, monitorea y controla redes eléctricas, climatización y los sistemas electromecánicos de edificios públicos. Los productos se destinan a industria, edificios públicos, hoteles, hospitales, universidades, centros comerciales y más."
+},
+{
 "title": "Automatización de edificios / BMS",
 "url": "/es/building-automation/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Automatización de edificios y BMS: control y medición de aire acondicionado, electricidad y sistemas electromecánicos. UniArt / UniWeb es una plataforma TCP/IP y Web SCADA para ahorro de energía en edificios públicos e industria. Controlador DigiPoint Controlador VeroPoint Controlador SuperBrain Controlador SuperBrain DR Controlador SuperBrain FC Software UniArt Software UniWeb"
 },
 {
@@ -87,21 +94,21 @@
 "title": "Estacionamiento / CO",
 "url": "/es/parking-control/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Monitoreo de gas CO en niveles de estacionamiento y control de ocupación que indica si una plaza está libre o ocupada. Monitoreo de gas CO Estacionamiento inteligente"
 },
 {
 "title": "Fontanería / bombas de drenaje",
 "url": "/es/plumbing-control/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Control automático del nivel de agua de lluvia o residuales para bombas de drenaje, con conmutación entre bombas y refuerzo de una bomba en espera cuando hace falta. Controlador ElNet XP"
 },
 {
 "title": "Detección de inundaciones",
 "url": "/es/flood-detection-systems/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Sistemas de detección y control de inundaciones, incluido el sensor de inundación, para detectar agua en el edificio antes de que dañe los sistemas electromecánicos. Sensor de inundación"
 },
 {
@@ -122,14 +129,14 @@
 "title": "Transferencia / generador",
 "url": "/es/transfer-switches/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Controladores de transferencia automática red / generador, para mantener el suministro eléctrico continuo. Interruptor de transferencia ElNet COD Interruptor de transferencia ElNet CO"
 },
 {
 "title": "Factor de potencia",
 "url": "/es/power-factor-control/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Ahorre energía y proteja el medio ambiente con controladores de factor de potencia — ElNet PFC, LTC y LTC10. Controlador ElNet PFC Controlador ElNet LTC10 Controlador ElNet LTC"
 },
 {
@@ -150,14 +157,14 @@
 "title": "Calidad de energía",
 "url": "/es/power-quality-analyzers/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "Monitoree su red eléctrica. El sistema de calidad de energía ElNet se basa en hardware preciso y confiable y en un generador de informes EN50160 y un registrador de eventos. Medidor ElNet PQ/GR Medidor ElNet LT Medidor ElNet LTP Software de facturación ElNet"
 },
 {
 "title": "Gestión de energía",
 "url": "/es/energy-meters/",
 "kind": "solution",
-"kindLabel": "Nuestras soluciones",
+"kindLabel": "Soluciones",
 "text": "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía se usa permite reducir el costo y generar facturas de electricidad y climatización. Medidor ElNet MC-1 Medidor ElNet MC-2 Medidor ElNet MC-8 Medidor ElNet MC-12 Medidor ElNet PIC Medidor ElNet LTE Medidor ElNet LT Medidor ElNet LTP Medidor ElNet VA Medidor ElNet VIP Software de facturación ElNet"
 },
 {
@@ -178,56 +185,56 @@
 "title": "Edificios públicos",
 "url": "/es/public-buildings/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Edificios públicos Banco de Asia Oriental, Hong Kong Aeropuerto de Burgas, Bulgaria Ciudad empresarial Maple Tree (MBC 2), Singapur El edificio de la Knesset, Jerusalén Centro de Congresos, Binyanei Ha'uma, Jerusalén La Torre de la Ópera, Tel Aviv Tribunal de Eilat Corte de Nazaret Prisión de Hasharón La Torre de la Ópera, Tel Aviv teatro de jerusalén"
 },
 {
 "title": "Hospitales",
 "url": "/es/hospitals/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Hospitales Hospital Ng Teng Fong, Singapur Hospital de Poria, Tiberíades Hospital Meir, Kfar Saba Hospital Haemek, Afula Hospital Sharon, Petaj Tikva Hospital Kaplan, Rejovot Hospital Carmelo, Haifa Hospital Sor, Beer Sheba Hospital Nahariya, Departamento de Niños Centro médico Ziv, Zefat Hospital Laniado, Netanya"
 },
 {
 "title": "Hoteles",
 "url": "/es/hotels/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Hoteles Hilton Abuya, Nigeria Hotel Hilton, Tel Aviv Orchidea Hotel, Eilat Hotel Holiday Inn, Mar Muerto Hotel César, Mar Muerto Isrotel Royal Garden Hotel"
 },
 {
 "title": "Universidades",
 "url": "/es/universities/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Universidades Universidad de Tecnología y Diseño de Singapur Universidad de Tel Aviv Universidad Ben Gurión, Beer Sheva Technión, Haifa Universidad de Haifa Facultad de Agricultura, Rehovot Collage de Emek Hayarden Centro Interdisciplinario, Herzliya Universidad Hebrea, Jerusalén"
 },
 {
 "title": "Museos",
 "url": "/es/museums/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Museos Museo de Tel Aviv Museo de Israel, Jerusalén Museo Yad Vashem, Jerusalén Museo de Ciencias, Jerusalén Museo Mormón, Jerusalén Metsudat David Hotel, Jerusalén Magic Palace Hotel, Eilat Adi Hotel, Eilat Hod Hotel, Mar Muerto"
 },
 {
 "title": "Centros comerciales",
 "url": "/es/shopping-malls/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Centros comerciales Tri Noma Mall, Quezón City, Manila, Filipinas Centro comercial Circuit Lane, Makati City, Manila, Filipinas Centro comercial Malcha, Jerusalén Gran Cañón, Haifa Centro comercial Beer Sheva Centro comercial Rav Shefa Centro comercial Haamakim, Afula Centro de energía Ashdod El gran centro comercial, Beer Sheva Gran Centro Tiberíades Ciudad del cine, Netania"
 },
 {
 "title": "Industrial y alta tecnología",
 "url": "/es/industrial-hi-tech/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Industrial y alta tecnología Fábrica de Intel, Haifa Fábrica Elisra, Ramat Gan Elbit Systems, Carmiel-Haifa Tecnologías Comverse Efrat Amdocs Raanana, Sderot Fábricas de Osem, Sderot Fábrica de Scitex, Herzliya Fábrica de telecomunicaciones ECI Mercurio – Edificios Yehud LSI-LOGIC, Netanya"
 },
 {
 "title": "Farmacéutica y salas limpias",
 "url": "/es/pharmaceutical-clean-rooms/",
 "kind": "project",
-"kindLabel": "Proyectos típicos",
+"kindLabel": "Industrias",
 "text": "Farmacéutica y salas limpias Industrias farmacéuticas Teva, Kfar Saba Fábrica de Sigma, Rehovot Fábrica ITH, Migdal Haemek L'Oréal, Cesarea Vishay, Dimona, Beer Sheva, Migdal Haemek Dexel, Jerusalén Cyalandside, Modi'in Okon, Modi'in Isótopo, Petaj Tikva"
 },
 {
