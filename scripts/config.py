@@ -574,25 +574,25 @@ SOLUTION_FRAMING = {
             "האלקטרו-מכניות, עם תוכנת BMS מבוססת TCP/IP ו-Web SCADA."
         ),
         "parking-control": (
-            "בקרת חניונים: ניטור גז CO במפלסי חניה, ושליטה בתפוסת חניה חכמה — המערכות המופיעות בקטלוג בקרת החניונים."
+            "ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול."
         ),
         "flood-detection-systems": (
             "מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות."
         ),
         "transfer-switches": (
-            "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקה — אותם בקרי ElNet CO ו-COD שמופיעים בקטלוג."
+            "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור."
         ),
         "power-factor-control": (
             "חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10."
         ),
         "plumbing-control": (
-            "בקר למשאבות ניקוז וביוב: בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות, כפי שמתואר במוצר Elnet XP."
+            "בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך."
         ),
     },
     "en": {
         "power-quality-analyzers": (
             "Monitor your electrical network. The ElNet power quality system is built on accurate, reliable hardware "
-            "and an EN50160 reports generator and events recorder — the same capability already described for ElNet power quality."
+            "and an EN50160 reports generator and events recorder."
         ),
         "energy-meters": (
             "An energy management system starts by measuring consumption and keeping it to the minimum needed. "
@@ -600,27 +600,26 @@ SOLUTION_FRAMING = {
         ),
         "building-automation": (
             "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and "
-            "electromechanical systems. UniArt / UniWeb BMS is the distributed TCP/IP and Web SCADA platform already "
-            "described for saving energy in public buildings and industry."
+            "electromechanical systems. UniArt / UniWeb is a distributed TCP/IP and Web SCADA platform for saving "
+            "energy in public buildings and industry."
         ),
         "parking-control": (
-            "Parking lot control: CO gas monitoring in parking levels, and smart parking occupancy — the systems "
-            "already listed under parking control."
+            "CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space "
+            "is free or taken."
         ),
         "flood-detection-systems": (
             "Flood detecting and control systems, including the flooding sensor, for finding water in the building "
             "before it damages electromechanical systems."
         ),
         "transfer-switches": (
-            "Automatic transfer switch controllers for utility / generator changeover — the ElNet CO and COD controllers "
-            "already in the catalog."
+            "Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous."
         ),
         "power-factor-control": (
             "Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10."
         ),
         "plumbing-control": (
-            "Plumbing control for drainage and sewage pumps: automatic level control and pump changeover, as already "
-            "described for the Elnet XP controller."
+            "Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps "
+            "and bringing a standby pump in when extra capacity is needed."
         ),
     },
     "es": {
@@ -634,26 +633,26 @@ SOLUTION_FRAMING = {
         ),
         "building-automation": (
             "Automatización de edificios y BMS: control y medición de aire acondicionado, electricidad y sistemas "
-            "electromecánicos. UniArt / UniWeb es la plataforma TCP/IP y Web SCADA ya descrita para ahorro de energía "
+            "electromecánicos. UniArt / UniWeb es una plataforma TCP/IP y Web SCADA para ahorro de energía "
             "en edificios públicos e industria."
         ),
         "parking-control": (
-            "Control de estacionamientos: monitoreo de gas CO y estacionamiento inteligente, los sistemas ya listados "
-            "en control de estacionamientos."
+            "Monitoreo de gas CO en niveles de estacionamiento y control de ocupación que indica si una plaza "
+            "está libre o ocupada."
         ),
         "flood-detection-systems": (
             "Sistemas de detección y control de inundaciones, incluido el sensor de inundación, para detectar agua "
             "en el edificio antes de que dañe los sistemas electromecánicos."
         ),
         "transfer-switches": (
-            "Controladores de transferencia automática red / generador — los controladores ElNet CO y COD del catálogo."
+            "Controladores de transferencia automática red / generador, para mantener el suministro eléctrico continuo."
         ),
         "power-factor-control": (
             "Ahorre energía y proteja el medio ambiente con controladores de factor de potencia — ElNet PFC, LTC y LTC10."
         ),
         "plumbing-control": (
-            "Control de fontanería para bombas de drenaje y aguas residuales: control automático de nivel y conmutación "
-            "de bombas, como ya se describe en el controlador Elnet XP."
+            "Control automático del nivel de agua de lluvia o residuales para bombas de drenaje, con conmutación "
+            "entre bombas y refuerzo de una bomba en espera cuando hace falta."
         ),
     },
 }

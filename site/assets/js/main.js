@@ -198,8 +198,153 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const closeLangMenu = (menu) => {
+    const btn = menu.querySelector(".lang-menu-toggle");
+    const list = menu.querySelector(".lang-menu-list");
+    btn?.setAttribute("aria-expanded", "false");
+    list?.setAttribute("hidden", "");
+  };
+
+  const searchRoot = document.querySelector("[data-site-search]");
+  const searchToggle = searchRoot?.querySelector(".header-search-toggle");
+  const searchPanel = searchRoot?.querySelector(".site-search-panel");
+  const searchInput = searchRoot?.querySelector(".site-search-input");
+  const searchResults = searchRoot?.querySelector(".site-search-results");
+  let searchIndex = null;
+  let searchIndexPromise = null;
+
+  const closeSearch = () => {
+    searchToggle?.setAttribute("aria-expanded", "false");
+    searchPanel?.setAttribute("hidden", "");
+    document.body.classList.remove("search-open");
+  };
+
+  const openLangMenu = (menu) => {
+    const btn = menu.querySelector(".lang-menu-toggle");
+    const list = menu.querySelector(".lang-menu-list");
+    document.querySelectorAll("[data-lang-menu]").forEach((other) => {
+      if (other !== menu) closeLangMenu(other);
+    });
+    closeSearch();
+    btn?.setAttribute("aria-expanded", "true");
+    list?.removeAttribute("hidden");
+  };
+
+  document.addEventListener("click", (event) => {
+    document.querySelectorAll("[data-lang-menu]").forEach((menu) => {
+      if (!menu.contains(event.target)) {
+        closeLangMenu(menu);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-lang-menu]").forEach((menu) => {
+    menu.querySelector(".lang-menu-toggle")?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const expanded = menu.querySelector(".lang-menu-toggle")?.getAttribute("aria-expanded") === "true";
+      if (expanded) closeLangMenu(menu);
+      else openLangMenu(menu);
+    });
+  });
+
+  const renderSearchResults = (items, query) => {
+    if (!searchResults) return;
+    searchResults.innerHTML = "";
+    if (!query) return;
+    if (!items.length) {
+      const empty = document.createElement("li");
+      empty.className = "site-search-empty";
+      empty.textContent = searchResults.dataset.empty || "No results";
+      searchResults.append(empty);
+      return;
+    }
+    items.forEach((item) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = item.url;
+      const kind = document.createElement("span");
+      kind.className = "site-search-kind";
+      kind.textContent = item.kindLabel || item.kind;
+      const title = document.createElement("span");
+      title.textContent = item.title;
+      a.append(kind, title);
+      li.append(a);
+      searchResults.append(li);
+    });
+  };
+
+  const normalizeQuery = (value) => value.trim().toLowerCase();
+
+  const filterSearch = (query) => {
+    const q = normalizeQuery(query);
+    if (!q || !searchIndex) {
+      renderSearchResults([], q);
+      return;
+    }
+    const scored = [];
+    searchIndex.forEach((item) => {
+      const title = (item.title || "").toLowerCase();
+      const text = (item.text || "").toLowerCase();
+      let score = 0;
+      if (title === q) score = 100;
+      else if (title.startsWith(q)) score = 80;
+      else if (title.includes(q)) score = 60;
+      else if (text.includes(q)) score = 30;
+      if (score) scored.push({ item, score });
+    });
+    scored.sort((a, b) => b.score - a.score);
+    renderSearchResults(scored.slice(0, 12).map((row) => row.item), q);
+  };
+
+  const loadSearchIndex = () => {
+    if (searchIndexPromise) return searchIndexPromise;
+    const url = searchRoot?.getAttribute("data-index-url");
+    if (!url) return Promise.resolve([]);
+    searchIndexPromise = fetch(url)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        searchIndex = Array.isArray(data) ? data : [];
+        return searchIndex;
+      })
+      .catch(() => {
+        searchIndex = [];
+        return searchIndex;
+      });
+    return searchIndexPromise;
+  };
+
+  const openSearch = () => {
+    if (!searchPanel) return;
+    document.querySelectorAll("[data-lang-menu]").forEach(closeLangMenu);
+    searchToggle?.setAttribute("aria-expanded", "true");
+    searchPanel.removeAttribute("hidden");
+    document.body.classList.add("search-open");
+    loadSearchIndex().then(() => {
+      searchInput?.focus();
+      filterSearch(searchInput?.value || "");
+    });
+  };
+
+  searchToggle?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const open = searchToggle.getAttribute("aria-expanded") === "true";
+    if (open) closeSearch();
+    else openSearch();
+  });
+
+  searchRoot?.querySelector("[data-search-close]")?.addEventListener("click", closeSearch);
+  searchPanel?.addEventListener("click", (event) => {
+    if (event.target === searchPanel) closeSearch();
+  });
+  searchInput?.addEventListener("input", () => filterSearch(searchInput.value));
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    document.querySelectorAll("[data-lang-menu]").forEach(closeLangMenu);
+    closeSearch();
+  });
+
   const contactForm = document.getElementById("contact-form");
-  const contactPopup = document.getElementById("contact-popup");
   const contactError = document.getElementById("contact-form-error");
 
   const closeContactPopup = () => {

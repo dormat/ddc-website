@@ -1,0 +1,401 @@
+[
+{
+"title": "Home",
+"url": "/en/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Building automation, power metering, and control systems — committed to international quality standards."
+},
+{
+"title": "About",
+"url": "/en/about/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "About About us Control Applications Ltd. Control Applications (CA) is a private company that manufacture computerized control systems PLC/DDC & controllers, Building Automation systems (BMS), Electrical Power meters and Analysers, Power factor correction controllers, Automatic Transfer Switches (ATS) and more… CA’s measurements and control systems consist of both hardware and software products that are user-friendly as well as being technically superior."
+},
+{
+"title": "Building automation / BMS",
+"url": "/en/building-automation/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and electromechanical systems. UniArt / UniWeb is a distributed TCP/IP and Web SCADA platform for saving energy in public buildings and industry. DigiPoint Controller VeroPoint Controller SuperBrain Controller SuperBrain DR Controller SuperBrain FC Controller UniArt Software UniWeb Software"
+},
+{
+"title": "Power meters & control",
+"url": "/en/power-meters-control/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Power meters & control Meters for power quality ElNet LT Ta'az, harmonies ElNet LTP leakage current harmonics and more ElNet PQ/GR interference and power measurements"
+},
+{
+"title": "Products",
+"url": "/en/products/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Products Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Contact",
+"url": "/en/contact/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Contact Thanks for submitting! Control Applications Ltd 25 Barzel Street, Tel Aviv 6971035 Israel Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Quality Assurance",
+"url": "/en/quality-assurance/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Quality Assurance We are committed to our goal - to provide the best products, as well as the most efficient service. Control Applications carries ISO 9001 and ISO 9000.3 certifications on behalf of the Israeli Standards Institute, signifying that the company presents and maintains a high level of quality in all areas of its activity - development, production, supply and installation, in addition, the company's equipment complies with the CE standard and requirements. Control Applications Ltd Ad"
+},
+{
+"title": "Product Comparison",
+"url": "/en/product-comparison/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Product Comparison In order to view our product comparison system, click on the button. Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Transfer Switch Sketches",
+"url": "/en/transfer-switch-drawings/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Transfer Switch Sketches Transfer switch controller - 1st generation Can be identified on the rear panel - connector J5 with 7 clamps Transfer switch controller - 2nd generation Can be identified on the rear panel - connector J5 with 6 clamps"
+},
+{
+"title": "BMS Certifications",
+"url": "/en/bms-certifications/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "BMS Certifications UL508 Standard for Industrial Control Equipment EN61010-1 Safety requirements for electrical equipment for measurement, control, and laboratory use. General requirements."
+},
+{
+"title": "ElNet Certifications",
+"url": "/en/elnet-certifications/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "ElNet Certifications EN62052-11 Electricity metering equipment (AC) – General requirements, tests and test conditions – Part 11: Metering equipment EN62053-22 Electricity metering equipment (a.c.)- Particular requirements – Part 22: Static meters for active energy (classes 0,2 S and 0,5 S)"
+},
+{
+"title": "PLC & DDC controllers",
+"url": "/en/plc-ddc-controllers/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "PLC & DDC controllers DigiPoint digital programmable controller Superbrain FC Visit the Nachshon blower units VeroPoint controller with expansion cards SuperBrain controller with software library"
+},
+{
+"title": "Parking / CO",
+"url": "/en/parking-control/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space is free or taken. CO Gas Monitoring Smart Parking"
+},
+{
+"title": "Plumbing / drainage pumps",
+"url": "/en/plumbing-control/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Automatic rainwater or sewage level control for drainage pumps, including changeover between pumps and bringing a standby pump in when extra capacity is needed. ElNet XP Controller"
+},
+{
+"title": "Flood detection",
+"url": "/en/flood-detection-systems/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Flood detecting and control systems, including the flooding sensor, for finding water in the building before it damages electromechanical systems. Flooding sensor"
+},
+{
+"title": "Flooding sensor",
+"url": "/en/flooding-sensor/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "Flooding sensor The FLs Flooding Sensor is an electronic sensor designed for the detection of any type of flooding or liquid spillage and the prevention of any possible damage caused from such flooding. The sensor is specially designed for applications of flood detection in commercial buildings and planned specifically for installations under computer room floors, draining gutters, electrical rooms, storage rooms etc."
+},
+{
+"title": "BMS software packages",
+"url": "/en/bms-scada-software/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "BMS software packages UniArt-4W software for structure control Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Generator / transfer switching",
+"url": "/en/transfer-switches/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Automatic transfer switch controllers for utility / generator changeover, to keep electrical supply continuous. ElNet COD Transfer Switch ElNet CO Transfer Switch"
+},
+{
+"title": "Power factor",
+"url": "/en/power-factor-control/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Save energy and protect the environment with power factor improvement controllers — ElNet PFC, LTC and LTC10. ElNet PFC Controller ElNet LTC10 Controller ElNet LTC Controller"
+},
+{
+"title": "Smart Parking",
+"url": "/en/smart-parking/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "Smart Parking The IGP smart parking system makes use of advanced computer vision technology in order to identify vacant parking or occupied parking and then correspondingly turns on an appropriate green/red/blue signal of vacant or occupied parking. The system includes the option of up to 2 cameras which enable the identification of up to 3 parking lots in one unit. Marking free/occupied parking spaces using red/green/blue LED lights. Extremely reliable technology for identifying the condition o"
+},
+{
+"title": "CO Gas Monitoring",
+"url": "/en/co-gas-monitoring/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "CO Gas Monitoring UniCo is a sensor designed for measuring the level of toxic gases of the oxygen type Monocarbon CO which is a byproduct of the operation of gasoline engines in parking lots. The feeling has excellent stability, including a low level of reaction to changes in temperature and other gases found in the parking lot. The emotion is fed from a low voltage 24VAC, and is connected by communication to a floor controller whose role is Use the information coming from floor sensors and oper"
+},
+{
+"title": "Power quality",
+"url": "/en/power-quality-analyzers/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "Monitor your electrical network. The ElNet power quality system is built on accurate, reliable hardware and an EN50160 reports generator and events recorder. ElNet PQ/GR Meter ElNet LT Meter ElNet LTP Meter ElNet Billing & PQ Software"
+},
+{
+"title": "Energy management",
+"url": "/en/energy-meters/",
+"kind": "solution",
+"kindLabel": "Our Solutions",
+"text": "An energy management system starts by measuring consumption and keeping it to the minimum needed. Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills. ElNet MC-1 Meter ElNet MC-2 Meter ElNet MC-8 Meter ElNet MC-12 Meter ElNet PIC Meter ElNet LTE Meter ElNet LT Meter ElNet LTP Meter ElNet VA Meter ElNet VIP Meter ElNet Billing & PQ Software"
+},
+{
+"title": "Electrical meters",
+"url": "/en/electrical-meters/",
+"kind": "page",
+"kindLabel": "Page",
+"text": "Electrical meters ElNet VA General electrical measurements ElNet VIP General electricity measurements Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "ElNet Billing & PQ Software",
+"url": "/en/elnet-billing-software/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet Billing & PQ Software ELNetWeb Billing ELNetWeb Billing is a user friendly software package that is especially designed for logging electrical energy consumption from ELNet Powermeters and generating electrical bills. ELNetWeb Billing provides detailed energy reports on a daily, monthly and annual basis, as well as advanced T.O.U billing capabilities. Data can be exported to Excel data base. ELNET WEB PQ SOFTWARE ELNetWeb PQ is a Web Server software package that is especially designed to e"
+},
+{
+"title": "Public Buildings",
+"url": "/en/public-buildings/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "Public buildings Bank of East Asia, Hong Kong Burgas Airport, Bulgaria Maple Tree Business City (MBC 2), Singapore The Knesset building, Jerusalem Congress Center, Binyanei Ha'uma, Jerusalem The Opera Tower, Tel Aviv Court of Eilat Court of Nazareth Hasharon Prison The Opera Tower, Tel Aviv Jerusalem theatre Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Hospitals",
+"url": "/en/hospitals/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "Hospitals Ng Teng Fong Hospital, Singapore Poria Hospital, Tiberias Meir Hospital, Kfar Sava Haemek Hospital, Afula Sharon Hospital, Petah Tikva Kaplan Hospital, Rehovot Carmel Hospital, Haifa Sor Hospital, Beer Sheba Nahariya Hospital, Children's Department Ziv Medical Center, Zefat Laniado Hospital, Netanya Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Hotels",
+"url": "/en/hotels/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "Hotels Hilton Abuja, Nigeria Hilton Hotel, Tel Aviv Orchidea Hotel, Eilat Holiday Inn Hotel, Dead Sea Caesar Hotel, Dead Sea Isrotel Royal Garden Hotel Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Universities",
+"url": "/en/universities/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "UNIVERSITIES Singapore University of Technology and Design Tel Aviv University Ben-Gurion University, Beer Sheva Technion, Haifa Haifa University Faculty of Agriculture, Rehovot Emek Hayarden collage Interdisciplinary Center, Herzliya Hebrew University, Jerusalem Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Museums",
+"url": "/en/museums/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "Museums Tel Aviv Museum Israel Museum, Jerusalem Yad Vashem Museum, Jerusalem Science Museum, Jerusalem Mormon Museum, Jerusalem Metsudat David Hotel, Jerusalem Magic Palace Hotel, Eilat Adi Hotel, Eilat Hod Hotel, Dead Sea Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Shopping Malls",
+"url": "/en/shopping-malls/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "SHOPING MALLS Tri Noma Mall, Quezon City, Manila, Philippines Circuit Lane Mall, Makati City, Manila, Philippines Malcha Mall, Jerusalem Grand Canyon, Haifa Beer Sheva Mall Rav Shefa Shopping Center Haamakim Mall, Afula Power Center Ashdod The big Mall, Beer Sheva Big Center Tiberias Cinema City, Netania Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Industrial & Hi-Tech",
+"url": "/en/industrial-hi-tech/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "INDUSTRIAL FACTORIES AND HI TECH Intel factory, Haifa Elisra Factory, Ramat Gan Elbit Systems, Carmiel- Haifa Comverse Efrat Technologies Amdocs Raanana, Sderot Osem Factories, Sderot Scitex factory, Herzliya ECI Telecom factory Mercury – Yehud Buildings LSI-LOGIC, Netanya Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "Pharmaceutical & Clean Rooms",
+"url": "/en/pharmaceutical-clean-rooms/",
+"kind": "project",
+"kindLabel": "Typical projects",
+"text": "PHARMACEUTICAL INDUSTRY AND C... Teva Pharmaceutical Industries, Kfar Saba Sigma factory, Rehovot ITH factory, Migdal Haemek L'Oreal, Caesarea Vishay, Dimona, Beer Sheva, Migdal Haemek Dexel, Jerusalem Cyalandside, Modi'in Okon, Modi'in Isotope, Petah Tikva Control Applications Ltd Address 25 Barzel Street, Tel Aviv 6971035 Israel"
+},
+{
+"title": "UniArt Software",
+"url": "/en/uniart-software/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "UniArt Software UniArt is a friendly Windows-based interface software (HMI, SCADA). The software is very user friendly and allows him to control and monitor all the control systems in the building. UniArt enables a unique and friendly powerful user experience. An interface that allows the connection of tens of thousands of control points to an unlimited amount of computers (electricity, air conditioning, process, plumbing, chief engineer, etc.) UniArt is the excellent solution in public and indu"
+},
+{
+"title": "UniWeb Software",
+"url": "/en/uniweb-software/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "UniWeb Software UniWeb is a friendly WEB-based interface software (HMI, SCADA). The software is very user friendly and allows him to control and control all the control systems in the building using a standard browser. UniWeb enables a unique and friendly powerful user experience. The WEB interface allows simultaneous connection of up to 150 computers located in one network to the control system."
+},
+{
+"title": "DigiPoint Controller",
+"url": "/en/digipoint-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "DigiPoint Controller DigiPoint is an independent controller that includes an internal clock that can be programmed using a ladder diagram and software routines developed for different uses, the controller was specially designed for controlling and monitoring lighting systems and electromechanical systems in public and industrial buildings. The controller is specially adapted for hotels, office buildings, hospitals, universities, museums, clean industry and more. The controller enables easy, effi"
+},
+{
+"title": "VeroPoint Controller",
+"url": "/en/veropoint-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "VeroPoint Controller VeroPoint is a standalone and universal programmable controller (PLC/DDC) specially designed for monitoring and control purposes of heating, ventilation, and cooling systems (HVAC), control systems Electricity and energy and closed loop control. VeroPoint is the optimal solution for system control and monitoring In public buildings, industry, hospitals, hotels. VeroPoint is a standalone controller that includes a battery-backed clock The controller software is stored in non-"
+},
+{
+"title": "SuperBrain Controller",
+"url": "/en/superbrain-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "SuperBrain Controller SuperBrain is a specially designed standalone controller (DDC). For control and measurement of air conditioning, ventilation and heating systems (HVAC) including energy systems, lighting and other electro-mechanical systems in the building. SuperBrain is an optimal controller for computerized control of air conditioning, heating, ventilation and plumbing systems in public buildings. SuperBrain offers a variety of specially designed advanced software for electromechanical sy"
+},
+{
+"title": "SuperBrain DR Controller",
+"url": "/en/superbrain-dr-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "SuperBrain DR Controller SuperBrain is a specially designed standalone controller (DDC). For control and measurement of air conditioning, ventilation and heating systems (HVAC) including energy systems, lighting and other electro-mechanical systems in the building. SuperBrain is an optimal controller for computerized control of air conditioning, heating, ventilation and plumbing systems in public buildings. SuperBrain offers a variety of specially designed advanced software For electro-mechanica"
+},
+{
+"title": "SuperBrain FC Controller",
+"url": "/en/superbrain-fc-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "SuperBrain FC Controller SuperBrain FC is a programmable controller that has been designed Especially for controlling air conditioners, blower units, AW units VAV units and more. SuperBrain FC is the optimal solution for unit control Air conditioning with several fan speed settings, heater control Control of hot / cold water taps and motorized blinds."
+},
+{
+"title": "ElNet MC-1 Meter",
+"url": "/en/elnet-mc-1-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet MC-1 Meter Three-phase system for measuring energy. Up to 3 phases for energy measurement. Measurement accuracy 0.2% (0.1% on special order). 1600 samples per wave."
+},
+{
+"title": "ElNet MC-2 Meter",
+"url": "/en/elnet-mc-2-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet MC-2 Meter Up to 2 three-phase energy measurement systems. Up to 6 phases for energy measurement. Measurement accuracy 0.2% (0.1% on special order). 1600 samples per wave."
+},
+{
+"title": "ElNet MC-8 Meter",
+"url": "/en/elnet-mc-8-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet MC-8 Meter Three-phase energy measurements in Touz Display of all electricity measurements Support for 8 three-phase or 24 single-phase channels. measurement accuracy 0.2% 1600 samples per cycle. View all electricity measurements. Collection of daily energy data for 4 months."
+},
+{
+"title": "ElNet MC-12 Meter",
+"url": "/en/elnet-mc-12-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet MC-12 Meter Up to 12 three-phase energy measurement systems. Up to 32 phases for energy measurement. Measurement accuracy 0.2%. 1600 samples per wave."
+},
+{
+"title": "ElNet CO Transfer Switch",
+"url": "/en/elnet-co-transfer-switch/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet CO Transfer Switch The ElNet CO system is designed for an efficient exchange between two power supply sources (electricity company / generator) in the event of a malfunction in one of the power supply systems. The system is more reliable than any other replacement system. The system saves installation of command and delay relays and lack of voltage relays, switches, voltmeters and more. ElNet CO includes a friendly color graphic screen in the Hebrew language that enables, among other thing"
+},
+{
+"title": "ElNet COD Transfer Switch",
+"url": "/en/elnet-cod-transfer-switch/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet COD Transfer Switch The ElNet COD system is designed for an effective exchange between two power supply sources (power company / generator) when one of them fails, the system is more reliable than any other replacement system and saves the installation of command and delay relays and lack of voltage relays, switches, voltmeters, etc. The ElNet COD system includes a friendly screen in the Hebrew language that enables, among other things, the following actions: - The display of system indica"
+},
+{
+"title": "ElNet PFC Controller",
+"url": "/en/elnet-pfc-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet PFC Controller Support for up to 6 levels. Continuous display of power multiplier Measurement of voltage, current, and harmonics. Weekly and monthly view of the power multiplier. Automatic detection of capacitor values."
+},
+{
+"title": "ElNet LTC Controller",
+"url": "/en/elnet-ltc-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet LTC Controller Support for up to 16 levels of capacitor activation. Continuous display of power multiplier Measurement of voltage, current, power, power factor, energy, peaks and harmonics. Average weekly and monthly display of power multiplier. Automatic identification of capacitor values (at the panel factory) protection of harmonies."
+},
+{
+"title": "ElNet LTC10 Controller",
+"url": "/en/elnet-ltc10-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet LTC10 Controller Support for up to 10 degrees. Continuous display of power multiplier Measurement of voltage, current, and harmonics. Weekly and monthly view of the power multiplier. Automatic detection of capacitor values."
+},
+{
+"title": "ElNet VA Meter",
+"url": "/en/elnet-va-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet VA Meter Three-phase multimeter. Allows three-phase current display Allows three-phase voltage display Measurement accuracy 0.5%. Sophisticated display screen with illuminated LCD backlight. Adaptation to all types of current transformers."
+},
+{
+"title": "ElNet VIP Meter",
+"url": "/en/elnet-vip-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet VIP Meter Three-phase meter. Allows display of three-phase voltages. Allows display of three-phase currents. Enables the display of three-phase suppliers."
+},
+{
+"title": "ElNet PIC Meter",
+"url": "/en/elnet-pic-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet PIC Meter Measurement accuracy 0.2%. 1600 samples per wave. Continuous display of measurement data. Collecting energy data for 6 months."
+},
+{
+"title": "ElNet LTE Meter",
+"url": "/en/elnet-lte-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet LTE Meter Measurement of voltage, current, energy, frequency, power and power multiplier. General measurement of harmonics for voltage and current THD-I & THD-V. Three-phase energy measurement. Calculation of demand peaks of the suppliers and flows."
+},
+{
+"title": "ElNet LT Meter",
+"url": "/en/elnet-lt-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet LT Meter Has a measurement accuracy of 0.2% (0.1% by special order). 1600 samples per wave (3 voltage waves + 4 current waves). Option to measure leakage current and current on the zero line. Collecting energy data for 6 months."
+},
+{
+"title": "ElNet LTP Meter",
+"url": "/en/elnet-ltp-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet LTP Meter Has a measurement accuracy of 0.2% (0.1% by special order). 1600 samples per wave (3 voltage waves + 4 current waves). Measurement of leakage current and current in the zero line. Collecting energy data for 6 months."
+},
+{
+"title": "ElNet PQ/GR Meter",
+"url": "/en/elnet-pq-gr-meter/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet PQ/GR Meter ElNet PQ is certified by a testing laboratory to the exclusive Class A standard for measuring the quality of electricity. ElNet PQ enables the generation of EN50160 reports. Allant PQ enables recording of waves in electrical events. Has a sampling rate of 1600 samples per cycle 3 voltages + 4 currents בעל דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת)."
+},
+{
+"title": "ElNet XP Controller",
+"url": "/en/elnet-xp-controller/",
+"kind": "product",
+"kindLabel": "Product",
+"text": "ElNet XP Controller An automatic switching controller is used to operate drainage and sewage pumps and is found in almost every public building today, the controller is used to automatically control the level of rainwater or sewage, including automatic switching between two pumps in each operation in order to balance the working hours and the introduction of an off-duty pump for reinforcement when necessary. We find these systems in factories, hotels, hospitals, universities, office buildings an"
+}
+]

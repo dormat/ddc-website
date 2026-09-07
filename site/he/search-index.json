@@ -1,0 +1,401 @@
+[
+{
+"title": "בית",
+"url": "/he/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "מערכות בקרה, מדידה וניטור חשמל — מחויבות לאיכות ולתקנים בינלאומיים."
+},
+{
+"title": "אודות",
+"url": "/he/about/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "אודות ישומי בקרה הוקמה בשנת 1992, החברה היא חברה פרטית המייצרת מערכות בקרה, ניטור, מערכות מדידה ושליטה ממוחשבות. ישומי בקרה מייצרת, משווקת, מייצאת ומתקינה מערכות לניטור רשתות חשמל. המערכות כוללות - מערכות למדידות ברשתות חשמל, מערכות מניית אנרגיה, בקרים לתיקון מקדם הספק, בקרי החלפה חברת חשמל/גנרטור, מערכות מתקדמות לניהול מבנים – BMS – ליישומים מסחריים ותעשייתיים, מערכות חכמות לניהול חניונים מערכות הניטור והניהול של חברת ישומי בקרה, הן שילוב מלא בין מוצרי תוכנה ומוצרי חומרה, המפותחים ומיוצרים כך ש"
+},
+{
+"title": "בקרת מבנים / BMS",
+"url": "/he/building-automation/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "בקרת מבנים ומערכות אנרגיה — המפתח לבניין יעיל. שליטה, מדידה ובקרה על מיזוג אוויר, חשמל ושאר המערכות האלקטרו-מכניות, עם תוכנת BMS מבוססת TCP/IP ו-Web SCADA. DigiPoint בקר מתוכנת דיגיטלי VeroPoint בקר עם כרטיסי הרחבה SuperBrain בקר עם ספרית תוכנות SuperBrain DR בקר עם ספרית תוכנות Superbrain FC בקר ליחידות מפוח נחשון תוכנת UniArt לבקרת מבנים תוכנת UniWeb לבקרת מבנים"
+},
+{
+"title": "מערכות חשמל",
+"url": "/he/power-meters-control/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "מערכות חשמל מודדים לאיכות חשמל ElNet LT תעו״ז, הרמוניות ElNet LTP זרם זליגה הרמוניות ועוד ElNet PQ/GR הפרעות ומדידות חשמל"
+},
+{
+"title": "מוצרים",
+"url": "/he/products/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "מוצרים כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "צרו קשר",
+"url": "/he/contact/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "צרו קשר Thanks for submitting! ישומי בקרה בע״מ רחוב הברזל 25, תל אביב 6971035 ישראל ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "אבטחת איכות",
+"url": "/he/quality-assurance/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "אבטחת איכות אנו מחויבים למטרה שלנו – לספק את המוצרים הטובים ביותר, כמו-גם את השירות היעיל ביותר. ישומי בקרה נושאת בהסמכות ISO 9001 ו-ISO 9000.3 מטעם מכון התקנים הישראלי, לאות כי החברה מציגה ומקיימת רמת איכות גבוהה בכל תחומי פעילותה – פיתוח, יצור, אספקה והתקנה, בנוסף, ציוד החברה עומד בתקן ובדרישות ה-CE. ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "השוואת מוצרים",
+"url": "/he/product-comparison/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "השוואת מוצרים על מנת לצפות במערכת השוואת המוצרים שלנו, יש ללחוץ על הכפתור. ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "בקרי החלפה - שרטוטים",
+"url": "/he/transfer-switch-drawings/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "בקרי החלפה - שרטוטים בקר החלפה - דור 1 ניתן לזיהוי בפנל אחורי - קונקטור J5 בעל 7 מהדקים בקר החלפה - דור 2 ניתן לזיהוי בפנל אחורי - קונקטור J5 בעל 6 מהדקים"
+},
+{
+"title": "BMS Certifications",
+"url": "/he/bms-certifications/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "BMS Certifications UL508 Standard for Industrial Control Equipment EN61010-1 Safety requirements for electrical equipment for measurement, control, and laboratory use. General requirements."
+},
+{
+"title": "ElNet Certifications",
+"url": "/he/elnet-certifications/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "ElNet Certifications EN62052-11 Electricity metering equipment (AC) – General requirements, tests and test conditions – Part 11: Metering equipment EN62053-22 Electricity metering equipment (a.c.)- Particular requirements – Part 22: Static meters for active energy (classes 0,2 S and 0,5 S)"
+},
+{
+"title": "בקרים מתוכנתים (DDC + PLC)​",
+"url": "/he/plc-ddc-controllers/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "בקרים מתוכנתים (DDC + PLC)​ DigiPoint בקר מתוכנת דיגיטלי Superbrain FC בקר ליחידות מפוח נחשון VeroPoint בקר עם כרטיסי הרחבה SuperBrain בקר עם ספרית תוכנות"
+},
+{
+"title": "בקרת חניונים",
+"url": "/he/parking-control/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "ניטור גז CO במפלסי חניה ושליטה בתפוסת חניה חכמה — זיהוי מקום פנוי או תפוס והצגת סיגנל ירוק, אדום או כחול. מערכות לניטור ובקרת גזCO חניה חכמה"
+},
+{
+"title": "בקרת אינסטלציה",
+"url": "/he/plumbing-control/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "בקרה אוטומטית על מפלס מי גשם או ביוב והחלפה בין משאבות ניקוז, כולל הכנסת משאבה נוספת לחיזוק בעת הצורך. Elnet xp בקר למשאבות ניקוד וביוב"
+},
+{
+"title": "מערכות לאיתור הצפות",
+"url": "/he/flood-detection-systems/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "מערכות לאיתור הצפות והחיישן המחובר אליהן — לזיהוי מים במבנה לפני שנגרם נזק למערכות האלקטרו-מכניות. Flooding sensor"
+},
+{
+"title": "Flooding sensor",
+"url": "/he/flooding-sensor/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "Flooding sensor Fls הוא גלאי הצפה המיועד לגילוי נוזלים במקומות המועדים לנזקי הצפות מים כגון חדרי מכונות , פירים של צנרת , נקודות ניקוז , מחסנים חדרי חשמל ועוד. הרגש הוא רגש אלקטרוני מתקדם הכולל מגע יבש לחיווי תקלה ומתח 2-10 VDC לזיהוי מצבים של נתק בקו. הרגש מיועד למבני ציבור ומהווה חלק בלתי נפרד מכל מערכת בקרת מבנה מתקדמת ."
+},
+{
+"title": "תוכנות, HMI BMS , SCADA",
+"url": "/he/bms-scada-software/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "תוכנות, HMI BMS , SCADA UniArt-4W תוכנה לבקרת מבנה ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "בקרי החלפה",
+"url": "/he/transfer-switches/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "בקרי החלפה חברת חשמל / גנרטור לשמירה על רציפות אספקת החשמל במעבר בין הרשת לגנרטור. ElNet COD בקר החלפה ח״ח/ גנרטור ElNet CO בקר החלפה ח״ח/גנרטור"
+},
+{
+"title": "מקדם הספק",
+"url": "/he/power-factor-control/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "חיסכון באנרגיה ושמירה על הסביבה באמצעות בקרים לשיפור מקדם הספק — ElNet PFC, LTC ו-LTC10. ElNet PFC בקר לשיפור מקדם הספק ElNet LTC10 בקר לשיפור מקדם הספק ElNet LTC בקר לשיפור מקדם הספק"
+},
+{
+"title": "חניה חכמה",
+"url": "/he/smart-parking/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "חניה חכמה מערכת חניה חכמה IGP עושה שימוש בטכנולוגיה מתקדמת של ראיה ממוחשבת על מנת לזהות חניה פנויה או חניה תפוסה ואז מדליקה בהתאמה סיגנל מתאים של חניה פנויה או תפוסה בצבע ירוק/ אדום/ כחול. המערכת כוללת אפשרות של עד 2 מצלמות אשר מאפשרות זיהוי של עד 3 חניות ביחידה אחת. סימון מקומות חניה פנויים/ תפוסים באמצעות נורות LED אדום/ ירוק / כחול . טכנולוגיה אמינה במיוחד לזיהוי מצב מקום החניה באמצעות מצלמה (לא אולטרא-סוני) זיהוי מספרי מכוניות ."
+},
+{
+"title": "מערכות לניטור ובקרת גזCO",
+"url": "/he/co-gas-monitoring/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "מערכות לניטור ובקרת גזCO UniCo הוא רגש ( סנסור) מיועד למדידת רמת גזים רעילים מסוג חמצן חד פחמני CO שהוא תוצר לוואי של פעול מנועי בנזין בחניונים. הרגש בעל יציבות מצוינת , כולל רמת תגובה נמוכה לשינויים בטמפרטורה וגזים אחרים הנמצאים בחניון. הרגש מוזן ממתח נמוך 24VAC , ומחובר בתקשורת לבקר קומתי שתפקידו להשתמש במידע המגיע מרגשים בקומה ולהפעיל את מערכת האוורור בהתאם. היתרון של שימוש ברגש עם תקשורת מתבטא בחיסכון כספי לא מבוטל – חיסכון בחיווט וזאת בהשוואה לרגשים אחרים שמחייבים חיווט ישיר מהרגש לבקר."
+},
+{
+"title": "איכות חשמל",
+"url": "/he/power-quality-analyzers/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "מנטרת ומבקרת את רשת החשמל שלך. מערכת אלנט לבקרת איכות החשמל מבוססת על חומרה אמינה ומדויקת וממשק ידידותי, ומפיקה דוחות ותקצירי מנהלים בהתאם לתקן EN50160 לרבות דוח אירועי חשמל מקיף ומדויק. ElNet PQ GR הפרעות ומדידות חשמל ElNet LT תעו״ז, הרמוניות ועוד ElNet LTP זרם זליגה הרמוניות ועוד תוכנת Elnet חשבונות ואיכות חשמל"
+},
+{
+"title": "ניהול אנרגיה",
+"url": "/he/energy-meters/",
+"kind": "solution",
+"kindLabel": "הפתרונות שלנו",
+"text": "ניהול צריכת האנרגיה למינימום הנדרש מתחיל במדידה. מודעות לכמות האנרגיה הנצרכת היא הדרך היעילה להפחתת צריכה ולהפקת חשבונות צריכת חשמל ומיזוג אוויר. ElNet MC-1 מונה ElNet MC-2 מונה 6/2 ערוצים ELNet MC-8 מונה 8/24 ערוצים ElNet MC12 מונה 36/12 ערוצים ElNet PIC מונה תעו״ז ElNet LTE אנרגיה ומדידות חשמל ElNet LT תעו״ז, הרמוניות ועוד ElNet LTP זרם זליגה הרמוניות ועוד ElNet VA מדידות חשמל כלליות ElNet VIP מדידות חשמל כלליות תוכנת Elnet חשבונות ואיכות חשמל"
+},
+{
+"title": "מוני חשמל",
+"url": "/he/electrical-meters/",
+"kind": "page",
+"kindLabel": "עמוד",
+"text": "מוני חשמל ElNet VA מדידות חשמל כלליות ElNet VIP מדידות חשמל כלליות ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "תוכנת Elnet חשבונות ואיכות חשמל",
+"url": "/he/elnet-billing-software/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "תוכנת Elnet חשבונות ואיכות חשמל ELNetWeb Billing ELNetWeb Billing היא חבילת תוכנה ידידותית למשתמש המיועדת במיוחד לרישום צריכת אנרגיה חשמלית ממוני ELNet ולהפקת חשבונות חשמל. ELNetWeb Billing מספק דוחות אנרגיה מפורטים על בסיס יומי, חודשי ושנתי, וכן יכולות חיוב T.O.U מתקדמות. ניתן לייצא נתונים לבסיס נתונים של Excel. תוכנת ELNET WEB PQ ELNetWeb PQ היא חבילת תוכנת שרת Web המיועדת במיוחד לאפשר ניטור והפקת דוחות באמצעות דפדפן אינטרנט סטנדרטי."
+},
+{
+"title": "מבנים ציבוריים",
+"url": "/he/public-buildings/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "מבנים ציבוריים Bank of East Asia, Hong Kong Burgas Airport, Bulgaria Maple Tree Business City (MBC 2), Singapore The Knesset building, Jerusalem Congress Center, Binyanei Ha'uma, Jerusalem The Opera Tower, Tel Aviv Court of Eilat Court of Nazareth Hasharon Prison The Opera Tower, Tel Aviv Jerusalem theatre ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "בתי חולים",
+"url": "/he/hospitals/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "בתי חולים Ng Teng Fong Hospital, Singapore Poria Hospital, Tiberias Meir Hospital, Kfar Sava Haemek Hospital, Afula Sharon Hospital, Petah Tikva Kaplan Hospital, Rehovot Carmel Hospital, Haifa Sor Hospital, Beer Sheba Nahariya Hospital, Children's Department Ziv Medical Center, Zefat Laniado Hospital, Netanya ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "בתי מלון",
+"url": "/he/hotels/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "בתי מלון Hilton Abuja, Nigeria Hilton Hotel, Tel Aviv Orchidea Hotel, Eilat Holiday Inn Hotel, Dead Sea Caesar Hotel, Dead Sea Isrotel Royal Garden Hotel ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "אוניברסיטאות",
+"url": "/he/universities/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "אוניברסיטאות Singapore University of Technology and Design Tel Aviv University Ben-Gurion University, Beer Sheva Technion, Haifa Haifa University Faculty of Agriculture, Rehovot Emek Hayarden collage Interdisciplinary Center, Herzliya Hebrew University, Jerusalem ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "מוזיאונים",
+"url": "/he/museums/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "מוזיאונים Tel Aviv Museum Israel Museum, Jerusalem Yad Vashem Museum, Jerusalem Science Museum, Jerusalem Mormon Museum, Jerusalem Metsudat David Hotel, Jerusalem Magic Palace Hotel, Eilat Adi Hotel, Eilat Hod Hotel, Dead Sea ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "קניונים ומרכזי מסחר",
+"url": "/he/shopping-malls/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "קניונים ומרכזי מסחר Tri Noma Mall, Quezon City, Manila, Philippines Circuit Lane Mall, Makati City, Manila, Philippines Malcha Mall, Jerusalem Grand Canyon, Haifa Beer Sheva Mall Rav Shefa Shopping Center Haamakim Mall, Afula Power Center Ashdod The big Mall, Beer Sheva Big Center Tiberias Cinema City, Netania ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "מפעלי תעשייה והיי-טק",
+"url": "/he/industrial-hi-tech/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "מפעלי תעשייה והיי-טק Intel factory, Haifa Elisra Factory, Ramat Gan Elbit Systems, Carmiel- Haifa Comverse Efrat Technologies Amdocs Raanana, Sderot Osem Factories, Sderot Scitex factory, Herzliya ECI Telecom factory Mercury – Yehud Buildings LSI-LOGIC, Netanya ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "תעשיית התרופות וחדרים נקיים",
+"url": "/he/pharmaceutical-clean-rooms/",
+"kind": "project",
+"kindLabel": "פרויקטים",
+"text": "תעשיית התרופות וחדרים נקיים Teva Pharmaceutical Industries, Kfar Saba Sigma factory, Rehovot ITH factory, Migdal Haemek L'Oreal, Caesarea Vishay, Dimona, Beer Sheva, Migdal Haemek Dexel, Jerusalem Cyalandside, Modi'in Okon, Modi'in Isotope, Petah Tikva ישומי בקרה בע״מ כתובת רחוב הברזל 25, תל אביב 6971035 ישראל"
+},
+{
+"title": "תוכנת UniArt לבקרת מבנים",
+"url": "/he/uniart-software/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "תוכנת UniArt לבקרת מבנים UniArt היא תוכנת ממשק ( HMI , SCADA ) ידידותית מבוססת Windows. התכנה מאוד ידידותית למשתמש ומאפשר לו שליטה ובקרה על כל מערכות הבקרה במבנה. UniArt מאפשרת חווית משתמש עוצמתית ייחודית וידידותית. ממשק המאפשר חיבור של עשרות אלפי נקודות בקרה לכמות בלתי מוגבלת של מחשבים (חשמל, מיזוג אויר, תהליך, אינסטלציה, מהנדס ראשי ועוד.) UniArt הוא הפתרון מצוין במבני ציבור ותעשייה לשליטה על מערכות חימום אוורור ומיזוג אויר ( HVAC ), מערכות אנרגיה, תאורה, גילוי אש (כל החברות עם פרוטוקלים פתוחים"
+},
+{
+"title": "תוכנת UniWeb לבקרת מבנים",
+"url": "/he/uniweb-software/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "תוכנת UniWeb לבקרת מבנים UniWeb היא תוכנת ממשק ( HMI , SCADA ) ידידותית מבוססת WEB. התכנה מאוד ידידותית למשתמש ומאפשר לו שליטה ובקרה על כל מערכות הבקרה במבנה תוך שימוש בדפדפן סטנדרטי. UniWeb מאפשרת חווית משתמש עוצמתית ייחודית וידידותית. ממשק ה- WEB מאפשר חיבור בו זמני עד 150 מחשבים הנמצאים ברשת אחת למערכת הבקרה."
+},
+{
+"title": "DigiPoint בקר מתוכנת דיגיטלי",
+"url": "/he/digipoint-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "DigiPoint בקר מתוכנת דיגיטלי DigiPoint הוא בקר עצמאי הכולל שעון פנימי שניתן לתכנות באמצעות דיאגרמת סולם ורוטינות תוכנה שפותחו לראש לשימושים שונים , הבקר תוכנן במיוחד לבקרה וניטור מערכות תאורה ומערכות אלקטרו מכניות במבני ציבור ותעשייה. הבקר מותאם במיוחד לבתי מלון, מבני משרדים, בתי חולים, אוניברסיטאות, מוזאונים, תעשייה נקייה ועוד. הבקר מאפשר תכנות בצורה קלה יעילה וזריזה, וכולל פרוטוקולי תקשורת פתוחים ומקובלים כגון: Modbus RTU + IP as well as BACnet IP + MSTP."
+},
+{
+"title": "VeroPoint בקר עם כרטיסי הרחבה",
+"url": "/he/veropoint-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "VeroPoint בקר עם כרטיסי הרחבה VeroPoint הוא בקר עצמאי ואוניברסלי הניתן לתכנות ( PLC/DDC ) שתוכנן במיוחד למטרות ניטור ובקרה של מערכות חימום ,אוורור, וקירור ( HVAC) ,בקרת מערכות חשמל ואנרגיה ובקרת בחוג סגור. VeroPoint הוא הפתרון האופטימלי לבקרה וניטור מערכות במבני ציבור, תעשייה, בתי חולים, מלונות. VeroPoint הוא בקר עצמאי הכולל שעון מגובה סוללה תוכנת הבקר מאוחסנת בזיכרון בלתי מחיק שאינו ניתן למחיקה. בקר ה- VeroPoint כולל מסך גרפי שניתן לתכנות כ – HMI לתפעול מקומי נוח וידידותי למטרות תפעול לוחות זמנ"
+},
+{
+"title": "SuperBrain בקר עם ספרית תוכנות",
+"url": "/he/superbrain-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "SuperBrain בקר עם ספרית תוכנות SuperBrain הוא בקר עצמאי ( DDC ) שתוכנן במיוחד לבקרה ומדידה של מערכות מיזוג אויר, אוורור וחימום (HVAC) לרבות מערכות אנרגיה, תאורה ושאר מערכות אלקטרו-מכניות בבניין. SuperBrain הוא בקר אופטימלי לבקרה ממוחשבת של מערכות מיזוג אוורור חימום ואינסטלציה בבנייני ציבור. SuperBrain מציע מגוון תוכנות מתקדמות שתוכננו במיוחד למערכות אלקטרומכניות בבתי מלון, בתי חולים, אוניברסיטאות, מבני ציבור ותעשייה."
+},
+{
+"title": "SuperBrain DR בקר עם ספרית תוכנות",
+"url": "/he/superbrain-dr-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "SuperBrain DR בקר עם ספרית תוכנות SuperBrain הוא בקר עצמאי ( DDC ) שתוכנן במיוחד לבקרה ומדידה של מערכות מיזוג אויר, אוורור וחימום (HVAC) לרבות מערכות אנרגיה, תאורה ושאר מערכות אלקטרו-מכניות בבניין. SuperBrain הוא בקר אופטימלי לבקרה ממוחשבת של מערכות מיזוג אוורור חימום ואינסטלציה בבנייני ציבור. SuperBrain מציע מגוון תוכנות מתקדמות שתוכננו במיוחד למערכות אלקטרו-מכניות בבתי מלון, בתי חולים, אוניברסיטאות, מבני ציבור ותעשייה."
+},
+{
+"title": "Superbrain FC בקר ליחידות מפוח נחשון",
+"url": "/he/superbrain-fc-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "Superbrain FC בקר ליחידות מפוח נחשון SuperBrain FC הוא בקר שניתן לתכנון אשר תוכנן במיוחד לבקרת מזגנים, יחידות מפוח-נחשון, יחידות AW יחידות VAV ועוד. SuperBrain FC הוא הפיתרון האופטימלי לבקרת יחידות מיזוג עם מספר הפעלות של מהירות מפוח, בקרת גופי חימום בקרת ברזי מים חמים / קרים ותריסים ממונעים."
+},
+{
+"title": "ElNet MC-1 מונה",
+"url": "/he/elnet-mc-1-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet MC-1 מונה מערכת תלת פאזיות למדידת אנרגיה. עד 3 פאזות למדידת אנרגיה. דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת). 1600 דגימות לכל גל."
+},
+{
+"title": "ElNet MC-2 מונה 6/2 ערוצים",
+"url": "/he/elnet-mc-2-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet MC-2 מונה 6/2 ערוצים עד 2 מערכות תלת פאזיות למדידת אנרגיה. עד 6 פאזות למדידת אנרגיה. דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת). 1600 דגימות לכל גל."
+},
+{
+"title": "ELNet MC-8 מונה 8/24 ערוצים",
+"url": "/he/elnet-mc-8-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ELNet MC-8 מונה 8/24 ערוצים מדידות אנרגיה תלת פאזי בתעו“ז הצגת כל מדידות החשמל תמיכה עבור 8 ערוצים תלת פאזיים או 24 חד פאזיים. דיוק מדידה 0.2% 1600 דגימות לכל מחזור. הצגת כל מדידות חשמל. איסוף נתוני אנרגיה יומיים ל- 4 חודשים."
+},
+{
+"title": "ElNet MC12 מונה 36/12 ערוצים",
+"url": "/he/elnet-mc-12-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet MC12 מונה 36/12 ערוצים עד 12 מערכות תלת פאזיות למדידת אנרגיה. עד 32 פאזות למדידת אנרגיה. דיוק מדידה 0.2%. 1600 דגימות לכל גל."
+},
+{
+"title": "ElNet CO בקר החלפה ח״ח/גנרטור",
+"url": "/he/elnet-co-transfer-switch/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet CO בקר החלפה ח״ח/גנרטור מערכת אלנט CO מיועדת להחלפה יעילה בין שני מקורות אספקת מתח (חברת חשמל / גנרטור) בעת תקלה באחת ממערכות אספקת המתח. המערכת אמינה יותר מכל מערכת חליפית אחרת. המערכת חוסכת התקנת ממסרי פיקוד והשהייה וממסרי חוסר מתח , בוררים , מדי מתח ועוד. אלנט CO כולל מסך גרפי צבעוני ידידותי בשפה העברית המאפשר בין היתר את הפעולות הבאות:"
+},
+{
+"title": "ElNet COD בקר החלפה ח״ח/ גנרטור",
+"url": "/he/elnet-cod-transfer-switch/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet COD בקר החלפה ח״ח/ גנרטור מערכת אלנט COD מיועדת להחלפה יעילה בין שני מקורות אספקת מתח ( חברת חשמל / גנרטור ) בעת תקלה באחת מהן, המערכת אמינה יותר מכל מערכת חליפית אחרת וחוסכת התקנת ממסרי פיקוד והשהייה וממסרי חוסר מתח , בוררים, מדי מתח ועוד. מערכת אלנט COD כוללת מסך ידידותי בשפה העברית המאפשרת בין היתר את הפעולות הבאות: – תצוגת אינדיקציות המערכת בשפה העברית – התקנה וחיווט פשוטים ויעילים . – התקנה על פס דין."
+},
+{
+"title": "ElNet PFC בקר לשיפור מקדם הספק",
+"url": "/he/elnet-pfc-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet PFC בקר לשיפור מקדם הספק תמיכה ב-עד 6 דרגות. תצוגה רציפה של כופל הספק מדידה של מתח, זרם, והרמוניות. תצוגה שבועית וחודשית של כופל הספק. זיהוי אוטומטי של ערכי קבלים."
+},
+{
+"title": "ElNet LTC בקר לשיפור מקדם הספק",
+"url": "/he/elnet-ltc-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet LTC בקר לשיפור מקדם הספק תמיכה ב-עד 16 דרגות הפעלת קבלים. תצוגה רציפה של כופל הספק מדידה של מתח, זרם, הספק , מקדם הספק ,אנרגיה , שיאים והרמוניות. תצוגה שבועית וחודשית ממוצעת של כופל הספק. זיהוי אוטומטי של ערכי קבלים ( במפעל הלוחות) הגנת הרמוניות."
+},
+{
+"title": "ElNet LTC10 בקר לשיפור מקדם הספק",
+"url": "/he/elnet-ltc10-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet LTC10 בקר לשיפור מקדם הספק תמיכה ב-עד 10 דרגות. תצוגה רציפה של כופל הספק מדידה של מתח, זרם, והרמוניות. תצוגה שבועית וחודשית של כופל הספק. זיהוי אוטומטי של ערכי קבלים."
+},
+{
+"title": "ElNet VA מדידות חשמל כלליות",
+"url": "/he/elnet-va-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet VA מדידות חשמל כלליות רב מודד תלת פאזי. מאפשר תצוגת זרם תלת פאזית מאפשר תצוגת מתח תלת פאזית דיוק מדידה 0.5%. מסך תצוגה משוכללת עם תאורה אחורית LCD מואר. התאמה לכל סוגי שנאי הזרם."
+},
+{
+"title": "ElNet VIP מדידות חשמל כלליות",
+"url": "/he/elnet-vip-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet VIP מדידות חשמל כלליות מודד תלת פאזי. מאפשר תצוגת מתחים תלת פאזית. מאפשר תצוגת זרמים תלת פאזית. מאפשר תצוגת הספקים תלת פאזית ."
+},
+{
+"title": "ElNet PIC מונה תעו״ז",
+"url": "/he/elnet-pic-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet PIC מונה תעו״ז דיוק מדידה 0.2%. 1600 דגימות לכל גל. תצוגה רציפה של נתוני המדידה. איסוף נתוני אנרגיה ל 6 חודשים."
+},
+{
+"title": "ElNet LTE אנרגיה ומדידות חשמל",
+"url": "/he/elnet-lte-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet LTE אנרגיה ומדידות חשמל מדידה של מתח, זרם , אנרגיה ,תדר, הספק וכופל הספק. מדידה כללית של הרמוניות למתח וזרם THD-I & THD-V . מדידה אנרגיה תלת פאזית . חישוב שיאי ביקוש של הספקים וזרמים."
+},
+{
+"title": "ElNet LT תעו״ז, הרמוניות ועוד",
+"url": "/he/elnet-lt-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet LT תעו״ז, הרמוניות ועוד בעל דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת). 1600 דגימות לכל גל ( 3 גלי מתח + 4 גלי זרם ). אופציה למדידת זרם זליגה וזרם בקו האפס. איסוף נתוני אנרגיה ל 6 חודשים."
+},
+{
+"title": "ElNet LTP זרם זליגה הרמוניות ועוד",
+"url": "/he/elnet-ltp-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet LTP זרם זליגה הרמוניות ועוד בעל דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת). 1600 דגימות לכל גל ( 3 גלי מתח + 4 גלי זרם ). מדידת זרם זליגה וזרם בקו האפס. איסוף נתוני אנרגיה ל 6 חודשים."
+},
+{
+"title": "ElNet PQ GR הפרעות ומדידות חשמל",
+"url": "/he/elnet-pq-gr-meter/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "ElNet PQ GR הפרעות ומדידות חשמל אלנט PQ מאושר מעבדת בדיקה לתקן Class A בלעדי למדידת איכות החשמל. אלנט PQ מאפשר הפקת דוחות EN50160. אלנט PQ מאפשר הקלטת גלים בארועי חשמל. בעל קצב דגימה של 1600 דגימות למחזור 3 מתחים + 4 זרמים בעל דיוק מדידה 0.2% (0.1% בהזמנה מיוחדת)."
+},
+{
+"title": "Elnet xp בקר למשאבות ניקוד וביוב",
+"url": "/he/elnet-xp-controller/",
+"kind": "product",
+"kindLabel": "מוצר",
+"text": "Elnet xp בקר למשאבות ניקוד וביוב בקר החלפה אוטומטי משמש לתפעול משאבות ניקוז וביוב נמצא כיום כמעט בכל מבנה ציבור , הבקר משמש לבקרה אוטומטית של מפלס מי גשם או מי ביוב לרבות החלפה אוטומטית בין שתי משאבות בכל הפעלה על מנת לאזן את שעות העבודה והכנסת משאבה בלתי תורנית לתגבור בעת הצורך . מערכות אלו אנו נמצא במפעלים , מלונות , בתי חולים , אוניברסיטאות מבני משרדים וכל מבנה ציבורי אחר שם נדרשת מערכת אמינה לתפעול משאבות לניקוז מי גשם או מי ביוב. תכונות עיקרית תפעול ידידותי בשפה העברית באמצעות מסך גרפי צבעו"
+}
+]

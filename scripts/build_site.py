@@ -283,31 +283,143 @@ def _is_nav_active(item: dict, slug: str, lang: str) -> bool:
 
 
 def render_language_switcher(current_lang: str, current_slug: str = "") -> str:
-    labels = {"he": "עברית", "en": "English", "es": "Español"}
-    flags = {
-        "en": asset_path("images/flag-us.png"),
-        "he": asset_path("images/flag-il.png"),
-        "es": asset_path("images/flag-spain.jpg"),
-    }
-    parts = ['<div class="lang-switcher" role="group" aria-label="Language">']
-    for lang_code in SITE_LOCALES:
-        label = labels[lang_code]
-        flag = flags[lang_code]
+    names = {"en": "English", "he": "עברית", "es": "Español"}
+    codes = {"en": "EN", "he": "HE", "es": "ES"}
+    order = ("en", "he", "es")
+    menu_label = ui_pick(current_lang, "שפה", "Language", "Idioma")
+    current_code = codes[current_lang]
+    items = []
+    for lang_code in order:
         href = page_href(lang_code, current_slug)
-        if lang_code == current_lang:
-            parts.append(
-                f'<span class="lang-flag-link lang-active" aria-current="true" title="{html.escape(label)}">'
-                f'<img src="{flag}" alt="{html.escape(label)}" class="lang-flag" width="28" height="21" />'
-                f"</span>"
-            )
-        else:
-            parts.append(
-                f'<a href="{href}" class="lang-flag-link" title="{html.escape(label)}" aria-label="{html.escape(label)}">'
-                f'<img src="{flag}" alt="" class="lang-flag" width="28" height="21" />'
-                f"</a>"
-            )
-    parts.append("</div>")
-    return "\n".join(parts)
+        name = html.escape(names[lang_code])
+        code = html.escape(codes[lang_code])
+        current_attr = ' aria-current="true"' if lang_code == current_lang else ""
+        current_cls = " is-current" if lang_code == current_lang else ""
+        items.append(
+            f'<li><a class="lang-menu-option{current_cls}" href="{href}"{current_attr}>'
+            f'<span class="lang-menu-name">{name}</span>'
+            f'<span class="lang-menu-badge">{code}</span>'
+            f"</a></li>"
+        )
+    globe = (
+        '<svg class="header-tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>'
+        '<path d="M3 12h18M12 3c2.5 3 3.8 6 3.8 9s-1.3 6-3.8 9c-2.5-3-3.8-6-3.8-9S9.5 6 12 3z" '
+        'fill="none" stroke="currentColor" stroke-width="1.6"/>'
+        "</svg>"
+    )
+    return (
+        f'<div class="lang-menu" data-lang-menu>'
+        f'<button type="button" class="lang-menu-toggle" aria-expanded="false" '
+        f'aria-haspopup="listbox" aria-label="{html.escape(menu_label)}">'
+        f"{globe}<span class=\"lang-menu-code\">{html.escape(current_code)}</span>"
+        f"</button>"
+        f'<ul class="lang-menu-list" hidden>'
+        f"{''.join(items)}"
+        f"</ul>"
+        f"</div>"
+    )
+
+
+def render_search_control(lang: str) -> str:
+    label = ui_pick(lang, "חיפוש", "Search", "Buscar")
+    placeholder = ui_pick(
+        lang,
+        "חפשו פתרונות, מוצרים ופרויקטים",
+        "Search solutions, products, and projects",
+        "Buscar soluciones, productos y proyectos",
+    )
+    empty = ui_pick(lang, "אין תוצאות", "No results", "Sin resultados")
+    close = ui_pick(lang, "סגור", "Close", "Cerrar")
+    index_url = f"/{SITE_CONFIG[lang]['locale_path']}/search-index.json"
+    icon = (
+        '<svg class="header-tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        '<circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/>'
+        '<path d="M16.2 16.2 21 21" fill="none" stroke="currentColor" stroke-width="1.6" '
+        'stroke-linecap="round"/>'
+        "</svg>"
+    )
+    return f"""<div class="site-search" data-site-search data-index-url="{html.escape(index_url)}">
+  <button type="button" class="header-search-toggle" aria-expanded="false" aria-controls="site-search-panel" aria-label="{html.escape(label)}">
+    {icon}
+  </button>
+  <div class="site-search-panel" id="site-search-panel" hidden>
+    <div class="site-search-dialog" role="search">
+      <input class="site-search-input" type="search" placeholder="{html.escape(placeholder)}" autocomplete="off" spellcheck="false"/>
+      <button type="button" class="site-search-close" data-search-close aria-label="{html.escape(close)}">×</button>
+      <ul class="site-search-results" data-empty="{html.escape(empty)}"></ul>
+    </div>
+  </div>
+</div>"""
+
+
+def catalog_product_slugs() -> frozenset[str]:
+    return frozenset(slug for products in SOLUTION_PRODUCTS.values() for slug in products)
+
+
+def search_kind_label(kind: str, lang: str) -> str:
+    if kind == "solution":
+        return solutions_nav_label(lang)
+    if kind == "product":
+        return ui_pick(lang, "מוצר", "Product", "Producto")
+    if kind == "project":
+        return projects_nav_label(lang)
+    return ui_pick(lang, "עמוד", "Page", "Página")
+
+
+def search_plain_text(page: dict) -> str:
+    parts = product_copy_paragraphs(page)[:4]
+    title = product_display_title(page)
+    return " ".join([title] + parts)
+
+
+def search_record_for_page(lang: str, page: dict) -> dict | None:
+    slug = page.get("slug", "")
+    kind = "page"
+    title = ""
+    text = ""
+    if slug == "":
+        kind = "page"
+        title = ui_pick(lang, "בית", "Home", "Inicio")
+        text = ABOUT_HERO[lang]["lead"]
+    elif slug in SOLUTION_ORDER:
+        kind = "solution"
+        title = SOLUTION_LABELS[lang][slug]
+        text = SOLUTION_FRAMING[lang][slug]
+        product_names = []
+        for product_slug in SOLUTION_PRODUCTS.get(slug, ()):
+            product_page = load_product_page(product_slug, lang)
+            if product_page:
+                product_names.append(product_display_title(product_page))
+        if product_names:
+            text = f"{text} {' '.join(product_names)}"
+    elif any(proj["slug"] == slug for proj in PROJECTS.get(lang, [])):
+        kind = "project"
+        proj = next(p for p in PROJECTS[lang] if p["slug"] == slug)
+        title = proj["title"]
+        text = search_plain_text(page)
+    elif slug in catalog_product_slugs():
+        kind = "product"
+        title = product_display_title(page)
+        text = search_plain_text(page)
+    else:
+        title = re.sub(r"\s*\|.*", "", page.get("title") or "").strip() or slug
+        text = search_plain_text(page)
+    if not title:
+        return None
+    return {
+        "title": title,
+        "url": page_href(lang, slug),
+        "kind": kind,
+        "kindLabel": search_kind_label(kind, lang),
+        "text": re.sub(r"\s+", " ", text).strip()[:500],
+    }
+
+
+def write_search_index(lang: str, records: list[dict]) -> None:
+    out = SITE_DIR / lang / "search-index.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(records, ensure_ascii=False, indent=0), encoding="utf-8")
 
 
 def render_logo(lang: str) -> str:
@@ -1254,9 +1366,14 @@ def render_home_hero(slide: dict, lang: str) -> str:
         )
     )
     bg = rewrite_image_url(asset_path(f"images/{HOME_HERO_IMAGE}"))
-    style = f' style="background-image:url(\'{bg}\')"' if bg else ""
+    photo = (
+        f'<div class="home-hero-photo" style="background-image:url(\'{bg}\')"></div>'
+        if bg
+        else ""
+    )
 
-    return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}"{style}>
+    return f"""<section class="home-hero home-hero--photo" aria-label="{html.escape(HOME_UI[lang]['explore'])}">
+  {photo}
   <div class="home-hero-shade"></div>
   <div class="home-hero-inner">
     <p class="home-hero-kicker">{html.escape(ui_pick(lang, "הוקמה בשנת 1992", "Established 1992", "Fundada en 1992"))}</p>
@@ -3655,10 +3772,44 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
     return "\n".join(parts)
 
 
+def solution_body_paragraphs(slug: str, lang: str) -> list[str]:
+    """Body copy for a solution page, taken from existing framing and product pages."""
+    paragraphs: list[str] = []
+    framing = (SOLUTION_FRAMING.get(lang, {}).get(slug) or "").strip()
+    if framing:
+        paragraphs.append(framing)
+    for product_slug in SOLUTION_PRODUCTS.get(slug, ()):
+        page = load_product_page(product_slug, lang)
+        if not page:
+            continue
+        excerpts = product_copy_paragraphs(page)
+        if not excerpts:
+            continue
+        snippet = first_sentences(excerpts[0], 2).strip()
+        if not snippet:
+            continue
+        title = product_display_title(page)
+        title_key = re.sub(r"[^a-z0-9א-ת]+", "", title.casefold())[:18]
+        snippet_key = re.sub(r"[^a-z0-9א-ת]+", "", snippet.casefold())[:24]
+        if title and title_key and not snippet_key.startswith(title_key):
+            snippet = f"{title}: {snippet}"
+        paragraphs.append(snippet)
+    return paragraphs
+
+
+def render_solution_intro(slug: str, lang: str) -> str:
+    paragraphs = solution_body_paragraphs(slug, lang)
+    if not paragraphs:
+        return ""
+    body = "".join(f"<p>{html.escape(para)}</p>" for para in paragraphs)
+    return f'<section class="solution-intro">{body}</section>'
+
+
 def render_solution_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     title = SOLUTION_LABELS[lang][slug]
-    framing = first_sentences(SOLUTION_FRAMING[lang][slug], 2)
+    framing = first_sentences(SOLUTION_FRAMING[lang][slug], 1)
+    intro_html = render_solution_intro(slug, lang)
     products_html = render_use_case_product_cards(collect_use_case_products(slug, lang), lang)
     image = SOLUTION_IMAGES.get(slug, "")
     src = asset_path(f"images/{image}") if image else ""
@@ -3671,6 +3822,7 @@ def render_solution_page(page: dict, lang: str) -> str:
       <p class="use-case-about">{html.escape(framing)}</p>
     </div>
   </header>
+  {intro_html}
   {products_html}
 </article>"""
 
@@ -3943,6 +4095,7 @@ def render_page(lang: str, page: dict) -> str:
       {render_logo(lang)}
       {render_nav(lang, slug)}
       <div class="header-actions">
+        {render_search_control(lang)}
         {render_language_switcher(lang, slug)}
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -3969,6 +4122,7 @@ def build_language(lang: str) -> int:
     out_base = SITE_DIR / lang
     count = 0
     page_slugs = [""] + all_canonical_slugs()
+    search_records: list[dict] = []
 
     for slug in page_slugs:
         if slug == "":
@@ -3990,9 +4144,13 @@ def build_language(lang: str) -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
         html_content = render_page(lang, page)
         (out_dir / "index.html").write_text(html_content, encoding="utf-8")
+        record = search_record_for_page(lang, page)
+        if record:
+            search_records.append(record)
         count += 1
         print(f"  Built: /{lang}/{slug or ''}")
 
+    write_search_index(lang, search_records)
     return count
 
 
