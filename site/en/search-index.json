@@ -17,7 +17,7 @@
 "title": "Building automation / BMS",
 "url": "/en/building-automation/",
 "kind": "solution",
-"kindLabel": "Applications",
+"kindLabel": "Solutions",
 "text": "Building automation and BMS: control, measurement and monitoring of air conditioning, electrical and electromechanical systems. UniArt / UniWeb is a distributed TCP/IP and Web SCADA platform for saving energy in public buildings and industry. DigiPoint Controller VeroPoint Controller SuperBrain Controller SuperBrain DR Controller SuperBrain FC Controller UniArt Software UniWeb Software"
 },
 {
@@ -87,7 +87,7 @@
 "title": "Parking / CO",
 "url": "/en/parking-control/",
 "kind": "solution",
-"kindLabel": "Applications",
+"kindLabel": "Solutions",
 "text": "CO gas monitoring in parking levels, and smart parking occupancy control that shows whether a space is free or taken. CO Gas Monitoring Smart Parking"
 },
 {
@@ -101,7 +101,7 @@
 "title": "Water in the building",
 "url": "/en/flood-detection-systems/",
 "kind": "solution",
-"kindLabel": "Applications",
+"kindLabel": "Solutions",
 "text": "Water in the building — flood detection before electromechanical damage, and automatic rainwater or sewage level control for drainage pumps. Flooding sensor ElNet XP Controller"
 },
 {
@@ -122,7 +122,7 @@
 "title": "Generator transfer and power factor",
 "url": "/en/transfer-switches/",
 "kind": "solution",
-"kindLabel": "Applications",
+"kindLabel": "Solutions",
 "text": "Keep supply continuous and improve efficiency: utility / generator transfer switch controllers, plus power factor improvement with ElNet PFC, LTC and LTC10. ElNet COD Transfer Switch ElNet CO Transfer Switch ElNet PFC Controller ElNet LTC10 Controller ElNet LTC Controller"
 },
 {
@@ -150,7 +150,7 @@
 "title": "Energy and power quality",
 "url": "/en/power-quality-analyzers/",
 "kind": "solution",
-"kindLabel": "Applications",
+"kindLabel": "Solutions",
 "text": "Measure consumption and watch power quality in one place. ElNet monitors the network to EN50160, records events, and supports energy management and consumption billing. ElNet PQ/GR Meter ElNet LT Meter ElNet LTP Meter ElNet MC-1 Meter ElNet MC-2 Meter ElNet MC-8 Meter ElNet MC-12 Meter ElNet PIC Meter ElNet LTE Meter ElNet VA Meter ElNet VIP Meter ElNet Billing & PQ Software"
 },
 {

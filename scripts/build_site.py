@@ -200,7 +200,7 @@ def rewrite_image_url(url: str) -> str:
 
 
 def solutions_nav_label(lang: str) -> str:
-    return ui_pick(lang, "יישומים", "Applications", "Aplicaciones")
+    return ui_pick(lang, "פתרונות", "Solutions", "Soluciones")
 
 
 def projects_nav_label(lang: str) -> str:
@@ -228,7 +228,7 @@ def assemble_nav(lang: str) -> list[dict]:
         {"label": ui_pick(lang, "בית", "Home", "Inicio"), "href": f"/{loc}/"},
         {
             "label": solutions_nav_label(lang),
-            "href": f"/{loc}/#applications",
+            "href": f"/{loc}/#solutions",
             "children": solution_children,
         },
         {"label": ui_pick(lang, "מוצרים", "Products", "Productos"), "href": page_href(lang, "products")},
@@ -325,9 +325,9 @@ def render_search_control(lang: str) -> str:
     label = ui_pick(lang, "חיפוש", "Search", "Buscar")
     placeholder = ui_pick(
         lang,
-        "חפשו יישומים, מוצרים ופרויקטים",
-        "Search applications, products, and projects",
-        "Buscar aplicaciones, productos y proyectos",
+        "חפשו פתרונות, מוצרים ופרויקטים",
+        "Search solutions, products, and projects",
+        "Buscar soluciones, productos y proyectos",
     )
     empty = ui_pick(lang, "אין תוצאות", "No results", "Sin resultados")
     close = ui_pick(lang, "סגור", "Close", "Cerrar")
@@ -1273,23 +1273,23 @@ HOME_SLIDE_ES = [
 HOME_UI = {
     "he": {
         "learn_more": "למידע נוסף",
-        "featured": "יישומים",
+        "featured": "פתרונות",
         "explore": "גלו את המערכות שלנו",
-        "path_applications": "יישומים",
+        "path_applications": "פתרונות",
         "path_products": "קטלוג מוצרים",
     },
     "en": {
         "learn_more": "More information",
-        "featured": "Applications",
+        "featured": "Solutions",
         "explore": "Explore our systems",
-        "path_applications": "Applications",
+        "path_applications": "Solutions",
         "path_products": "Product catalog",
     },
     "es": {
         "learn_more": "Más información",
-        "featured": "Aplicaciones",
+        "featured": "Soluciones",
         "explore": "Explore nuestros sistemas",
-        "path_applications": "Aplicaciones",
+        "path_applications": "Soluciones",
         "path_products": "Catálogo de productos",
     },
 }
@@ -1454,40 +1454,40 @@ def solution_icon_svg(slug: str) -> str:
     return icons.get(slug, icons["energy-meters"])
 
 
-def render_home_solution_media(
-    lang: str,
-    slug: str,
-    *,
-    extra_class: str,
-    teaser_sentences: int,
-) -> str:
-    label = SOLUTION_LABELS[lang][slug]
-    teaser = first_sentences(SOLUTION_FRAMING[lang][slug], teaser_sentences)
+def render_home_solution_row(lang: str, slug: str, index: int) -> str:
+    label = html.escape(SOLUTION_LABELS[lang][slug])
+    teaser = html.escape(first_sentences(SOLUTION_FRAMING[lang][slug], 2))
     more = html.escape(HOME_UI[lang]["learn_more"])
-    teaser_html = f'<p class="home-icon-text">{html.escape(teaser)}</p>' if teaser else ""
-    return (
-        f'<a class="{extra_class}" href="{page_href(lang, slug)}">'
-        f'<span class="home-icon-mark">{solution_icon_svg(slug)}</span>'
-        f'<h3 class="home-icon-title">{html.escape(label)}</h3>'
-        f"{teaser_html}"
-        f'<span class="home-icon-more">{more}</span>'
-        f"</a>"
+    image = SOLUTION_IMAGES.get(slug, "")
+    src = rewrite_image_url(asset_path(f"images/{image}")) if image else ""
+    flip = " home-solution-row--flip" if index % 2 else ""
+    media = (
+        f'<div class="home-solution-row-media" style="background-image:url(\'{src}\')" role="img" aria-hidden="true"></div>'
+        if src
+        else '<div class="home-solution-row-media home-solution-row-media--empty" aria-hidden="true"></div>'
     )
+    return f"""<a class="home-solution-row{flip}" href="{page_href(lang, slug)}">
+  {media}
+  <div class="home-solution-row-body">
+    <span class="home-solution-row-mark">{solution_icon_svg(slug)}</span>
+    <h3 class="home-solution-row-title">{label}</h3>
+    <p class="home-solution-row-text">{teaser}</p>
+    <span class="home-solution-row-more">{more}</span>
+  </div>
+</a>"""
 
 
 def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
-    panels = [
-        render_home_solution_media(
-            lang, slug, extra_class="home-icon-card", teaser_sentences=1
-        )
-        for slug in SOLUTION_ORDER
+    rows = [
+        render_home_solution_row(lang, slug, index)
+        for index, slug in enumerate(SOLUTION_ORDER)
     ]
-    return f"""<section class="home-solutions" id="applications" aria-label="{html.escape(heading)}">
+    return f"""<section class="home-solutions" id="solutions" aria-label="{html.escape(heading)}">
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-icon-grid home-icon-grid--five">{"".join(panels)}</div>
+  <div class="home-solution-rows">{"".join(rows)}</div>
 </section>"""
 
 
