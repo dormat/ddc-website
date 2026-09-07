@@ -3711,23 +3711,25 @@ def collect_use_case_products(use_case_slug: str, lang: str) -> list[dict]:
 
 
 def collect_industry_products(industry_slug: str, lang: str) -> list[dict]:
+    """Products whose existing copy mentions this typical-project field."""
     cards: list[dict] = []
     seen: set[str] = set()
-    for product_slug in SOLUTION_PRODUCTS.get("building-automation", ()) + SOLUTION_PRODUCTS.get("plumbing-control", ()):
-        if product_slug in seen:
-            continue
-        page = load_product_page(product_slug, lang)
-        if not page or not product_mentions_use_case(page, industry_slug, lang):
-            continue
-        seen.add(product_slug)
-        cards.append(
-            {
-                "slug": product_slug,
-                "title": product_display_title(page),
-                "src": product_thumbnail_src(product_slug, lang),
-                "excerpts": product_use_case_paragraphs(page, industry_slug, lang),
-            }
-        )
+    for solution_slug in SOLUTION_ORDER:
+        for product_slug in SOLUTION_PRODUCTS.get(solution_slug, ()):
+            if product_slug in seen:
+                continue
+            page = load_product_page(product_slug, lang)
+            if not page or not product_mentions_use_case(page, industry_slug, lang):
+                continue
+            seen.add(product_slug)
+            cards.append(
+                {
+                    "slug": product_slug,
+                    "title": product_display_title(page),
+                    "src": product_thumbnail_src(product_slug, lang),
+                    "excerpts": product_use_case_paragraphs(page, industry_slug, lang),
+                }
+            )
     return cards
 
 
@@ -3834,22 +3836,6 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 
     industry_products = collect_industry_products(slug, lang)
     products_html = render_use_case_product_cards(industry_products, lang)
-    matching_solutions = []
-    industry_slugs = {card["slug"] for card in industry_products}
-    for solution_slug in SOLUTION_ORDER:
-        if industry_slugs & set(SOLUTION_PRODUCTS.get(solution_slug, ())):
-            matching_solutions.append(
-                f'<a class="product-use-case-link" href="{page_href(lang, solution_slug)}">'
-                f'{html.escape(SOLUTION_LABELS[lang][solution_slug])}</a>'
-            )
-    solutions_block = ""
-    if matching_solutions:
-        solutions_block = (
-            f'<section class="product-use-cases">'
-            f'<h2 class="related-products-title">{html.escape(solutions_nav_label(lang))}</h2>'
-            f'<div class="product-use-case-links">{"".join(matching_solutions)}</div>'
-            f"</section>"
-        )
     clients_label = field_clients_heading(lang)
     hero_style = f' style="background-image:url(\'{hero_src}\')"' if hero_src else ""
 
@@ -3865,7 +3851,6 @@ def render_project_detail_page(page: dict, lang: str) -> str:
     {list_html}
   </section>
   {products_html}
-  {solutions_block}
 </article>"""
 
 
