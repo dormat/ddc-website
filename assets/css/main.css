@@ -160,6 +160,7 @@ img.logo {
   align-items: center;
   gap: 0.15rem;
   flex-shrink: 0;
+  direction: ltr;
 }
 
 .header-tool-icon {
@@ -183,6 +184,7 @@ img.logo {
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
+  direction: ltr;
 }
 
 .header-search-toggle:hover,

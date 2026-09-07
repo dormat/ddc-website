@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
       kind.textContent = item.kindLabel || item.kind;
       const title = document.createElement("span");
       title.textContent = item.title;
-      a.append(kind, title);
+      a.append(kind, document.createTextNode(" "), title);
       li.append(a);
       searchResults.append(li);
     });
