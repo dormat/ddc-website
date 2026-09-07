@@ -1,0 +1,17 @@
+{
+  "name": "ddc-cms",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "db:generate": "npm run generate -w @ddc/db",
+    "db:migrate": "npm run migrate -w @ddc/db",
+    "db:seed": "npm run seed -w @ddc/db",
+    "admin:dev": "npm run dev -w @ddc/admin",
+    "admin:build": "npm run build -w @ddc/admin",
+    "web:dev": "npm run dev -w @ddc/web",
+    "web:build": "npm run build -w @ddc/web"
+  }
+}

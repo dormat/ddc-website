@@ -9,6 +9,8 @@ Thumbs.db
 
 # Firebase
 .firebase/
+.firebase-cms-stage/
+.firebase-xdg/
 firebase-debug.log
 
 # IDE

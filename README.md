@@ -22,6 +22,7 @@ ddc-website/
 │   ├── he/
 │   ├── en/
 │   └── es/
+├── cms/               # Separate admin CMS (Postgres/PGlite + Next.js) — see cms/README.md
 ├── scripts/
 │   ├── build_site.py       # Generate HTML from content JSON
 │   ├── config.py           # Navigation, projects, site config
@@ -32,6 +33,16 @@ ddc-website/
 │   └── document_assets.py
 ├── assets/            # Source CSS/JS/images (copied to site/ on build)
 └── firebase.json
+```
+
+## Admin CMS (separate host)
+
+Content DB + admin UI live under `cms/` on a **different URL** from the public site (local default `http://127.0.0.1:3010`). The connected public Next site is `http://127.0.0.1:3000`. See [`cms/README.md`](cms/README.md).
+
+```bash
+cd cms && cp .env.example .env && npm install && npm run db:seed
+npm run web:dev      # public site :3000 (reads CMS)
+npm run admin:dev    # admin :3010 (edits → publish to site)
 ```
 
 ## Quick start

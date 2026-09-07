@@ -51,6 +51,30 @@
           ]
         }
       ]
+    },
+    {
+      "target": "ddc-cms",
+      "source": ".firebase-cms-stage/web",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      }
+    },
+    {
+      "target": "ddc-admin",
+      "source": ".firebase-cms-stage/admin",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      }
     }
   ]
 }

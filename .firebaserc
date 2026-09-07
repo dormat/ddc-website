@@ -11,6 +11,12 @@
         ],
         "ddc-temp2": [
           "ddc-temp2"
+        ],
+        "ddc-cms": [
+          "ddc-cms"
+        ],
+        "ddc-admin": [
+          "ddc-admin"
         ]
       }
     }
