@@ -115,21 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Products page category filter
   const productFilter = document.getElementById("product-category-filter");
-  const productCards = document.querySelectorAll(".product-card-grid .product-card");
-  if (productFilter && productCards.length) {
+  const productSections = document.querySelectorAll(".products-page .hub-section");
+  if (productFilter && productSections.length) {
     const applyFilter = () => {
       const value = productFilter.value.trim();
-      productCards.forEach((card) => {
-        if (!value) {
-          card.classList.remove("is-hidden");
-          return;
-        }
-        const subs = (card.dataset.subcategories || "")
-          .split("|")
-          .map((s) => s.trim())
-          .filter(Boolean);
-        const match = subs.some((sub) => sub === value);
-        card.classList.toggle("is-hidden", !match);
+      productSections.forEach((section) => {
+        const match = !value || section.dataset.subcategory === value;
+        section.classList.toggle("is-hidden", !match);
       });
     };
     productFilter.addEventListener("change", applyFilter);

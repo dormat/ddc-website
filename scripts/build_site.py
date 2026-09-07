@@ -21,6 +21,7 @@ from config import (
     PRODUCT_SLUGS,
     PRODUCT_SUBCATEGORY_EN,
     PRODUCT_SUBCATEGORY_ES,
+    PRODUCT_SUBCATEGORY_ORDER,
     PROJECTS,
     PROJECT_IMAGES,
     HOME_FEATURED_PRODUCTS,
@@ -1995,6 +1996,13 @@ def localize_subcategory(label: str, lang: str) -> str:
     return label
 
 
+def product_subcategory_keys(prod: dict) -> list[str]:
+    labels = list(prod.get("subcategories") or [])
+    if not labels and prod.get("subcategory"):
+        labels = [part.strip() for part in prod["subcategory"].split(",") if part.strip()]
+    return [label for label in labels if label]
+
+
 def catalog_product_title(
     prod: dict,
     slug: str,
@@ -3854,11 +3862,30 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 </article>"""
 
 
+def render_catalog_product_card(prod: dict, lang: str, slug_index: dict, title_index: dict, slug_titles: dict) -> str:
+    slug = product_canonical_slug(prod, lang, slug_index, title_index)
+    title = catalog_product_title(prod, slug, lang, slug_titles)
+    href = page_href(lang, slug) if slug else "#"
+    src = product_thumbnail_src(slug, lang, prod.get("src", ""))
+    img_html = (
+        f'<img src="{src}" alt="{html.escape(title)}" loading="lazy"/>'
+        if src
+        else '<div class="card-placeholder"></div>'
+    )
+    return (
+        f'<a class="product-card" href="{href}">'
+        f'<div class="product-card-image">{img_html}</div>'
+        f'<span class="product-card-title">{html.escape(title)}</span>'
+        f"</a>"
+    )
+
+
 def render_products_page(page: dict, lang: str) -> str:
-    """Render full product catalog with category filter."""
+    """Render full product catalog grouped like hub pages, with a subcategory filter."""
     page_title = ui_pick(lang, "מוצרים", "Products", "Productos")
     filter_label = ui_pick(lang, "בחרו תת קטגוריה", "Select subcategory", "Seleccionar subcategoría")
     all_label = ui_pick(lang, "הכל", "All", "Todos")
+    other_label = ui_pick(lang, "אחר", "Other", "Otros")
 
     products = page.get("products") or []
     if not products:
@@ -3880,15 +3907,24 @@ def render_products_page(page: dict, lang: str) -> str:
                 }
             )
 
-    subcats: list[str] = []
-    seen_sub: set[str] = set()
+    groups: dict[str, list[dict]] = {}
+    uncategorized: list[dict] = []
     for prod in products:
-        for sub in prod.get("subcategories") or []:
-            localized = localize_subcategory(sub, lang)
-            if localized and localized not in seen_sub:
-                seen_sub.add(localized)
-                subcats.append(localized)
-    subcats.sort()
+        keys = product_subcategory_keys(prod)
+        if not keys:
+            uncategorized.append(prod)
+            continue
+        for key in keys:
+            groups.setdefault(key, []).append(prod)
+
+    section_keys = [key for key in PRODUCT_SUBCATEGORY_ORDER if key in groups]
+    for key in groups:
+        if key not in section_keys:
+            section_keys.append(key)
+
+    localized_labels = [localize_subcategory(key, lang) for key in section_keys]
+    if uncategorized:
+        localized_labels.append(other_label)
 
     filter_html = [
         '<div class="product-filters">',
@@ -3897,42 +3933,39 @@ def render_products_page(page: dict, lang: str) -> str:
         f'{html.escape(filter_label)}">',
         f'<option value="">{html.escape(all_label)}</option>',
     ]
-    for sub in subcats:
-        filter_html.append(f'<option value="{html.escape(sub)}">{html.escape(sub)}</option>')
+    for label in localized_labels:
+        filter_html.append(f'<option value="{html.escape(label)}">{html.escape(label)}</option>')
     filter_html.append("</select></div>")
 
     slug_index = build_slug_index(lang)
     title_index = build_title_index(lang)
     slug_titles = build_slug_title_index(lang)
-    cards_html = ['<div class="card-grid product-card-grid">']
-    for prod in products:
-        slug = product_canonical_slug(prod, lang, slug_index, title_index)
-        title = catalog_product_title(prod, slug, lang, slug_titles)
-        href = page_href(lang, slug) if slug else "#"
-        src = product_thumbnail_src(slug, lang, prod.get("src", ""))
-        subcats_list = prod.get("subcategories") or []
-        if not subcats_list and prod.get("subcategory"):
-            subcats_list = [s.strip() for s in prod["subcategory"].split(",") if s.strip()]
-        data_sub = "|".join(localize_subcategory(s, lang) for s in subcats_list)
-        img_html = (
-            f'<img src="{src}" alt="{html.escape(title)}" loading="lazy"/>'
-            if src
-            else '<div class="card-placeholder"></div>'
+
+    sections: list[str] = []
+
+    def append_section(label: str, items: list[dict]) -> None:
+        cards = [
+            render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
+            for prod in items
+        ]
+        sections.append(
+            f'<section class="hub-section" data-subcategory="{html.escape(label)}">'
+            f'<h2 class="hub-section-title">{html.escape(label)}</h2>'
+            f'<div class="card-grid">{"".join(cards)}</div>'
+            "</section>"
         )
-        cards_html.append(
-            f'<a class="product-card" href="{href}" data-subcategories="{html.escape(data_sub)}">'
-            f'<div class="product-card-image">{img_html}</div>'
-            f'<span class="product-card-title">{html.escape(title)}</span>'
-            f"</a>"
-        )
-    cards_html.append("</div>")
+
+    for key in section_keys:
+        append_section(localize_subcategory(key, lang), groups[key])
+    if uncategorized:
+        append_section(other_label, uncategorized)
 
     return (
         f'<article class="page-content">'
         f'<div class="hub-page products-page">'
         f'<h1 class="page-title">{page_title}</h1>'
         f'{"".join(filter_html)}'
-        f'{"".join(cards_html)}'
+        f'{"".join(sections)}'
         f"</div></article>"
     )
 

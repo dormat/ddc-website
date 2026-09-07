@@ -1252,12 +1252,13 @@ img.logo {
   color: var(--color-dark);
 }
 
-.product-card.is-hidden {
+.product-card.is-hidden,
+.hub-section.is-hidden {
   display: none;
 }
 
-.products-page .product-card-grid {
-  margin-top: 1rem;
+.products-page .product-filters {
+  margin-bottom: 0.5rem;
 }
 
 /* Product detail page */

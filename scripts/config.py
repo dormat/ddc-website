@@ -413,6 +413,21 @@ PRODUCT_SUBCATEGORY_EN = {
     "תוכנת Elnet חשבונות ואיכות חשמל": "ElNet software packages",
 }
 
+# Catalog page section order (matches power-meters hub, then remaining families).
+PRODUCT_SUBCATEGORY_ORDER = (
+    "מודדים לאיכות חשמל",
+    "מוני אנרגיה",
+    "מוני חשמל",
+    "בקרי החלפה",
+    "בקרים לשיפור מקדם הספק",
+    "תוכנת Elnet חשבונות ואיכות חשמל",
+    "בקרים מתוכנתים (DDC+PLC)",
+    "תוכנות HMI SCADA BMS",
+    "בקרת חניונים",
+    "מערכות לאיתור הצפות",
+    "בקרת אינסטלציה",
+)
+
 PRODUCT_SUBCATEGORY_ES = {
     "בקרי החלפה": "Controladores de interruptores de transferencia automática",
     "בקרים לשיפור מקדם הספק": "Controladores de factor de potencia",
