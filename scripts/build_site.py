@@ -3772,57 +3772,23 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
     return "\n".join(parts)
 
 
-def solution_body_paragraphs(slug: str, lang: str) -> list[str]:
-    """Body copy for a solution page, taken from existing framing and product pages."""
-    paragraphs: list[str] = []
-    framing = (SOLUTION_FRAMING.get(lang, {}).get(slug) or "").strip()
-    if framing:
-        paragraphs.append(framing)
-    for product_slug in SOLUTION_PRODUCTS.get(slug, ()):
-        page = load_product_page(product_slug, lang)
-        if not page:
-            continue
-        excerpts = product_copy_paragraphs(page)
-        if not excerpts:
-            continue
-        snippet = first_sentences(excerpts[0], 2).strip()
-        if not snippet:
-            continue
-        title = product_display_title(page)
-        title_key = re.sub(r"[^a-z0-9א-ת]+", "", title.casefold())[:18]
-        snippet_key = re.sub(r"[^a-z0-9א-ת]+", "", snippet.casefold())[:24]
-        if title and title_key and not snippet_key.startswith(title_key):
-            snippet = f"{title}: {snippet}"
-        paragraphs.append(snippet)
-    return paragraphs
-
-
-def render_solution_intro(slug: str, lang: str) -> str:
-    paragraphs = solution_body_paragraphs(slug, lang)
-    if not paragraphs:
-        return ""
-    body = "".join(f"<p>{html.escape(para)}</p>" for para in paragraphs)
-    return f'<section class="solution-intro">{body}</section>'
-
-
 def render_solution_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     title = SOLUTION_LABELS[lang][slug]
-    framing = first_sentences(SOLUTION_FRAMING[lang][slug], 1)
-    intro_html = render_solution_intro(slug, lang)
+    framing = (SOLUTION_FRAMING[lang][slug] or "").strip()
     products_html = render_use_case_product_cards(collect_use_case_products(slug, lang), lang)
     image = SOLUTION_IMAGES.get(slug, "")
     src = asset_path(f"images/{image}") if image else ""
     style = f' style="background-image:url(\'{src}\')"' if src else ""
+    lead = f'<p class="use-case-about">{html.escape(framing)}</p>' if framing else ""
     return f"""<article class="page-content solution-page">
   <header class="solution-hero"{style}>
     <div class="solution-hero-shade"></div>
     <div class="solution-hero-inner">
       <h1 class="page-title">{html.escape(title)}</h1>
-      <p class="use-case-about">{html.escape(framing)}</p>
+      {lead}
     </div>
   </header>
-  {intro_html}
   {products_html}
 </article>"""
 
