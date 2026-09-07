@@ -428,6 +428,20 @@ PRODUCT_SUBCATEGORY_ORDER = (
     "בקרת אינסטלציה",
 )
 
+PRODUCT_SUBCATEGORY_SLUGS = {
+    "מודדים לאיכות חשמל": "power-analyzers",
+    "מוני אנרגיה": "energy-meters",
+    "מוני חשמל": "electrical-meters",
+    "בקרי החלפה": "transfer-switch-controllers",
+    "בקרים לשיפור מקדם הספק": "power-factor-controllers",
+    "תוכנת Elnet חשבונות ואיכות חשמל": "elnet-software",
+    "בקרים מתוכנתים (DDC+PLC)": "plc-ddc-controllers",
+    "תוכנות HMI SCADA BMS": "bms-software",
+    "בקרת חניונים": "co-system",
+    "מערכות לאיתור הצפות": "flood-systems",
+    "בקרת אינסטלציה": "plumbing-control",
+}
+
 PRODUCT_SUBCATEGORY_ES = {
     "בקרי החלפה": "Controladores de interruptores de transferencia automática",
     "בקרים לשיפור מקדם הספק": "Controladores de factor de potencia",

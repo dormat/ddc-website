@@ -114,17 +114,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Products page category filter
+  const applyProductCatalogFilter = () => {
+    const select = document.getElementById("product-category-filter");
+    if (!select) return;
+    const value = (select.value || "").trim();
+    document.querySelectorAll("[data-product-group]").forEach((section) => {
+      const show = !value || section.getAttribute("data-product-group") === value;
+      section.hidden = !show;
+      section.classList.toggle("is-hidden", !show);
+    });
+  };
+  window.applyProductCatalogFilter = applyProductCatalogFilter;
   const productFilter = document.getElementById("product-category-filter");
-  const productSections = document.querySelectorAll(".products-page .hub-section");
-  if (productFilter && productSections.length) {
-    const applyFilter = () => {
-      const value = productFilter.value.trim();
-      productSections.forEach((section) => {
-        const match = !value || section.dataset.subcategory === value;
-        section.classList.toggle("is-hidden", !match);
-      });
-    };
-    productFilter.addEventListener("change", applyFilter);
+  if (productFilter) {
+    productFilter.addEventListener("change", applyProductCatalogFilter);
+    productFilter.addEventListener("input", applyProductCatalogFilter);
   }
 
   document.querySelectorAll("[data-loop-slider], [data-project-slider]").forEach((root) => {

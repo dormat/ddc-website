@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -22,6 +23,7 @@ from config import (
     PRODUCT_SUBCATEGORY_EN,
     PRODUCT_SUBCATEGORY_ES,
     PRODUCT_SUBCATEGORY_ORDER,
+    PRODUCT_SUBCATEGORY_SLUGS,
     PROJECTS,
     PROJECT_IMAGES,
     HOME_FEATURED_PRODUCTS,
@@ -73,7 +75,13 @@ def ui_pick(lang: str, he: str, en: str, es: str | None = None) -> str:
 
 
 def asset_path(relative: str) -> str:
-    return f"/assets/{relative.lstrip('/')}"
+    rel = relative.lstrip("/")
+    src = ROOT / "assets" / rel
+    query = ""
+    if src.is_file() and src.suffix in {".css", ".js"}:
+        digest = hashlib.md5(src.read_bytes()).hexdigest()[:10]
+        query = f"?v={digest}"
+    return f"/assets/{rel}{query}"
 
 
 def page_href(lang: str, slug: str) -> str:
@@ -1426,6 +1434,20 @@ def render_home_content(lang: str) -> str:
     return f'<div class="home-page">{hero}{solutions}{products}{projects}{render_home_proof(lang)}</div>'
 
 
+def solution_icon_svg(slug: str) -> str:
+    icons = {
+        "power-quality-analyzers": """<svg class="home-icon-svg home-icon-wave" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="4" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M10 28c3-10 5 10 8 0s5 10 8 0 5 10 8 0 4-8 6-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>""",
+        "energy-meters": """<svg class="home-icon-svg home-icon-gauge" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="26" r="14" stroke="currentColor" stroke-width="1.7"/><path d="M14 36c2.4 3 6 5 10 5s7.6-2 10-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="home-icon-needle" d="M24 26 L34 16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="24" cy="26" r="2.2" fill="currentColor"/></svg>""",
+        "building-automation": """<svg class="home-icon-svg home-icon-building" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 40V16l14-8 14 8v24" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18 40V24h12v16" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-windows" d="M16 20h4M16 26h4M28 20h4M28 26h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>""",
+        "parking-control": """<svg class="home-icon-svg home-icon-parking" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 32h32M12 32l3-12h18l3 12" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle class="home-icon-wheel" cx="18" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-wheel" cx="30" cy="34" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M18 20h8a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="34" cy="14" r="4.5" stroke="currentColor" stroke-width="1.6"/><path d="M34 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>""",
+        "flood-detection-systems": """<svg class="home-icon-svg home-icon-drop" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path class="home-icon-drop-shape" d="M24 8c0 0 12 14 12 22a12 12 0 0 1-24 0C12 22 24 8 24 8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M24 26v8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>""",
+        "transfer-switches": """<svg class="home-icon-svg home-icon-switch" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="14" width="34" height="20" rx="10" stroke="currentColor" stroke-width="1.7"/><circle class="home-icon-knob" cx="31" cy="24" r="6.5" fill="currentColor"/></svg>""",
+        "power-factor-control": """<svg class="home-icon-svg home-icon-pf" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-draw" d="M24 24 L38 24 A14 14 0 0 0 31 12z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="currentColor"/></svg>""",
+        "plumbing-control": """<svg class="home-icon-svg home-icon-pump" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M10 30h10l4-8h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle class="home-icon-rotor" cx="18" cy="30" r="6" stroke="currentColor" stroke-width="1.7"/><path class="home-icon-rotor" d="M18 26v8M14 30h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M38 22v16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>""",
+    }
+    return icons.get(slug, icons["energy-meters"])
+
+
 def render_home_solution_media(
     lang: str,
     slug: str,
@@ -1435,24 +1457,15 @@ def render_home_solution_media(
 ) -> str:
     label = SOLUTION_LABELS[lang][slug]
     teaser = first_sentences(SOLUTION_FRAMING[lang][slug], teaser_sentences)
-    image = SOLUTION_IMAGES.get(slug, "")
-    src = asset_path(f"images/{image}") if image else ""
-    img = (
-        f'<img src="{src}" alt="{html.escape(label)}" loading="lazy"/>'
-        if src
-        else '<div class="card-placeholder"></div>'
-    )
     more = html.escape(HOME_UI[lang]["learn_more"])
-    teaser_html = f'<p class="home-media-text">{html.escape(teaser)}</p>' if teaser else ""
+    teaser_html = f'<p class="home-icon-text">{html.escape(teaser)}</p>' if teaser else ""
     return (
         f'<a class="{extra_class}" href="{page_href(lang, slug)}">'
-        f'<div class="home-media-image">{img}</div>'
-        f'<div class="home-media-shade"></div>'
-        f'<div class="home-media-body">'
-        f'<h3 class="home-media-title">{html.escape(label)}</h3>'
+        f'<span class="home-icon-mark">{solution_icon_svg(slug)}</span>'
+        f'<h3 class="home-icon-title">{html.escape(label)}</h3>'
         f"{teaser_html}"
-        f'<span class="home-media-more">{more}</span>'
-        f"</div></a>"
+        f'<span class="home-icon-more">{more}</span>'
+        f"</a>"
     )
 
 
@@ -1460,7 +1473,7 @@ def render_home_solutions_grid(lang: str) -> str:
     heading = solutions_nav_label(lang)
     panels = [
         render_home_solution_media(
-            lang, slug, extra_class="home-feature-panel", teaser_sentences=1
+            lang, slug, extra_class="home-icon-card", teaser_sentences=1
         )
         for slug in SOLUTION_ORDER
     ]
@@ -1468,7 +1481,7 @@ def render_home_solutions_grid(lang: str) -> str:
   <header class="home-section-head">
     <h2 class="home-section-title">{html.escape(heading)}</h2>
   </header>
-  <div class="home-featured-pair">{"".join(panels)}</div>
+  <div class="home-icon-grid">{"".join(panels)}</div>
 </section>"""
 
 
@@ -1983,6 +1996,13 @@ def product_thumbnail_src(slug: str, lang: str, fallback: str = "") -> str:
     if fallback:
         return rewrite_image_url(resolve_image_src(fallback))
     return ""
+
+
+def subcategory_filter_id(key: str) -> str:
+    if key in PRODUCT_SUBCATEGORY_SLUGS:
+        return PRODUCT_SUBCATEGORY_SLUGS[key]
+    slug = re.sub(r"[^a-z0-9]+", "-", key.lower()).strip("-")
+    return slug or "other"
 
 
 def localize_subcategory(label: str, lang: str) -> str:
@@ -3922,19 +3942,21 @@ def render_products_page(page: dict, lang: str) -> str:
         if key not in section_keys:
             section_keys.append(key)
 
-    localized_labels = [localize_subcategory(key, lang) for key in section_keys]
+    localized_labels = [(subcategory_filter_id(key), localize_subcategory(key, lang)) for key in section_keys]
     if uncategorized:
-        localized_labels.append(other_label)
+        localized_labels.append(("other", other_label))
 
     filter_html = [
         '<div class="product-filters">',
         f'<label class="product-filter-label" for="product-category-filter">{html.escape(filter_label)}</label>',
         '<select id="product-category-filter" class="product-category-filter" aria-label="'
-        f'{html.escape(filter_label)}">',
+        f'{html.escape(filter_label)}" onchange="window.applyProductCatalogFilter && window.applyProductCatalogFilter()">',
         f'<option value="">{html.escape(all_label)}</option>',
     ]
-    for label in localized_labels:
-        filter_html.append(f'<option value="{html.escape(label)}">{html.escape(label)}</option>')
+    for filter_id, label in localized_labels:
+        filter_html.append(
+            f'<option value="{html.escape(filter_id)}">{html.escape(label)}</option>'
+        )
     filter_html.append("</select></div>")
 
     slug_index = build_slug_index(lang)
@@ -3943,22 +3965,37 @@ def render_products_page(page: dict, lang: str) -> str:
 
     sections: list[str] = []
 
-    def append_section(label: str, items: list[dict]) -> None:
+    def append_section(filter_id: str, label: str, items: list[dict]) -> None:
         cards = [
             render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
             for prod in items
         ]
         sections.append(
-            f'<section class="hub-section" data-subcategory="{html.escape(label)}">'
+            f'<section class="hub-section" data-product-group="{html.escape(filter_id)}">'
             f'<h2 class="hub-section-title">{html.escape(label)}</h2>'
             f'<div class="card-grid">{"".join(cards)}</div>'
             "</section>"
         )
 
     for key in section_keys:
-        append_section(localize_subcategory(key, lang), groups[key])
+        append_section(subcategory_filter_id(key), localize_subcategory(key, lang), groups[key])
     if uncategorized:
-        append_section(other_label, uncategorized)
+        append_section("other", other_label, uncategorized)
+
+    filter_script = """<script>
+window.applyProductCatalogFilter = function () {
+  var select = document.getElementById("product-category-filter");
+  if (!select) return;
+  var value = (select.value || "").trim();
+  document.querySelectorAll("[data-product-group]").forEach(function (section) {
+    var show = !value || section.getAttribute("data-product-group") === value;
+    section.hidden = !show;
+    section.classList.toggle("is-hidden", !show);
+  });
+};
+document.getElementById("product-category-filter") &&
+  document.getElementById("product-category-filter").addEventListener("input", window.applyProductCatalogFilter);
+</script>"""
 
     return (
         f'<article class="page-content">'
@@ -3966,7 +4003,7 @@ def render_products_page(page: dict, lang: str) -> str:
         f'<h1 class="page-title">{page_title}</h1>'
         f'{"".join(filter_html)}'
         f'{"".join(sections)}'
-        f"</div></article>"
+        f"</div>{filter_script}</article>"
     )
 
 
