@@ -1456,18 +1456,15 @@ def solution_icon_svg(slug: str) -> str:
 
 def render_home_solution_row(lang: str, slug: str, index: int) -> str:
     label = html.escape(SOLUTION_LABELS[lang][slug])
-    teaser = html.escape(first_sentences(SOLUTION_FRAMING[lang][slug], 2))
+    teaser = html.escape(first_sentences(SOLUTION_FRAMING[lang][slug], 1))
     more = html.escape(HOME_UI[lang]["learn_more"])
+    flip = " home-solution-row--flip" if index % 2 else ""
     image = SOLUTION_IMAGES.get(slug, "")
     src = rewrite_image_url(asset_path(f"images/{image}")) if image else ""
-    flip = " home-solution-row--flip" if index % 2 else ""
-    media = (
-        f'<div class="home-solution-row-media" style="background-image:url(\'{src}\')" role="img" aria-hidden="true"></div>'
-        if src
-        else '<div class="home-solution-row-media home-solution-row-media--empty" aria-hidden="true"></div>'
-    )
+    media_style = f' style="background-image:url(\'{src}\')"' if src else ""
+    media_class = "home-solution-row-media" + ("" if src else " home-solution-row-media--empty")
     return f"""<a class="home-solution-row{flip}" href="{page_href(lang, slug)}">
-  {media}
+  <div class="{media_class}"{media_style} role="img" aria-hidden="true"></div>
   <div class="home-solution-row-body">
     <span class="home-solution-row-mark">{solution_icon_svg(slug)}</span>
     <h3 class="home-solution-row-title">{label}</h3>
