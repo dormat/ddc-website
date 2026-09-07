@@ -1,7 +1,18 @@
 {
   "projects": {
+    "default": "harokdim",
     "harokdim": "harokdim"
   },
-  "targets": {},
-  "etags": {}
+  "targets": {
+    "harokdim": {
+      "hosting": {
+        "ddc-temp": [
+          "ddc-temp"
+        ],
+        "ddc-temp2": [
+          "ddc-temp2"
+        ]
+      }
+    }
+  }
 }

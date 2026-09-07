@@ -82,7 +82,12 @@ When prompted:
 
 The CLI creates a service account and uploads it to GitHub as the secret `FIREBASE_SERVICE_ACCOUNT_HAROKDIM`. If the workflow files already exist, choose **not** to overwrite them when asked.
 
-After the secret is in place, every push to `main` deploys to the live site (`ddc-temp`).
+After the secret is in place:
+
+- Every push to `main` deploys to **ddc-temp** — https://ddc-temp.web.app
+- Every push to `cursor/solutions-first-site-ee14` deploys to **ddc-temp2** — https://ddc-temp2.web.app (and https://ddc-temp2.firebaseapp.com)
+
+The first solutions-first deploy creates the `ddc-temp2` Hosting site in the **harokdim** project if it does not already exist. `main` is unchanged and still goes only to `ddc-temp`.
 
 ### Manual deploy
 
