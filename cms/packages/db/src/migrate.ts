@@ -28,9 +28,16 @@ const STATEMENTS = [
       product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
       kind VARCHAR(32) NOT NULL,
       url TEXT NOT NULL,
+      url_he TEXT NOT NULL DEFAULT '',
+      url_en TEXT NOT NULL DEFAULT '',
+      url_es TEXT NOT NULL DEFAULT '',
       alt TEXT NOT NULL DEFAULT '',
       label TEXT NOT NULL DEFAULT '',
-      sort_order INTEGER NOT NULL DEFAULT 0
+      sort_order INTEGER NOT NULL DEFAULT 0,
+      enabled BOOLEAN NOT NULL DEFAULT TRUE,
+      enabled_he BOOLEAN NOT NULL DEFAULT TRUE,
+      enabled_en BOOLEAN NOT NULL DEFAULT TRUE,
+      enabled_es BOOLEAN NOT NULL DEFAULT TRUE
     )`,
   `CREATE TABLE IF NOT EXISTS solutions (
       id SERIAL PRIMARY KEY,
@@ -118,6 +125,24 @@ export async function migrate() {
 
   for (const statement of STATEMENTS) {
     await db.execute(sql.raw(statement));
+  }
+
+  // Upgrade existing product_media tables (CREATE IF NOT EXISTS does not add columns).
+  const alters = [
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS url_he TEXT NOT NULL DEFAULT ''`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS url_en TEXT NOT NULL DEFAULT ''`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS url_es TEXT NOT NULL DEFAULT ''`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS enabled BOOLEAN NOT NULL DEFAULT TRUE`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS enabled_he BOOLEAN NOT NULL DEFAULT TRUE`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS enabled_en BOOLEAN NOT NULL DEFAULT TRUE`,
+    `ALTER TABLE product_media ADD COLUMN IF NOT EXISTS enabled_es BOOLEAN NOT NULL DEFAULT TRUE`,
+  ];
+  for (const statement of alters) {
+    try {
+      await db.execute(sql.raw(statement));
+    } catch {
+      // Older engines may not support IF NOT EXISTS on ADD COLUMN.
+    }
   }
 
   void schema.products;

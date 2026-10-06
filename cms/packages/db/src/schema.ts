@@ -43,11 +43,20 @@ export const productMedia = pgTable("product_media", {
   productId: integer("product_id")
     .notNull()
     .references(() => products.id, { onDelete: "cascade" }),
-  kind: varchar("kind", { length: 32 }).notNull(), // hero | gallery | document | image
+  /** hero | image | schematic | document */
+  kind: varchar("kind", { length: 32 }).notNull(),
+  /** Default / shared asset URL */
   url: text("url").notNull(),
+  urlHe: text("url_he").notNull().default(""),
+  urlEn: text("url_en").notNull().default(""),
+  urlEs: text("url_es").notNull().default(""),
   alt: text("alt").notNull().default(""),
   label: text("label").notNull().default(""),
   sortOrder: integer("sort_order").notNull().default(0),
+  enabled: boolean("enabled").notNull().default(true),
+  enabledHe: boolean("enabled_he").notNull().default(true),
+  enabledEn: boolean("enabled_en").notNull().default(true),
+  enabledEs: boolean("enabled_es").notNull().default(true),
 });
 
 export const solutions = pgTable("solutions", {
@@ -74,6 +83,7 @@ export const solutionTranslations = pgTable(
     lang: varchar("lang", { length: 5 }).notNull(),
     title: text("title").notNull().default(""),
     lead: text("lead").notNull().default(""),
+    /** Home-screen description (not a solution page body). */
     body: text("body").notNull().default(""),
   },
   (t) => [uniqueIndex("solution_translations_solution_lang").on(t.solutionId, t.lang)],
@@ -136,7 +146,7 @@ export const productIndustries = pgTable(
 
 export const pages = pgTable("pages", {
   id: serial("id").primaryKey(),
-  key: varchar("key", { length: 64 }).notNull().unique(), // about | home | contact | industries
+  key: varchar("key", { length: 64 }).notNull().unique(), // about
   enabled: boolean("enabled").notNull().default(true),
   enabledHe: boolean("enabled_he").notNull().default(true),
   enabledEn: boolean("enabled_en").notNull().default(true),

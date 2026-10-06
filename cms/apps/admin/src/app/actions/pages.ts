@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { publishToPublicSite } from "@/lib/publish";
+import { normalizePageBody } from "@/lib/plain-text";
 
 function flag(formData: FormData, name: string) {
   return formData.get(name) === "on" || formData.get(name) === "true";
@@ -29,8 +30,8 @@ export async function savePageAction(key: string, formData: FormData) {
 
   for (const lang of ["he", "en", "es"] as const) {
     const values = {
-      title: String(formData.get(`title_${lang}`) || ""),
-      body: String(formData.get(`body_${lang}`) || ""),
+      title: String(formData.get(`title_${lang}`) || "").trim(),
+      body: normalizePageBody(String(formData.get(`body_${lang}`) || "")),
     };
     const [existing] = await db
       .select()
@@ -44,9 +45,10 @@ export async function savePageAction(key: string, formData: FormData) {
     }
   }
 
+  revalidatePath("/about");
   revalidatePath("/pages");
   await publishToPublicSite();
-  redirect(`/pages/${key}?saved=1`);
+  redirect(key === "about" ? "/about?saved=1" : `/pages/${key}?saved=1`);
 }
 
 export async function saveSettingsAction(formData: FormData) {

@@ -7,12 +7,20 @@ import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 import postgres from "postgres";
 import * as schema from "./schema";
 
+function isCloudRuntime() {
+  return Boolean(
+    process.env.K_SERVICE ||
+      process.env.FUNCTION_TARGET ||
+      process.env.FUNCTION_NAME ||
+      process.env.PGLITE_MEMORY === "1",
+  );
+}
+
 /** Walk up from cwd until we find the cms workspace root (has packages/db). */
 export function resolveCmsRoot(): string {
   if (process.env.CMS_ROOT?.trim()) {
     return path.resolve(process.env.CMS_ROOT.trim());
   }
-  // Firebase-staged app keeps data/public.json next to package.json
   if (fs.existsSync(path.join(process.cwd(), "data", "public.json"))) {
     return process.cwd();
   }
@@ -34,12 +42,6 @@ export function resolveCmsRoot(): string {
 const CMS_ROOT = resolveCmsRoot();
 loadEnv({ path: path.join(CMS_ROOT, ".env") });
 loadEnv({ path: path.join(process.cwd(), ".env") });
-
-const PGLITE_DIR =
-  process.env.PGLITE_DIR?.trim() ||
-  (process.env.K_SERVICE || process.env.FUNCTION_TARGET
-    ? path.join("/tmp", "ddc-pglite")
-    : path.join(CMS_ROOT, "data", "pglite"));
 
 export type Db = ReturnType<typeof drizzlePg<typeof schema>> | ReturnType<typeof drizzlePglite<typeof schema>>;
 
@@ -65,8 +67,18 @@ export async function createDb(): Promise<Db> {
     return g.__ddcDb;
   }
 
-  fs.mkdirSync(PGLITE_DIR, { recursive: true });
-  const client = new PGlite(PGLITE_DIR);
+  // Cloud Functions / Cloud Run: use in-memory PGlite (no persistent FS / WASM data dir issues)
+  if (isCloudRuntime()) {
+    const client = new PGlite();
+    g.__ddcSql = client;
+    g.__ddcDb = drizzlePglite(client, { schema });
+    return g.__ddcDb;
+  }
+
+  const dataDir =
+    process.env.PGLITE_DIR?.trim() || path.join(CMS_ROOT, "data", "pglite");
+  fs.mkdirSync(dataDir, { recursive: true });
+  const client = new PGlite(dataDir);
   g.__ddcSql = client;
   g.__ddcDb = drizzlePglite(client, { schema });
   return g.__ddcDb;
@@ -86,3 +98,4 @@ export async function closeDb(): Promise<void> {
 
 export { schema };
 export * from "./schema";
+export { isCloudRuntime };

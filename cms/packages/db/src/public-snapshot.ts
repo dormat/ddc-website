@@ -34,7 +34,7 @@ export type PublicSnapshot = {
     enabledEs: boolean;
     translations: Record<
       PublicLang,
-      { title: string; lead: string; body: string }
+      { title: string; lead: string; body: string } // body = home screen description
     >;
     productSlugs: string[];
   }>;
@@ -49,7 +49,20 @@ export type PublicSnapshot = {
       PublicLang,
       { title: string; description: string; body: string }
     >;
-    media: Array<{ kind: string; url: string; alt: string; label: string; sortOrder: number }>;
+    media: Array<{
+      kind: string;
+      url: string;
+      urlHe?: string;
+      urlEn?: string;
+      urlEs?: string;
+      alt: string;
+      label: string;
+      sortOrder: number;
+      enabled?: boolean;
+      enabledHe?: boolean;
+      enabledEn?: boolean;
+      enabledEs?: boolean;
+    }>;
     solutionSlugs: string[];
     industrySlugs: string[];
   }>;
@@ -82,6 +95,9 @@ const emptyInd = { title: "", offer: "", clients: [] as string[] };
 const emptyPage = { title: "", body: "" };
 
 function publicJsonPath() {
+  if (process.env.K_SERVICE || process.env.FUNCTION_TARGET || process.env.PGLITE_MEMORY === "1") {
+    return path.join("/tmp", "ddc-public.json");
+  }
   return path.join(resolveCmsRoot(), "data", "public.json");
 }
 
@@ -155,9 +171,16 @@ export async function buildPublicSnapshot(): Promise<PublicSnapshot> {
         .map((m) => ({
           kind: m.kind,
           url: m.url,
+          urlHe: m.urlHe || "",
+          urlEn: m.urlEn || "",
+          urlEs: m.urlEs || "",
           alt: m.alt,
           label: m.label,
           sortOrder: m.sortOrder,
+          enabled: m.enabled ?? true,
+          enabledHe: m.enabledHe ?? true,
+          enabledEn: m.enabledEn ?? true,
+          enabledEs: m.enabledEs ?? true,
         }));
       const solutionSlugs = productSolutionRows
         .filter((ps) => ps.productId === prod.id)
@@ -335,9 +358,16 @@ export async function importPublicSnapshot(snapshot: PublicSnapshot): Promise<vo
         productId: row.id,
         kind: media.kind,
         url: media.url,
-        alt: media.alt,
-        label: media.label,
-        sortOrder: media.sortOrder,
+        urlHe: media.urlHe || "",
+        urlEn: media.urlEn || "",
+        urlEs: media.urlEs || "",
+        alt: media.alt || "",
+        label: media.label || "",
+        sortOrder: media.sortOrder ?? 0,
+        enabled: media.enabled ?? true,
+        enabledHe: media.enabledHe ?? true,
+        enabledEn: media.enabledEn ?? true,
+        enabledEs: media.enabledEs ?? true,
       });
     }
     for (const slug of prod.solutionSlugs || []) {

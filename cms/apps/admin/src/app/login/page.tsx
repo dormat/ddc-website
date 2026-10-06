@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
-import { isLoggedIn } from "@/lib/auth";
 import { loginAction } from "@/app/actions/auth";
+import { SubmitButton } from "@/components/submit-button";
+import { isLoggedIn } from "@/lib/auth";
 
 export default async function LoginPage({
   searchParams,
@@ -31,9 +32,9 @@ export default async function LoginPage({
               required
             />
           </div>
-          <button className="btn primary" type="submit" style={{ width: "100%" }}>
+          <SubmitButton className="btn primary" pendingLabel="Signing in…" style={{ width: "100%" }}>
             Sign in
-          </button>
+          </SubmitButton>
         </form>
       </div>
     </div>

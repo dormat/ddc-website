@@ -1,0 +1,64 @@
+; Cloudflare / BIND import for ddc.co.il
+; Source: Wix DNS export (docs/ddc.co.il-dns-records.md)
+; Import with "Proxy imported DNS records" UNCHECKED (DNS only).
+; Do not flip orange cloud on for device hosts, mail, FTP, or VPN.
+;
+; After Cloudflare is Active + NS switched at ISOC, website still points at Wix
+; until you replace apex A + www with Firebase records.
+
+$ORIGIN ddc.co.il.
+$TTL 3600
+
+; --- Website (Wix) — replace later with Firebase ---
+@       IN  A       185.230.63.171
+@       IN  A       185.230.63.186
+@       IN  A       185.230.63.107
+www     IN  CNAME   cdn3.wixdns.net.
+
+; --- Google Workspace mail ---
+@       IN  MX  1   aspmx.l.google.com.
+@       IN  MX  5   alt1.aspmx.l.google.com.
+@       IN  MX  5   alt2.aspmx.l.google.com.
+@       IN  MX  10  alt3.aspmx.l.google.com.
+@       IN  MX  10  alt4.aspmx.l.google.com.
+@       IN  TXT     "v=spf1 include:_spf.google.com ~all"
+mail    IN  CNAME   ghs.google.com.
+
+; --- Google verification (keep) ---
+4iatdcteh3iv.test1  IN  CNAME  gv-3vlntzj6udcb63.dv.googlehosted.com.
+
+; --- Internal / product hosts (must stay DNS only) ---
+billing       IN  A  82.166.126.178
+billing2      IN  A  82.166.126.178
+c             IN  A  82.166.126.178
+demo1         IN  A  82.166.126.178
+demo2         IN  A  82.166.126.178
+demo3         IN  A  82.166.126.178
+doron         IN  A  82.166.126.179
+elnet         IN  A  212.235.63.34
+elnetweb      IN  A  212.235.63.33
+ftp           IN  A  62.219.78.159
+gr            IN  A  212.235.63.34
+hmi02         IN  A  34.165.42.49
+kobi          IN  A  212.235.63.33
+lt            IN  A  194.90.228.42
+mail02        IN  A  34.165.16.238
+mc            IN  A  212.235.63.35
+oldbilling    IN  A  82.166.126.177
+plc           IN  A  212.235.63.32
+pq            IN  A  212.235.63.34
+pqdin         IN  A  212.235.63.35
+pqtest        IN  A  82.166.126.178
+qr            IN  A  37.142.76.81
+test.qr       IN  A  37.142.162.9
+qrtest        IN  A  37.142.162.9
+sb            IN  A  194.90.228.41
+sim           IN  A  62.90.182.228
+superbrain    IN  A  194.90.228.41
+test          IN  A  82.166.126.179
+qr.test       IN  A  37.142.162.9
+test1         IN  A  212.235.63.35
+test2         IN  A  212.235.63.32
+uniart        IN  A  194.90.228.43
+vero          IN  A  212.235.63.32
+vpn-remote    IN  A  34.165.50.211

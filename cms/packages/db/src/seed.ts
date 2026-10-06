@@ -137,6 +137,18 @@ const INDUSTRY_SLUGS = [
   "pharmaceutical-clean-rooms",
 ] as const;
 
+/** Match live industries page heroes (not first scraped content image / logo). */
+const INDUSTRY_IMAGES: Record<string, string> = {
+  "public-buildings": "/assets/images/813b164e6ecd49b0b09f5f9913d34577.jpg",
+  hospitals: "/assets/images/hospitals-hero.jpg",
+  hotels: "/assets/images/hotels-hero.jpg",
+  universities: "/assets/images/typical-projects-content-7-5.jpg",
+  museums: "/assets/images/museums-hero.jpg",
+  "shopping-malls": "/assets/images/shopping-malls-hero.jpg",
+  "industrial-hi-tech": "/assets/images/typical-projects-content-8-4.png",
+  "pharmaceutical-clean-rooms": "/assets/images/pharmaceutical-clean-rooms-hero.jpg",
+};
+
 const INDUSTRY_TITLES: Record<string, Record<string, string>> = {
   he: {
     "public-buildings": "מבנים ציבוריים",
@@ -179,11 +191,8 @@ const FOOTER_MARKERS = [
   "opening hours",
   "Opening Hour",
   "שעות פתיחה",
-  "Address",
-  "Adress",
-  "כתובת",
   "© Copyright",
-  "Control Applications Ltd",
+  "cal@ddc.co.il",
 ];
 
 type ContentPage = {
@@ -191,6 +200,7 @@ type ContentPage = {
   title?: string;
   description?: string;
   rich_text?: string[];
+  content_html?: string;
   images?: { src?: string; alt?: string }[];
   documents?: { label?: string; url?: string; file?: string }[];
   og_image?: string;
@@ -205,6 +215,16 @@ function cleanTitle(title: string): string {
   return title.replace(/\s*\|\s*.*$/, "").trim();
 }
 
+function shortSeoDescription(value: string | undefined, body: string): string {
+  const d = (value || "").trim();
+  if (!d) return "";
+  if (d.includes("\n") || d.length > 220) return "";
+  const b = (body || "").trim();
+  if (b && (d === b || b.startsWith(d) || d.startsWith(b.slice(0, 80)))) return "";
+  return d;
+}
+
+
 function bodyFromRichText(blocks: string[] | undefined): string {
   if (!blocks?.length) return "";
   const parts: string[] = [];
@@ -215,6 +235,123 @@ function bodyFromRichText(blocks: string[] | undefined): string {
     parts.push(plain);
   }
   return parts.join("\n\n").trim();
+}
+
+function hebrewRatio(text: string): number {
+  let he = 0;
+  let letters = 0;
+  for (const ch of text) {
+    if (/\p{L}/u.test(ch)) {
+      letters += 1;
+      if (ch >= "\u0590" && ch <= "\u05FF") he += 1;
+    }
+  }
+  return letters ? he / letters : 0;
+}
+
+function dropWrongScriptLines(plain: string, lang: (typeof LANGS)[number]): string {
+  const kept: string[] = [];
+  for (const line of plain.split("\n")) {
+    const t = line.trim();
+    if (!t) {
+      kept.push("");
+      continue;
+    }
+    const ratio = hebrewRatio(t);
+    if (lang !== "he" && ratio > 0.35) continue;
+    kept.push(line.replace(/[ \t]+$/g, ""));
+  }
+  return kept.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function plainTextFromHtml(input: string): string {
+  if (!input) return "";
+  let s = input;
+  if (!/[<>]/.test(s)) return s.replace(/\u200b/g, "").trim();
+  s = s.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, "");
+  s = s.replace(/<br\s*\/?>\s*/gi, "\n");
+  s = s.replace(/<\/(p|div|h[1-6]|li)>/gi, "\n\n");
+  s = s.replace(/<[^>]+>/g, "");
+  s = s
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/\u200b/g, "");
+  const markers = [
+    "יצירת קשר",
+    "Contact Us",
+    "making contact",
+    "שעות פתיחה",
+    "Opening Hour",
+    "opening hours",
+    "© Copyright",
+    "cal@ddc.co.il",
+    "mailto:",
+    "Related Products",
+    "Related Items",
+    "מוצרים קשורים",
+  ];
+  const parts: string[] = [];
+  for (const block of s.split(/\n\s*\n/)) {
+    const t = block
+      .split("\n")
+      .map((line) => line.replace(/[ \t]+/g, " ").trim())
+      .join("\n")
+      .trim();
+    if (!t) continue;
+    if (markers.some((m) => t.toLowerCase().includes(m.toLowerCase()))) break;
+    parts.push(t);
+  }
+  return parts.join("\n\n").trim();
+}
+
+/** Prefer full HTML from the static content files; store plain text for admin editing. */
+function pageBodyFromContent(content: ContentPage | null): string {
+  if (!content) return "";
+  const html = (content.content_html || "").trim();
+  const fromRich = bodyFromRichText(content.rich_text);
+  const source = html.length >= 40 && html.length >= fromRich.length ? html : fromRich || html;
+  return plainTextFromHtml(source);
+}
+
+/**
+ * Match live product pages: use content_html (keeps EN/HE line breaks), cut related/footer,
+ * drop the duplicate heading block for non-ES, and remove wrong-script lines.
+ */
+function productBodyFromContent(content: ContentPage | null, lang: (typeof LANGS)[number]): string {
+  if (!content) return "";
+  if (lang === "es") {
+    // Live ES pages are built from rich_text (content_html is often still English).
+    const fromRich = bodyFromRichText(content.rich_text);
+    if (fromRich) return dropWrongScriptLines(fromRich.replace(/\n{3,}/g, "\n\n"), lang);
+  }
+  let html = (content.content_html || "").trim();
+  if (html) {
+    const relatedSplit = html.split(/<div class="rich-text">/i);
+    if (relatedSplit.length > 1) {
+      const kept: string[] = [];
+      for (let i = 0; i < relatedSplit.length; i++) {
+        const part = relatedSplit[i];
+        if (i === 0) {
+          if (part.trim()) kept.push(part);
+          continue;
+        }
+        const block = '<div class="rich-text">' + part;
+        const plain = block.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+        if (/related\s+products|related\s+items|מוצרים קשורים|productos relacionados/i.test(plain)) break;
+        if (FOOTER_MARKERS.some((m) => plain.toLowerCase().includes(m.toLowerCase()))) break;
+        kept.push(block);
+      }
+      html = kept.join("");
+    }
+    if (lang !== "es") {
+      html = html.replace(/<div class="rich-text"><h[1-3][^>]*>[\s\S]*?<\/h[1-3]><\/div>\s*/i, "");
+    }
+    return dropWrongScriptLines(plainTextFromHtml(html), lang);
+  }
+  const fromRich = bodyFromRichText(content.rich_text);
+  return dropWrongScriptLines(fromRich, lang);
 }
 
 function clientsFromRichText(blocks: string[] | undefined, title: string): string[] {
@@ -274,7 +411,7 @@ async function seed() {
         sortOrder: i,
         heroImageUrl: SOLUTION_IMAGES[slug] || "",
       })
-      .returning({ id: solutions.id });
+      .returning();
     solutionIds.set(slug, row.id);
     for (const lang of LANGS) {
       await db.insert(solutionTranslations).values({
@@ -282,7 +419,8 @@ async function seed() {
         lang,
         title: SOLUTION_LABELS[lang][slug] || slug,
         lead: "",
-        body: bodyFromRichText(readJson<ContentPage>(path.join(CONTENT, lang, `${slug}.json`))?.rich_text),
+        // Home-screen description; filled from live snapshot / admin (not scraped body).
+        body: "",
       });
     }
   }
@@ -295,53 +433,112 @@ async function seed() {
     const [row] = await db
       .insert(products)
       .values({ slug, sortOrder: i })
-      .returning({ id: products.id });
+      .returning();
     productIds.set(slug, row.id);
 
     for (const lang of LANGS) {
       const page = readJson<ContentPage>(path.join(CONTENT, lang, `${slug}.json`));
+      const body = productBodyFromContent(page, lang);
       await db.insert(productTranslations).values({
         productId: row.id,
         lang,
         title: cleanTitle(page?.title || slug),
-        description: page?.description || "",
-        body: bodyFromRichText(page?.rich_text),
+        description: shortSeoDescription(page?.description, body),
+        body,
       });
     }
 
     const enPage = readJson<ContentPage>(path.join(CONTENT, "en", `${slug}.json`));
     let sort = 0;
-    if (enPage?.og_image) {
-      await db.insert(productMedia).values({
-        productId: row.id,
-        kind: "hero",
-        url: enPage.og_image.startsWith("http") || enPage.og_image.startsWith("/")
-          ? enPage.og_image
-          : `/assets/images/${enPage.og_image}`,
-        alt: "",
-        sortOrder: sort++,
-      });
+    const mediaExport = readJson<Record<string, Array<{ kind?: string; url?: string; alt?: string; label?: string }>>>(
+      path.join(REPO_ROOT, "cms/data/product-media-by-slug.json"),
+    );
+    const curated = mediaExport?.[slug];
+    if (curated?.length) {
+      for (const img of curated) {
+        if (!img.url) continue;
+        await db.insert(productMedia).values({
+          productId: row.id,
+          kind: img.kind || (sort === 0 ? "hero" : "image"),
+          url: img.url,
+          urlHe: "",
+          urlEn: "",
+          urlEs: "",
+          alt: img.alt || "",
+          label: img.label || img.alt || "",
+          sortOrder: sort++,
+          enabled: true,
+          enabledHe: true,
+          enabledEn: true,
+          enabledEs: true,
+        });
+      }
+    } else {
+      // Fallback: only keep gallery-like images (drop scraped UI junk).
+      const junkName = /home-content|screen-shot|screen%20shot|flag-|bullet_ball/i;
+      if (enPage?.og_image && !junkName.test(enPage.og_image)) {
+        await db.insert(productMedia).values({
+          productId: row.id,
+          kind: "hero",
+          url: enPage.og_image.startsWith("http") || enPage.og_image.startsWith("/")
+            ? enPage.og_image
+            : `/assets/images/${enPage.og_image}`,
+          urlHe: "",
+          urlEn: "",
+          urlEs: "",
+          alt: "",
+          sortOrder: sort++,
+          enabled: true,
+          enabledHe: true,
+          enabledEn: true,
+          enabledEs: true,
+        });
+      }
+      for (const img of enPage?.images || []) {
+        if (!img.src || junkName.test(img.src) || junkName.test(img.alt || "")) continue;
+        if (/^screen/i.test(img.alt || "") || /Screen/.test(img.src)) continue;
+        await db.insert(productMedia).values({
+          productId: row.id,
+          kind: sort === 0 ? "hero" : "image",
+          url: img.src,
+          urlHe: "",
+          urlEn: "",
+          urlEs: "",
+          alt: img.alt || "",
+          label: img.alt || "",
+          sortOrder: sort++,
+          enabled: true,
+          enabledHe: true,
+          enabledEn: true,
+          enabledEs: true,
+        });
+      }
     }
-    for (const img of enPage?.images || []) {
-      if (!img.src) continue;
-      await db.insert(productMedia).values({
-        productId: row.id,
-        kind: "image",
-        url: img.src,
-        alt: img.alt || "",
-        sortOrder: sort++,
-      });
-    }
-    for (const doc of enPage?.documents || []) {
-      const url = doc.file ? `/assets/documents/${doc.file}` : doc.url || "";
+    // Prefer Hebrew content documents (canonical labels).
+    const hePage = readJson<ContentPage>(path.join(CONTENT, "he", `${slug}.json`));
+    for (const doc of hePage?.documents || enPage?.documents || []) {
+      const file = doc.file || "";
+      const url = file ? `/assets/documents/${file}` : doc.url || "";
       if (!url) continue;
+      const label = doc.label || "";
+      const kind =
+        label.includes("שרטוט") || label.toLowerCase().includes("schematic") || file.includes("sketch")
+          ? "schematic"
+          : "document";
       await db.insert(productMedia).values({
         productId: row.id,
-        kind: "document",
+        kind,
         url,
-        label: doc.label || "",
+        urlHe: "",
+        urlEn: "",
+        urlEs: "",
+        label: kind === "schematic" ? "Schematics" : "Download Docs",
         alt: "",
         sortOrder: sort++,
+        enabled: true,
+        enabledHe: true,
+        enabledEn: true,
+        enabledEs: true,
       });
     }
   }
@@ -371,16 +568,11 @@ async function seed() {
   const industryIds = new Map<string, number>();
   for (let i = 0; i < INDUSTRY_SLUGS.length; i++) {
     const slug = INDUSTRY_SLUGS[i];
-    const enPage = readJson<ContentPage>(path.join(CONTENT, "en", `${slug}.json`));
-    const hero =
-      enPage?.images?.find((im) => im.src)?.src ||
-      (slug === "public-buildings"
-        ? "/assets/images/813b164e6ecd49b0b09f5f9913d34577.jpg"
-        : "");
+    const hero = INDUSTRY_IMAGES[slug] || "";
     const [row] = await db
       .insert(industries)
       .values({ slug, sortOrder: i, heroImageUrl: hero })
-      .returning({ id: industries.id });
+      .returning();
     industryIds.set(slug, row.id);
 
     for (const lang of LANGS) {
@@ -396,9 +588,9 @@ async function seed() {
     }
   }
 
-  // Pages: about, home, contact, industries framing
-  for (const key of ["about", "home", "contact", "industries"] as const) {
-    const [page] = await db.insert(pages).values({ key }).returning({ id: pages.id });
+  // Pages: about only (contact is form + Settings; industries has its own section)
+  for (const key of ["about"] as const) {
+    const [page] = await db.insert(pages).values({ key }).returning();
     for (const lang of LANGS) {
       const fileSlug = key === "home" ? "index" : key;
       const content = readJson<ContentPage>(path.join(CONTENT, lang, `${fileSlug}.json`));
@@ -406,7 +598,7 @@ async function seed() {
         pageId: page.id,
         lang,
         title: cleanTitle(content?.title || key),
-        body: bodyFromRichText(content?.rich_text),
+        body: pageBodyFromContent(content),
       });
     }
   }

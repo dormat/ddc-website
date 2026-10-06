@@ -1,0 +1,26 @@
+[
+  {
+    "id": "lt22",
+    "label": "LT22",
+    "subtitle": "מונה אנרגיה ELNet",
+    "productName": "מונה אנרגיה ELNet LT22"
+  },
+  {
+    "id": "mc8",
+    "label": "MC8",
+    "subtitle": "שמונה מדי אנרגיה תלת-פאזיים",
+    "productName": "מונה אנרגיה ELNet MC8"
+  },
+  {
+    "id": "pfc",
+    "label": "PFC",
+    "subtitle": "בקר מקדם הספק",
+    "productName": "בקר מקדם הספק ELNet PFC"
+  },
+  {
+    "id": "pfc10",
+    "label": "PFC10",
+    "subtitle": "בקר מקדם הספק ומד אנרגיה",
+    "productName": "בקר מקדם הספק ומד אנרגיה ELNet PFC10"
+  }
+]

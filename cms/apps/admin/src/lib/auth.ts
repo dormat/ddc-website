@@ -1,10 +1,20 @@
 import { cookies } from "next/headers";
 import { createHmac, timingSafeEqual } from "node:crypto";
+import * as bundled from "./credentials.server";
 
-const COOKIE = "ddc_admin_session";
+const COOKIE = "__session";
+
+function creds() {
+  return {
+    username: bundled.username || process.env.ADMIN_USERNAME || "AdminDDC",
+    password: bundled.password || process.env.ADMIN_PASSWORD || "6474998",
+    sessionSecret:
+      bundled.sessionSecret || process.env.SESSION_SECRET || "ddc-session-secret-change-in-prod-2026",
+  };
+}
 
 function secret() {
-  return process.env.SESSION_SECRET || "dev-insecure-secret";
+  return creds().sessionSecret;
 }
 
 export function signSession(username: string): string {
@@ -31,9 +41,8 @@ export function verifySession(token: string | undefined): boolean {
       t?: number;
     };
     if (!data.u || !data.t) return false;
-    // 14 days
     if (Date.now() - data.t > 14 * 24 * 60 * 60 * 1000) return false;
-    return data.u === (process.env.ADMIN_USERNAME || "admin");
+    return data.u === creds().username;
   } catch {
     return false;
   }
@@ -61,7 +70,6 @@ export async function clearSessionCookie() {
 }
 
 export function checkCredentials(username: string, password: string): boolean {
-  const u = process.env.ADMIN_USERNAME || "admin";
-  const p = process.env.ADMIN_PASSWORD || "changeme";
-  return username === u && password === p;
+  const c = creds();
+  return username.trim() === c.username && password === c.password;
 }

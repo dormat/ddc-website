@@ -8,4 +8,5 @@ packages/db/node_modules/
 packages/db/dist/
 .env
 .env.local
+credentials.json
 *.log

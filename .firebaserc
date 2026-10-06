@@ -1,7 +1,8 @@
 {
   "projects": {
     "default": "harokdim",
-    "harokdim": "harokdim"
+    "harokdim": "harokdim",
+    "control-applications-ddc": "control-applications-ddc"
   },
   "targets": {
     "harokdim": {
@@ -18,6 +19,29 @@
         "ddc-admin": [
           "ddc-admin"
         ]
+      }
+    },
+    "control-applications-ddc": {
+      "hosting": {
+        "ddc-temp": [
+          "control-applications-ddc"
+        ],
+        "ddc-temp2": [
+          "control-applications-preview"
+        ],
+        "ddc-cms": [
+          "control-applications-cms"
+        ],
+        "ddc-admin": [
+          "control-applications-admin"
+        ]
+      }
+    }
+  },
+  "etags": {
+    "control-applications-ddc": {
+      "extensionInstances": {
+        "firestore-send-email": "58475a06e5f497c0e0b2b124dd69e2086c9c0f227f905e7acdb6e3b7f3e60c03"
       }
     }
   }

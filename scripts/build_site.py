@@ -56,6 +56,16 @@ from document_assets import (
     local_document_path,
     rewrite_document_url,
 )
+from cms_overlay import (
+    apply_cms_overrides,
+    cms_product,
+    industry_clients_from_cms,
+    industry_hero_from_cms,
+    industry_title_from_cms,
+    merge_cms_into_product_page,
+    merge_cms_into_site_page,
+    solution_home_description_from_cms,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content"
@@ -461,6 +471,58 @@ def write_search_index(lang: str, records: list[dict]) -> None:
     out = SITE_DIR / lang / "search-index.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(records, ensure_ascii=False, indent=0), encoding="utf-8")
+
+
+def _assistant_product_category(prod: dict) -> str:
+    keys = product_subcategory_keys(prod)
+    for ordered in PRODUCT_SUBCATEGORY_ORDER:
+        if ordered in keys:
+            return ordered
+    return keys[0] if keys else "אחר"
+
+
+def write_assistant_products() -> None:
+    """Emit searchable product catalog for the Hebrew contact assistant."""
+    catalog = load_product_catalog("he")
+    by_category: dict[str, list[dict]] = {}
+    for prod in catalog:
+        title = str(prod.get("title") or "").strip()
+        if not title:
+            continue
+        category = _assistant_product_category(prod)
+        by_category.setdefault(category, []).append(
+            {
+                "slug": str(prod.get("slug") or "").strip(),
+                "title": title,
+                "subcategory": category,
+            }
+        )
+
+    categories: list[dict] = []
+    for ordered in PRODUCT_SUBCATEGORY_ORDER:
+        items = by_category.pop(ordered, None)
+        if not items:
+            continue
+        items.sort(key=lambda item: item["title"])
+        categories.append({"category": ordered, "products": items})
+    for category in sorted(by_category.keys()):
+        items = by_category[category]
+        items.sort(key=lambda item: item["title"])
+        categories.append({"category": category, "products": items})
+
+    payload = {
+        "categories": categories,
+        "otherLabel": "אחר",
+    }
+    js = (
+        "window.LT22_ASSISTANT_PRODUCTS = "
+        + json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+        + ";\n"
+    )
+    out = ROOT / "assets" / "js" / "assistant-products.js"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(js, encoding="utf-8")
+    print(f"Wrote assistant product catalog ({sum(len(c['products']) for c in categories)} products)")
 
 
 def render_logo(lang: str) -> str:
@@ -929,9 +991,43 @@ def render_contact_page(lang: str) -> str:
     lbl = contact_field_labels(lang)
     copy = CONTACT_FORM_COPY[lang]
     form_action = f"https://formsubmit.co/ajax/{CONTACT['formsubmit_id']}"
+    assistant = ""
+    if lang == "he":
+        assistant = """
+  <section class="lt22-assistant" id="lt22-assistant" aria-labelledby="lt22-assistant-title">
+    <header class="lt22-header">
+      <div class="lt22-avatar" aria-hidden="true"></div>
+      <div class="lt22-header-copy">
+        <h2 class="lt22-assistant-title" id="lt22-assistant-title">קאל - מומחה לחשמל</h2>
+        <p class="lt22-status"><span class="lt22-status-dot" aria-hidden="true"></span>זמין לעזור עכשיו</p>
+      </div>
+    </header>
+    <p class="lt22-assistant-intro">שאלו על מסכים, מקשים והגדרות של המוצרים שלנו. אם אין תשובה, הטופס שבהמשך העמוד מגיע אלינו.</p>
+    <div class="lt22-start" id="lt22-start">
+      <button type="button" class="btn btn-submit" id="lt22-start-button">התחלת שיחה</button>
+    </div>
+    <div class="lt22-chat" id="lt22-chat" hidden>
+      <div class="lt22-log" id="lt22-log" aria-live="polite"></div>
+      <div class="lt22-suggestions" id="lt22-suggestions" hidden></div>
+      <form class="lt22-composer" id="lt22-composer">
+        <p class="lt22-photo-name" id="lt22-photo-name" hidden></p>
+        <div class="lt22-composer-row">
+          <button type="button" class="lt22-photo-button" id="lt22-photo-button" aria-label="צרפו תמונה" title="צרפו תמונה" hidden>+</button>
+          <textarea id="lt22-input" rows="1" maxlength="2000" placeholder="…" disabled></textarea>
+          <button type="submit" class="lt22-send" aria-label="שליחה" disabled>
+            <span aria-hidden="true">↑</span>
+          </button>
+          <button type="button" class="lt22-restart-inline" id="lt22-restart-inline" aria-label="התחלה מחדש" title="התחלה מחדש">↻</button>
+        </div>
+        <input type="file" id="lt22-photo" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
+      </form>
+    </div>
+    <p class="lt22-error" id="lt22-error" hidden></p>
+  </section>"""
     return f"""<article class="page-content contact-page">
   <h1 class="page-title">{html.escape(copy['title'])}</h1>
   <p class="contact-intro">{html.escape(copy['intro'])}</p>
+  {assistant}
   <div class="contact-layout">
     <form
       class="contact-form"
@@ -1462,7 +1558,8 @@ def render_home_solution_media(
     teaser_sentences: int,
 ) -> str:
     label = SOLUTION_LABELS[lang][slug]
-    teaser = first_sentences(SOLUTION_FRAMING[lang][slug], teaser_sentences)
+    cms_home = solution_home_description_from_cms(slug, lang)
+    teaser = cms_home if cms_home is not None else first_sentences(SOLUTION_FRAMING[lang][slug], teaser_sentences)
     more = html.escape(HOME_UI[lang]["learn_more"])
     teaser_html = f'<p class="home-icon-text">{html.escape(teaser)}</p>' if teaser else ""
     return (
@@ -1499,7 +1596,8 @@ def render_home_solution_group_visual(group_id: str) -> str:
 
 def render_home_solution_group_item(lang: str, slug: str, index: int) -> str:
     label = html.escape(SOLUTION_LABELS[lang][slug])
-    teaser = html.escape(first_sentences(SOLUTION_FRAMING[lang][slug], 1))
+    cms_home = solution_home_description_from_cms(slug, lang)
+    teaser = html.escape(cms_home if cms_home is not None else first_sentences(SOLUTION_FRAMING[lang][slug], 1))
     more = html.escape(HOME_UI[lang]["learn_more"])
     teaser_html = (
         f'<span class="home-solution-group-item-text">{teaser}</span>' if teaser else ""
@@ -2051,7 +2149,8 @@ def load_product_page(slug: str, lang: str) -> dict | None:
         page = json.loads(path.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return None
-    return merge_product_page_documents(page, slug, lang)
+    page = merge_product_page_documents(page, slug, lang)
+    return merge_cms_into_product_page(page, slug, lang)
 
 
 def product_thumbnail_src(slug: str, lang: str, fallback: str = "") -> str:
@@ -3160,11 +3259,19 @@ def render_product_documents(page: dict, lang: str) -> str:
 def render_product_detail_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     page = merge_product_page_documents(page, slug, lang)
+    merged = merge_cms_into_product_page(page, slug, lang)
+    if merged is None:
+        # Product disabled in CMS for this language.
+        return ""
+    page = merged
     display_title = product_display_title(page)
     raw = page.get("content_html", "")
     text_part, figures = split_figures(raw)
     text_part = split_content_before_related(text_part)
-    if lang == "es":
+    # Prefer CMS plain-text bodies already converted to one-line paragraphs.
+    if "product-desc-line" in (raw or ""):
+        content = text_part
+    elif lang == "es":
         content = product_description_from_rich_text(page)
         if rich_html_plain_len(content) < 80:
             meta_content = product_description_from_meta(page)
@@ -3175,7 +3282,7 @@ def render_product_detail_page(page: dict, lang: str) -> str:
     else:
         content = clean_rich_html(filter_product_description(text_part, slug))
 
-    if lang != "es":
+    if lang != "es" and "product-desc-line" not in content:
         content = re.sub(
             r'<div class="rich-text"><h[1-3][^>]*>.*?</h[1-3]></div>\s*',
             "",
@@ -3187,7 +3294,25 @@ def render_product_detail_page(page: dict, lang: str) -> str:
     catalog = load_product_catalog(lang)
     slug_index = build_slug_index(lang)
     title_index = build_title_index(lang)
-    heroes, screens = collect_product_gallery(page, figures)
+    # When CMS provides carousel media, use it exactly (admin media === slider).
+    cms_media = []
+    row = cms_product(slug)
+    if row:
+        cms_media = [
+            {
+                "src": (m.get("url") or "").strip(),
+                "alt": (m.get("label") or m.get("alt") or display_title),
+            }
+            for m in (row.get("media") or [])
+            if (m.get("kind") or "").lower() in {"hero", "image", "gallery"}
+            and (m.get("url") or "").strip()
+            and m.get("enabled", True) is not False
+            and m.get({"he": "enabledHe", "en": "enabledEn", "es": "enabledEs"}[lang], True) is not False
+        ]
+    if cms_media:
+        heroes, screens = cms_media, []
+    else:
+        heroes, screens = collect_product_gallery(page, figures)
     related = collect_related_products(page, lang, catalog, slug_index, title_index)
 
     carousel_html = render_product_carousel(heroes, display_title)
@@ -3915,9 +4040,17 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 
     raw = page.get("content_html", "")
     _, figures = split_figures(raw)
-    hero = find_project_hero_image(page, figures, img_key, slug)
-    site_list = extract_project_site_list(page, title)
-    list_html = render_project_site_list(site_list)
+    cms_hero = industry_hero_from_cms(slug)
+    if cms_hero:
+        hero = {"src": cms_hero, "alt": ""}
+    else:
+        hero = find_project_hero_image(page, figures, img_key, slug)
+    cms_clients = industry_clients_from_cms(slug, lang)
+    if cms_clients is not None:
+        list_html = render_project_site_list(cms_clients) if cms_clients else ""
+    else:
+        site_list = extract_project_site_list(page, title)
+        list_html = render_project_site_list(site_list)
 
     hero_src = rewrite_image_url(hero.get("src", "")) if hero.get("src") else ""
 
@@ -4124,16 +4257,24 @@ def render_hero(lang: str, page: dict) -> str:
 
 def render_industry_block(lang: str, proj: dict) -> str:
     slug = proj["slug"]
-    title = proj["title"]
+    title = industry_title_from_cms(slug, lang) or proj["title"]
     page = load_project_page(lang, slug)
     if not page:
         page = {"slug": slug, "title": title, "rich_text": [], "content_html": "", "images": []}
     page = merge_project_page_images(page, slug)
     raw = page.get("content_html", "")
     _, figures = split_figures(raw)
-    hero = find_project_hero_image(page, figures, proj["img"], slug)
-    site_list = extract_project_site_list(page, title)
-    list_html = render_project_site_list(site_list)
+    cms_hero = industry_hero_from_cms(slug)
+    if cms_hero:
+        hero = {"src": cms_hero, "alt": ""}
+    else:
+        hero = find_project_hero_image(page, figures, proj["img"], slug)
+    cms_clients = industry_clients_from_cms(slug, lang)
+    if cms_clients is not None:
+        list_html = render_project_site_list(cms_clients) if cms_clients else ""
+    else:
+        site_list = extract_project_site_list(page, title)
+        list_html = render_project_site_list(site_list)
     hero_src = rewrite_image_url(hero.get("src", "")) if hero.get("src") else ""
     media = (
         f'<div class="industry-block-media" style="background-image:url(\'{hero_src}\')" role="img" aria-label="{html.escape(title)}"></div>'
@@ -4257,11 +4398,44 @@ def render_page_body(lang: str, page: dict) -> str:
 </article>"""
 
 
+def _first_plain_line(text: str) -> str:
+    for line in (text or "").replace("\r\n", "\n").split("\n"):
+        t = line.strip()
+        if t:
+            return t
+    return ""
+
+
+def page_meta_description(page: dict) -> str:
+    """SEO meta only. Prefer an explicit short description; else first body line."""
+    raw = (page.get("description") or "").strip()
+    if raw and "\n" not in raw and len(raw) <= 220:
+        return raw
+    if raw:
+        # Scraped descriptions are often multi-line feature lists — use first line only.
+        first = _first_plain_line(raw)
+        if first:
+            return first[:220]
+    rich = page.get("rich_text")
+    if isinstance(rich, list) and rich:
+        first = _first_plain_line("\n".join(str(x) for x in rich))
+        if first:
+            return first[:220]
+    html_body = page.get("content_html") or ""
+    if html_body:
+        plain = re.sub(r"<br\s*/?>", "\n", html_body, flags=re.I)
+        plain = re.sub(r"<[^>]+>", " ", plain)
+        first = _first_plain_line(html.unescape(plain))
+        if first:
+            return first[:220]
+    return ""
+
+
 def render_page(lang: str, page: dict) -> str:
     cfg = SITE_CONFIG[lang]
     slug = page.get("slug", "")
     title = page.get("title") or cfg["brand"]
-    description = "" if slug == "" else page.get("description", "")
+    description = "" if slug == "" else page_meta_description(page)
     hero = render_hero(lang, page)
     body = render_page_body(lang, page)
     page_title = homepage_display_title(page, lang) if slug == "" else title
@@ -4276,7 +4450,7 @@ def render_page(lang: str, page: dict) -> str:
   <link rel="icon" href="{asset_path('images/favicon.png')}" type="image/png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{asset_path('css/main.css')}"/>
 </head>
 <body class="lang-{lang}">
@@ -4299,6 +4473,8 @@ def render_page(lang: str, page: dict) -> str:
   </main>
   {render_footer(lang)}
   <script src="{asset_path('js/main.js')}"></script>
+  <script src="{asset_path('js/cms-live.js')}" defer></script>
+  {f'<script src="{asset_path("js/assistant-products.js")}" defer></script><script src="{asset_path("js/lt22-assistant.js")}" defer></script>' if lang == "he" and slug == "contact" else ''}
 </body>
 </html>"""
 
@@ -4321,6 +4497,7 @@ def build_language(lang: str) -> int:
                 continue
             page = json.loads(json_path.read_text(encoding="utf-8"))
             page["slug"] = ""
+            page = merge_cms_into_site_page(page, "home", lang)
             out_dir = out_base
         else:
             stem = resolve_source_file(lang, slug, content_dir) or slug
@@ -4329,6 +4506,7 @@ def build_language(lang: str) -> int:
                 continue
             page = json.loads(json_path.read_text(encoding="utf-8"))
             page["slug"] = slug
+            page = merge_cms_into_site_page(page, slug, lang)
             out_dir = out_base / slug
 
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -4368,6 +4546,200 @@ def build_path_redirects() -> None:
         (out_dir / "index.html").write_text(html, encoding="utf-8")
 
 
+def write_csat_pages() -> None:
+    """Public CSAT form (token-gated, no login). Hebrew primary; English stub."""
+    css = asset_path("css/main.css")
+    favicon = asset_path("images/favicon.png")
+    logo = asset_path("images/logo.png")
+    fonts = (
+        "https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700"
+        "&family=IBM+Plex+Sans:wght@400;600&display=swap"
+    )
+
+    he_html = f"""<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="noindex"/>
+  <title>משוב שירות | ישומי בקרה</title>
+  <link rel="icon" href="{favicon}" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="{fonts}" rel="stylesheet"/>
+  <link rel="stylesheet" href="{css}"/>
+</head>
+<body class="lang-he csat-page">
+  <main class="csat-shell">
+    <header class="csat-brand">
+      <a href="/he/"><img src="{logo}" alt="ישומי בקרה" width="160" height="48"/></a>
+    </header>
+    <section class="csat-card" id="csat-root" aria-live="polite">
+      <p class="csat-loading" id="csat-loading">טוענים…</p>
+      <div id="csat-form-wrap" hidden>
+        <h1>איך היה השירות?</h1>
+        <p class="csat-lead" id="csat-lead">נשמח למשוב קצר.</p>
+        <form id="csat-form" class="csat-form">
+          <fieldset class="csat-thumbs">
+            <legend>האם הבעיה נפתרה?</legend>
+            <label><input type="radio" name="resolved" value="1" required/> 👍 כן</label>
+            <label><input type="radio" name="resolved" value="0"/> 👎 לא</label>
+          </fieldset>
+          <fieldset class="csat-stars">
+            <legend>דירוג כללי</legend>
+            <div class="csat-star-row" role="radiogroup" aria-label="דירוג 1 עד 5">
+              <label><input type="radio" name="rating" value="1" required/> 1</label>
+              <label><input type="radio" name="rating" value="2"/> 2</label>
+              <label><input type="radio" name="rating" value="3"/> 3</label>
+              <label><input type="radio" name="rating" value="4"/> 4</label>
+              <label><input type="radio" name="rating" value="5"/> 5</label>
+            </div>
+          </fieldset>
+          <label class="csat-comment">
+            הערה (אופציונלי)
+            <textarea name="comment" rows="3" maxlength="2000" placeholder="מה אפשר לשפר?"></textarea>
+          </label>
+          <p class="csat-error" id="csat-error" hidden></p>
+          <button type="submit" class="btn btn-submit">שליחת משוב</button>
+        </form>
+      </div>
+      <div id="csat-done" hidden>
+        <h1>תודה!</h1>
+        <p>המשוב נשמר. אפשר לסגור את העמוד.</p>
+      </div>
+      <div id="csat-already" hidden>
+        <h1>כבר קיבלנו משוב</h1>
+        <p>תודה — המשוב עבור הפנייה הזו כבר נשלח.</p>
+      </div>
+      <div id="csat-bad" hidden>
+        <h1>הקישור לא תקין</h1>
+        <p id="csat-bad-msg">נסו לפתוח שוב את הקישור מהמייל, או פנו ל־service@ddc.co.il.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+  (function () {{
+    var params = new URLSearchParams(location.search);
+    var token = params.get("t") || "";
+    var apiBase = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+      ? "http://127.0.0.1:8081" : "";
+    var loading = document.getElementById("csat-loading");
+    var formWrap = document.getElementById("csat-form-wrap");
+    var form = document.getElementById("csat-form");
+    var lead = document.getElementById("csat-lead");
+    var err = document.getElementById("csat-error");
+    var done = document.getElementById("csat-done");
+    var already = document.getElementById("csat-already");
+    var bad = document.getElementById("csat-bad");
+    var badMsg = document.getElementById("csat-bad-msg");
+
+    function show(el) {{
+      loading.hidden = true;
+      formWrap.hidden = true;
+      done.hidden = true;
+      already.hidden = true;
+      bad.hidden = true;
+      el.hidden = false;
+    }}
+
+    function fail(message) {{
+      if (message) badMsg.textContent = message;
+      show(bad);
+    }}
+
+    if (!token) {{
+      fail("חסר מזהה בקישור.");
+      return;
+    }}
+
+    fetch(apiBase + "/api/assistant/csat?t=" + encodeURIComponent(token))
+      .then(function (r) {{ return r.json().then(function (d) {{ return {{ ok: r.ok, d: d }}; }}); }})
+      .then(function (res) {{
+        if (!res.ok) {{
+          fail((res.d && res.d.error) || "לא הצלחנו לפתוח את הטופס.");
+          return;
+        }}
+        if (res.d.alreadySubmitted) {{
+          show(already);
+          return;
+        }}
+        if (res.d.name) {{
+          lead.textContent = res.d.name + ", נשמח למשוב קצר על השירות.";
+        }}
+        show(formWrap);
+      }})
+      .catch(function () {{ fail("בעיית רשת. נסו שוב."); }});
+
+    form.addEventListener("submit", function (event) {{
+      event.preventDefault();
+      err.hidden = true;
+      var fd = new FormData(form);
+      var resolved = fd.get("resolved") === "1";
+      var rating = Number(fd.get("rating") || 0);
+      var comment = String(fd.get("comment") || "").trim();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      fetch(apiBase + "/api/assistant/csat", {{
+        method: "POST",
+        headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{ token: token, resolved: resolved, rating: rating, comment: comment }})
+      }})
+        .then(function (r) {{ return r.json().then(function (d) {{ return {{ ok: r.ok, d: d }}; }}); }})
+        .then(function (res) {{
+          if (!res.ok) {{
+            err.hidden = false;
+            err.textContent = (res.d && res.d.error) || "שליחה נכשלה.";
+            btn.disabled = false;
+            return;
+          }}
+          if (res.d.alreadySubmitted) show(already);
+          else show(done);
+        }})
+        .catch(function () {{
+          err.hidden = false;
+          err.textContent = "בעיית רשת. נסו שוב.";
+          btn.disabled = false;
+        }});
+    }});
+  }})();
+  </script>
+</body>
+</html>"""
+
+    en_html = f"""<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="noindex"/>
+  <title>Service feedback | Control Applications</title>
+  <link rel="icon" href="{favicon}" type="image/png"/>
+  <link rel="stylesheet" href="{css}"/>
+</head>
+<body class="lang-en csat-page">
+  <main class="csat-shell">
+    <section class="csat-card">
+      <h1>Service feedback</h1>
+      <p>Please use the Hebrew feedback link from your email, or open
+        <a id="csat-en-link" href="/he/csat/">the feedback form</a>.</p>
+    </section>
+  </main>
+  <script>
+  (function () {{
+    var a = document.getElementById("csat-en-link");
+    if (a) a.href = "/he/csat/" + (location.search || "");
+  }})();
+  </script>
+</body>
+</html>"""
+
+    for lang, html in (("he", he_html), ("en", en_html)):
+        out_dir = SITE_DIR / lang / "csat"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
+        print(f"  Built: /{lang}/csat/")
+
+
 def copy_assets() -> None:
     assets_src = ROOT / "assets"
     assets_dst = SITE_DIR / "assets"
@@ -4388,9 +4760,18 @@ def main():
     build_image_aliases.main()
     clear_aliases_cache()
 
+    apply_cms_overrides(
+        solution_labels=SOLUTION_LABELS,
+        solution_framing=SOLUTION_FRAMING,
+        industry_offers=INDUSTRY_OFFERS,
+        contact=CONTACT,
+    )
+
     SITE_DIR.mkdir(parents=True, exist_ok=True)
+    write_assistant_products()
     copy_assets()
     build_path_redirects()
+    write_csat_pages()
 
     total = 0
     for lang in SITE_CONFIG:

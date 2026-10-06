@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="noindex"/>
+  <title>משוב שירות | ישומי בקרה</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/main.css?v=af573898c2"/>
+</head>
+<body class="lang-he csat-page">
+  <main class="csat-shell">
+    <header class="csat-brand">
+      <a href="/he/"><img src="/assets/images/logo.png" alt="ישומי בקרה" width="160" height="48"/></a>
+    </header>
+    <section class="csat-card" id="csat-root" aria-live="polite">
+      <p class="csat-loading" id="csat-loading">טוענים…</p>
+      <div id="csat-form-wrap" hidden>
+        <h1>איך היה השירות?</h1>
+        <p class="csat-lead" id="csat-lead">נשמח למשוב קצר.</p>
+        <form id="csat-form" class="csat-form">
+          <fieldset class="csat-thumbs">
+            <legend>האם הבעיה נפתרה?</legend>
+            <label><input type="radio" name="resolved" value="1" required/> 👍 כן</label>
+            <label><input type="radio" name="resolved" value="0"/> 👎 לא</label>
+          </fieldset>
+          <fieldset class="csat-stars">
+            <legend>דירוג כללי</legend>
+            <div class="csat-star-row" role="radiogroup" aria-label="דירוג 1 עד 5">
+              <label><input type="radio" name="rating" value="1" required/> 1</label>
+              <label><input type="radio" name="rating" value="2"/> 2</label>
+              <label><input type="radio" name="rating" value="3"/> 3</label>
+              <label><input type="radio" name="rating" value="4"/> 4</label>
+              <label><input type="radio" name="rating" value="5"/> 5</label>
+            </div>
+          </fieldset>
+          <label class="csat-comment">
+            הערה (אופציונלי)
+            <textarea name="comment" rows="3" maxlength="2000" placeholder="מה אפשר לשפר?"></textarea>
+          </label>
+          <p class="csat-error" id="csat-error" hidden></p>
+          <button type="submit" class="btn btn-submit">שליחת משוב</button>
+        </form>
+      </div>
+      <div id="csat-done" hidden>
+        <h1>תודה!</h1>
+        <p>המשוב נשמר. אפשר לסגור את העמוד.</p>
+      </div>
+      <div id="csat-already" hidden>
+        <h1>כבר קיבלנו משוב</h1>
+        <p>תודה — המשוב עבור הפנייה הזו כבר נשלח.</p>
+      </div>
+      <div id="csat-bad" hidden>
+        <h1>הקישור לא תקין</h1>
+        <p id="csat-bad-msg">נסו לפתוח שוב את הקישור מהמייל, או פנו ל־service@ddc.co.il.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var token = params.get("t") || "";
+    var apiBase = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+      ? "http://127.0.0.1:8081" : "";
+    var loading = document.getElementById("csat-loading");
+    var formWrap = document.getElementById("csat-form-wrap");
+    var form = document.getElementById("csat-form");
+    var lead = document.getElementById("csat-lead");
+    var err = document.getElementById("csat-error");
+    var done = document.getElementById("csat-done");
+    var already = document.getElementById("csat-already");
+    var bad = document.getElementById("csat-bad");
+    var badMsg = document.getElementById("csat-bad-msg");
+
+    function show(el) {
+      loading.hidden = true;
+      formWrap.hidden = true;
+      done.hidden = true;
+      already.hidden = true;
+      bad.hidden = true;
+      el.hidden = false;
+    }
+
+    function fail(message) {
+      if (message) badMsg.textContent = message;
+      show(bad);
+    }
+
+    if (!token) {
+      fail("חסר מזהה בקישור.");
+      return;
+    }
+
+    fetch(apiBase + "/api/assistant/csat?t=" + encodeURIComponent(token))
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          fail((res.d && res.d.error) || "לא הצלחנו לפתוח את הטופס.");
+          return;
+        }
+        if (res.d.alreadySubmitted) {
+          show(already);
+          return;
+        }
+        if (res.d.name) {
+          lead.textContent = res.d.name + ", נשמח למשוב קצר על השירות.";
+        }
+        show(formWrap);
+      })
+      .catch(function () { fail("בעיית רשת. נסו שוב."); });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      err.hidden = true;
+      var fd = new FormData(form);
+      var resolved = fd.get("resolved") === "1";
+      var rating = Number(fd.get("rating") || 0);
+      var comment = String(fd.get("comment") || "").trim();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      fetch(apiBase + "/api/assistant/csat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: token, resolved: resolved, rating: rating, comment: comment })
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (!res.ok) {
+            err.hidden = false;
+            err.textContent = (res.d && res.d.error) || "שליחה נכשלה.";
+            btn.disabled = false;
+            return;
+          }
+          if (res.d.alreadySubmitted) show(already);
+          else show(done);
+        })
+        .catch(function () {
+          err.hidden = false;
+          err.textContent = "בעיית רשת. נסו שוב.";
+          btn.disabled = false;
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

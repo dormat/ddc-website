@@ -33,7 +33,8 @@ export async function saveSolutionAction(slug: string, formData: FormData) {
     const values = {
       title: String(formData.get(`title_${lang}`) || ""),
       lead: String(formData.get(`lead_${lang}`) || ""),
-      body: String(formData.get(`body_${lang}`) || ""),
+      // Stored in `body` column — home screen description (not page body).
+      body: String(formData.get(`homeDescription_${lang}`) || formData.get(`body_${lang}`) || ""),
     };
     const [existing] = await db
       .select()

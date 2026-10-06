@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="robots" content="noindex"/>
+  <title>Service feedback | Control Applications</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
+  <link rel="stylesheet" href="/assets/css/main.css?v=af573898c2"/>
+</head>
+<body class="lang-en csat-page">
+  <main class="csat-shell">
+    <section class="csat-card">
+      <h1>Service feedback</h1>
+      <p>Please use the Hebrew feedback link from your email, or open
+        <a id="csat-en-link" href="/he/csat/">the feedback form</a>.</p>
+    </section>
+  </main>
+  <script>
+  (function () {
+    var a = document.getElementById("csat-en-link");
+    if (a) a.href = "/he/csat/" + (location.search || "");
+  })();
+  </script>
+</body>
+</html>

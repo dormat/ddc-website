@@ -1,0 +1,136 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": [
+    {
+      "target": "ddc-temp",
+      "public": "site",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/cms/public.json",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/cms/public.json/**",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/",
+          "destination": "/he/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|css|js)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "ddc-temp2",
+      "public": "site",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/",
+          "destination": "/he/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|css|js)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "ddc-cms",
+      "public": "site",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/cms/public.json",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/cms/public.json/**",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/",
+          "destination": "/he/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|css|js)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        },
+        {
+          "source": "/cms/public.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "ddc-admin",
+      "source": ".firebase-cms-stage/admin",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1",
+        "memory": "1GiB",
+        "maxInstances": 1
+      }
+    }
+  ]
+}

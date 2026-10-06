@@ -1,0 +1,697 @@
+[
+  {
+    "id": 1,
+    "title": "מבנה מסך מדידה ושורת הלחצנים",
+    "src": "/assets/assistant/pfc10/1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "תפריט",
+    "src": "/assets/assistant/pfc10/2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "הזנת מספר",
+    "src": "/assets/assistant/pfc10/3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "מבנה מסך הבקר",
+    "src": "/assets/assistant/pfc10/4.jpg"
+  },
+  {
+    "id": 5,
+    "title": "מקדם הספק נמוך– שתי דרגות ממתינות לחיבור",
+    "src": "/assets/assistant/pfc10/5.jpg"
+  },
+  {
+    "id": 6,
+    "title": "מצב קיבולי",
+    "src": "/assets/assistant/pfc10/6.jpg"
+  },
+  {
+    "id": 7,
+    "title": "הממוצעים עדיין אינם זמינים",
+    "src": "/assets/assistant/pfc10/7.jpg"
+  },
+  {
+    "id": 8,
+    "title": "עבודה על גנרטור– \"מ.הספק-\"גנרטור",
+    "src": "/assets/assistant/pfc10/8.jpg"
+  },
+  {
+    "id": 9,
+    "title": "מוני הקבלים",
+    "src": "/assets/assistant/pfc10/9.jpg"
+  },
+  {
+    "id": 10,
+    "title": "תצוגת שירות",
+    "src": "/assets/assistant/pfc10/10.jpg"
+  },
+  {
+    "id": 11,
+    "title": "תפריט בקר מקדם הספק",
+    "src": "/assets/assistant/pfc10/11.jpg"
+  },
+  {
+    "id": 12,
+    "title": "מסך המידע",
+    "src": "/assets/assistant/pfc10/12.jpg"
+  },
+  {
+    "id": 13,
+    "title": "בחירת שפה",
+    "src": "/assets/assistant/pfc10/13.jpg"
+  },
+  {
+    "id": 14,
+    "title": "התפריט הראשי",
+    "src": "/assets/assistant/pfc10/14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "תפריט מתח,זרם,תדר",
+    "src": "/assets/assistant/pfc10/15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "מתח פאזה",
+    "src": "/assets/assistant/pfc10/16.jpg"
+  },
+  {
+    "id": 17,
+    "title": "מתח שלוב",
+    "src": "/assets/assistant/pfc10/17.jpg"
+  },
+  {
+    "id": 18,
+    "title": "זרם",
+    "src": "/assets/assistant/pfc10/18.jpg"
+  },
+  {
+    "id": 19,
+    "title": "זרם בקו האפס",
+    "src": "/assets/assistant/pfc10/19.jpg"
+  },
+  {
+    "id": 20,
+    "title": "תדר",
+    "src": "/assets/assistant/pfc10/20.jpg"
+  },
+  {
+    "id": 21,
+    "title": "\"\"טבלה– מתחים וזרמים",
+    "src": "/assets/assistant/pfc10/21.jpg"
+  },
+  {
+    "id": 22,
+    "title": ")גרף מגמה (מקש אישור",
+    "src": "/assets/assistant/pfc10/22.jpg"
+  },
+  {
+    "id": 23,
+    "title": "מסך משולב– כל הערכים",
+    "src": "/assets/assistant/pfc10/23.jpg"
+  },
+  {
+    "id": 24,
+    "title": "הקשת קוד לאיפוס",
+    "src": "/assets/assistant/pfc10/24.jpg"
+  },
+  {
+    "id": 25,
+    "title": "שיא ביקוש זרם",
+    "src": "/assets/assistant/pfc10/25.jpg"
+  },
+  {
+    "id": 26,
+    "title": "תפריט הספק,מקדם הספק",
+    "src": "/assets/assistant/pfc10/26.jpg"
+  },
+  {
+    "id": 27,
+    "title": "הספק אקטיבי",
+    "src": "/assets/assistant/pfc10/27.jpg"
+  },
+  {
+    "id": 28,
+    "title": "הספק ריאקטיבי",
+    "src": "/assets/assistant/pfc10/28.jpg"
+  },
+  {
+    "id": 29,
+    "title": "הספק מדומה",
+    "src": "/assets/assistant/pfc10/29.jpg"
+  },
+  {
+    "id": 30,
+    "title": "מקדם הספק",
+    "src": "/assets/assistant/pfc10/30.jpg"
+  },
+  {
+    "id": 31,
+    "title": "Cos φ",
+    "src": "/assets/assistant/pfc10/31.jpg"
+  },
+  {
+    "id": 32,
+    "title": "ΣL – הספק כולל",
+    "src": "/assets/assistant/pfc10/32.jpg"
+  },
+  {
+    "id": 33,
+    "title": "\"\"טבלה– הספקים לפי פאזה",
+    "src": "/assets/assistant/pfc10/33.jpg"
+  },
+  {
+    "id": 34,
+    "title": "שיא ביקוש הספק",
+    "src": "/assets/assistant/pfc10/34.jpg"
+  },
+  {
+    "id": 35,
+    "title": "\"\"עכשיו– הביקוש הנוכחי",
+    "src": "/assets/assistant/pfc10/35.jpg"
+  },
+  {
+    "id": 36,
+    "title": "ממוצע15 דקות",
+    "src": "/assets/assistant/pfc10/36.jpg"
+  },
+  {
+    "id": 37,
+    "title": "ממוצע רץ",
+    "src": "/assets/assistant/pfc10/37.jpg"
+  },
+  {
+    "id": 38,
+    "title": "רשימת המינימום והמקסימום",
+    "src": "/assets/assistant/pfc10/38.jpg"
+  },
+  {
+    "id": 39,
+    "title": "\"\"זמן– מועד כל ערך",
+    "src": "/assets/assistant/pfc10/39.jpg"
+  },
+  {
+    "id": 40,
+    "title": "המשך הרשימה",
+    "src": "/assets/assistant/pfc10/40.jpg"
+  },
+  {
+    "id": 41,
+    "title": "תפריט איכות החשמל",
+    "src": "/assets/assistant/pfc10/41.jpg"
+  },
+  {
+    "id": 42,
+    "title": "הרמוניות מתח– שלוש הפאזות",
+    "src": "/assets/assistant/pfc10/42.jpg"
+  },
+  {
+    "id": 43,
+    "title": "הרמוניות זרם",
+    "src": "/assets/assistant/pfc10/43.jpg"
+  },
+  {
+    "id": 44,
+    "title": "\"\"הבא– הרמוניות גבוהות",
+    "src": "/assets/assistant/pfc10/44.jpg"
+  },
+  {
+    "id": 45,
+    "title": "מצב סיבוב",
+    "src": "/assets/assistant/pfc10/45.jpg"
+  },
+  {
+    "id": 46,
+    "title": ")הרמוניות (טבלה– מתח",
+    "src": "/assets/assistant/pfc10/46.jpg"
+  },
+  {
+    "id": 47,
+    "title": ")הרמוניות (טבלה– זרם",
+    "src": "/assets/assistant/pfc10/47.jpg"
+  },
+  {
+    "id": 48,
+    "title": "גרף המתח",
+    "src": "/assets/assistant/pfc10/48.jpg"
+  },
+  {
+    "id": 49,
+    "title": ")גרף הזרם (כחול) והמתח (אדום",
+    "src": "/assets/assistant/pfc10/49.jpg"
+  },
+  {
+    "id": 50,
+    "title": "שיא ביקושTHD – מתח",
+    "src": "/assets/assistant/pfc10/50.jpg"
+  },
+  {
+    "id": 51,
+    "title": "שיא ביקושTHD – זרם",
+    "src": "/assets/assistant/pfc10/51.jpg"
+  },
+  {
+    "id": 52,
+    "title": "טבלתTHD",
+    "src": "/assets/assistant/pfc10/52.jpg"
+  },
+  {
+    "id": 53,
+    "title": "TDD ומקדםK",
+    "src": "/assets/assistant/pfc10/53.jpg"
+  },
+  {
+    "id": 54,
+    "title": "הספק הרמוני",
+    "src": "/assets/assistant/pfc10/54.jpg"
+  },
+  {
+    "id": 55,
+    "title": "מתח וזרם הרמוני",
+    "src": "/assets/assistant/pfc10/55.jpg"
+  },
+  {
+    "id": 56,
+    "title": "תפריט מד אנרגיה",
+    "src": "/assets/assistant/pfc10/56.jpg"
+  },
+  {
+    "id": 57,
+    "title": "\"\"הבא– עמוד שני",
+    "src": "/assets/assistant/pfc10/57.jpg"
+  },
+  {
+    "id": 58,
+    "title": "אנרגיהמונה ראשי",
+    "src": "/assets/assistant/pfc10/58.jpg"
+  },
+  {
+    "id": 59,
+    "title": "תעריף שפל",
+    "src": "/assets/assistant/pfc10/59.jpg"
+  },
+  {
+    "id": 60,
+    "title": "אנרגיה אקטיבית שלL1 בתעריף",
+    "src": "/assets/assistant/pfc10/60.jpg"
+  },
+  {
+    "id": 61,
+    "title": "יצוא",
+    "src": "/assets/assistant/pfc10/61.jpg"
+  },
+  {
+    "id": 62,
+    "title": "אנרגיה מונה משני",
+    "src": "/assets/assistant/pfc10/62.jpg"
+  },
+  {
+    "id": 63,
+    "title": "אנרגיה לפי תעו\"ז",
+    "src": "/assets/assistant/pfc10/63.jpg"
+  },
+  {
+    "id": 64,
+    "title": "אנרגיה לתקופה-תעו\"ז",
+    "src": "/assets/assistant/pfc10/64.jpg"
+  },
+  {
+    "id": 65,
+    "title": "אנרגיה לתקופה-פאזה",
+    "src": "/assets/assistant/pfc10/65.jpg"
+  },
+  {
+    "id": 66,
+    "title": "הזנת תאריך התחלה",
+    "src": "/assets/assistant/pfc10/66.jpg"
+  },
+  {
+    "id": 67,
+    "title": "ריאקטיבי לפי כוון",
+    "src": "/assets/assistant/pfc10/67.jpg"
+  },
+  {
+    "id": 68,
+    "title": "מסך אזעקות",
+    "src": "/assets/assistant/pfc10/68.jpg"
+  },
+  {
+    "id": 69,
+    "title": "אזעקות היסטוריות",
+    "src": "/assets/assistant/pfc10/69.jpg"
+  },
+  {
+    "id": 70,
+    "title": "בחירת שורה",
+    "src": "/assets/assistant/pfc10/70.jpg"
+  },
+  {
+    "id": 71,
+    "title": "עמוד1",
+    "src": "/assets/assistant/pfc10/71.jpg"
+  },
+  {
+    "id": 72,
+    "title": "עמוד2",
+    "src": "/assets/assistant/pfc10/72.jpg"
+  },
+  {
+    "id": 73,
+    "title": "עמוד3",
+    "src": "/assets/assistant/pfc10/73.jpg"
+  },
+  {
+    "id": 74,
+    "title": "עמוד4",
+    "src": "/assets/assistant/pfc10/74.jpg"
+  },
+  {
+    "id": 75,
+    "title": "בחירת פאזה",
+    "src": "/assets/assistant/pfc10/75.jpg"
+  },
+  {
+    "id": 76,
+    "title": "הגדרות האזעקה",
+    "src": "/assets/assistant/pfc10/76.jpg"
+  },
+  {
+    "id": 77,
+    "title": "הזנת גבול עליון",
+    "src": "/assets/assistant/pfc10/77.jpg"
+  },
+  {
+    "id": 78,
+    "title": "אזעקתKW ביקוש",
+    "src": "/assets/assistant/pfc10/78.jpg"
+  },
+  {
+    "id": 79,
+    "title": "PF Alarm",
+    "src": "/assets/assistant/pfc10/79.jpg"
+  },
+  {
+    "id": 80,
+    "title": "חיווט תקין– כל התאים ירוקים",
+    "src": "/assets/assistant/pfc10/80.jpg"
+  },
+  {
+    "id": 81,
+    "title": "L2 – ,מקדם הספק חשודL3 – אין זרם",
+    "src": "/assets/assistant/pfc10/81.jpg"
+  },
+  {
+    "id": 82,
+    "title": "הקשת קוד",
+    "src": "/assets/assistant/pfc10/82.jpg"
+  },
+  {
+    "id": 83,
+    "title": "קוד שגוי",
+    "src": "/assets/assistant/pfc10/83.jpg"
+  },
+  {
+    "id": 84,
+    "title": "קביעת קוד חדש",
+    "src": "/assets/assistant/pfc10/84.jpg"
+  },
+  {
+    "id": 85,
+    "title": "עמוד1 – הגדרות הבקר",
+    "src": "/assets/assistant/pfc10/85.jpg"
+  },
+  {
+    "id": 86,
+    "title": "עמוד2",
+    "src": "/assets/assistant/pfc10/86.jpg"
+  },
+  {
+    "id": 87,
+    "title": "עמוד3",
+    "src": "/assets/assistant/pfc10/87.jpg"
+  },
+  {
+    "id": 88,
+    "title": "חיבור: פאזה אחת",
+    "src": "/assets/assistant/pfc10/88.jpg"
+  },
+  {
+    "id": 89,
+    "title": "חיבור: שלוש פאזות",
+    "src": "/assets/assistant/pfc10/89.jpg"
+  },
+  {
+    "id": 90,
+    "title": "אוטומט",
+    "src": "/assets/assistant/pfc10/90.jpg"
+  },
+  {
+    "id": 91,
+    "title": "הגדרת משנה זרם",
+    "src": "/assets/assistant/pfc10/91.jpg"
+  },
+  {
+    "id": 92,
+    "title": "שינוי הערך",
+    "src": "/assets/assistant/pfc10/92.jpg"
+  },
+  {
+    "id": 93,
+    "title": "תפריט הגדרות חיוניות",
+    "src": "/assets/assistant/pfc10/93.jpg"
+  },
+  {
+    "id": 94,
+    "title": "מ.הספק רצוי",
+    "src": "/assets/assistant/pfc10/94.jpg"
+  },
+  {
+    "id": 95,
+    "title": "כמות קבלים",
+    "src": "/assets/assistant/pfc10/95.jpg"
+  },
+  {
+    "id": 96,
+    "title": "מ.הספק במצב גנרטור",
+    "src": "/assets/assistant/pfc10/96.jpg"
+  },
+  {
+    "id": 97,
+    "title": "טבלת ערכי הקבלים",
+    "src": "/assets/assistant/pfc10/97.jpg"
+  },
+  {
+    "id": 98,
+    "title": "בחירת קבל",
+    "src": "/assets/assistant/pfc10/98.jpg"
+  },
+  {
+    "id": 99,
+    "title": "הזנת הערך",
+    "src": "/assets/assistant/pfc10/99.jpg"
+  },
+  {
+    "id": 100,
+    "title": "שלב ייצוב",
+    "src": "/assets/assistant/pfc10/100.jpg"
+  },
+  {
+    "id": 101,
+    "title": "שלב מדידה– הקבל מחובר",
+    "src": "/assets/assistant/pfc10/101.jpg"
+  },
+  {
+    "id": 102,
+    "title": "סיום המדידה",
+    "src": "/assets/assistant/pfc10/102.jpg"
+  },
+  {
+    "id": 103,
+    "title": "\"לאחר \"עגול",
+    "src": "/assets/assistant/pfc10/103.jpg"
+  },
+  {
+    "id": 104,
+    "title": "\"אזהרה לפני שמירה: \"החלף\" / \"בטל",
+    "src": "/assets/assistant/pfc10/104.jpg"
+  },
+  {
+    "id": 105,
+    "title": "תפריט הגדרות רשות",
+    "src": "/assets/assistant/pfc10/105.jpg"
+  },
+  {
+    "id": 106,
+    "title": "שיהויחיבור",
+    "src": "/assets/assistant/pfc10/106.jpg"
+  },
+  {
+    "id": 107,
+    "title": "תחום ויסות",
+    "src": "/assets/assistant/pfc10/107.jpg"
+  },
+  {
+    "id": 108,
+    "title": "שיהוי ליצוב",
+    "src": "/assets/assistant/pfc10/108.jpg"
+  },
+  {
+    "id": 109,
+    "title": "הגדרת משנה מתח",
+    "src": "/assets/assistant/pfc10/109.jpg"
+  },
+  {
+    "id": 110,
+    "title": "משנה מתח ראשי",
+    "src": "/assets/assistant/pfc10/110.jpg"
+  },
+  {
+    "id": 111,
+    "title": "משנה מתח משני",
+    "src": "/assets/assistant/pfc10/111.jpg"
+  },
+  {
+    "id": 112,
+    "title": "תפריט הגדרת תחום הגנות",
+    "src": "/assets/assistant/pfc10/112.jpg"
+  },
+  {
+    "id": 113,
+    "title": ".מקסTHD-I",
+    "src": "/assets/assistant/pfc10/113.jpg"
+  },
+  {
+    "id": 114,
+    "title": "מינימום זרם",
+    "src": "/assets/assistant/pfc10/114.jpg"
+  },
+  {
+    "id": 115,
+    "title": "מתח מקסימום",
+    "src": "/assets/assistant/pfc10/115.jpg"
+  },
+  {
+    "id": 116,
+    "title": "עמוד2",
+    "src": "/assets/assistant/pfc10/116.jpg"
+  },
+  {
+    "id": 117,
+    "title": "כוון שעון",
+    "src": "/assets/assistant/pfc10/117.jpg"
+  },
+  {
+    "id": 118,
+    "title": "כוון תאריך",
+    "src": "/assets/assistant/pfc10/118.jpg"
+  },
+  {
+    "id": 119,
+    "title": "הגדרות תקשורת",
+    "src": "/assets/assistant/pfc10/119.jpg"
+  },
+  {
+    "id": 120,
+    "title": "תקשורת טורית",
+    "src": "/assets/assistant/pfc10/120.jpg"
+  },
+  {
+    "id": 121,
+    "title": "רגיסטרים",
+    "src": "/assets/assistant/pfc10/121.jpg"
+  },
+  {
+    "id": 122,
+    "title": "תפריט חווט",
+    "src": "/assets/assistant/pfc10/122.jpg"
+  },
+  {
+    "id": 123,
+    "title": "חיבור כוכב",
+    "src": "/assets/assistant/pfc10/123.jpg"
+  },
+  {
+    "id": 124,
+    "title": "חיבור משולש",
+    "src": "/assets/assistant/pfc10/124.jpg"
+  },
+  {
+    "id": 125,
+    "title": "חיבורAron )(שני שנאי זרם",
+    "src": "/assets/assistant/pfc10/125.jpg"
+  },
+  {
+    "id": 126,
+    "title": "חיבור שנאי הזרם",
+    "src": "/assets/assistant/pfc10/126.jpg"
+  },
+  {
+    "id": 127,
+    "title": "בחירת שפה",
+    "src": "/assets/assistant/pfc10/127.jpg"
+  },
+  {
+    "id": 128,
+    "title": "\"Next \"– שפות נוספות",
+    "src": "/assets/assistant/pfc10/128.jpg"
+  },
+  {
+    "id": 129,
+    "title": "שינוי סדר פרמטרים",
+    "src": "/assets/assistant/pfc10/129.jpg"
+  },
+  {
+    "id": 130,
+    "title": "אפשרויות1–8",
+    "src": "/assets/assistant/pfc10/130.jpg"
+  },
+  {
+    "id": 131,
+    "title": "אפשרויות9–16",
+    "src": "/assets/assistant/pfc10/131.jpg"
+  },
+  {
+    "id": 132,
+    "title": "אפשרויות17–24",
+    "src": "/assets/assistant/pfc10/132.jpg"
+  },
+  {
+    "id": 133,
+    "title": "בדיקת ממסרים– הכול מנותק",
+    "src": "/assets/assistant/pfc10/133.jpg"
+  },
+  {
+    "id": 134,
+    "title": "ממסרים1 ו-3 מופעלים",
+    "src": "/assets/assistant/pfc10/134.jpg"
+  },
+  {
+    "id": 135,
+    "title": "נתוני התיקון המצטבר",
+    "src": "/assets/assistant/pfc10/135.jpg"
+  },
+  {
+    "id": 136,
+    "title": "הגדרות התיקון (מקשSet)",
+    "src": "/assets/assistant/pfc10/136.jpg"
+  },
+  {
+    "id": 137,
+    "title": "906 – שעון קיץ",
+    "src": "/assets/assistant/pfc10/137.jpg"
+  },
+  {
+    "id": 138,
+    "title": "871 – שומר מסך",
+    "src": "/assets/assistant/pfc10/138.jpg"
+  },
+  {
+    "id": 139,
+    "title": "9911 – נתוני הממוצעים",
+    "src": "/assets/assistant/pfc10/139.jpg"
+  }
+]

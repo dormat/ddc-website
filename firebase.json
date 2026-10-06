@@ -1,4 +1,13 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "extensions": {
+    "firestore-send-email": "firebase/firestore-send-email@0.2.10"
+  },
   "hosting": [
     {
       "target": "ddc-temp",
@@ -9,6 +18,27 @@
         "**/node_modules/**"
       ],
       "rewrites": [
+        {
+          "source": "/api/assistant/**",
+          "run": {
+            "serviceId": "lt22-assistant",
+            "region": "me-west1"
+          }
+        },
+        {
+          "source": "/cms/public.json",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/cms/public.json/**",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
         {
           "source": "/",
           "destination": "/he/index.html"
@@ -36,6 +66,13 @@
       ],
       "rewrites": [
         {
+          "source": "/api/assistant/**",
+          "run": {
+            "serviceId": "lt22-assistant",
+            "region": "me-west1"
+          }
+        },
+        {
           "source": "/",
           "destination": "/he/index.html"
         }
@@ -54,15 +91,59 @@
     },
     {
       "target": "ddc-cms",
-      "source": ".firebase-cms-stage/web",
+      "public": "site",
       "ignore": [
         "firebase.json",
         "**/.*",
         "**/node_modules/**"
       ],
-      "frameworksBackend": {
-        "region": "us-central1"
-      }
+      "rewrites": [
+        {
+          "source": "/api/assistant/**",
+          "run": {
+            "serviceId": "lt22-assistant",
+            "region": "me-west1"
+          }
+        },
+        {
+          "source": "/cms/public.json",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/cms/public.json/**",
+          "run": {
+            "serviceId": "ssrcontrolapplicationsa",
+            "region": "us-central1"
+          }
+        },
+        {
+          "source": "/",
+          "destination": "/he/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|css|js)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000"
+            }
+          ]
+        },
+        {
+          "source": "/cms/public.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            }
+          ]
+        }
+      ]
     },
     {
       "target": "ddc-admin",
@@ -73,7 +154,9 @@
         "**/node_modules/**"
       ],
       "frameworksBackend": {
-        "region": "us-central1"
+        "region": "us-central1",
+        "memory": "1GiB",
+        "maxInstances": 1
       }
     }
   ]

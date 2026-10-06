@@ -1,0 +1,1324 @@
+{
+  "elnet-pq-gr-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ/GR Meter",
+      "label": "ElNet PQ/GR Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pq-gr-meter-content-6-5.png",
+      "alt": "PQ-GR-3",
+      "label": "PQ-GR-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pq-gr-meter-content-7-5.png",
+      "alt": "PQ-GR-1",
+      "label": "PQ-GR-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pq-gr-meter-content-8-5.png",
+      "alt": "PQ-GR-2",
+      "label": "PQ-GR-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more",
+      "label": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "elnet-lt-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Meter",
+      "label": "ElNet LT Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    }
+  ],
+  "elnet-ltp-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LTP Meter",
+      "label": "ElNet LTP Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "elnet-billing-software": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-billing-and-pq-software.png",
+      "alt": "ElNet Billing & PQ Software",
+      "label": "ElNet Billing & PQ Software"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnetweb-1png.png",
+      "alt": "ELNetWeb Billing",
+      "label": "ELNetWeb Billing"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnetweb-pq-catalog.png",
+      "alt": "ELNetWeb PQ catalog",
+      "label": "ELNetWeb PQ catalog"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pqweb-1png.png",
+      "alt": "ELNetWeb PQ",
+      "label": "ELNetWeb PQ"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/billing-3png.png",
+      "alt": "ELNetWeb Billing screen",
+      "label": "ELNetWeb Billing screen"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/billing-20png.png",
+      "alt": "ELNetWeb Billing screen",
+      "label": "ELNetWeb Billing screen"
+    }
+  ],
+  "elnet-mc-1-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/power-meters-control-content-8-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-10-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-12-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-14-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-11-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-6-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/power-meters-control-content-7-3.png",
+      "alt": "ElNet MC-1 Meter",
+      "label": "ElNet MC-1 Meter"
+    }
+  ],
+  "elnet-mc-2-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ElNet MC-2 Meter",
+      "label": "ElNet MC-2 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more",
+      "label": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    }
+  ],
+  "elnet-mc-8-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/power-meters-control-content-10-3.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "ElNet MC-8 Meter",
+      "label": "ElNet MC-8 Meter"
+    }
+  ],
+  "elnet-mc-12-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-12-meter-content-5-5.png",
+      "alt": "ElNet MC-12 Meter",
+      "label": "ElNet MC-12 Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more",
+      "label": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "elnet-pic-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC Meter",
+      "label": "ElNet PIC Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more",
+      "label": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE",
+      "label": "ElNet LTE"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "elnet-lte-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-mc-2-meter-content-14-4.png",
+      "alt": "ElNet LTE Meter",
+      "label": "ElNet LTE Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-12-2.png",
+      "alt": "ElNet LT Taaz, harmonies and more",
+      "label": "ElNet LT Taaz, harmonies and more"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/pq-gr.png",
+      "alt": "ElNet PQ GR Interference and electrical measurements",
+      "label": "ElNet PQ GR Interference and electrical measurements"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-15-3.png",
+      "alt": "ElNet PIC counter ID card",
+      "label": "ElNet PIC counter ID card"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-16-3.png",
+      "alt": "ElNet MC12 has 12/36 channels",
+      "label": "ElNet MC12 has 12/36 channels"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-17-3.png",
+      "alt": "ELNet MC-8 is an 8/24 channel counter",
+      "label": "ELNet MC-8 is an 8/24 channel counter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-mc-2-meter-content-5-3.png",
+      "alt": "ELNet MC-2 counts 2/6 channels",
+      "label": "ELNet MC-2 counts 2/6 channels"
+    }
+  ],
+  "elnet-va-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-va-meter-content-5-5.png",
+      "alt": "ElNet VA Meter",
+      "label": "ElNet VA Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-va-meter-content-6-5.jpg",
+      "alt": "VIP-Current",
+      "label": "VIP-Current"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-va-meter-content-7-5.jpg",
+      "alt": "VIP-6",
+      "label": "VIP-6"
+    }
+  ],
+  "elnet-vip-meter": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-vip-meter-content-5-5.png",
+      "alt": "ElNet VIP Meter",
+      "label": "ElNet VIP Meter"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-vip-meter-content-6-5.jpg",
+      "alt": "VIP-Power",
+      "label": "VIP-Power"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-va-meter-content-6-5.jpg",
+      "alt": "VIP-Current",
+      "label": "VIP-Current"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-va-meter-content-7-5.jpg",
+      "alt": "VIP-6",
+      "label": "VIP-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-vip-meter-content-9-5.jpg",
+      "alt": "VIP-4",
+      "label": "VIP-4"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-vip-meter-content-10-5.jpg",
+      "alt": "VIP-3",
+      "label": "VIP-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-vip-meter-content-11-5.jpg",
+      "alt": "VIP-1",
+      "label": "VIP-1"
+    }
+  ],
+  "digipoint-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint Controller",
+      "label": "DigiPoint Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/digipoint-controller-content-6-6.jpg",
+      "alt": "Add a Title",
+      "label": "Add a Title"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain controller with software library",
+      "label": "SuperBrain controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-12-4.png",
+      "alt": "VeroPoint controller with expansion cards",
+      "label": "VeroPoint controller with expansion cards"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR visit with",
+      "label": "SuperBrain DR visit with"
+    }
+  ],
+  "veropoint-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/flooding-sensor-content-12-4.png",
+      "alt": "VeroPoint Controller",
+      "label": "VeroPoint Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/digipoint-controller-content-6-6.jpg",
+      "alt": "Add a Title",
+      "label": "Add a Title"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain controller with software library",
+      "label": "SuperBrain controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/veropoint-controller-content-8-3.png",
+      "alt": "SuperBrain FC Visit Nachshon blower units",
+      "label": "SuperBrain FC Visit Nachshon blower units"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR controller with software library",
+      "label": "SuperBrain DR controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint – digital programmed controller",
+      "label": "DigiPoint – digital programmed controller"
+    }
+  ],
+  "superbrain-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain Controller",
+      "label": "SuperBrain Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-6-4.png",
+      "alt": "SuperBrain Controller — 40 I/O",
+      "label": "SuperBrain Controller — 40 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-7-4.png",
+      "alt": "SuperBrain Controller — 30 I/O",
+      "label": "SuperBrain Controller — 30 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-8-4.png",
+      "alt": "SuperBrain Controller — 20 I/O",
+      "label": "SuperBrain Controller — 20 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-9-4.png",
+      "alt": "SuperBrain Controller — 10 I/O",
+      "label": "SuperBrain Controller — 10 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-10-4.png",
+      "alt": "SuperBrain Controller — 5 I/O",
+      "label": "SuperBrain Controller — 5 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-12-4.png",
+      "alt": "VeroPoint controller with expansion cards",
+      "label": "VeroPoint controller with expansion cards"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/veropoint-controller-content-8-3.png",
+      "alt": "SuperBrain FC Visit Nachshon blower units",
+      "label": "SuperBrain FC Visit Nachshon blower units"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR controller with software library",
+      "label": "SuperBrain DR controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint – digital programmed controller",
+      "label": "DigiPoint – digital programmed controller"
+    }
+  ],
+  "superbrain-dr-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR Controller",
+      "label": "SuperBrain DR Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/digipoint-controller-content-6-6.jpg",
+      "alt": "Add a Title",
+      "label": "Add a Title"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain controller with software library",
+      "label": "SuperBrain controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/veropoint-controller-content-8-3.png",
+      "alt": "SuperBrain FC Visit Nachshon blower units",
+      "label": "SuperBrain FC Visit Nachshon blower units"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint – digital programmed controller",
+      "label": "DigiPoint – digital programmed controller"
+    }
+  ],
+  "superbrain-fc-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/veropoint-controller-content-8-3.png",
+      "alt": "SuperBrain FC Controller",
+      "label": "SuperBrain FC Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/digipoint-controller-content-6-6.jpg",
+      "alt": "Add a Title",
+      "label": "Add a Title"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain controller with software library",
+      "label": "SuperBrain controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-12-4.png",
+      "alt": "VeroPoint controller with expansion cards",
+      "label": "VeroPoint controller with expansion cards"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR in",
+      "label": "SuperBrain DR in"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint – digital programmed controller",
+      "label": "DigiPoint – digital programmed controller"
+    }
+  ],
+  "uniart-software": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/uniart-software-content-5-5.png",
+      "alt": "UniArt Software",
+      "label": "UniArt Software"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-6-4.png",
+      "alt": "PQ-GR-6",
+      "label": "PQ-GR-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-7-4.png",
+      "alt": "LTE-3",
+      "label": "LTE-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-8-4.png",
+      "alt": "LT-2",
+      "label": "LT-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-9-4.png",
+      "alt": "LT-3",
+      "label": "LT-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    }
+  ],
+  "uniweb-software": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/uniweb-software-content-5-5.png",
+      "alt": "UniWeb Software",
+      "label": "UniWeb Software"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniweb-software-content-7-6.png",
+      "alt": "UniWeb Software",
+      "label": "UniWeb Software"
+    }
+  ],
+  "co-gas-monitoring": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/co-gas-monitoring-content-5-5.png",
+      "alt": "CO Gas Monitoring",
+      "label": "CO Gas Monitoring"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-6-4.png",
+      "alt": "CO Gas Monitoring — 40 I/O",
+      "label": "CO Gas Monitoring — 40 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-7-4.png",
+      "alt": "CO Gas Monitoring — 30 I/O",
+      "label": "CO Gas Monitoring — 30 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-8-4.png",
+      "alt": "CO Gas Monitoring — 20 I/O",
+      "label": "CO Gas Monitoring — 20 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-9-4.png",
+      "alt": "CO Gas Monitoring — 10 I/O",
+      "label": "CO Gas Monitoring — 10 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-10-4.png",
+      "alt": "CO Gas Monitoring — 5 I/O",
+      "label": "CO Gas Monitoring — 5 I/O"
+    }
+  ],
+  "smart-parking": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/smart-parking-content-5-5.jpg",
+      "alt": "parking-light.jpg",
+      "label": "parking-light.jpg"
+    }
+  ],
+  "flooding-sensor": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/flooding-sensor-content-5-3.png",
+      "alt": "Flooding sensor",
+      "label": "Flooding sensor"
+    }
+  ],
+  "elnet-cod-transfer-switch": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-cod-transfer-switch-content-5-5.png",
+      "alt": "ElNet COD Transfer Switch",
+      "label": "ElNet COD Transfer Switch"
+    }
+  ],
+  "elnet-co-transfer-switch": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-co-transfer-switch-content-5-3.png",
+      "alt": "ELNet CO.png",
+      "label": "ELNet CO.png"
+    }
+  ],
+  "elnet-pfc-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-pfc-controller-content-5-3.png",
+      "alt": "ElNet PFC Controller",
+      "label": "ElNet PFC Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-6-5.png",
+      "alt": "PFC-2",
+      "label": "PFC-2"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-7-5.png",
+      "alt": "PFC-1",
+      "label": "PFC-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-8-5.png",
+      "alt": "PFC-4",
+      "label": "PFC-4"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-9-5.png",
+      "alt": "PFC-3",
+      "label": "PFC-3"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-10-4.png",
+      "alt": "PFC-5",
+      "label": "PFC-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-11-4.png",
+      "alt": "PFC-6",
+      "label": "PFC-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-12-3.png",
+      "alt": "ElNet LTC10 power factor improvement controller",
+      "label": "ElNet LTC10 power factor improvement controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-13-3.png",
+      "alt": "ElNet LTC power factor improvement controller",
+      "label": "ElNet LTC power factor improvement controller"
+    }
+  ],
+  "elnet-ltc10-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-pfc-controller-content-12-3.png",
+      "alt": "ElNet LTC10 Controller",
+      "label": "ElNet LTC10 Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-11-4.png",
+      "alt": "PFC-6",
+      "label": "PFC-6"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-10-4.png",
+      "alt": "PFC-5",
+      "label": "PFC-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-11-4.png",
+      "alt": "LT-5",
+      "label": "LT-5"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/uniart-software-content-10-4.png",
+      "alt": "LT-1",
+      "label": "LT-1"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc10-controller-content-10-5.png",
+      "alt": "LT-4",
+      "label": "LT-4"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc10-controller-content-11-5.png",
+      "alt": "thd",
+      "label": "thd"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-13-3.png",
+      "alt": "ElNet LTC power factor improvement controller",
+      "label": "ElNet LTC power factor improvement controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-5-3.png",
+      "alt": "ElNet PFC power factor improvement controller",
+      "label": "ElNet PFC power factor improvement controller"
+    }
+  ],
+  "elnet-ltc-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-pfc-controller-content-13-3.png",
+      "alt": "ElNet LTC Controller",
+      "label": "ElNet LTC Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-6-5.png",
+      "alt": "ElNet LTC Controller — 50 I/O",
+      "label": "ElNet LTC Controller — 50 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-7-5.png",
+      "alt": "ElNet LTC Controller — 41 I/O",
+      "label": "ElNet LTC Controller — 41 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-8-5.png",
+      "alt": "ElNet LTC Controller — 21 I/O",
+      "label": "ElNet LTC Controller — 21 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-9-5.png",
+      "alt": "ElNet LTC Controller — 31 I/O",
+      "label": "ElNet LTC Controller — 31 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-10-5.png",
+      "alt": "ElNet LTC Controller — 11 I/O",
+      "label": "ElNet LTC Controller — 11 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-ltc-controller-content-11-5.png",
+      "alt": "ElNet LTC Controller — 6 I/O",
+      "label": "ElNet LTC Controller — 6 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-12-3.png",
+      "alt": "ElNet LTC10 power factor improvement controller",
+      "label": "ElNet LTC10 power factor improvement controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-pfc-controller-content-5-3.png",
+      "alt": "ElNet PFC power factor improvement controller",
+      "label": "ElNet PFC power factor improvement controller"
+    }
+  ],
+  "elnet-xp-controller": [
+    {
+      "kind": "hero",
+      "url": "/assets/images/elnet-xp-controller-content-5-5.png",
+      "alt": "ElNet XP Controller",
+      "label": "ElNet XP Controller"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-xp-controller-content-6-5.png",
+      "alt": "ElNet XP Controller — 4 I/O",
+      "label": "ElNet XP Controller — 4 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-xp-controller-content-7-5.png",
+      "alt": "ElNet XP Controller — 3 I/O",
+      "label": "ElNet XP Controller — 3 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-xp-controller-content-8-5.png",
+      "alt": "ElNet XP Controller — 2 I/O",
+      "label": "ElNet XP Controller — 2 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/elnet-xp-controller-content-9-5.png",
+      "alt": "ElNet XP Controller — 1 I/O",
+      "label": "ElNet XP Controller — 1 I/O"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-11-3.png",
+      "alt": "SuperBrain controller with software library",
+      "label": "SuperBrain controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-12-4.png",
+      "alt": "VeroPoint controller with expansion cards",
+      "label": "VeroPoint controller with expansion cards"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-13.png",
+      "alt": "SuperBrain DR controller with software library",
+      "label": "SuperBrain DR controller with software library"
+    },
+    {
+      "kind": "image",
+      "url": "/assets/images/flooding-sensor-content-14-3.png",
+      "alt": "DigiPoint – digital programmed controller",
+      "label": "DigiPoint – digital programmed controller"
+    }
+  ]
+}

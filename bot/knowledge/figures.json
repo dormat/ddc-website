@@ -1,0 +1,342 @@
+[
+  {
+    "id": 1,
+    "title": "התפריט הראשי",
+    "src": "/assets/assistant/lt22/1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "'הודעת 'חשוב : יש לכוון שעון",
+    "src": "/assets/assistant/lt22/2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "מסך מידע מערכת",
+    "src": "/assets/assistant/lt22/3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "תפריט מתח, זרם, תדר",
+    "src": "/assets/assistant/lt22/4.jpg"
+  },
+  {
+    "id": 5,
+    "title": "איפוס שיאים– הקשת קוד",
+    "src": "/assets/assistant/lt22/5.jpg"
+  },
+  {
+    "id": 6,
+    "title": "מתחRMS",
+    "src": "/assets/assistant/lt22/6.jpg"
+  },
+  {
+    "id": 7,
+    "title": "מתח שלוב",
+    "src": "/assets/assistant/lt22/7.jpg"
+  },
+  {
+    "id": 8,
+    "title": "זרםRMS",
+    "src": "/assets/assistant/lt22/8.jpg"
+  },
+  {
+    "id": 9,
+    "title": "זרם בקו ה-0",
+    "src": "/assets/assistant/lt22/9.jpg"
+  },
+  {
+    "id": 10,
+    "title": "תדר",
+    "src": "/assets/assistant/lt22/10.jpg"
+  },
+  {
+    "id": 11,
+    "title": "הספק אקטיבי",
+    "src": "/assets/assistant/lt22/11.jpg"
+  },
+  {
+    "id": 12,
+    "title": "הספק ריאקטיבי",
+    "src": "/assets/assistant/lt22/12.jpg"
+  },
+  {
+    "id": 13,
+    "title": "הספק מדומה",
+    "src": "/assets/assistant/lt22/13.jpg"
+  },
+  {
+    "id": 14,
+    "title": "מקדם הספק",
+    "src": "/assets/assistant/lt22/14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "הספק כולל",
+    "src": "/assets/assistant/lt22/15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "טבלת מתח וזרם",
+    "src": "/assets/assistant/lt22/16.jpg"
+  },
+  {
+    "id": 17,
+    "title": "טבלת הספקים",
+    "src": "/assets/assistant/lt22/17.jpg"
+  },
+  {
+    "id": 18,
+    "title": "מסך משולב",
+    "src": "/assets/assistant/lt22/18.jpg"
+  },
+  {
+    "id": 19,
+    "title": "גרף מגמת מתח",
+    "src": "/assets/assistant/lt22/19.jpg"
+  },
+  {
+    "id": 20,
+    "title": "תפריט מד אנרגיה",
+    "src": "/assets/assistant/lt22/20.jpg"
+  },
+  {
+    "id": 21,
+    "title": "אנרגיה– )מונה ראשי (יבוא, כל התעריפים",
+    "src": "/assets/assistant/lt22/21.jpg"
+  },
+  {
+    "id": 22,
+    "title": "אנרגיה– )מונה ראשי (יצוא",
+    "src": "/assets/assistant/lt22/22.jpg"
+  },
+  {
+    "id": 23,
+    "title": "אנרגיה לפי תעו\"ז",
+    "src": "/assets/assistant/lt22/23.jpg"
+  },
+  {
+    "id": 24,
+    "title": "אנרגיה לתקופה – כללי",
+    "src": "/assets/assistant/lt22/24.jpg"
+  },
+  {
+    "id": 25,
+    "title": "אנרגיה לתקופה– פאזה",
+    "src": "/assets/assistant/lt22/25.jpg"
+  },
+  {
+    "id": 26,
+    "title": "אנרגיה יומית",
+    "src": "/assets/assistant/lt22/26.jpg"
+  },
+  {
+    "id": 27,
+    "title": "תפריט איכות החשמל",
+    "src": "/assets/assistant/lt22/27.jpg"
+  },
+  {
+    "id": 28,
+    "title": "הרמוניות– גרף עמודות (זרםL1)",
+    "src": "/assets/assistant/lt22/28.jpg"
+  },
+  {
+    "id": 29,
+    "title": "טבלת הרמוניות",
+    "src": "/assets/assistant/lt22/29.jpg"
+  },
+  {
+    "id": 30,
+    "title": "THD & TDD & KF",
+    "src": "/assets/assistant/lt22/30.jpg"
+  },
+  {
+    "id": 31,
+    "title": "צורות גלים",
+    "src": "/assets/assistant/lt22/31.jpg"
+  },
+  {
+    "id": 32,
+    "title": "תפריט שיאי ביקוש",
+    "src": "/assets/assistant/lt22/32.jpg"
+  },
+  {
+    "id": 33,
+    "title": "שיא ביקוש הספק",
+    "src": "/assets/assistant/lt22/33.jpg"
+  },
+  {
+    "id": 34,
+    "title": "שיא ביקוש זרם",
+    "src": "/assets/assistant/lt22/34.jpg"
+  },
+  {
+    "id": 35,
+    "title": "שיא ביקושTHD",
+    "src": "/assets/assistant/lt22/35.jpg"
+  },
+  {
+    "id": 36,
+    "title": "מסך אזעקות",
+    "src": "/assets/assistant/lt22/36.jpg"
+  },
+  {
+    "id": 37,
+    "title": "אזעקות היסטוריות– תצוגת זמן",
+    "src": "/assets/assistant/lt22/37.jpg"
+  },
+  {
+    "id": 38,
+    "title": "אזעקות היסטוריות– תצוגת ערך",
+    "src": "/assets/assistant/lt22/38.jpg"
+  },
+  {
+    "id": 39,
+    "title": "הקשת קוד טכנאי",
+    "src": "/assets/assistant/lt22/39.jpg"
+  },
+  {
+    "id": 40,
+    "title": "הגדרות מערכת– עמוד1",
+    "src": "/assets/assistant/lt22/40.jpg"
+  },
+  {
+    "id": 41,
+    "title": "הגדרות מערכת– עמוד2",
+    "src": "/assets/assistant/lt22/41.jpg"
+  },
+  {
+    "id": 42,
+    "title": "כוון שעון",
+    "src": "/assets/assistant/lt22/42.jpg"
+  },
+  {
+    "id": 43,
+    "title": "כוון תאריך",
+    "src": "/assets/assistant/lt22/43.jpg"
+  },
+  {
+    "id": 44,
+    "title": "הגדרת משנה זרם/מתח",
+    "src": "/assets/assistant/lt22/44.jpg"
+  },
+  {
+    "id": 45,
+    "title": ")הגדר זרם כניסה (משנה זרם",
+    "src": "/assets/assistant/lt22/45.jpg"
+  },
+  {
+    "id": 46,
+    "title": "ערך גבוה מדי",
+    "src": "/assets/assistant/lt22/46.jpg"
+  },
+  {
+    "id": 47,
+    "title": "הגדרת משנה מתח",
+    "src": "/assets/assistant/lt22/47.jpg"
+  },
+  {
+    "id": 48,
+    "title": ")הגדר מתח כניסה (משנה מתח ראשי",
+    "src": "/assets/assistant/lt22/48.jpg"
+  },
+  {
+    "id": 49,
+    "title": "משנה מתח מישני",
+    "src": "/assets/assistant/lt22/49.jpg"
+  },
+  {
+    "id": 50,
+    "title": "בדיקת חווט",
+    "src": "/assets/assistant/lt22/50.jpg"
+  },
+  {
+    "id": 51,
+    "title": "חיבור שנאי הזרם",
+    "src": "/assets/assistant/lt22/51.jpg"
+  },
+  {
+    "id": 52,
+    "title": "הגדרות תקשורת",
+    "src": "/assets/assistant/lt22/52.jpg"
+  },
+  {
+    "id": 53,
+    "title": "הגדרתBacNet",
+    "src": "/assets/assistant/lt22/53.jpg"
+  },
+  {
+    "id": 54,
+    "title": "בחירת שפה",
+    "src": "/assets/assistant/lt22/54.jpg"
+  },
+  {
+    "id": 55,
+    "title": "הגדרת פולס לאנרגיה",
+    "src": "/assets/assistant/lt22/55.jpg"
+  },
+  {
+    "id": 56,
+    "title": "KWH לפולס אחד",
+    "src": "/assets/assistant/lt22/56.jpg"
+  },
+  {
+    "id": 57,
+    "title": "שינוי חיבור לרשת",
+    "src": "/assets/assistant/lt22/57.jpg"
+  },
+  {
+    "id": 58,
+    "title": "תפריט אפשרויות",
+    "src": "/assets/assistant/lt22/58.jpg"
+  },
+  {
+    "id": 59,
+    "title": "ממסר חוסר מתח",
+    "src": "/assets/assistant/lt22/59.jpg"
+  },
+  {
+    "id": 60,
+    "title": "תקלת חוסר מתח בתפריט הראשי",
+    "src": "/assets/assistant/lt22/60.jpg"
+  },
+  {
+    "id": 61,
+    "title": "הגדרת אזעקות– עמוד1",
+    "src": "/assets/assistant/lt22/61.jpg"
+  },
+  {
+    "id": 62,
+    "title": "הגדרת אזעקות– עמוד2",
+    "src": "/assets/assistant/lt22/62.jpg"
+  },
+  {
+    "id": 63,
+    "title": "הגדרת אזעקות– עמוד3",
+    "src": "/assets/assistant/lt22/63.jpg"
+  },
+  {
+    "id": 64,
+    "title": "בחירת פאזה– אזעקות מתח",
+    "src": "/assets/assistant/lt22/64.jpg"
+  },
+  {
+    "id": 65,
+    "title": "ערכי אזעקת מתח– פאזה1",
+    "src": "/assets/assistant/lt22/65.jpg"
+  },
+  {
+    "id": 66,
+    "title": "הקש/י ערך חדש",
+    "src": "/assets/assistant/lt22/66.jpg"
+  },
+  {
+    "id": 67,
+    "title": "יציאה דיגיטלית בשימוש",
+    "src": "/assets/assistant/lt22/67.jpg"
+  },
+  {
+    "id": 68,
+    "title": "הגדרת יציאות",
+    "src": "/assets/assistant/lt22/68.jpg"
+  }
+]

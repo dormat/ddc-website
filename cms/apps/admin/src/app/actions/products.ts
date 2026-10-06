@@ -71,20 +71,50 @@ export async function saveProductAction(slug: string, formData: FormData) {
     await db.insert(productIndustries).values({ productId: product.id, industryId: ind.id });
   }
 
-  const lines = String(formData.get("media_lines") || "")
-    .split("\n")
-    .map((l) => l.trim())
-    .filter(Boolean);
+  const rawMedia = String(formData.get("media_json") || "[]");
+  let mediaItems: Array<{
+    kind?: string;
+    url?: string;
+    urlHe?: string;
+    urlEn?: string;
+    urlEs?: string;
+    alt?: string;
+    label?: string;
+    enabled?: boolean;
+    enabledHe?: boolean;
+    enabledEn?: boolean;
+    enabledEs?: boolean;
+  }> = [];
+  try {
+    const parsed = JSON.parse(rawMedia);
+    if (Array.isArray(parsed)) mediaItems = parsed;
+  } catch {
+    mediaItems = [];
+  }
+
   await db.delete(productMedia).where(eq(productMedia.productId, product.id));
-  for (let i = 0; i < lines.length; i++) {
-    const [kind, url, label = ""] = lines[i].split("|").map((p) => p.trim());
-    if (!kind || !url) continue;
+  for (let i = 0; i < mediaItems.length; i++) {
+    const item = mediaItems[i];
+    const kind = String(item.kind || "").trim();
+    const url = String(item.url || "").trim();
+    if (!kind || (!url && kind !== "schematic" && kind !== "document")) continue;
+    if ((kind === "schematic" || kind === "document") && !url && !item.urlHe && !item.urlEn && !item.urlEs) {
+      continue;
+    }
     await db.insert(productMedia).values({
       productId: product.id,
       kind,
-      url,
-      label,
+      url: url || String(item.urlHe || item.urlEn || item.urlEs || ""),
+      urlHe: String(item.urlHe || ""),
+      urlEn: String(item.urlEn || ""),
+      urlEs: String(item.urlEs || ""),
+      alt: String(item.alt || ""),
+      label: String(item.label || ""),
       sortOrder: i,
+      enabled: item.enabled !== false,
+      enabledHe: item.enabledHe !== false,
+      enabledEn: item.enabledEn !== false,
+      enabledEs: item.enabledEs !== false,
     });
   }
 

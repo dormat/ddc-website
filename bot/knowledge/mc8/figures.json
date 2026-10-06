@@ -1,0 +1,657 @@
+[
+  {
+    "id": 1,
+    "title": "מבנה מסך מדידה ושורת הלחצנים",
+    "src": "/assets/assistant/mc8/1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "תפריט",
+    "src": "/assets/assistant/mc8/2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "הזנת מספר",
+    "src": "/assets/assistant/mc8/3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "נורית1 דולקת– הצג מציג את ערוץ1",
+    "src": "/assets/assistant/mc8/4.jpg"
+  },
+  {
+    "id": 5,
+    "title": "לאחר שתי לחיצות עלCH – ערוץ3",
+    "src": "/assets/assistant/mc8/5.jpg"
+  },
+  {
+    "id": 6,
+    "title": "ערוץ1 (משנה זרם1000A)",
+    "src": "/assets/assistant/mc8/6.jpg"
+  },
+  {
+    "id": 7,
+    "title": "CH – ערוץ2 (400A)",
+    "src": "/assets/assistant/mc8/7.jpg"
+  },
+  {
+    "id": 8,
+    "title": "CH – ערוץ3 (250A)",
+    "src": "/assets/assistant/mc8/8.jpg"
+  },
+  {
+    "id": 9,
+    "title": "CH – ערוץ4",
+    "src": "/assets/assistant/mc8/9.jpg"
+  },
+  {
+    "id": 10,
+    "title": "CH – ערוץ5",
+    "src": "/assets/assistant/mc8/10.jpg"
+  },
+  {
+    "id": 11,
+    "title": "ערוץ8 – ללא עומס",
+    "src": "/assets/assistant/mc8/11.jpg"
+  },
+  {
+    "id": 12,
+    "title": ",זרם כולל של כל ערוץKA",
+    "src": "/assets/assistant/mc8/12.jpg"
+  },
+  {
+    "id": 13,
+    "title": "P – ,הספק אקטיביKW",
+    "src": "/assets/assistant/mc8/13.jpg"
+  },
+  {
+    "id": 14,
+    "title": "PF – מקדם הספק",
+    "src": "/assets/assistant/mc8/14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Q – ,הספק ריאקטיביKVAR",
+    "src": "/assets/assistant/mc8/15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "S – ,הספק מדומהKVA",
+    "src": "/assets/assistant/mc8/16.jpg"
+  },
+  {
+    "id": 17,
+    "title": "התפריט הראשי",
+    "src": "/assets/assistant/mc8/17.jpg"
+  },
+  {
+    "id": 18,
+    "title": "מסך המידע",
+    "src": "/assets/assistant/mc8/18.jpg"
+  },
+  {
+    "id": 19,
+    "title": "בחירת שפה",
+    "src": "/assets/assistant/mc8/19.jpg"
+  },
+  {
+    "id": 20,
+    "title": "תפריט מתח,זרם,תדר",
+    "src": "/assets/assistant/mc8/20.jpg"
+  },
+  {
+    "id": 21,
+    "title": "מתח פאזה",
+    "src": "/assets/assistant/mc8/21.jpg"
+  },
+  {
+    "id": 22,
+    "title": "מתח שלוב",
+    "src": "/assets/assistant/mc8/22.jpg"
+  },
+  {
+    "id": 23,
+    "title": "זרם",
+    "src": "/assets/assistant/mc8/23.jpg"
+  },
+  {
+    "id": 24,
+    "title": "זרם בקו האפס",
+    "src": "/assets/assistant/mc8/24.jpg"
+  },
+  {
+    "id": 25,
+    "title": "תדר",
+    "src": "/assets/assistant/mc8/25.jpg"
+  },
+  {
+    "id": 26,
+    "title": "\"\"טבלה– מתחים וזרמים",
+    "src": "/assets/assistant/mc8/26.jpg"
+  },
+  {
+    "id": 27,
+    "title": ")גרף מגמה (מקש אישור",
+    "src": "/assets/assistant/mc8/27.jpg"
+  },
+  {
+    "id": 28,
+    "title": "מסך משולב– כל הערכים",
+    "src": "/assets/assistant/mc8/28.jpg"
+  },
+  {
+    "id": 29,
+    "title": "שיא ביקוש זרם",
+    "src": "/assets/assistant/mc8/29.jpg"
+  },
+  {
+    "id": 30,
+    "title": "תפריט הספק,מקדם הספק",
+    "src": "/assets/assistant/mc8/30.jpg"
+  },
+  {
+    "id": 31,
+    "title": "הספק אקטיבי",
+    "src": "/assets/assistant/mc8/31.jpg"
+  },
+  {
+    "id": 32,
+    "title": "הספק ריאקטיבי",
+    "src": "/assets/assistant/mc8/32.jpg"
+  },
+  {
+    "id": 33,
+    "title": "הספק מדומה",
+    "src": "/assets/assistant/mc8/33.jpg"
+  },
+  {
+    "id": 34,
+    "title": "מקדם הספק",
+    "src": "/assets/assistant/mc8/34.jpg"
+  },
+  {
+    "id": 35,
+    "title": "Cos φ",
+    "src": "/assets/assistant/mc8/35.jpg"
+  },
+  {
+    "id": 36,
+    "title": "ΣL – הספק כולל",
+    "src": "/assets/assistant/mc8/36.jpg"
+  },
+  {
+    "id": 37,
+    "title": "\"\"טבלה– הספקים לפי פאזה",
+    "src": "/assets/assistant/mc8/37.jpg"
+  },
+  {
+    "id": 38,
+    "title": "שיא ביקוש הספק",
+    "src": "/assets/assistant/mc8/38.jpg"
+  },
+  {
+    "id": 39,
+    "title": "\"\"עכשיו– הביקוש הנוכחי",
+    "src": "/assets/assistant/mc8/39.jpg"
+  },
+  {
+    "id": 40,
+    "title": "ממוצע15 דקות",
+    "src": "/assets/assistant/mc8/40.jpg"
+  },
+  {
+    "id": 41,
+    "title": "ממוצע רץ",
+    "src": "/assets/assistant/mc8/41.jpg"
+  },
+  {
+    "id": 42,
+    "title": "רשימת המינימום והמקסימום",
+    "src": "/assets/assistant/mc8/42.jpg"
+  },
+  {
+    "id": 43,
+    "title": "\"\"זמן– מועד כל ערך",
+    "src": "/assets/assistant/mc8/43.jpg"
+  },
+  {
+    "id": 44,
+    "title": "המשך הרשימה",
+    "src": "/assets/assistant/mc8/44.jpg"
+  },
+  {
+    "id": 45,
+    "title": "תפריט איכות החשמל",
+    "src": "/assets/assistant/mc8/45.jpg"
+  },
+  {
+    "id": 46,
+    "title": "הרמוניות מתח– שלוש הפאזות",
+    "src": "/assets/assistant/mc8/46.jpg"
+  },
+  {
+    "id": 47,
+    "title": "הרמוניות זרם",
+    "src": "/assets/assistant/mc8/47.jpg"
+  },
+  {
+    "id": 48,
+    "title": "\"\"הבא– הרמוניות גבוהות",
+    "src": "/assets/assistant/mc8/48.jpg"
+  },
+  {
+    "id": 49,
+    "title": "מצב סיבוב",
+    "src": "/assets/assistant/mc8/49.jpg"
+  },
+  {
+    "id": 50,
+    "title": ")הרמוניות (טבלה– מתח",
+    "src": "/assets/assistant/mc8/50.jpg"
+  },
+  {
+    "id": 51,
+    "title": ")הרמוניות (טבלה– זרם",
+    "src": "/assets/assistant/mc8/51.jpg"
+  },
+  {
+    "id": 52,
+    "title": "גרף המתח",
+    "src": "/assets/assistant/mc8/52.jpg"
+  },
+  {
+    "id": 53,
+    "title": ")גרף הזרם (כחול) והמתח (אדום",
+    "src": "/assets/assistant/mc8/53.jpg"
+  },
+  {
+    "id": 54,
+    "title": "שיא ביקושTHD – מתח",
+    "src": "/assets/assistant/mc8/54.jpg"
+  },
+  {
+    "id": 55,
+    "title": "שיא ביקושTHD – זרם",
+    "src": "/assets/assistant/mc8/55.jpg"
+  },
+  {
+    "id": 56,
+    "title": "טבלתTHD",
+    "src": "/assets/assistant/mc8/56.jpg"
+  },
+  {
+    "id": 57,
+    "title": "TDD ומקדםK",
+    "src": "/assets/assistant/mc8/57.jpg"
+  },
+  {
+    "id": 58,
+    "title": "תפריט מד אנרגיה",
+    "src": "/assets/assistant/mc8/58.jpg"
+  },
+  {
+    "id": 59,
+    "title": "\"\"הבא– עמוד שני",
+    "src": "/assets/assistant/mc8/59.jpg"
+  },
+  {
+    "id": 60,
+    "title": "אנרגיה מונה ראשי",
+    "src": "/assets/assistant/mc8/60.jpg"
+  },
+  {
+    "id": 61,
+    "title": "תעריף שפל",
+    "src": "/assets/assistant/mc8/61.jpg"
+  },
+  {
+    "id": 62,
+    "title": "אנרגיה אקטיבית שלL1 בתעריף",
+    "src": "/assets/assistant/mc8/62.jpg"
+  },
+  {
+    "id": 63,
+    "title": "יצוא",
+    "src": "/assets/assistant/mc8/63.jpg"
+  },
+  {
+    "id": 64,
+    "title": "אנרגיה מונה משני",
+    "src": "/assets/assistant/mc8/64.jpg"
+  },
+  {
+    "id": 65,
+    "title": "אנרגיה לפי תעו\"ז",
+    "src": "/assets/assistant/mc8/65.jpg"
+  },
+  {
+    "id": 66,
+    "title": "אנרגיה לתקופה-תעו\"ז",
+    "src": "/assets/assistant/mc8/66.jpg"
+  },
+  {
+    "id": 67,
+    "title": "טבלת ערוצים– ,אנרגיה כוללת",
+    "src": "/assets/assistant/mc8/67.jpg"
+  },
+  {
+    "id": 68,
+    "title": "F1 – )לפי תעריף (שפל",
+    "src": "/assets/assistant/mc8/68.jpg"
+  },
+  {
+    "id": 69,
+    "title": "אנרגיה יומית",
+    "src": "/assets/assistant/mc8/69.jpg"
+  },
+  {
+    "id": 70,
+    "title": "אנרגיה לתקופה-פאזה",
+    "src": "/assets/assistant/mc8/70.jpg"
+  },
+  {
+    "id": 71,
+    "title": "הזנת תאריך התחלה",
+    "src": "/assets/assistant/mc8/71.jpg"
+  },
+  {
+    "id": 72,
+    "title": "ריאקטיבי לפי כוון",
+    "src": "/assets/assistant/mc8/72.jpg"
+  },
+  {
+    "id": 73,
+    "title": "מסך אזעקות",
+    "src": "/assets/assistant/mc8/73.jpg"
+  },
+  {
+    "id": 74,
+    "title": "אזעקות היסטוריות",
+    "src": "/assets/assistant/mc8/74.jpg"
+  },
+  {
+    "id": 75,
+    "title": "בחירת שורה",
+    "src": "/assets/assistant/mc8/75.jpg"
+  },
+  {
+    "id": 76,
+    "title": "עמוד1",
+    "src": "/assets/assistant/mc8/76.jpg"
+  },
+  {
+    "id": 77,
+    "title": "עמוד2",
+    "src": "/assets/assistant/mc8/77.jpg"
+  },
+  {
+    "id": 78,
+    "title": "עמוד3",
+    "src": "/assets/assistant/mc8/78.jpg"
+  },
+  {
+    "id": 79,
+    "title": "עמוד4",
+    "src": "/assets/assistant/mc8/79.jpg"
+  },
+  {
+    "id": 80,
+    "title": "בחירת פאזה",
+    "src": "/assets/assistant/mc8/80.jpg"
+  },
+  {
+    "id": 81,
+    "title": "הגדרות האזעקה",
+    "src": "/assets/assistant/mc8/81.jpg"
+  },
+  {
+    "id": 82,
+    "title": "הזנת גבול עליון",
+    "src": "/assets/assistant/mc8/82.jpg"
+  },
+  {
+    "id": 83,
+    "title": "אזעקתKW ביקוש",
+    "src": "/assets/assistant/mc8/83.jpg"
+  },
+  {
+    "id": 84,
+    "title": "הקשת קוד",
+    "src": "/assets/assistant/mc8/84.jpg"
+  },
+  {
+    "id": 85,
+    "title": "קוד שגוי",
+    "src": "/assets/assistant/mc8/85.jpg"
+  },
+  {
+    "id": 86,
+    "title": "קביעת קוד חדש",
+    "src": "/assets/assistant/mc8/86.jpg"
+  },
+  {
+    "id": 87,
+    "title": "עמוד1",
+    "src": "/assets/assistant/mc8/87.jpg"
+  },
+  {
+    "id": 88,
+    "title": "עמוד2",
+    "src": "/assets/assistant/mc8/88.jpg"
+  },
+  {
+    "id": 89,
+    "title": "עמוד3",
+    "src": "/assets/assistant/mc8/89.jpg"
+  },
+  {
+    "id": 90,
+    "title": "כוון שעון",
+    "src": "/assets/assistant/mc8/90.jpg"
+  },
+  {
+    "id": 91,
+    "title": "כוון תאריך",
+    "src": "/assets/assistant/mc8/91.jpg"
+  },
+  {
+    "id": 92,
+    "title": "שעון קיץ (עמוד2)",
+    "src": "/assets/assistant/mc8/92.jpg"
+  },
+  {
+    "id": 93,
+    "title": "הגדרת משנה זרם/מתח",
+    "src": "/assets/assistant/mc8/93.jpg"
+  },
+  {
+    "id": 94,
+    "title": "הגדרת משנה מתח",
+    "src": "/assets/assistant/mc8/94.jpg"
+  },
+  {
+    "id": 95,
+    "title": "הגדרת משנה זרם",
+    "src": "/assets/assistant/mc8/95.jpg"
+  },
+  {
+    "id": 96,
+    "title": "טבלת משני הזרם– ערוץ1",
+    "src": "/assets/assistant/mc8/96.jpg"
+  },
+  {
+    "id": 97,
+    "title": "שתי לחיצות עלCH – ערוץ3",
+    "src": "/assets/assistant/mc8/97.jpg"
+  },
+  {
+    "id": 98,
+    "title": "אישור– הזנת הזרם הראשוני",
+    "src": "/assets/assistant/mc8/98.jpg"
+  },
+  {
+    "id": 99,
+    "title": "זרם משני5A",
+    "src": "/assets/assistant/mc8/99.jpg"
+  },
+  {
+    "id": 100,
+    "title": "לאחר אישור על \"אופציה1A/5A \"– זרם משני1A",
+    "src": "/assets/assistant/mc8/100.jpg"
+  },
+  {
+    "id": 101,
+    "title": "טבלת משני הזרם לפי פאזה",
+    "src": "/assets/assistant/mc8/101.jpg"
+  },
+  {
+    "id": 102,
+    "title": "הזנת משנה הזרם שלL1",
+    "src": "/assets/assistant/mc8/102.jpg"
+  },
+  {
+    "id": 103,
+    "title": "ולאחריו שלL2",
+    "src": "/assets/assistant/mc8/103.jpg"
+  },
+  {
+    "id": 104,
+    "title": "משנה מתחראשי",
+    "src": "/assets/assistant/mc8/104.jpg"
+  },
+  {
+    "id": 105,
+    "title": "משנה מתח משני",
+    "src": "/assets/assistant/mc8/105.jpg"
+  },
+  {
+    "id": 106,
+    "title": "בדיקת חווט של הערוץ המוצג",
+    "src": "/assets/assistant/mc8/106.jpg"
+  },
+  {
+    "id": 107,
+    "title": "תפריט הגדרות תקשורת",
+    "src": "/assets/assistant/mc8/107.jpg"
+  },
+  {
+    "id": 108,
+    "title": "תקשורת טורית",
+    "src": "/assets/assistant/mc8/108.jpg"
+  },
+  {
+    "id": 109,
+    "title": "פרמטרי התקשורת",
+    "src": "/assets/assistant/mc8/109.jpg"
+  },
+  {
+    "id": 110,
+    "title": "רגיסטרים",
+    "src": "/assets/assistant/mc8/110.jpg"
+  },
+  {
+    "id": 111,
+    "title": "תפריטETHERNET",
+    "src": "/assets/assistant/mc8/111.jpg"
+  },
+  {
+    "id": 112,
+    "title": "SET IP",
+    "src": "/assets/assistant/mc8/112.jpg"
+  },
+  {
+    "id": 113,
+    "title": "SET MASK",
+    "src": "/assets/assistant/mc8/113.jpg"
+  },
+  {
+    "id": 114,
+    "title": "אזהרה– לא מוגדרת סיסמה",
+    "src": "/assets/assistant/mc8/114.jpg"
+  },
+  {
+    "id": 115,
+    "title": "\"\"יציאה– אישור נוסף",
+    "src": "/assets/assistant/mc8/115.jpg"
+  },
+  {
+    "id": 116,
+    "title": "\"\"הגדר– הגדרת סיסמה",
+    "src": "/assets/assistant/mc8/116.jpg"
+  },
+  {
+    "id": 117,
+    "title": "השורהMODBUS",
+    "src": "/assets/assistant/mc8/117.jpg"
+  },
+  {
+    "id": 118,
+    "title": "הגדרתBacNet",
+    "src": "/assets/assistant/mc8/118.jpg"
+  },
+  {
+    "id": 119,
+    "title": "מספר מונה",
+    "src": "/assets/assistant/mc8/119.jpg"
+  },
+  {
+    "id": 120,
+    "title": "תפריט חווט",
+    "src": "/assets/assistant/mc8/120.jpg"
+  },
+  {
+    "id": 121,
+    "title": "חיבור כוכב",
+    "src": "/assets/assistant/mc8/121.jpg"
+  },
+  {
+    "id": 122,
+    "title": "חיבור משולש",
+    "src": "/assets/assistant/mc8/122.jpg"
+  },
+  {
+    "id": 123,
+    "title": "חיבורAron",
+    "src": "/assets/assistant/mc8/123.jpg"
+  },
+  {
+    "id": 124,
+    "title": "חיבור שנאי הזרם",
+    "src": "/assets/assistant/mc8/124.jpg"
+  },
+  {
+    "id": 125,
+    "title": "שינוי סדר פרמטרים",
+    "src": "/assets/assistant/mc8/125.jpg"
+  },
+  {
+    "id": 126,
+    "title": "אפשרויות1–8",
+    "src": "/assets/assistant/mc8/126.jpg"
+  },
+  {
+    "id": 127,
+    "title": "אפשרויות9–16",
+    "src": "/assets/assistant/mc8/127.jpg"
+  },
+  {
+    "id": 128,
+    "title": "אפשרויות17–24",
+    "src": "/assets/assistant/mc8/128.jpg"
+  },
+  {
+    "id": 129,
+    "title": "871 – שומר מסך",
+    "src": "/assets/assistant/mc8/129.jpg"
+  },
+  {
+    "id": 130,
+    "title": "11 – בדיקת חווט",
+    "src": "/assets/assistant/mc8/130.jpg"
+  },
+  {
+    "id": 131,
+    "title": "244 – פרמטרים",
+    "src": "/assets/assistant/mc8/131.jpg"
+  }
+]

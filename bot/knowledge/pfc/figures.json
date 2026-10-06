@@ -1,0 +1,462 @@
+[
+  {
+    "id": 1,
+    "title": "שורת הלחצנים שבתחתית הצג והמקשים שמתחתיה",
+    "src": "/assets/assistant/pfc/1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "תפריט– השורה הראשונה מסומנת",
+    "src": "/assets/assistant/pfc/2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "לאחר שתי לחיצות על↓",
+    "src": "/assets/assistant/pfc/3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "הזנת ערך עם נקודה עשרונית",
+    "src": "/assets/assistant/pfc/4.jpg"
+  },
+  {
+    "id": 5,
+    "title": "+ לאחר הזזת החץ ימינה ושתי לחיצות על",
+    "src": "/assets/assistant/pfc/5.jpg"
+  },
+  {
+    "id": 6,
+    "title": "מבנה המסך הראשי",
+    "src": "/assets/assistant/pfc/6.jpg"
+  },
+  {
+    "id": 7,
+    "title": "מקדם הספק נמוך– שתי דרגות ממתינות לחיבור",
+    "src": "/assets/assistant/pfc/7.jpg"
+  },
+  {
+    "id": 8,
+    "title": "מצב קיבולי– מינוס, \"קיבולי\" ואותC",
+    "src": "/assets/assistant/pfc/8.jpg"
+  },
+  {
+    "id": 9,
+    "title": "( הממוצעים עדיין אינם זמיניםN.A)",
+    "src": "/assets/assistant/pfc/9.jpg"
+  },
+  {
+    "id": 10,
+    "title": "עבודה על גנרטור– הכיתוב \"מ.הספק-\"גנרטור",
+    "src": "/assets/assistant/pfc/10.jpg"
+  },
+  {
+    "id": 11,
+    "title": "מוני הקבליםCount – ,מספר החיבוריםTime – זמן העבודה המצטבר בשניות",
+    "src": "/assets/assistant/pfc/11.jpg"
+  },
+  {
+    "id": 12,
+    "title": "התפריט הראשי",
+    "src": "/assets/assistant/pfc/12.jpg"
+  },
+  {
+    "id": 13,
+    "title": "מסך המידע",
+    "src": "/assets/assistant/pfc/13.jpg"
+  },
+  {
+    "id": 14,
+    "title": "בחירת שפה",
+    "src": "/assets/assistant/pfc/14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "מתח פאזה",
+    "src": "/assets/assistant/pfc/15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "מתח שלוב",
+    "src": "/assets/assistant/pfc/16.jpg"
+  },
+  {
+    "id": 17,
+    "title": "זרם",
+    "src": "/assets/assistant/pfc/17.jpg"
+  },
+  {
+    "id": 18,
+    "title": "זרם בקו האפס",
+    "src": "/assets/assistant/pfc/18.jpg"
+  },
+  {
+    "id": 19,
+    "title": "תדר",
+    "src": "/assets/assistant/pfc/19.jpg"
+  },
+  {
+    "id": 20,
+    "title": "מקדם הספק",
+    "src": "/assets/assistant/pfc/20.jpg"
+  },
+  {
+    "id": 21,
+    "title": "הספק אקטיבי",
+    "src": "/assets/assistant/pfc/21.jpg"
+  },
+  {
+    "id": 22,
+    "title": "הספק ריאקטיבי",
+    "src": "/assets/assistant/pfc/22.jpg"
+  },
+  {
+    "id": 23,
+    "title": "הספק מדומה",
+    "src": "/assets/assistant/pfc/23.jpg"
+  },
+  {
+    "id": 24,
+    "title": "הספק כוללP, S, Q",
+    "src": "/assets/assistant/pfc/24.jpg"
+  },
+  {
+    "id": 25,
+    "title": "מסך משולב– מתחים וזרמים",
+    "src": "/assets/assistant/pfc/25.jpg"
+  },
+  {
+    "id": 26,
+    "title": "מסך משולב– הספקים ומקדם",
+    "src": "/assets/assistant/pfc/26.jpg"
+  },
+  {
+    "id": 27,
+    "title": "מקדם הספק קיבולי– האותc",
+    "src": "/assets/assistant/pfc/27.jpg"
+  },
+  {
+    "id": 28,
+    "title": "מעבר אוטומטי ליחידותMW",
+    "src": "/assets/assistant/pfc/28.jpg"
+  },
+  {
+    "id": 29,
+    "title": "מסך המדידה ברשת חד-פאזית",
+    "src": "/assets/assistant/pfc/29.jpg"
+  },
+  {
+    "id": 30,
+    "title": "משולש– מתח שלוב",
+    "src": "/assets/assistant/pfc/30.jpg"
+  },
+  {
+    "id": 31,
+    "title": "משולש– מקדם הספק כולל",
+    "src": "/assets/assistant/pfc/31.jpg"
+  },
+  {
+    "id": 32,
+    "title": "משולש– הספק כולל",
+    "src": "/assets/assistant/pfc/32.jpg"
+  },
+  {
+    "id": 33,
+    "title": "THD של הזרם",
+    "src": "/assets/assistant/pfc/33.jpg"
+  },
+  {
+    "id": 34,
+    "title": "THD של המתח",
+    "src": "/assets/assistant/pfc/34.jpg"
+  },
+  {
+    "id": 35,
+    "title": "גרף המתח שלL1",
+    "src": "/assets/assistant/pfc/35.jpg"
+  },
+  {
+    "id": 36,
+    "title": "גרף הזרם שלL2 – הזרם מפגר אחרי המתח",
+    "src": "/assets/assistant/pfc/36.jpg"
+  },
+  {
+    "id": 37,
+    "title": "( זרם מעוותTHD )גבוה– צורת הגל אינה סינוס נקי",
+    "src": "/assets/assistant/pfc/37.jpg"
+  },
+  {
+    "id": 38,
+    "title": "רשימת האזעקות",
+    "src": "/assets/assistant/pfc/38.jpg"
+  },
+  {
+    "id": 39,
+    "title": "לאחר שלוש לחיצות על↓",
+    "src": "/assets/assistant/pfc/39.jpg"
+  },
+  {
+    "id": 40,
+    "title": "סוף הרשימה לאחר גלילה– \"הרשומה הישנה ביותר היא \"מחיקת הקובץ",
+    "src": "/assets/assistant/pfc/40.jpg"
+  },
+  {
+    "id": 41,
+    "title": "מסך הקשת הקוד",
+    "src": "/assets/assistant/pfc/41.jpg"
+  },
+  {
+    "id": 42,
+    "title": "הזנת ספרות",
+    "src": "/assets/assistant/pfc/42.jpg"
+  },
+  {
+    "id": 43,
+    "title": "קוד שגוי",
+    "src": "/assets/assistant/pfc/43.jpg"
+  },
+  {
+    "id": 44,
+    "title": "קביעת קוד חדש",
+    "src": "/assets/assistant/pfc/44.jpg"
+  },
+  {
+    "id": 45,
+    "title": "הזנת הקוד החדש",
+    "src": "/assets/assistant/pfc/45.jpg"
+  },
+  {
+    "id": 46,
+    "title": "אישור השינוי",
+    "src": "/assets/assistant/pfc/46.jpg"
+  },
+  {
+    "id": 47,
+    "title": "תפריט הגדרות מערכת",
+    "src": "/assets/assistant/pfc/47.jpg"
+  },
+  {
+    "id": 48,
+    "title": "חיבור: שלוש פאזות",
+    "src": "/assets/assistant/pfc/48.jpg"
+  },
+  {
+    "id": 49,
+    "title": "חיבור: פאזה אחת",
+    "src": "/assets/assistant/pfc/49.jpg"
+  },
+  {
+    "id": 50,
+    "title": "אוטומט-פאזה אחת/שלוש",
+    "src": "/assets/assistant/pfc/50.jpg"
+  },
+  {
+    "id": 51,
+    "title": "תפריט משנה זרם/מתח",
+    "src": "/assets/assistant/pfc/51.jpg"
+  },
+  {
+    "id": 52,
+    "title": "הגדרת משנה זרם",
+    "src": "/assets/assistant/pfc/52.jpg"
+  },
+  {
+    "id": 53,
+    "title": "הגדרת משנה מתח",
+    "src": "/assets/assistant/pfc/53.jpg"
+  },
+  {
+    "id": 54,
+    "title": "תפריט הגדרות חיוניות",
+    "src": "/assets/assistant/pfc/54.jpg"
+  },
+  {
+    "id": 55,
+    "title": "מ.הספק רצוי",
+    "src": "/assets/assistant/pfc/55.jpg"
+  },
+  {
+    "id": 56,
+    "title": "כמות קבלים",
+    "src": "/assets/assistant/pfc/56.jpg"
+  },
+  {
+    "id": 57,
+    "title": "מ.הספק במצב גנרטור",
+    "src": "/assets/assistant/pfc/57.jpg"
+  },
+  {
+    "id": 58,
+    "title": "סדר חיבור: ראשון",
+    "src": "/assets/assistant/pfc/58.jpg"
+  },
+  {
+    "id": 59,
+    "title": "סדר חיבור: סבב",
+    "src": "/assets/assistant/pfc/59.jpg"
+  },
+  {
+    "id": 60,
+    "title": "סדר חיבור: אקראי",
+    "src": "/assets/assistant/pfc/60.jpg"
+  },
+  {
+    "id": 61,
+    "title": "טבלת ערכי הקבלים",
+    "src": "/assets/assistant/pfc/61.jpg"
+  },
+  {
+    "id": 62,
+    "title": "בחירת קבל5",
+    "src": "/assets/assistant/pfc/62.jpg"
+  },
+  {
+    "id": 63,
+    "title": "הזנת הערך",
+    "src": "/assets/assistant/pfc/63.jpg"
+  },
+  {
+    "id": 64,
+    "title": "שלב ייצוב– בעמודהMeasure מוצג ההספק הריאקטיבי",
+    "src": "/assets/assistant/pfc/64.jpg"
+  },
+  {
+    "id": 65,
+    "title": "שלב מדידה– הקבל מחובר ומוצג הערך שנמדד",
+    "src": "/assets/assistant/pfc/65.jpg"
+  },
+  {
+    "id": 66,
+    "title": "סיום המדידה",
+    "src": "/assets/assistant/pfc/66.jpg"
+  },
+  {
+    "id": 67,
+    "title": "\"לאחר לחיצה על \"עגול",
+    "src": "/assets/assistant/pfc/67.jpg"
+  },
+  {
+    "id": 68,
+    "title": "אזהרה לפני שמירה",
+    "src": "/assets/assistant/pfc/68.jpg"
+  },
+  {
+    "id": 69,
+    "title": "תפריט בדיקות מערכת",
+    "src": "/assets/assistant/pfc/69.jpg"
+  },
+  {
+    "id": 70,
+    "title": "חיווט תקין– כל התאים ירוקים",
+    "src": "/assets/assistant/pfc/70.jpg"
+  },
+  {
+    "id": 71,
+    "title": "L2 – ,)מקדם הספק חשוד (אדוםL3 – אין זרם",
+    "src": "/assets/assistant/pfc/71.jpg"
+  },
+  {
+    "id": 72,
+    "title": "בדיקת ממסרים– הכול מנותק",
+    "src": "/assets/assistant/pfc/72.jpg"
+  },
+  {
+    "id": 73,
+    "title": "ממסרים2 ו-4 מופעלים",
+    "src": "/assets/assistant/pfc/73.jpg"
+  },
+  {
+    "id": 74,
+    "title": "תפריט הגדרות רשות",
+    "src": "/assets/assistant/pfc/74.jpg"
+  },
+  {
+    "id": 75,
+    "title": "שיהוי חיבור בשניות",
+    "src": "/assets/assistant/pfc/75.jpg"
+  },
+  {
+    "id": 76,
+    "title": "שיהוי ניתוק בשניות",
+    "src": "/assets/assistant/pfc/76.jpg"
+  },
+  {
+    "id": 77,
+    "title": "תחום ויסות",
+    "src": "/assets/assistant/pfc/77.jpg"
+  },
+  {
+    "id": 78,
+    "title": "תיקוןS.P חודשי",
+    "src": "/assets/assistant/pfc/78.jpg"
+  },
+  {
+    "id": 79,
+    "title": "שיהוי ליצוב",
+    "src": "/assets/assistant/pfc/79.jpg"
+  },
+  {
+    "id": 80,
+    "title": "חיבור: משולש",
+    "src": "/assets/assistant/pfc/80.jpg"
+  },
+  {
+    "id": 81,
+    "title": "תפריט הגדרת תחום הגנות",
+    "src": "/assets/assistant/pfc/81.jpg"
+  },
+  {
+    "id": 82,
+    "title": ".מקסTHD-I",
+    "src": "/assets/assistant/pfc/82.jpg"
+  },
+  {
+    "id": 83,
+    "title": ".מקסTHD-V",
+    "src": "/assets/assistant/pfc/83.jpg"
+  },
+  {
+    "id": 84,
+    "title": "מינימום זרם",
+    "src": "/assets/assistant/pfc/84.jpg"
+  },
+  {
+    "id": 85,
+    "title": "מתח מקסימום",
+    "src": "/assets/assistant/pfc/85.jpg"
+  },
+  {
+    "id": 86,
+    "title": "התראתPF נמוך נמדד",
+    "src": "/assets/assistant/pfc/86.jpg"
+  },
+  {
+    "id": 87,
+    "title": "מצב נבחר: אוטומטי",
+    "src": "/assets/assistant/pfc/87.jpg"
+  },
+  {
+    "id": 88,
+    "title": "מצב נבחר: קבוע",
+    "src": "/assets/assistant/pfc/88.jpg"
+  },
+  {
+    "id": 91,
+    "title": "1102 – Minimum PF (ברירת",
+    "src": "/assets/assistant/pfc/91.jpg"
+  },
+  {
+    "id": 92,
+    "title": "1500 – זמן תאורת הצג",
+    "src": "/assets/assistant/pfc/92.jpg"
+  },
+  {
+    "id": 93,
+    "title": "4445 – כפיית מקדם הספק",
+    "src": "/assets/assistant/pfc/93.jpg"
+  },
+  {
+    "id": 94,
+    "title": "המסך הראשי במצב כפיית מקדם הספק",
+    "src": "/assets/assistant/pfc/94.jpg"
+  }
+]

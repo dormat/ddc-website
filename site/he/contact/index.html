@@ -4,12 +4,12 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>צרו קשר | ישומי בקרה - עברית</title>
-  <meta name="description" content=""/>
+  <meta name="description" content="צרו קשר"/>
   <link rel="icon" href="/assets/images/favicon.png" type="image/png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/assets/css/main.css?v=578bfcb4bc"/>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/main.css?v=af573898c2"/>
 </head>
 <body class="lang-he">
   <header class="site-header">
@@ -69,6 +69,37 @@
     <article class="page-content contact-page">
   <h1 class="page-title">צרו קשר</h1>
   <p class="contact-intro">נשמח לשמוע מכם. מלאו את הטופס ונחזור אליכם בהקדם האפשרי.</p>
+  
+  <section class="lt22-assistant" id="lt22-assistant" aria-labelledby="lt22-assistant-title">
+    <header class="lt22-header">
+      <div class="lt22-avatar" aria-hidden="true"></div>
+      <div class="lt22-header-copy">
+        <h2 class="lt22-assistant-title" id="lt22-assistant-title">קאל - מומחה לחשמל</h2>
+        <p class="lt22-status"><span class="lt22-status-dot" aria-hidden="true"></span>זמין לעזור עכשיו</p>
+      </div>
+    </header>
+    <p class="lt22-assistant-intro">שאלו על מסכים, מקשים והגדרות של המוצרים שלנו. אם אין תשובה, הטופס שבהמשך העמוד מגיע אלינו.</p>
+    <div class="lt22-start" id="lt22-start">
+      <button type="button" class="btn btn-submit" id="lt22-start-button">התחלת שיחה</button>
+    </div>
+    <div class="lt22-chat" id="lt22-chat" hidden>
+      <div class="lt22-log" id="lt22-log" aria-live="polite"></div>
+      <div class="lt22-suggestions" id="lt22-suggestions" hidden></div>
+      <form class="lt22-composer" id="lt22-composer">
+        <p class="lt22-photo-name" id="lt22-photo-name" hidden></p>
+        <div class="lt22-composer-row">
+          <button type="button" class="lt22-photo-button" id="lt22-photo-button" aria-label="צרפו תמונה" title="צרפו תמונה" hidden>+</button>
+          <textarea id="lt22-input" rows="1" maxlength="2000" placeholder="…" disabled></textarea>
+          <button type="submit" class="lt22-send" aria-label="שליחה" disabled>
+            <span aria-hidden="true">↑</span>
+          </button>
+          <button type="button" class="lt22-restart-inline" id="lt22-restart-inline" aria-label="התחלה מחדש" title="התחלה מחדש">↻</button>
+        </div>
+        <input type="file" id="lt22-photo" accept="image/jpeg,image/png,image/webp,image/gif" hidden />
+      </form>
+    </div>
+    <p class="lt22-error" id="lt22-error" hidden></p>
+  </section>
   <div class="contact-layout">
     <form
       class="contact-form"
@@ -143,6 +174,8 @@
     <p>&copy; ישומי בקרה בע&quot;מ</p>
   </div>
 </footer>
-  <script src="/assets/js/main.js?v=d28ecaac38"></script>
+  <script src="/assets/js/main.js?v=4744257bfa"></script>
+  <script src="/assets/js/cms-live.js?v=38b85f2af4" defer></script>
+  <script src="/assets/js/assistant-products.js?v=3c9ff9e6a4" defer></script><script src="/assets/js/lt22-assistant.js?v=e451a5e5b4" defer></script>
 </body>
 </html>

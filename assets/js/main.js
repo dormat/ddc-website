@@ -53,24 +53,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Carousels (homepage hero + product gallery)
   document.querySelectorAll(".hero-carousel, .product-carousel").forEach((carousel) => {
-    const slides = carousel.querySelectorAll(".carousel-slide");
-    const dots = carousel.querySelectorAll(".carousel-dot");
     const prev = carousel.querySelector(".carousel-prev");
     const next = carousel.querySelector(".carousel-next");
     let current = 0;
     let timer = null;
     let transitioning = false;
 
+    function slides() {
+      return carousel.querySelectorAll(".carousel-slide");
+    }
+    function dots() {
+      return carousel.querySelectorAll(".carousel-dot");
+    }
+
     function showSlide(index) {
-      if (slides.length === 0 || transitioning) return;
-      const next = (index + slides.length) % slides.length;
-      if (next === current) return;
+      const list = slides();
+      if (list.length === 0 || transitioning) return;
+      const nextIndex = ((index % list.length) + list.length) % list.length;
+      if (nextIndex === current && list[current]?.classList.contains("is-active")) return;
 
       transitioning = true;
-      slides[current]?.classList.remove("is-active");
-      current = next;
-      slides[current]?.classList.add("is-active");
-      dots.forEach((d, i) => d.classList.toggle("is-active", i === current));
+      list.forEach((slide, i) => slide.classList.toggle("is-active", i === nextIndex));
+      dots().forEach((d, i) => d.classList.toggle("is-active", i === nextIndex));
+      current = nextIndex;
 
       window.setTimeout(() => {
         transitioning = false;
@@ -83,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startAutoplay() {
       stopAutoplay();
-      if (slides.length > 1) {
+      if (slides().length > 1) {
         timer = setInterval(nextSlide, 5000);
       }
     }
@@ -100,11 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
       nextSlide();
       startAutoplay();
     });
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        showSlide(Number(dot.dataset.index));
-        startAutoplay();
-      });
+    carousel.addEventListener("click", (event) => {
+      const dot = event.target.closest?.(".carousel-dot");
+      if (!dot || !carousel.contains(dot)) return;
+      showSlide(Number(dot.dataset.index));
+      startAutoplay();
     });
 
     carousel.addEventListener("mouseenter", stopAutoplay);
