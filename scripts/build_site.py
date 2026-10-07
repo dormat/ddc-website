@@ -64,6 +64,7 @@ from cms_overlay import (
     industry_title_from_cms,
     merge_cms_into_product_page,
     merge_cms_into_site_page,
+    product_visible_on_site,
     solution_home_description_from_cms,
 )
 
@@ -450,6 +451,8 @@ def search_record_for_page(lang: str, page: dict) -> dict | None:
         title = proj["title"]
         text = search_plain_text(page)
     elif slug in catalog_product_slugs():
+        if not product_visible_on_site(slug, lang):
+            return None
         kind = "product"
         title = product_display_title(page)
         text = search_plain_text(page)
@@ -489,10 +492,13 @@ def write_assistant_products() -> None:
         title = str(prod.get("title") or "").strip()
         if not title:
             continue
+        slug = str(prod.get("slug") or "").strip()
+        if slug and not product_visible_on_site(slug, "he"):
+            continue
         category = _assistant_product_category(prod)
         by_category.setdefault(category, []).append(
             {
-                "slug": str(prod.get("slug") or "").strip(),
+                "slug": slug,
                 "title": title,
                 "subcategory": category,
             }
@@ -1695,7 +1701,7 @@ def render_home_products_slider(lang: str) -> str:
             f'<p class="product-slider-text">{html.escape(teaser)}</p>' if teaser else ""
         )
         slides.append(
-            f'<a class="product-slider-card" href="{page_href(lang, slug)}">'
+            f'<a class="product-slider-card" href="{page_href(lang, slug)}" data-product-slug="{html.escape(slug)}">'
             f'<div class="product-slider-image">{img}</div>'
             f'<div class="product-slider-body">'
             f'<span class="product-slider-title">{html.escape(title)}</span>'
@@ -2397,14 +2403,16 @@ def build_hub_card(
     slug_index: dict[str, str],
     title_index: dict[str, str],
     lang: str,
-) -> dict:
+) -> dict | None:
     target = resolve_slug(name, slug_index, lang, title_index)
     target = canonical_slug(target) if target else ""
+    if target and not product_visible_on_site(target, lang):
+        return None
     href = page_href(lang, target) if target else "#"
     src = lookup_hub_card_image(
         name, image_index, catalog, slug_index, title_index, lang
     )
-    return {"title": name, "src": src, "href": href}
+    return {"title": name, "src": src, "href": href, "slug": target}
 
 
 def render_hub_product_card(card: dict) -> str:
@@ -2413,8 +2421,11 @@ def render_hub_product_card(card: dict) -> str:
         if card["src"]
         else '<div class="card-placeholder"></div>'
     )
+    slug_attr = (
+        f' data-product-slug="{safe_escape(card["slug"])}"' if card.get("slug") else ""
+    )
     return (
-        f'<a class="product-card" href="{card["href"]}">'
+        f'<a class="product-card" href="{card["href"]}"{slug_attr}>'
         f'<div class="product-card-image">{img_html}</div>'
         f'<span class="product-card-title">{safe_escape(card["title"])}</span>'
         f"</a>"
@@ -2442,16 +2453,22 @@ def parse_hub_cards(page: dict, lang: str) -> str:
 
     for section in sections:
         cards = [
-            build_hub_card(
-                name,
-                image_index=image_index,
-                catalog=catalog,
-                slug_index=slug_index,
-                title_index=title_index,
-                lang=lang,
+            card
+            for card in (
+                build_hub_card(
+                    name,
+                    image_index=image_index,
+                    catalog=catalog,
+                    slug_index=slug_index,
+                    title_index=title_index,
+                    lang=lang,
+                )
+                for name in section["products"]
             )
-            for name in section["products"]
+            if card
         ]
+        if not cards:
+            continue
         html_parts.append('<section class="hub-section">')
         html_parts.append(
             f'<h2 class="hub-section-title">{safe_escape(section["title"])}</h2>'
@@ -3059,6 +3076,8 @@ def collect_related_products(
 
         if not target or target in seen_slugs:
             return
+        if not product_visible_on_site(target, lang):
+            return
         title = slug_titles.get(target, title)
         norm_title = normalize_product_name(title)
         if norm_title in seen_titles:
@@ -3213,8 +3232,9 @@ def render_related_product_cards(cards: list[dict], lang: str) -> str:
             if src
             else '<div class="card-placeholder"></div>'
         )
+        slug_attr = f' data-product-slug="{html.escape(slug)}"' if slug else ""
         parts.append(
-            f'<a class="product-card" href="{href}">'
+            f'<a class="product-card" href="{href}"{slug_attr}>'
             f'<div class="product-card-image">{img_html}</div>'
             f'<span class="product-card-title">{html.escape(title)}</span>'
             f"</a>"
@@ -3256,13 +3276,28 @@ def render_product_documents(page: dict, lang: str) -> str:
     return f'<div class="product-documents">{"".join(buttons)}</div>'
 
 
+def render_hidden_product_page(lang: str) -> str:
+    """Shell for a product hidden in admin (kept in CMS, not shown on the site)."""
+    message = ui_pick(
+        lang,
+        "מוצר זה אינו זמין כרגע.",
+        "This product is not available right now.",
+        "Este producto no está disponible en este momento.",
+    )
+    back = ui_pick(lang, "לכל המוצרים", "All products", "Todos los productos")
+    return f"""<article class="page-content product-detail-page product-detail-page--hidden">
+  <p class="page-lead">{html.escape(message)}</p>
+  <p><a class="btn" href="{page_href(lang, "products")}">{html.escape(back)}</a></p>
+</article>"""
+
+
 def render_product_detail_page(page: dict, lang: str) -> str:
     slug = page.get("slug", "")
     page = merge_product_page_documents(page, slug, lang)
     merged = merge_cms_into_product_page(page, slug, lang)
     if merged is None:
-        # Product disabled in CMS for this language.
-        return ""
+        # Product disabled in CMS for this language — keep URL but hide content.
+        return render_hidden_product_page(lang)
     page = merged
     display_title = product_display_title(page)
     raw = page.get("content_html", "")
@@ -3968,7 +4003,7 @@ def render_use_case_product_cards(cards: list[dict], lang: str) -> str:
             else '<div class="card-placeholder"></div>'
         )
         parts.append(
-            f'<a class="product-card" href="{href}">'
+            f'<a class="product-card" href="{href}" data-product-slug="{html.escape(card["slug"])}">'
             f'<div class="product-card-image">{img_html}</div>'
             f'<span class="product-card-title">{html.escape(title)}</span>'
             f"</a>"
@@ -4076,6 +4111,8 @@ def render_project_detail_page(page: dict, lang: str) -> str:
 
 def render_catalog_product_card(prod: dict, lang: str, slug_index: dict, title_index: dict, slug_titles: dict) -> str:
     slug = product_canonical_slug(prod, lang, slug_index, title_index)
+    if slug and not product_visible_on_site(slug, lang):
+        return ""
     title = catalog_product_title(prod, slug, lang, slug_titles)
     href = page_href(lang, slug) if slug else "#"
     src = product_thumbnail_src(slug, lang, prod.get("src", ""))
@@ -4085,7 +4122,7 @@ def render_catalog_product_card(prod: dict, lang: str, slug_index: dict, title_i
         else '<div class="card-placeholder"></div>'
     )
     return (
-        f'<a class="product-card" href="{href}">'
+        f'<a class="product-card" href="{href}" data-product-slug="{html.escape(slug)}">'
         f'<div class="product-card-image">{img_html}</div>'
         f'<span class="product-card-title">{html.escape(title)}</span>'
         f"</a>"
@@ -4100,9 +4137,9 @@ def render_products_page(page: dict, lang: str) -> str:
     other_label = ui_pick(lang, "אחר", "Other", "Otros")
 
     products = page.get("products") or []
+    slug_index = build_slug_index(lang)
+    title_index = build_title_index(lang)
     if not products:
-        slug_index = build_slug_index(lang)
-        title_index = build_title_index(lang)
         seen: set[str] = set()
         for item in page.get("gallery", []):
             title = (item.get("title") or "").strip()
@@ -4118,6 +4155,15 @@ def render_products_page(page: dict, lang: str) -> str:
                     "src": item.get("src", ""),
                 }
             )
+
+    # Drop products hidden in admin (enabled unchecked) so they stay in CMS but leave the catalog.
+    visible_products: list[dict] = []
+    for prod in products:
+        slug = product_canonical_slug(prod, lang, slug_index, title_index)
+        if slug and not product_visible_on_site(slug, lang):
+            continue
+        visible_products.append(prod)
+    products = visible_products
 
     groups: dict[str, list[dict]] = {}
     uncategorized: list[dict] = []
@@ -4141,8 +4187,6 @@ def render_products_page(page: dict, lang: str) -> str:
         if key not in assigned_keys and key not in leftover_keys:
             leftover_keys.append(key)
 
-    slug_index = build_slug_index(lang)
-    title_index = build_title_index(lang)
     slug_titles = build_slug_title_index(lang)
 
     filter_options = [(group["id"], group["labels"][lang]) for group in SOLUTION_GROUPS]
@@ -4169,9 +4213,15 @@ def render_products_page(page: dict, lang: str) -> str:
             if not items:
                 continue
             cards = [
-                render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
-                for prod in items
+                card
+                for card in (
+                    render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
+                    for prod in items
+                )
+                if card
             ]
+            if not cards:
+                continue
             parts.append(
                 f'<section class="hub-section products-subgroup">'
                 f'<h3 class="hub-section-title products-subgroup-title">{html.escape(localize_subcategory(key, lang))}</h3>'
@@ -4204,15 +4254,20 @@ def render_products_page(page: dict, lang: str) -> str:
     other_body = render_subsections(leftover_keys)
     if uncategorized:
         cards = [
-            render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
-            for prod in uncategorized
+            card
+            for card in (
+                render_catalog_product_card(prod, lang, slug_index, title_index, slug_titles)
+                for prod in uncategorized
+            )
+            if card
         ]
-        other_body += (
-            f'<section class="hub-section products-subgroup">'
-            f'<h3 class="hub-section-title products-subgroup-title">{html.escape(other_label)}</h3>'
-            f'<div class="card-grid">{"".join(cards)}</div>'
-            "</section>"
-        )
+        if cards:
+            other_body += (
+                f'<section class="hub-section products-subgroup">'
+                f'<h3 class="hub-section-title products-subgroup-title">{html.escape(other_label)}</h3>'
+                f'<div class="card-grid">{"".join(cards)}</div>'
+                "</section>"
+            )
     if other_body:
         sections.append(
             f'<section class="products-practice" data-product-group="other" id="other-products">'

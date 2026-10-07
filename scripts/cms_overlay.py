@@ -66,6 +66,21 @@ def lang_enabled(row: dict[str, Any], lang: str) -> bool:
     return bool(row.get(key, True))
 
 
+def product_visible_on_site(slug: str, lang: str) -> bool:
+    """Whether a product should appear on the public site for this language.
+
+    Unchecking "Show on website" in admin sets enabled=false and hides the product
+    without deleting it. Products not present in the CMS snapshot stay visible
+    (legacy content-only pages).
+    """
+    if not slug:
+        return False
+    row = cms_product(slug)
+    if not row:
+        return True
+    return lang_enabled(row, lang)
+
+
 def apply_cms_overrides(
     *,
     solution_labels: dict,

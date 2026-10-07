@@ -114,7 +114,8 @@ export default async function ProductEditPage({
           </div>
           <div className="checks">
             <label>
-              <input type="checkbox" name="enabled" defaultChecked={product.enabled} /> Enabled
+              <input type="checkbox" name="enabled" defaultChecked={product.enabled} />{" "}
+              Show on website
             </label>
             <label>
               <input type="checkbox" name="enabledHe" defaultChecked={product.enabledHe} /> HE
@@ -126,6 +127,10 @@ export default async function ProductEditPage({
               <input type="checkbox" name="enabledEs" defaultChecked={product.enabledEs} /> ES
             </label>
           </div>
+          <p className="muted" style={{ margin: "0.5rem 0 0", fontSize: "0.85rem" }}>
+            Uncheck &ldquo;Show on website&rdquo; to hide this product from the public site without
+            deleting it. Language checkboxes hide it in one locale only.
+          </p>
         </div>
 
         {(["en", "he", "es"] as const).map((lang) => (

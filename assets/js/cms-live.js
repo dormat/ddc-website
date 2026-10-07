@@ -40,6 +40,81 @@
     return null;
   }
 
+  function langEnabled(row, lang) {
+    if (!row || row.enabled === false) return false;
+    if (lang === "he") return row.enabledHe !== false;
+    if (lang === "en") return row.enabledEn !== false;
+    return row.enabledEs !== false;
+  }
+
+  function slugFromHref(href) {
+    if (!href) return "";
+    var path = String(href).split("?")[0].replace(/\/+$/, "");
+    var parts = path.split("/").filter(Boolean);
+    if (parts.length < 2) return "";
+    if (parts[0] === "he" || parts[0] === "en" || parts[0] === "es") {
+      return parts.slice(1).join("/");
+    }
+    return parts.join("/");
+  }
+
+  function hideDisabledProductCards(products, lang) {
+    if (!products) return;
+    var hidden = {};
+    for (var i = 0; i < products.length; i++) {
+      var p = products[i];
+      if (!p || !p.slug) continue;
+      if (!langEnabled(p, lang)) hidden[p.slug] = true;
+    }
+    var cards = document.querySelectorAll(
+      "a.product-card[href], a.product-slider-card[href]",
+    );
+    for (var j = 0; j < cards.length; j++) {
+      var card = cards[j];
+      var slug =
+        card.getAttribute("data-product-slug") ||
+        slugFromHref(card.getAttribute("href") || "");
+      if (!slug || !hidden[slug]) continue;
+      var section = card.closest(".hub-section, .products-subgroup, .use-case-products, .related-products");
+      card.remove();
+      if (section) {
+        var grid = section.querySelector(".card-grid, .use-case-product-grid, .related-products-grid, .project-slider-track");
+        if (grid && !grid.querySelector("a.product-card, a.product-slider-card")) {
+          section.remove();
+        }
+      }
+    }
+  }
+
+  function renderHiddenProductMessage(lang) {
+    var messages = {
+      he: {
+        text: "מוצר זה אינו זמין כרגע.",
+        back: "לכל המוצרים",
+      },
+      en: {
+        text: "This product is not available right now.",
+        back: "All products",
+      },
+      es: {
+        text: "Este producto no está disponible en este momento.",
+        back: "Todos los productos",
+      },
+    };
+    var L = messages[lang] || messages.en;
+    var page = document.querySelector(".product-detail-page");
+    if (!page) return;
+    page.className = "page-content product-detail-page product-detail-page--hidden";
+    page.innerHTML =
+      '<p class="page-lead">' +
+      escapeHtml(L.text) +
+      '</p><p><a class="btn" href="/' +
+      escapeHtml(lang) +
+      '/products/">' +
+      escapeHtml(L.back) +
+      "</a></p>";
+  }
+
   function findPage(pages, key) {
     if (!pages || !key) return null;
     for (var i = 0; i < pages.length; i++) {
@@ -141,6 +216,10 @@
 
   function applyProduct(product, lang) {
     if (!product) return;
+    if (!langEnabled(product, lang)) {
+      renderHiddenProductMessage(lang);
+      return;
+    }
     var tr = (product.translations || {})[lang] || {};
     setText(document.querySelector(".product-detail-page .page-title"), tr.title);
     var desc = document.querySelector(".product-detail-page .product-description");
@@ -395,6 +474,7 @@
     var slug = currentSlug();
     applyContact(snapshot.settings || {});
     applyNavSolutions(snapshot.solutions || [], lang);
+    hideDisabledProductCards(snapshot.products || [], lang);
 
     if (!slug) {
       // Homepage: apply per-solution home descriptions from CMS.
@@ -404,6 +484,10 @@
 
     if (slug === "industries") {
       applyIndustriesListing(snapshot.industries || [], lang);
+      return;
+    }
+
+    if (slug === "products") {
       return;
     }
 
