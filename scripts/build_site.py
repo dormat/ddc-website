@@ -1007,10 +1007,27 @@ def render_contact_page(lang: str) -> str:
         <h2 class="lt22-assistant-title" id="lt22-assistant-title">קאל - מומחה לחשמל</h2>
         <p class="lt22-status"><span class="lt22-status-dot" aria-hidden="true"></span>זמין לעזור עכשיו</p>
       </div>
+      <button type="button" class="lt22-close" id="lt22-close" aria-label="סגירת השיחה" title="סגירה" hidden>
+        <span aria-hidden="true">×</span>
+        <span class="lt22-close-label">סיום</span>
+      </button>
     </header>
     <p class="lt22-assistant-intro">שאלו על מסכים, מקשים והגדרות של המוצרים שלנו. אם אין תשובה, הטופס שבהמשך העמוד מגיע אלינו.</p>
     <div class="lt22-start" id="lt22-start">
-      <button type="button" class="btn btn-submit" id="lt22-start-button">התחלת שיחה</button>
+      <div class="lt22-auth" id="lt22-auth">
+        <p class="lt22-auth-copy">התחברות עם Google כדי להתחיל</p>
+        <button type="button" class="lt22-google-btn" id="lt22-google-signin">
+          <span class="lt22-google-icon" aria-hidden="true"></span>
+          התחברות עם Google
+        </button>
+      </div>
+      <div class="lt22-auth-signed" id="lt22-auth-signed" hidden>
+        <p class="lt22-auth-account" id="lt22-auth-account"></p>
+        <div class="lt22-auth-actions">
+          <button type="button" class="btn btn-submit" id="lt22-start-button">התחלת שיחה</button>
+          <button type="button" class="lt22-auth-switch" id="lt22-google-signout">התנתקות / החלפת חשבון</button>
+        </div>
+      </div>
     </div>
     <div class="lt22-chat" id="lt22-chat" hidden>
       <div class="lt22-log" id="lt22-log" aria-live="polite"></div>
@@ -4486,6 +4503,31 @@ def page_meta_description(page: dict) -> str:
     return ""
 
 
+# Public Firebase web config for Hebrew contact assistant Auth only.
+# Enable Google provider in Firebase Console (control-applications-ddc) and keep
+# hosting domains in Authentication → Settings → Authorized domains.
+LT22_FIREBASE_WEB_CONFIG = {
+    "apiKey": "AIzaSyB9eOI2jYFSEGKWpEa1AGTrbkdyZEEv6RY",
+    "authDomain": "control-applications-ddc.firebaseapp.com",
+    "projectId": "control-applications-ddc",
+    "storageBucket": "control-applications-ddc.firebasestorage.app",
+    "messagingSenderId": "376494321400",
+    "appId": "1:376494321400:web:7c5c5163f531964d87d50d",
+}
+
+
+def _assistant_scripts(lang: str, slug: str) -> str:
+    if lang != "he" or slug != "contact":
+        return ""
+    config_json = json.dumps(LT22_FIREBASE_WEB_CONFIG, separators=(",", ":"))
+    return f"""
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" defer></script>
+  <script>window.LT22_FIREBASE_CONFIG={config_json};</script>
+  <script src="{asset_path("js/assistant-products.js")}" defer></script>
+  <script src="{asset_path("js/lt22-assistant.js")}" defer></script>"""
+
+
 def render_page(lang: str, page: dict) -> str:
     cfg = SITE_CONFIG[lang]
     slug = page.get("slug", "")
@@ -4529,7 +4571,7 @@ def render_page(lang: str, page: dict) -> str:
   {render_footer(lang)}
   <script src="{asset_path('js/main.js')}"></script>
   <script src="{asset_path('js/cms-live.js')}" defer></script>
-  {f'<script src="{asset_path("js/assistant-products.js")}" defer></script><script src="{asset_path("js/lt22-assistant.js")}" defer></script>' if lang == "he" and slug == "contact" else ''}
+  {_assistant_scripts(lang, slug)}
 </body>
 </html>"""
 

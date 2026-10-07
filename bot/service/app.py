@@ -579,10 +579,53 @@ def apply_cors(response):
     if origin in allowed_origins():
         response.headers["Access-Control-Allow-Origin"] = origin
         response.headers["Vary"] = "Origin"
-        response.headers["Access-Control-Allow-Headers"] = "Accept, Content-Type, X-Cron-Secret"
+        response.headers["Access-Control-Allow-Headers"] = (
+            "Accept, Authorization, Content-Type, X-Cron-Secret"
+        )
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
     response.headers["Cache-Control"] = "no-store"
     return response
+
+
+def require_firebase_user():
+    """Verify Firebase Auth ID token from Authorization: Bearer …"""
+    header = request.headers.get("Authorization", "")
+    if not header.startswith("Bearer "):
+        return None, json_error(401, "יש להתחבר עם Google כדי להשתמש בעוזר.")
+    token = header[7:].strip()
+    if not token:
+        return None, json_error(401, "יש להתחבר עם Google כדי להשתמש בעוזר.")
+    try:
+        from google.auth.transport import requests as google_requests
+        from google.oauth2 import id_token
+
+        claims = id_token.verify_firebase_token(
+            token,
+            google_requests.Request(),
+            audience=PROJECT_ID,
+        )
+    except Exception:
+        app.logger.exception("Firebase ID token verification failed")
+        return None, json_error(401, "ההתחברות פגה. התחברו שוב עם Google.")
+    uid = str(claims.get("uid") or claims.get("sub") or "").strip()
+    if not uid:
+        return None, json_error(401, "ההתחברות פגה. התחברו שוב עם Google.")
+    claims["uid"] = uid
+    return claims, None
+
+
+def _auth_fields_from_claims(claims: dict, fallback_email: str = "") -> dict:
+    email = str(claims.get("email") or fallback_email or "").strip().lower()
+    fields = {
+        "googleUid": str(claims.get("uid") or ""),
+        "authProvider": "google",
+    }
+    if email and EMAIL_RE.match(email):
+        fields["email"] = email
+    name = str(claims.get("name") or "").strip()
+    if name:
+        fields["googleName"] = name[:120]
+    return fields
 
 
 @app.after_request
@@ -781,6 +824,20 @@ def _require_chat_auth(conversation_id: str, token: str):
     return (chat_ref, chat), None
 
 
+def _require_google_chat(conversation_id: str, token: str):
+    claims, err = require_firebase_user()
+    if err:
+        return None, err
+    auth, err = _require_chat_auth(conversation_id, token)
+    if err:
+        return None, err
+    chat_ref, chat = auth
+    stored_uid = str(chat.get("googleUid") or "").strip()
+    if stored_uid and stored_uid != claims["uid"]:
+        return None, json_error(403, "השיחה שייכת למשתמש אחר. התחברו מחדש.")
+    return (chat_ref, chat, claims), None
+
+
 @app.post("/api/assistant/request")
 def create_request():
     import csat
@@ -788,6 +845,9 @@ def create_request():
 
     if not origin_allowed():
         return json_error(403, "השיחה זמינה רק מאתר ישומי בקרה.")
+    claims, err = require_firebase_user()
+    if err:
+        return err
     if not ip_allowed(client_ip()):
         return json_error(429, "קיבלנו הרבה פניות עכשיו. נסו שוב בעוד כמה דקות.")
     payload = request.get_json(silent=True) or {}
@@ -804,11 +864,26 @@ def create_request():
     fields["marketingConsent"] = "כן" if marketing_consent else "לא"
 
     conversation_id = _clean_field(payload.get("conversationId"), 80)
+    chat_token = str(payload.get("token") or "")
+    if conversation_id and chat_token:
+        owned, owned_err = _require_google_chat(conversation_id, chat_token)
+        if owned_err:
+            return owned_err
     request_id = uuid.uuid4().hex
     hot = kind == "purchase" and csat.is_hot_lead(fields)
 
+    auth_fields = _auth_fields_from_claims(claims, fields.get("email") or "")
     try:
         conversation_id = _ensure_request_chat(conversation_id, fields)
+        if conversation_id and auth_fields.get("googleUid"):
+            chat_patch = {
+                "googleUid": auth_fields["googleUid"],
+                "authProvider": "google",
+                "updatedAt": firestore.SERVER_TIMESTAMP,
+            }
+            if auth_fields.get("email"):
+                chat_patch["email"] = auth_fields["email"]
+            db().collection("assistantChats").document(conversation_id).set(chat_patch, merge=True)
     except Exception:
         app.logger.exception("Could not attach request to chat")
         conversation_id = conversation_id or ""
@@ -821,6 +896,8 @@ def create_request():
         "adminNotes": "",
         "marketingConsent": marketing_consent,
         "hotLead": hot,
+        "googleUid": auth_fields.get("googleUid") or "",
+        "authProvider": "google",
         "createdAt": firestore.SERVER_TIMESTAMP,
         "updatedAt": firestore.SERVER_TIMESTAMP,
         "acknowledgedAt": None,
@@ -830,6 +907,8 @@ def create_request():
             "channel": "",
         },
     }
+    if auth_fields.get("email"):
+        doc["googleEmail"] = auth_fields["email"]
     try:
         db().collection("assistantRequests").document(request_id).set(doc)
     except Exception:
@@ -881,14 +960,28 @@ def create_request():
 def create_session():
     if not origin_allowed():
         return json_error(403, "השיחה זמינה רק מאתר ישומי בקרה.")
+    claims, err = require_firebase_user()
+    if err:
+        return err
     if not ip_allowed(client_ip()):
         return json_error(429, "קיבלנו הרבה פניות עכשיו. נסו שוב בעוד כמה דקות, או השאירו פרטים בטופס בהמשך העמוד.")
     payload = request.get_json(silent=True) or {}
     provisional = bool(payload.get("provisional"))
     name = str(payload.get("name") or "").strip()
     contact = str(payload.get("contact") or "").strip()
+    email = str(payload.get("email") or "").strip()
+    auth_fields = _auth_fields_from_claims(claims, email)
+    if auth_fields.get("email"):
+        email = auth_fields["email"]
+    if not name and auth_fields.get("googleName"):
+        name = auth_fields["googleName"]
     device_raw = str(payload.get("device") or "").strip()
     device = normalize_device(device_raw) if device_raw else ""
+    if email and not EMAIL_RE.match(email):
+        if provisional:
+            email = ""
+        else:
+            return json_error(400, "הזינו כתובת דואר אלקטרוני תקינה.")
     if provisional:
         if not name:
             name = "מבקר/ת"
@@ -903,20 +996,23 @@ def create_session():
     token = uuid.uuid4().hex + uuid.uuid4().hex
     conversation_id = uuid.uuid4().hex
     try:
-        db().collection("assistantChats").document(conversation_id).set(
-            {
-                "name": name,
-                "contact": contact,
-                "device": device,
-                "channel": "web",
-                "tokenHash": token_hash(token),
-                "messageCount": 0,
-                "nextSeq": 0,
-                "provisional": provisional,
-                "createdAt": firestore.SERVER_TIMESTAMP,
-                "updatedAt": firestore.SERVER_TIMESTAMP,
-            }
-        )
+        doc = {
+            "name": name,
+            "contact": contact,
+            "device": device,
+            "channel": "web",
+            "tokenHash": token_hash(token),
+            "messageCount": 0,
+            "nextSeq": 0,
+            "provisional": provisional,
+            "googleUid": auth_fields["googleUid"],
+            "authProvider": "google",
+            "createdAt": firestore.SERVER_TIMESTAMP,
+            "updatedAt": firestore.SERVER_TIMESTAMP,
+        }
+        if email:
+            doc["email"] = email
+        db().collection("assistantChats").document(conversation_id).set(doc)
     except Exception:
         app.logger.exception("Could not save the conversation")
         return json_error(503, "לא הצלחתי לפתוח שיחה עכשיו. נסו שוב בעוד רגע, או השאירו פרטים בטופס בהמשך העמוד.")
@@ -930,18 +1026,24 @@ def update_session():
     payload = request.get_json(silent=True) or {}
     conversation_id = str(payload.get("conversationId") or "")
     token = str(payload.get("token") or "")
-    auth, err = _require_chat_auth(conversation_id, token)
+    auth, err = _require_google_chat(conversation_id, token)
     if err:
         return err
-    chat_ref, _chat = auth
+    chat_ref, _chat, claims = auth
     patch: dict = {"updatedAt": firestore.SERVER_TIMESTAMP}
+    patch.update(_auth_fields_from_claims(claims, str(payload.get("email") or "")))
     name = str(payload.get("name") or "").strip()
     contact = str(payload.get("contact") or "").strip()
+    email = str(payload.get("email") or "").strip()
+    if patch.get("email"):
+        email = patch["email"]
     device_raw = str(payload.get("device") or "").strip()
     if name and len(name) <= 80:
         patch["name"] = name
     if contact and valid_contact(contact):
         patch["contact"] = contact
+    if email and EMAIL_RE.match(email):
+        patch["email"] = email
     if device_raw:
         if device_raw.strip().lower() in {"other", "OTHER".lower()}:
             patch["device"] = "OTHER"
@@ -963,10 +1065,10 @@ def log_transcript():
     payload = request.get_json(silent=True) or {}
     conversation_id = str(payload.get("conversationId") or "")
     token = str(payload.get("token") or "")
-    auth, err = _require_chat_auth(conversation_id, token)
+    auth, err = _require_google_chat(conversation_id, token)
     if err:
         return err
-    chat_ref, _chat = auth
+    chat_ref, _chat, _claims = auth
     raw_messages = payload.get("messages")
     if not isinstance(raw_messages, list):
         raw_messages = [payload]
@@ -1009,10 +1111,10 @@ def post_message():
     except ValueError:
         return json_error(400, "אפשר לצרף תמונת מסך בלבד, עד 4MB.")
 
-    auth, err = _require_chat_auth(conversation_id, token)
+    auth, err = _require_google_chat(conversation_id, token)
     if err:
         return err
-    chat_ref, chat = auth
+    chat_ref, chat, _claims = auth
     device = normalize_device(chat.get("device"))
     count = int(chat.get("messageCount") or 0)
     if count >= MAX_TURNS:
@@ -1113,13 +1215,10 @@ def post_rating():
         return json_error(400, "השיחה לא התחילה. רעננו את העמוד ונסו שוב.")
     if rating < 1 or rating > 5:
         return json_error(400, "בחרו דירוג בין 1 ל-5.")
-    chat_ref = db().collection("assistantChats").document(conversation_id)
-    chat = chat_ref.get()
-    if not chat.exists:
-        return json_error(400, "השיחה לא התחילה. רעננו את העמוד ונסו שוב.")
-    stored = chat.get("tokenHash") or ""
-    if not hmac.compare_digest(stored, token_hash(token)):
-        return json_error(403, "השיחה לא התחילה. רעננו את העמוד ונסו שוב.")
+    auth, err = _require_google_chat(conversation_id, token)
+    if err:
+        return err
+    chat_ref, _chat, _claims = auth
     chat_ref.update(
         {
             "rating": rating,

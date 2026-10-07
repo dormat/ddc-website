@@ -151,7 +151,24 @@ Do this in the same project the site is moving to. Do not create a second projec
 5. Enable the Vertex AI / Gemini API on this project (`aiplatform.googleapis.com`). The Cloud Run service calls Gemini as itself. Give that service account permission to use Vertex AI. Do not create an API key and do not put one in the website. Leave Google Search grounding turned off.
 6. Confirm Gemini Flash is enabled for the project and that the spend budget from step 1 covers it.
 
-WhatsApp, a public API key, Firebase Auth, and an admin screen are not part of this setup.
+WhatsApp and a public Gemini API key are not part of this setup.
+
+### Google Sign-In (Hebrew contact assistant)
+
+The Kal / LT22 chat on the Hebrew contact page requires Firebase Auth with the Google provider. Contact forms below the chat stay public.
+
+**Code (already wired):** Hebrew contact injects Firebase Auth + `LT22_FIREBASE_CONFIG`; the chat UI gates on Google sign-in; `/api/assistant/*` expects `Authorization: Bearer <Firebase ID token>`; Cloud Run verifies it and stores `googleUid`, `email`, and `authProvider: "google"` on the chat.
+
+**Firebase Console steps still required** for project **control-applications-ddc**:
+
+1. **Authentication → Sign-in method → Google → Enable**, then Save. (If prompted, pick a project support email; Firebase will create/link the OAuth client.)
+2. **Authentication → Settings → Authorized domains** — keep at least:
+   - `localhost` (local tests)
+   - `control-applications-ddc.web.app`
+   - `control-applications-ddc.firebaseapp.com`
+   - `ddc.co.il` / `www.ddc.co.il`
+   - `control-applications-preview.web.app` / `control-applications-cms.web.app` (if those hosts use the assistant)
+3. After enabling Google, open https://control-applications-ddc.web.app/he/contact/ and confirm the sign-in popup works (not `auth/operation-not-allowed` or `auth/unauthorized-domain`).
 
 ## Order of work
 

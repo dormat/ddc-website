@@ -10,16 +10,25 @@
   var input = document.getElementById("lt22-input");
   var sendButton = composer.querySelector(".lt22-send");
   var restartInline = document.getElementById("lt22-restart-inline");
+  var closeButton = document.getElementById("lt22-close");
   var fileInput = document.getElementById("lt22-photo");
   var photoButton = document.getElementById("lt22-photo-button");
   var photoName = document.getElementById("lt22-photo-name");
   var errorBox = document.getElementById("lt22-error");
+  var authGate = document.getElementById("lt22-auth");
+  var authSigned = document.getElementById("lt22-auth-signed");
+  var authAccount = document.getElementById("lt22-auth-account");
+  var googleSignInButton = document.getElementById("lt22-google-signin");
+  var googleSignOutButton = document.getElementById("lt22-google-signout");
+  var startButton = document.getElementById("lt22-start-button");
   var session = null;
-  var visitor = { name: "", phone: "", device: null };
+  var visitor = { name: "", phone: "", email: "", device: null };
   var pendingPhoto = null;
   var sending = false;
   var pendingAsk = null;
   var topicsOpened = false;
+  var authUser = null;
+  var authReady = false;
 
   var devices = {
     lt22: {
@@ -132,8 +141,28 @@
   }
 
   function setFullscreen(active) {
-    root.classList.toggle("is-active", Boolean(active));
-    document.body.classList.toggle("lt22-assistant-open", Boolean(active));
+    var on = Boolean(active);
+    root.classList.toggle("is-active", on);
+    document.body.classList.toggle("lt22-assistant-open", on);
+    if (closeButton) closeButton.hidden = !on;
+  }
+
+  function closeAssistant() {
+    pendingAsk = null;
+    sending = false;
+    setFullscreen(false);
+    chat.hidden = true;
+    start.hidden = false;
+    log.innerHTML = "";
+    clearChips();
+    showError("");
+    composer.hidden = false;
+    setComposer(false, "…", false);
+    session = null;
+    topicsOpened = false;
+    pendingPhoto = null;
+    if (fileInput) fileInput.value = "";
+    if (photoName) photoName.hidden = true;
   }
 
   function apiBase() {
@@ -146,6 +175,135 @@
   function showError(message) {
     errorBox.hidden = !message;
     errorBox.textContent = message || "";
+  }
+
+  function firebaseAuth() {
+    if (typeof firebase === "undefined" || !window.LT22_FIREBASE_CONFIG) return null;
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(window.LT22_FIREBASE_CONFIG);
+      }
+      return firebase.auth();
+    } catch (err) {
+      return null;
+    }
+  }
+
+  async function getIdToken(forceRefresh) {
+    var auth = firebaseAuth();
+    if (!auth || !auth.currentUser) return "";
+    try {
+      return await auth.currentUser.getIdToken(!!forceRefresh);
+    } catch (err) {
+      return "";
+    }
+  }
+
+  async function authHeaders(extra) {
+    var headers = Object.assign({ "Content-Type": "application/json" }, extra || {});
+    var token = await getIdToken(false);
+    if (!token) token = await getIdToken(true);
+    if (token) headers.Authorization = "Bearer " + token;
+    return headers;
+  }
+
+  function applyGoogleProfile(user) {
+    if (!user) return;
+    var display = String(user.displayName || "").trim();
+    var email = String(user.email || "").trim().toLowerCase();
+    if (display && (!visitor.name || visitor.name === "מבקר/ת")) {
+      visitor.name = display.replace(/\s+/g, " ").slice(0, 80);
+    }
+    if (email && validEmail(email)) {
+      visitor.email = email;
+    }
+  }
+
+  function renderAuthUi() {
+    if (!authGate || !authSigned || !startButton) return;
+    if (authUser) {
+      authGate.hidden = true;
+      authSigned.hidden = false;
+      if (authAccount) {
+        var label = authUser.email || authUser.displayName || "חשבון Google";
+        authAccount.textContent = "מחוברים כ־" + label;
+      }
+      startButton.disabled = false;
+    } else {
+      authGate.hidden = false;
+      authSigned.hidden = true;
+      if (authAccount) authAccount.textContent = "";
+      startButton.disabled = true;
+    }
+  }
+
+  async function signInWithGoogle() {
+    var auth = firebaseAuth();
+    if (!auth) {
+      showError("התחברות Google לא זמינה כרגע. רעננו את העמוד ונסו שוב.");
+      return;
+    }
+    showError("");
+    if (googleSignInButton) googleSignInButton.disabled = true;
+    try {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      var result = await auth.signInWithPopup(provider);
+      authUser = result.user || auth.currentUser;
+      applyGoogleProfile(authUser);
+      renderAuthUi();
+    } catch (err) {
+      var code = (err && err.code) || "";
+      if (code === "auth/popup-closed-by-user" || code === "auth/cancelled-popup-request") {
+        showError("");
+      } else if (code === "auth/unauthorized-domain") {
+        showError("הדומיין לא מורשה להתחברות Google. פנו למנהל האתר.");
+      } else if (code === "auth/operation-not-allowed") {
+        showError("התחברות Google עדיין לא הופעלה בפרויקט. פנו למנהל האתר.");
+      } else {
+        showError("לא הצלחנו להתחבר עם Google. נסו שוב.");
+      }
+    } finally {
+      if (googleSignInButton) googleSignInButton.disabled = false;
+    }
+  }
+
+  async function signOutGoogle() {
+    var auth = firebaseAuth();
+    showError("");
+    try {
+      if (auth) await auth.signOut();
+    } catch (err) {
+      /* ignore */
+    }
+    authUser = null;
+    session = null;
+    renderAuthUi();
+    if (!chat.hidden) {
+      setFullscreen(false);
+      chat.hidden = true;
+      start.hidden = false;
+      log.innerHTML = "";
+      clearChips();
+      composer.hidden = false;
+      setComposer(false, "…", false);
+    }
+  }
+
+  function watchAuth() {
+    var auth = firebaseAuth();
+    if (!auth) {
+      authReady = true;
+      renderAuthUi();
+      showError("התחברות Google לא נטענה. רעננו את העמוד.");
+      return;
+    }
+    auth.onAuthStateChanged(function (user) {
+      authUser = user || null;
+      authReady = true;
+      if (authUser) applyGoogleProfile(authUser);
+      renderAuthUi();
+    });
   }
 
   function scrollLog() {
@@ -272,7 +430,7 @@
   }
 
   function hasVisitorDetails() {
-    return Boolean(hasVisitorName() && visitor.phone && visitor.device);
+    return Boolean(hasVisitorName() && visitor.phone && visitor.email && visitor.device);
   }
 
   async function startOver() {
@@ -317,6 +475,17 @@
         await botSay("נראה שהמספר לא מלא. אפשר כמו 050-1234567.");
       }
     }
+    if (!visitor.email) {
+      await botSay("ומה כתובת הדואר האלקטרוני שלכם?");
+      for (;;) {
+        var emailRaw = (await askText("name@example.com")).trim();
+        if (validEmail(emailRaw)) {
+          visitor.email = emailRaw.toLowerCase();
+          break;
+        }
+        await botSay("נראה שהכתובת לא תקינה. אפשר כמו name@example.com.");
+      }
+    }
     if (!visitor.device) {
       await botSay("מצוין. על איזה מכשיר מדובר? בחרו מהרשימה.");
       var deviceOptions = supportedDeviceIds.concat(["OTHER"]).map(function (id) {
@@ -348,6 +517,7 @@
         session = await post("/api/assistant/session", {
           name: visitor.name,
           contact: visitor.phone,
+          email: visitor.email || "",
           device: visitor.device.id,
         });
       }
@@ -454,6 +624,7 @@
         provisional: true,
         name: visitor.name || "מבקר/ת",
         contact: visitor.phone || "",
+        email: visitor.email || "",
         device: visitor.device && visitor.device.id ? visitor.device.id : "",
       });
     } catch (err) {
@@ -470,6 +641,7 @@
         token: session.token,
         name: visitor.name || "",
         contact: visitor.phone || "",
+        email: visitor.email || "",
         device: visitor.device && visitor.device.id ? visitor.device.id : "",
       });
     } catch (err) {
@@ -564,12 +736,18 @@
   }
 
   async function post(path, payload) {
+    if (!authUser) {
+      throw new Error("יש להתחבר עם Google כדי להשתמש בעוזר.");
+    }
     var response = await fetch(apiBase() + path, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: await authHeaders(),
       body: JSON.stringify(payload),
     });
     var data = parseJson(await response.text());
+    if (response.status === 401) {
+      throw new Error(data.error || "ההתחברות פגה. התחברו שוב עם Google.");
+    }
     if (!response.ok) {
       throw new Error(data.error || nextSoftFail());
     }
@@ -583,16 +761,19 @@
   }
 
   async function postMessage(payload, onRetry) {
+    if (!authUser) {
+      throw new Error("יש להתחבר עם Google כדי להשתמש בעוזר.");
+    }
     var response = await fetch(apiBase() + "/api/assistant/message", {
       method: "POST",
-      headers: {
-        Accept: "application/x-ndjson",
-        "Content-Type": "application/json",
-      },
+      headers: await authHeaders({ Accept: "application/x-ndjson" }),
       body: JSON.stringify(payload),
     });
     if (!response.ok || !response.body) {
       var failed = parseJson(await response.text());
+      if (response.status === 401) {
+        throw new Error(failed.error || "ההתחברות פגה. התחברו שוב עם Google.");
+      }
       throw new Error(failed.error || nextSoftFail());
     }
     var reader = response.body.getReader();
@@ -654,6 +835,10 @@
   function validPhone(value) {
     var digits = normalizePhone(value);
     return /^0\d{8,9}$/.test(digits) || /^[+\d][\d\s\-()]{7,}$/.test(String(value || "").trim());
+  }
+
+  function validEmail(value) {
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(value || "").trim());
   }
 
   function chipLabel(chip) {
@@ -909,6 +1094,7 @@
       kind: kind,
       fields: fields,
       conversationId: session && session.conversationId ? session.conversationId : "",
+      token: session && session.token ? session.token : "",
     });
   }
 
@@ -1022,7 +1208,13 @@
         placeholder: "מספר ח.פ. או ת.ז.",
         full: true,
       });
-      fieldRow(form, { name: "email", label: "דואר אלקטרוני", type: "email", required: true });
+      fieldRow(form, {
+        name: "email",
+        label: "דואר אלקטרוני",
+        type: "email",
+        required: true,
+        value: visitor.email || "",
+      });
       fieldRow(form, {
         name: "phone",
         label: "טלפון (אופציונלי)",
@@ -1057,6 +1249,7 @@
     }
     if (fields.fullName) visitor.name = fields.fullName;
     if (fields.phone) visitor.phone = fields.phone;
+    if (fields.email) visitor.email = fields.email;
     await syncSessionProfile();
     await botSay(
       "תודה! קיבלנו את בקשת הרכישה. נציג יחזור אליכם במייל.\nלשאלות: " + SERVICE_HELP,
@@ -1110,7 +1303,13 @@
         required: true,
         value: visitor.phone || "",
       });
-      fieldRow(form, { name: "email", label: "דואר אלקטרוני", type: "email", required: true });
+      fieldRow(form, {
+        name: "email",
+        label: "דואר אלקטרוני",
+        type: "email",
+        required: true,
+        value: visitor.email || "",
+      });
       fieldRow(form, {
         name: "country",
         label: "מדינה",
@@ -1152,6 +1351,7 @@
     }
     if (fields.contactName) visitor.name = fields.contactName;
     if (fields.phone) visitor.phone = fields.phone;
+    if (fields.email) visitor.email = fields.email;
     if (visitor.device && visitor.device.id) fields.device = visitor.device.label || visitor.device.id;
     await syncSessionProfile();
     await botSay(
@@ -1394,19 +1594,21 @@
 
   async function runIntake() {
     showError("");
+    if (!authUser) {
+      renderAuthUi();
+      showError("התחברו עם Google כדי להתחיל.");
+      return;
+    }
+    applyGoogleProfile(authUser);
     start.hidden = true;
     chat.hidden = false;
     setFullscreen(true);
     setComposer(false, "…", false);
     await ensureTranscriptSession();
 
-    // Same browser visit: keep name (and phone/device when present). Page refresh clears them.
+    // Same browser visit: keep name (and phone/email/device when present). Page refresh clears them.
     if (hasVisitorName()) {
-      var returning = firstName(visitor.name);
-      await botSay(
-        (returning ? "ברוכים שוב, " + returning + ". " : "ברוכים שוב. ") +
-          "איך תרצו להמשיך?",
-      );
+      await botSay("איך תרצו להמשיך?");
       var again = await askIntent();
       if (again !== "service") return;
       await ensureServiceDetails();
@@ -1523,9 +1725,22 @@
     }
   }
 
-  document.getElementById("lt22-start-button").addEventListener("click", function () {
-    runIntake();
-  });
+  if (startButton) {
+    startButton.addEventListener("click", function () {
+      runIntake();
+    });
+  }
+  if (googleSignInButton) {
+    googleSignInButton.addEventListener("click", function () {
+      signInWithGoogle();
+    });
+  }
+  if (googleSignOutButton) {
+    googleSignOutButton.addEventListener("click", function () {
+      signOutGoogle();
+    });
+  }
+  watchAuth();
 
   fileInput.addEventListener("change", function () {
     var file = fileInput.files && fileInput.files[0];
@@ -1565,4 +1780,17 @@
       startOver();
     });
   }
+
+  if (closeButton) {
+    closeButton.addEventListener("click", function () {
+      closeAssistant();
+    });
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && root.classList.contains("is-active")) {
+      event.preventDefault();
+      closeAssistant();
+    }
+  });
 })();
