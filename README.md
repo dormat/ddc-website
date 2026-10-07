@@ -86,19 +86,19 @@ firebase init hosting:github
 
 When prompted:
 
-- Firebase project: **harokdim**
+- Firebase project: **control-applications-ddc**
 - GitHub repo: **dormat/ddc-website**
 - Live branch: **main**
 - Build command: `pip install -r requirements.txt && python scripts/build_site.py` (or skip if workflows already exist)
 
-The CLI creates a service account and uploads it to GitHub as the secret `FIREBASE_SERVICE_ACCOUNT_HAROKDIM`. If the workflow files already exist, choose **not** to overwrite them when asked.
+The CLI creates a service account and uploads it to GitHub as the secret `FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC`. If the workflow files already exist, choose **not** to overwrite them when asked. That secret is already configured on this repo.
 
 After the secret is in place:
 
-- Every push to `main` deploys to **ddc-temp** — https://ddc-temp.web.app
-- Every push to `cursor/solutions-first-site-ee14` deploys to **ddc-temp2** — https://ddc-temp2.web.app (and https://ddc-temp2.firebaseapp.com)
+- Every push to `main` deploys to **control-applications-ddc** — https://control-applications-ddc.web.app
+- Every push to `cursor/solutions-first-site-ee14` deploys to the preview site — https://control-applications-preview.web.app
 
-The first solutions-first deploy creates the `ddc-temp2` Hosting site in the **harokdim** project if it does not already exist. `main` is unchanged and still goes only to `ddc-temp`.
+`main` only updates the live Hosting site (`ddc-temp` target → `control-applications-ddc`). Cloud Run (assistant API) is still deployed separately with `gcloud run deploy` unless you add a workflow for it.
 
 ### Manual deploy
 
@@ -106,7 +106,7 @@ The first solutions-first deploy creates the `ddc-temp2` Hosting site in the **h
 npm install -g firebase-tools
 firebase login
 python scripts/build_site.py
-firebase deploy
+firebase deploy --only hosting:ddc-temp --project control-applications-ddc
 ```
 
 (`firebase.json` already points `public` at `site/`.)

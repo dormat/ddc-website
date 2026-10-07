@@ -1,8 +1,8 @@
 {
   "projects": {
-    "default": "harokdim",
-    "harokdim": "harokdim",
-    "control-applications-ddc": "control-applications-ddc"
+    "default": "control-applications-ddc",
+    "control-applications-ddc": "control-applications-ddc",
+    "harokdim": "harokdim"
   },
   "targets": {
     "harokdim": {

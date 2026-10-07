@@ -1,5 +1,5 @@
-# Preview the solutions-first branch on a separate Hosting site.
-# Live production remains ddc-temp (main). This site is ddc-temp2.
+# Preview branch on a separate Hosting site (control-applications-preview).
+# Live production remains ddc-temp → control-applications-ddc (main).
 
 name: Deploy solutions-first preview to Firebase Hosting
 on:
@@ -22,18 +22,19 @@ jobs:
         run: |
           pip install -r requirements.txt
           python scripts/build_site.py
-      - name: Ensure ddc-temp2 Hosting site exists
+      - name: Ensure preview Hosting site exists
         env:
-          FIREBASE_SERVICE_ACCOUNT_HAROKDIM: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HAROKDIM }}
+          FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC }}
         run: |
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_HAROKDIM" > "$RUNNER_TEMP/firebase-sa.json"
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC" > "$RUNNER_TEMP/firebase-sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-sa.json"
-          npx --yes firebase-tools@13 hosting:sites:create ddc-temp2 --project harokdim --non-interactive \
+          npx --yes firebase-tools@13 hosting:sites:create control-applications-preview \
+            --project control-applications-ddc --non-interactive \
             || echo "Site may already exist; continuing with deploy."
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HAROKDIM }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC }}
           channelId: live
-          projectId: harokdim
+          projectId: control-applications-ddc
           target: ddc-temp2
