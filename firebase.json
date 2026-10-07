@@ -26,20 +26,6 @@
           }
         },
         {
-          "source": "/cms/public.json",
-          "run": {
-            "serviceId": "ssrcontrolapplicationsa",
-            "region": "us-central1"
-          }
-        },
-        {
-          "source": "/cms/public.json/**",
-          "run": {
-            "serviceId": "ssrcontrolapplicationsa",
-            "region": "us-central1"
-          }
-        },
-        {
           "source": "/",
           "destination": "/he/index.html"
         }
@@ -51,6 +37,15 @@
             {
               "key": "Cache-Control",
               "value": "max-age=31536000"
+            }
+          ]
+        },
+        {
+          "source": "/cms/public.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
             }
           ]
         }

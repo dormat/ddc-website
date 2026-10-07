@@ -4808,6 +4808,22 @@ def copy_assets() -> None:
                 shutil.copy2(item, dest)
 
 
+def copy_cms_public_snapshot() -> None:
+    """Ship cms/data/public.json as a static /cms/public.json for Hosting.
+
+    Marketing site (ddc-temp) serves this file directly so PR/merge deploys do not
+    need Cloud Run IAM for ssrcontrolapplicationsa. Live CMS hosting (ddc-cms)
+    can still rewrite the same path to the admin SSR service.
+    """
+    src = ROOT / "cms" / "data" / "public.json"
+    if not src.exists():
+        return
+    dest = SITE_DIR / "cms" / "public.json"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dest)
+    print(f"Copied CMS public snapshot → {dest.relative_to(ROOT)}")
+
+
 def main():
     print("Building image aliases...")
     import build_image_aliases
@@ -4825,6 +4841,7 @@ def main():
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     write_assistant_products()
     copy_assets()
+    copy_cms_public_snapshot()
     build_path_redirects()
     write_csat_pages()
 
