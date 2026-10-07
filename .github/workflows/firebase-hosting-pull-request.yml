@@ -20,6 +20,26 @@ jobs:
         run: |
           pip install -r requirements.txt
           python scripts/build_site.py
+      # Preview channels only need the static site. Cloud Run Hosting rewrites require
+      # run.services.get on each backend; the GitHub Actions Firebase SA does not have
+      # that IAM, which fails the whole preview deploy.
+      - name: Strip Cloud Run rewrites for preview deploy
+        run: |
+          python3 <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("firebase.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          for hosting in data.get("hosting", []):
+              if hosting.get("target") != "ddc-temp":
+                  continue
+              hosting["rewrites"] = [
+                  rule for rule in hosting.get("rewrites", []) if "run" not in rule
+              ]
+          path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+          print("Removed Cloud Run rewrites from ddc-temp for PR preview deploy")
+          PY
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

@@ -37,7 +37,7 @@ export default async function DashboardPage() {
           <div className="stat-value">{productCount.n}</div>
         </div>
         <div className="card stat-card">
-          <div className="muted">Enabled products</div>
+          <div className="muted">Visible on website</div>
           <div className="stat-value">{enabledProducts[0].n}</div>
         </div>
         <div className="card stat-card">
@@ -64,9 +64,9 @@ export default async function DashboardPage() {
                 </td>
                 <td>
                   {row.enabled ? (
-                    <span className="badge">enabled</span>
+                    <span className="badge">visible</span>
                   ) : (
-                    <span className="badge off">disabled</span>
+                    <span className="badge off">hidden</span>
                   )}
                 </td>
                 <td>

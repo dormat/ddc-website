@@ -152,3 +152,24 @@ export async function deleteProductAction(slug: string) {
   await publishToPublicSite();
   redirect("/products");
 }
+
+/** Hide or show a product on the public website without deleting it. */
+export async function toggleProductVisibilityAction(slug: string, formData: FormData) {
+  const db = await getDb();
+  const [product] = await db.select().from(products).where(eq(products.slug, slug)).limit(1);
+  if (!product) throw new Error("Product not found");
+
+  const next = formData.get("enabled") === "1" || formData.get("enabled") === "true";
+  await db
+    .update(products)
+    .set({
+      enabled: next,
+      updatedAt: new Date(),
+    })
+    .where(eq(products.id, product.id));
+
+  revalidatePath("/products");
+  revalidatePath(`/products/${slug}`);
+  await publishToPublicSite();
+  redirect("/products");
+}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { products, productTranslations } from "@ddc/db";
 import { sql } from "@ddc/db";
-import { createProductAction } from "@/app/actions/products";
+import { createProductAction, toggleProductVisibilityAction } from "@/app/actions/products";
 import { SubmitButton } from "@/components/submit-button";
 import { requireAuth, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
@@ -53,42 +53,57 @@ export default async function ProductsPage() {
         </details>
       }
     >
+      <p className="muted" style={{ marginBottom: "0.75rem" }}>
+        Hide a product from the website with Hide — it stays in admin and can be shown again later.
+      </p>
       <div className="card">
         <table>
           <thead>
             <tr>
               <th>Product</th>
-              <th>Enabled</th>
+              <th>On website</th>
               <th>Languages</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.id}>
-                <td>
-                  <strong>{row.title || row.slug}</strong>
-                  <div className="muted">{row.slug}</div>
-                </td>
-                <td>
-                  {row.enabled ? (
-                    <span className="badge">on</span>
-                  ) : (
-                    <span className="badge off">off</span>
-                  )}
-                </td>
-                <td>
-                  <span className={`badge ${row.enabledHe ? "" : "off"}`}>he</span>
-                  <span className={`badge ${row.enabledEn ? "" : "off"}`}>en</span>
-                  <span className={`badge ${row.enabledEs ? "" : "off"}`}>es</span>
-                </td>
-                <td>
-                  <Link className="btn" href={`/products/${row.slug}`}>
-                    Edit
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            {rows.map((row) => {
+              const toggle = toggleProductVisibilityAction.bind(null, row.slug);
+              return (
+                <tr key={row.id}>
+                  <td>
+                    <strong>{row.title || row.slug}</strong>
+                    <div className="muted">{row.slug}</div>
+                  </td>
+                  <td>
+                    {row.enabled ? (
+                      <span className="badge">visible</span>
+                    ) : (
+                      <span className="badge off">hidden</span>
+                    )}
+                  </td>
+                  <td>
+                    <span className={`badge ${row.enabledHe ? "" : "off"}`}>he</span>
+                    <span className={`badge ${row.enabledEn ? "" : "off"}`}>en</span>
+                    <span className={`badge ${row.enabledEs ? "" : "off"}`}>es</span>
+                  </td>
+                  <td style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                    <form action={toggle}>
+                      <input type="hidden" name="enabled" value={row.enabled ? "0" : "1"} />
+                      <SubmitButton
+                        className="btn"
+                        pendingLabel={row.enabled ? "Hiding…" : "Showing…"}
+                      >
+                        {row.enabled ? "Hide" : "Show"}
+                      </SubmitButton>
+                    </form>
+                    <Link className="btn" href={`/products/${row.slug}`}>
+                      Edit
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
