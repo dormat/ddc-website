@@ -1411,7 +1411,12 @@
       bubble.appendChild(body);
       row.appendChild(bubble);
       log.appendChild(row);
-      scrollLog();
+      if (log.querySelector(".lt22-row-user")) {
+        scrollToLastUser();
+        watchExchangeHeight(row);
+      } else {
+        scrollLog();
+      }
       persistTranscript(
         "assistant",
         kind === "purchase" ? "הוצג טופס רכישה / הצעת מחיר" : "הוצג טופס קריאת שירות",
