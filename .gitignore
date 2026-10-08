@@ -26,4 +26,6 @@ node_modules/
 
 # Local secrets / owner handoffs (passwords, hosting logins)
 docs/private/
+scripts/lt22-firebase.local.json
+site/assets/js/lt22-firebase-config.js
 bot/.venv-pdf/

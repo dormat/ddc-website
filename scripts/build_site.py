@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 import re
 import shutil
 from pathlib import Path
@@ -4503,27 +4504,59 @@ def page_meta_description(page: dict) -> str:
     return ""
 
 
-# Public Firebase web config for Hebrew contact assistant Auth only.
-# Enable Google provider in Firebase Console (control-applications-ddc) and keep
-# hosting domains in Authentication → Settings → Authorized domains.
-LT22_FIREBASE_WEB_CONFIG = {
-    "apiKey": "AIzaSyB9eOI2jYFSEGKWpEa1AGTrbkdyZEEv6RY",
-    "authDomain": "control-applications-ddc.firebaseapp.com",
-    "projectId": "control-applications-ddc",
-    "storageBucket": "control-applications-ddc.firebasestorage.app",
-    "messagingSenderId": "376494321400",
-    "appId": "1:376494321400:web:7c5c5163f531964d87d50d",
-}
+# Firebase web config for Hebrew contact assistant Auth. Not stored in git.
+# Set LT22_FIREBASE_WEB_CONFIG (JSON) or scripts/lt22-firebase.local.json.
+# The built page still sends this config to the browser; restrict the key by
+# HTTP referrer in Google Cloud, and keep hosting domains in
+# Authentication → Settings → Authorized domains.
+LT22_FIREBASE_WEB_CONFIG: dict | None = None
+LT22_FIREBASE_CONFIG_JS = SITE_DIR / "assets" / "js" / "lt22-firebase-config.js"
+
+
+def load_lt22_firebase_web_config() -> dict | None:
+    raw = os.environ.get("LT22_FIREBASE_WEB_CONFIG", "").strip()
+    source = "LT22_FIREBASE_WEB_CONFIG"
+    if not raw:
+        local = ROOT / "scripts" / "lt22-firebase.local.json"
+        if local.is_file():
+            raw = local.read_text(encoding="utf-8").strip()
+            source = str(local.relative_to(ROOT))
+    if not raw:
+        print(
+            "Hebrew contact assistant: no Firebase web config. "
+            "Set GitHub secret LT22_FIREBASE_WEB_CONFIG or scripts/lt22-firebase.local.json."
+        )
+        return None
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        print(f"Hebrew contact assistant: {source} is not valid JSON; auth config omitted.")
+        return None
+    if not isinstance(data, dict) or not str(data.get("apiKey") or "").strip():
+        print(f"Hebrew contact assistant: {source} is missing apiKey; auth config omitted.")
+        return None
+    return data
+
+
+def write_lt22_firebase_config_js(config: dict) -> None:
+    body = "window.LT22_FIREBASE_CONFIG=" + json.dumps(config, separators=(",", ":")) + ";\n"
+    LT22_FIREBASE_CONFIG_JS.parent.mkdir(parents=True, exist_ok=True)
+    LT22_FIREBASE_CONFIG_JS.write_text(body, encoding="utf-8")
+    print(f"Wrote Firebase web config → {LT22_FIREBASE_CONFIG_JS.relative_to(ROOT)} (gitignored)")
 
 
 def _assistant_scripts(lang: str, slug: str) -> str:
     if lang != "he" or slug != "contact":
         return ""
-    config_json = json.dumps(LT22_FIREBASE_WEB_CONFIG, separators=(",", ":"))
-    return f"""
+    firebase = ""
+    if LT22_FIREBASE_WEB_CONFIG:
+        payload = json.dumps(LT22_FIREBASE_WEB_CONFIG, separators=(",", ":")).encode()
+        digest = hashlib.md5(payload).hexdigest()[:10]
+        firebase = f"""
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js" defer></script>
-  <script>window.LT22_FIREBASE_CONFIG={config_json};</script>
+  <script src="/assets/js/lt22-firebase-config.js?v={digest}" defer></script>"""
+    return firebase + f"""
   <script src="{asset_path("js/assistant-products.js")}" defer></script>
   <script src="{asset_path("js/lt22-assistant.js")}" defer></script>"""
 
@@ -4917,9 +4950,14 @@ def main():
         contact=CONTACT,
     )
 
+    global LT22_FIREBASE_WEB_CONFIG
+    LT22_FIREBASE_WEB_CONFIG = load_lt22_firebase_web_config()
+
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     write_assistant_products()
     copy_assets()
+    if LT22_FIREBASE_WEB_CONFIG:
+        write_lt22_firebase_config_js(LT22_FIREBASE_WEB_CONFIG)
     copy_cms_public_snapshot()
     build_path_redirects()
     write_csat_pages()

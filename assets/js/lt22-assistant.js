@@ -1329,6 +1329,29 @@
     form.appendChild(section);
   }
 
+  function serviceTermsChecked(form) {
+    var boxes = form.querySelectorAll(".lt22-terms input[type='checkbox']");
+    if (!boxes.length) return true;
+    return Array.prototype.every.call(boxes, function (box) {
+      return box.checked;
+    });
+  }
+
+  function bindServiceTermsGate(form, submit) {
+    var boxes = form.querySelectorAll(".lt22-terms input[type='checkbox']");
+    if (!boxes.length) return;
+    function refresh() {
+      var ready = serviceTermsChecked(form);
+      submit.disabled = !ready;
+      submit.setAttribute("aria-disabled", ready ? "false" : "true");
+    }
+    Array.prototype.forEach.call(boxes, function (box) {
+      box.required = true;
+      box.addEventListener("change", refresh);
+    });
+    refresh();
+  }
+
   function marketingConsentRow(form) {
     var wrap = document.createElement("label");
     wrap.className = "lt22-form-field lt22-form-field-full lt22-form-check";
@@ -1390,6 +1413,7 @@
       err.className = "lt22-form-error";
       err.hidden = true;
       form.appendChild(err);
+      bindServiceTermsGate(form, submit);
       body.appendChild(form);
       if (kind === "lab") {
         var labPdf = document.createElement("div");
@@ -1431,6 +1455,16 @@
       form.addEventListener("submit", function (event) {
         event.preventDefault();
         err.hidden = true;
+        if (!serviceTermsChecked(form)) {
+          err.hidden = false;
+          err.textContent = "יש לאשר את כל תנאי השירות לפני השליחה.";
+          submit.disabled = true;
+          return;
+        }
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
         var fields = collectForm(form);
         submit.disabled = true;
         cancel.disabled = true;
@@ -1450,7 +1484,7 @@
           .catch(function (ex) {
             err.hidden = false;
             err.textContent = ex.message || "לא הצלחנו לשלוח. נסו שוב.";
-            submit.disabled = false;
+            submit.disabled = !serviceTermsChecked(form);
             cancel.disabled = false;
             submit.classList.remove("is-loading");
             submit.removeAttribute("aria-busy");
@@ -1477,9 +1511,13 @@
       showRestart();
       return;
     }
-    await askIntent({
+    var intent = await askIntent({
       message: "במה תרצו שנעזור?\nמכירות והצעות מחיר, תמיכה טכנית, או פתיחת קריאת שירות.",
     });
+    if (intent === "service") {
+      await ensureServiceDetails();
+      await openSessionAndChat(true);
+    }
   }
 
   async function runPurchaseFlow() {
@@ -1527,8 +1565,8 @@
       marketingConsentRow(form);
     });
     if (!fields) {
-      await botSay("ביטלתם את הטופס. אפשר לבחור שוב איך להמשיך.");
-      await askIntent();
+      await botSay("ביטלתם את הטופס.");
+      await askAnythingElse();
       return;
     }
     if (fields.fullName) visitor.name = fields.fullName;
@@ -1632,9 +1670,8 @@
       marketingConsentRow(form);
     });
     if (!fields) {
-      await botSay("ביטלתם את טופס קריאת השירות. אפשר להמשיך בשאלות, או לפנות ב־" + SERVICE_HELP + ".");
-      if (session) await showTopicMenu(false);
-      else await askIntent();
+      await botSay("ביטלתם את טופס קריאת השירות.");
+      await askAnythingElse();
       return;
     }
     if (fields.contactName) visitor.name = fields.contactName;

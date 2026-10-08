@@ -1,0 +1,28 @@
+# The public site deploy does not update this service.
+# Service calls, emails, and PDFs are generated here.
+name: Deploy assistant API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "bot/**"
+      - ".github/workflows/cloud-run-assistant.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC }}
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Deploy lt22-assistant
+        run: |
+          gcloud run deploy lt22-assistant \
+            --source bot \
+            --region me-west1 \
+            --project control-applications-ddc \
+            --quiet

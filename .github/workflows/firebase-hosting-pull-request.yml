@@ -19,6 +19,7 @@ jobs:
       - name: Build static site
         env:
           LIVE_CMS_SNAPSHOT_URL: https://control-applications-admin.web.app/cms/public.json
+          LT22_FIREBASE_WEB_CONFIG: ${{ secrets.LT22_FIREBASE_WEB_CONFIG }}
         run: |
           pip install -r requirements.txt
           python scripts/build_site.py

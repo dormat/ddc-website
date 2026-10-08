@@ -4494,6 +4494,14 @@ body.lt22-assistant-open {
   font-size: 0.88rem;
 }
 
+.lt22-form-actions .btn-submit:disabled {
+  background: #c5c8d0;
+  border-color: #c5c8d0;
+  color: #fff;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .lt22-form-actions .btn.is-loading {
   display: inline-flex;
   align-items: center;

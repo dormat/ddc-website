@@ -211,12 +211,21 @@ def build_service_call_pdf(
     _inline_row(pdf, [("חותמת + שם מפורט", _field(data, "signerName"), 1)])
 
     pdf.ln(1.5)
+    pdf.set_x(pdf.l_margin)
     pdf.set_font("HePDF", "B", 9)
-    pdf.cell(0, 5, _he("תנאים שאושרו בטופס הדיגיטלי"), align="R", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 5, _he("תנאים שאושרו בטופס"), align="R", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("HePDF", "", 7.5)
-    for line in TERMS:
+    agreements = [
+        ("paymentTermsAccepted", TERMS[0]),
+        ("overtimeTermsAccepted", TERMS[1]),
+        ("repeatCallTermsAccepted", TERMS[2]),
+        ("travelParkingTermsAccepted", TERMS[3]),
+    ]
+    for key, line in agreements:
+        agreed = _field(data, key) == "כן"
+        mark = "כן" if agreed else "לא"
         pdf.set_x(pdf.l_margin)
-        pdf.multi_cell(0, 3.6, _he(f"- {line}"), align="R")
+        pdf.multi_cell(0, 3.6, _he(f"[{mark}] {line}"), align="R")
     marketing = _field(data, "marketingConsent")
     if marketing:
         pdf.ln(0.8)

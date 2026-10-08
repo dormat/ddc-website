@@ -1,0 +1,8 @@
+{
+  "apiKey": "YOUR_FIREBASE_WEB_API_KEY",
+  "authDomain": "control-applications-ddc.firebaseapp.com",
+  "projectId": "control-applications-ddc",
+  "storageBucket": "control-applications-ddc.firebasestorage.app",
+  "messagingSenderId": "376494321400",
+  "appId": "1:376494321400:web:7c5c5163f531964d87d50d"
+}
