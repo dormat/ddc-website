@@ -90,13 +90,58 @@ def _field(data: dict, key: str) -> str:
     return value
 
 
+def _wrap_logical(pdf: FPDF, text: str, width: float) -> list[str]:
+    """Break text into lines in logical order, then callers shape each line.
+
+    Shaping the whole paragraph first reverses RTL line order when the line wraps.
+    """
+    lines: list[str] = []
+    normalized = str(text or "").replace("\r\n", "\n").replace("\r", "\n")
+    for paragraph in normalized.split("\n"):
+        words = paragraph.split()
+        if not words:
+            lines.append("")
+            continue
+        current = ""
+        for word in words:
+            trial = word if not current else f"{current} {word}"
+            if pdf.get_string_width(trial) <= width or not current:
+                current = trial
+            else:
+                lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+    return lines or [""]
+
+
+def _rtl_lines(pdf: FPDF, text: str, width: float, line_h: float) -> None:
+    for line in _wrap_logical(pdf, text, width):
+        pdf.set_x(pdf.l_margin)
+        pdf.cell(width, line_h, _he(line) if line else "", align="R", new_x="LMARGIN", new_y="NEXT")
+
+
+def _section(pdf: FPDF, title: str) -> None:
+    pdf.ln(3.2)
+    pdf.set_fill_color(232, 244, 250)
+    pdf.set_text_color(0, 102, 140)
+    pdf.set_font("HePDF", "B", 11)
+    y = pdf.get_y()
+    pdf.rect(pdf.l_margin, y, pdf.epw, 7.2, style="F")
+    pdf.set_xy(pdf.l_margin, y + 0.8)
+    pdf.cell(pdf.epw - 1.5, 5.6, _he(title), align="R")
+    pdf.set_text_color(17, 17, 17)
+    pdf.set_y(y + 7.2)
+    pdf.ln(2.4)
+
+
 def _inline_row(pdf: FPDF, cells: list[tuple[str, str, float]]) -> None:
     usable = pdf.epw
     total = sum(weight for _, _, weight in cells) or 1
     y = pdf.get_y()
-    height = 7.2
+    height = 8
     x = pdf.l_margin + usable
-    pdf.set_font("HePDF", "", 9)
+    pdf.set_font("HePDF", "", 9.5)
     pdf.set_text_color(17, 17, 17)
     for label, value, weight in cells:
         width = usable * weight / total
@@ -105,21 +150,25 @@ def _inline_row(pdf: FPDF, cells: list[tuple[str, str, float]]) -> None:
         pdf.set_xy(x + 0.6, y)
         pdf.set_draw_color(210, 210, 210)
         pdf.cell(width - 1.2, height, _he(text), align="R", border="B")
-    pdf.set_xy(pdf.l_margin, y + height + 0.8)
+    pdf.set_xy(pdf.l_margin, y + height + 1.4)
 
 
-def _block(pdf: FPDF, label: str, value: str, height: float = 22) -> None:
-    pdf.set_font("HePDF", "B", 9)
+def _block(pdf: FPDF, value: str) -> None:
+    pdf.set_font("HePDF", "", 10)
     pdf.set_text_color(17, 17, 17)
-    pdf.cell(0, 5, _he(label), align="R", new_x="LMARGIN", new_y="NEXT")
+    inner = pdf.epw - 4
+    line_h = 5.2
+    lines = _wrap_logical(pdf, value or "—", inner)
+    height = max(28, len(lines) * line_h + 8)
     y = pdf.get_y()
     pdf.set_draw_color(190, 190, 190)
     pdf.set_line_width(0.2)
     pdf.rect(pdf.l_margin, y, pdf.epw, height)
-    pdf.set_xy(pdf.l_margin + 1.5, y + 1.2)
-    pdf.set_font("HePDF", "", 9)
-    pdf.multi_cell(pdf.epw - 3, 4.4, _he(value or "—"), align="R")
-    pdf.set_y(y + height + 2)
+    pdf.set_xy(pdf.l_margin + 2, y + 3)
+    for line in lines:
+        pdf.set_x(pdf.l_margin + 2)
+        pdf.cell(inner, line_h, _he(line) if line else "", align="R", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_y(y + height + 3)
 
 
 def build_service_call_pdf(
@@ -170,8 +219,9 @@ def build_service_call_pdf(
         _he("אבקש לקבל שירות למערכת בקרת המבנה. החשבונית תירשם על שם החברה וח.פ. שלהלן."),
         align="R",
     )
-    pdf.ln(1.5)
+    pdf.ln(1)
 
+    _section(pdf, "פרטי המזמין")
     _inline_row(
         pdf,
         [
@@ -179,6 +229,16 @@ def build_service_call_pdf(
             ("ח.פ.", _field(data, "companyId") or _field(data, "nationalId"), 1),
         ],
     )
+    _inline_row(
+        pdf,
+        [
+            ("שם המבקש", _field(data, "contactName"), 1.1),
+            ("טלפון", _field(data, "phone"), 0.9),
+            ("מייל", _field(data, "email"), 1.3),
+        ],
+    )
+
+    _section(pdf, "פרטי הקריאה")
     _inline_row(
         pdf,
         [
@@ -190,27 +250,23 @@ def build_service_call_pdf(
     _inline_row(
         pdf,
         [
-            ("שם המבקש", _field(data, "contactName"), 1.1),
-            ("טלפון", _field(data, "phone"), 0.9),
-            ("מייל", _field(data, "email"), 1.3),
-        ],
-    )
-    _inline_row(
-        pdf,
-        [
             ("ציוד", _field(data, "equipmentType") or _field(data, "model") or _field(data, "device"), 1.5),
             ("כמות", _field(data, "quantity"), 0.5),
             ("מדינה", _field(data, "country"), 0.7),
         ],
     )
-    pdf.ln(1)
+
+    _section(pdf, "פרטי הפנייה")
     fault = _field(data, "faultDescription")
-    if len(fault) > 420:
-        fault = fault[:417].rstrip() + "..."
-    _block(pdf, "תיאור התקלות", fault, height=24)
+    if len(fault) > 700:
+        fault = fault[:697].rstrip() + "..."
+    pdf.set_font("HePDF", "B", 9.5)
+    pdf.cell(0, 5.5, _he("תיאור התקלות"), align="R", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(0.8)
+    _block(pdf, fault)
     _inline_row(pdf, [("חותמת + שם מפורט", _field(data, "signerName"), 1)])
 
-    pdf.ln(1.5)
+    pdf.ln(1)
     pdf.set_x(pdf.l_margin)
     pdf.set_font("HePDF", "B", 9)
     pdf.cell(0, 5, _he("תנאים שאושרו בטופס"), align="R", new_x="LMARGIN", new_y="NEXT")
@@ -225,7 +281,7 @@ def build_service_call_pdf(
         agreed = _field(data, key) == "כן"
         mark = "כן" if agreed else "לא"
         pdf.set_x(pdf.l_margin)
-        pdf.multi_cell(0, 3.6, _he(f"[{mark}] {line}"), align="R")
+        _rtl_lines(pdf, f"[{mark}] {line}", pdf.epw, 3.8)
     marketing = _field(data, "marketingConsent")
     if marketing:
         pdf.ln(0.8)
