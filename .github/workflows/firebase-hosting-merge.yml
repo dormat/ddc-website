@@ -59,6 +59,7 @@ jobs:
         run: |
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC" > "$RUNNER_TEMP/firebase-sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-sa.json"
+          npm install --prefix .firebase-cms-stage/admin
           npx --yes firebase-tools@15.33.0 experiments:enable webframeworks
           npx --yes firebase-tools@15.33.0 deploy \
             --only hosting:ddc-admin \
