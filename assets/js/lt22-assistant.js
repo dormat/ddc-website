@@ -27,6 +27,7 @@
   var sending = false;
   var pendingAsk = null;
   var topicsOpened = false;
+  var intakeDoneOnce = false;
   var authUser = null;
   var authReady = false;
 
@@ -157,9 +158,10 @@
     clearChips();
     showError("");
     composer.hidden = false;
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     session = null;
     topicsOpened = false;
+    intakeDoneOnce = false;
     pendingPhoto = null;
     if (fileInput) fileInput.value = "";
     if (photoName) photoName.hidden = true;
@@ -286,7 +288,7 @@
       log.innerHTML = "";
       clearChips();
       composer.hidden = false;
-      setComposer(false, "…", false);
+      setComposer(false, "בחרו אפשרות למעלה", false);
     }
   }
 
@@ -391,7 +393,14 @@
     composer.hidden = false;
     input.disabled = !enabled;
     sendButton.disabled = !enabled;
-    input.placeholder = placeholder || "…";
+    composer.classList.toggle("is-disabled", !enabled);
+    if (enabled) {
+      input.placeholder = placeholder || "כתבו שאלה…";
+    } else if (placeholder === "") {
+      input.placeholder = "";
+    } else {
+      input.placeholder = placeholder || "בחרו אפשרות למעלה";
+    }
     photoButton.hidden = !allowPhoto;
     if (!allowPhoto) {
       pendingPhoto = null;
@@ -402,7 +411,7 @@
   }
 
   function showRestart() {
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     composer.hidden = true;
     clearChips();
     var button = document.createElement("button");
@@ -444,9 +453,9 @@
     session = null;
     topicsOpened = false;
     composer.hidden = false;
-    setComposer(false, "…", false);
-    await botSay("בסדר. בוחרים שוב איך להמשיך.");
-    await runIntake();
+    setComposer(false, "בחרו אפשרות למעלה", false);
+    // No preamble — runIntake shows a single intent message + chips.
+    await runIntake({ restart: true });
   }
 
   async function ensureServiceDetails() {
@@ -461,22 +470,12 @@
         await botSay("אשמח לשם מלא כדי להמשיך.");
       }
     }
-    if (!visitor.phone) {
+    // Phone is collected on purchase / lab forms only — Google login already gives email.
+    if (!visitor.email) {
       await botSay(
         (hasVisitorName() ? "נעים מאוד, " + firstName(visitor.name) + ". " : "") +
-          "ומה מספר הטלפון שלכם?",
+          "ומה כתובת הדואר האלקטרוני שלכם?",
       );
-      for (;;) {
-        var phoneRaw = (await askText("050-1234567")).trim();
-        if (validPhone(phoneRaw)) {
-          visitor.phone = normalizePhone(phoneRaw) || phoneRaw;
-          break;
-        }
-        await botSay("נראה שהמספר לא מלא. אפשר כמו 050-1234567.");
-      }
-    }
-    if (!visitor.email) {
-      await botSay("ומה כתובת הדואר האלקטרוני שלכם?");
       for (;;) {
         var emailRaw = (await askText("name@example.com")).trim();
         if (validEmail(emailRaw)) {
@@ -496,7 +495,7 @@
           icon: devices[id].icon,
         };
       });
-      var picked = await askChips(deviceOptions, false, "");
+      var picked = await askChips(deviceOptions, false, "בחרו אפשרות למעלה");
       visitor.device = devices[picked.value] || devices.OTHER;
       if (visitor.device.id !== "OTHER") {
         await botSay("זיהיתי את המכשיר:", deviceCard(visitor.device));
@@ -509,7 +508,7 @@
     start.hidden = true;
     chat.hidden = false;
     setFullscreen(true);
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     try {
       if (session && session.conversationId && session.token) {
         await syncSessionProfile();
@@ -533,7 +532,7 @@
       await botSay(
         "כרגע השיחה כאן עוזרת עם LT22, MC8, PFC ו-PFC10. למכשיר אחר, מלאו את הטופס שבהמשך העמוד ונחזור אליכם.\nאם המכשיר שלכם ברשימה — בחרו אותו והמשיכו.",
       );
-      setComposer(false, "…", false);
+      setComposer(false, "בחרו אפשרות למעלה", false);
       clearChips();
       supportedDeviceIds.forEach(function (id, index) {
         var device = devices[id];
@@ -684,10 +683,16 @@
   function askChips(chips, freeText, placeholder) {
     return new Promise(function (resolve) {
       clearChips();
-      setComposer(!!freeText, placeholder || "או כתבו לי במילים שלכם…", false);
+      setComposer(
+        !!freeText,
+        freeText
+          ? placeholder || "או כתבו לי במילים שלכם…"
+          : placeholder || "בחרו אפשרות למעלה",
+        false,
+      );
       function finish(choice) {
         clearChips();
-        setComposer(false, "…", false);
+        setComposer(false, "בחרו אפשרות למעלה", false);
         pendingAsk = null;
         if (choice.label) addBubble("user", choice.label, []);
         resolve(choice);
@@ -1060,10 +1065,38 @@
     return hidden;
   }
 
+  function collectProductRows(form) {
+    var products = [];
+    Array.prototype.forEach.call(form.querySelectorAll(".lt22-product-row"), function (row) {
+      var productEl = row.querySelector("[data-role='product']");
+      var qtyEl = row.querySelector("[data-role='quantity']");
+      var product = productEl ? String(productEl.value || "").trim() : "";
+      var quantity = qtyEl ? String(qtyEl.value || "").trim() : "";
+      if (!product) return;
+      products.push({ product: product, quantity: quantity || "1" });
+    });
+    return products;
+  }
+
   function collectForm(form) {
     var data = {};
+    var skipNames = {};
+    var productRows = form.querySelectorAll(".lt22-product-row");
+    if (productRows.length) {
+      var products = collectProductRows(form);
+      data.products = products;
+      if (products.length) {
+        data.product = products[0].product;
+        data.quantity = products[0].quantity;
+      }
+      Array.prototype.forEach.call(productRows, function (row) {
+        Array.prototype.forEach.call(row.querySelectorAll("[name]"), function (el) {
+          if (el.name) skipNames[el.name] = true;
+        });
+      });
+    }
     Array.prototype.forEach.call(form.elements, function (el) {
-      if (!el.name || el.disabled) return;
+      if (!el.name || el.disabled || skipNames[el.name]) return;
       if (el.type === "checkbox") {
         data[el.name] = el.checked ? String(el.value || "כן").trim() || "כן" : "לא";
         return;
@@ -1072,6 +1105,167 @@
       data[el.name] = String(el.value || "").trim();
     });
     return data;
+  }
+
+  function mountPurchaseProductRows(form) {
+    var wrap = document.createElement("div");
+    wrap.className = "lt22-product-rows lt22-form-field-full";
+    var list = document.createElement("div");
+    list.className = "lt22-product-rows-list";
+    wrap.appendChild(list);
+
+    function addRow() {
+      var row = document.createElement("div");
+      row.className = "lt22-product-row";
+      var productWrap = document.createElement("label");
+      productWrap.className = "lt22-form-field lt22-product-row-product";
+      var productTitle = document.createElement("span");
+      productTitle.textContent = "מוצר *";
+      productWrap.appendChild(productTitle);
+      var qtyWrap = document.createElement("label");
+      qtyWrap.className = "lt22-form-field lt22-product-row-qty";
+      var qtyTitle = document.createElement("span");
+      qtyTitle.textContent = "כמות *";
+      qtyWrap.appendChild(qtyTitle);
+      var qtyInput = document.createElement("input");
+      qtyInput.type = "number";
+      qtyInput.name = "quantityRow";
+      qtyInput.setAttribute("data-role", "quantity");
+      qtyInput.required = true;
+      qtyInput.min = "1";
+      qtyInput.value = "1";
+      qtyWrap.appendChild(qtyInput);
+      var removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "lt22-product-row-remove";
+      removeBtn.setAttribute("aria-label", "הסרת מוצר");
+      removeBtn.title = "הסרת מוצר";
+      removeBtn.textContent = "×";
+      removeBtn.addEventListener("click", function () {
+        if (list.querySelectorAll(".lt22-product-row").length <= 1) return;
+        row.remove();
+        syncRemoveButtons();
+      });
+      row.appendChild(productWrap);
+      row.appendChild(qtyWrap);
+      row.appendChild(removeBtn);
+      list.appendChild(row);
+      var hidden = mountProductPicker(productWrap, {
+        name: "productRow",
+        required: true,
+        placeholder: "חפשו או בחרו מוצר…",
+      });
+      if (hidden) hidden.setAttribute("data-role", "product");
+      syncRemoveButtons();
+      return row;
+    }
+
+    function syncRemoveButtons() {
+      var rows = list.querySelectorAll(".lt22-product-row");
+      Array.prototype.forEach.call(rows, function (row) {
+        var btn = row.querySelector(".lt22-product-row-remove");
+        if (btn) btn.hidden = rows.length <= 1;
+      });
+    }
+
+    var addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.className = "lt22-add-product";
+    addBtn.textContent = "הוספת מוצר";
+    addBtn.addEventListener("click", function () {
+      addRow();
+    });
+    wrap.appendChild(addBtn);
+    form.appendChild(wrap);
+    addRow();
+    return wrap;
+  }
+
+  var LAB_TERMS = [
+    {
+      name: "paymentTermsAccepted",
+      label: "התחייבות לתשלום החשבונית",
+      info: "אבקש לקבל שירות למערכת בקרת המבנה. בחתימה על הבקשה אני מאשר/ת התחייבות לתשלום חשבונית עבור השירות ו/או החלקים לפי המחירון. תנאי תשלום: שוטף+30. המחירים אינם כוללים מע\"מ. השירות יינתן על בסיס טכנאי פנוי.",
+    },
+    {
+      name: "overtimeTermsAccepted",
+      label: "חיוב שעות חריגות",
+      info: "שעות הפעילות הן א'–ה' בין 08:00 ל-17:00. מעבר לכך, השעתיים הראשונות מחויבות בתוספת 25%, ולאחר מכן בתוספת 50%.",
+    },
+    {
+      name: "repeatCallTermsAccepted",
+      label: "חיוב מלא גם בקריאה חוזרת",
+      info: "הזמנת טכנאי לפי שעות מחויבת עבור כל שעות העבודה, גם אם מתברר שנדרשת קריאת שירות חוזרת לאותה תקלה.",
+    },
+    {
+      name: "travelParkingTermsAccepted",
+      label: "נסיעות וחניה",
+      info: "שעות נסיעה מחושבות לפי תעריף שעת טכנאי, והכמות לפי הערכת WAZE. באחריות המזמין לדאוג למקום חניה לטכנאי, או לכסות את עלות החניה.",
+    },
+  ];
+
+  function formCols(form, count) {
+    var row = document.createElement("div");
+    row.className = "lt22-form-cols lt22-form-cols-" + count;
+    form.appendChild(row);
+    return row;
+  }
+
+  function labTerms(form) {
+    var section = document.createElement("fieldset");
+    section.className = "lt22-terms";
+    var legend = document.createElement("legend");
+    legend.textContent = "תנאי השירות";
+    section.appendChild(legend);
+    var hint = document.createElement("p");
+    hint.className = "lt22-terms-hint";
+    hint.textContent = "יש לאשר כל סעיף. לחצו על i לפירוט.";
+    section.appendChild(hint);
+    LAB_TERMS.forEach(function (term) {
+      var item = document.createElement("div");
+      item.className = "lt22-term";
+      var label = document.createElement("label");
+      label.className = "lt22-form-check";
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.name = term.name;
+      input.value = "כן";
+      input.required = true;
+      var text = document.createElement("span");
+      text.textContent = term.label;
+      label.appendChild(input);
+      label.appendChild(text);
+      var infoBtn = document.createElement("button");
+      infoBtn.type = "button";
+      infoBtn.className = "lt22-info-btn";
+      infoBtn.setAttribute("aria-label", "פירוט: " + term.label);
+      infoBtn.setAttribute("aria-expanded", "false");
+      infoBtn.textContent = "i";
+      var bubble = document.createElement("p");
+      bubble.className = "lt22-info-bubble";
+      bubble.hidden = true;
+      bubble.textContent = term.info;
+      infoBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var willOpen = bubble.hidden;
+        Array.prototype.forEach.call(section.querySelectorAll(".lt22-info-bubble"), function (node) {
+          node.hidden = true;
+        });
+        Array.prototype.forEach.call(section.querySelectorAll(".lt22-info-btn"), function (node) {
+          node.setAttribute("aria-expanded", "false");
+        });
+        if (willOpen) {
+          bubble.hidden = false;
+          infoBtn.setAttribute("aria-expanded", "true");
+        }
+      });
+      item.appendChild(label);
+      item.appendChild(infoBtn);
+      item.appendChild(bubble);
+      section.appendChild(item);
+    });
+    form.appendChild(section);
   }
 
   function marketingConsentRow(form) {
@@ -1101,7 +1295,7 @@
   function askForm(kind, buildFields) {
     return new Promise(function (resolve) {
       clearChips();
-      setComposer(false, "…", false);
+      setComposer(false, "בחרו אפשרות למעלה", false);
       var row = document.createElement("div");
       row.className = "lt22-row lt22-row-assistant";
       row.appendChild(makeAvatar());
@@ -1174,9 +1368,16 @@
         var fields = collectForm(form);
         submit.disabled = true;
         cancel.disabled = true;
+        submit.classList.add("is-loading");
+        submit.setAttribute("aria-busy", "true");
+        var prevLabel = submit.textContent;
+        submit.innerHTML =
+          '<span class="lt22-spinner" aria-hidden="true"></span><span>שולחים…</span>';
         submitRequest(kind, fields)
-          .then(function () {
+          .then(function (res) {
             row.remove();
+            if (res && res.serialNumber) fields.serialNumber = String(res.serialNumber);
+            if (res && res.requestId) fields.requestId = String(res.requestId);
             persistTranscript("user", "נשלח הטופס", { kind: "ui" });
             resolve(fields);
           })
@@ -1185,8 +1386,33 @@
             err.textContent = ex.message || "לא הצלחנו לשלוח. נסו שוב.";
             submit.disabled = false;
             cancel.disabled = false;
+            submit.classList.remove("is-loading");
+            submit.removeAttribute("aria-busy");
+            submit.textContent = prevLabel || "שליחת הבקשה";
           });
       });
+    });
+  }
+
+  async function askAnythingElse() {
+    clearChips();
+    setComposer(false, "בחרו אפשרות למעלה", false);
+    await botSay("יש עוד משהו שאוכל לעזור בו?");
+    var choice = await askChips(
+      [
+        { label: "סיימתי, תודה", icon: "✅", value: "done" },
+        { label: "אני צריך משהו נוסף", icon: "💬", value: "more" },
+      ],
+      false,
+      "בחרו אפשרות למעלה",
+    );
+    if (choice.value === "done" || /סיימתי|תודה|done/i.test(choice.label || "")) {
+      await botSay("תודה שפניתם לישומי בקרה. אפשר לסגור את החלון, או להתחיל שיחה חדשה.");
+      showRestart();
+      return;
+    }
+    await askIntent({
+      message: "במה תרצו שנעזור?\nמכירות והצעות מחיר, תמיכה טכנית, או פתיחת קריאת שירות.",
     });
   }
 
@@ -1230,15 +1456,7 @@
         value: "ישראל",
         options: COUNTRY_OPTIONS,
       });
-      fieldRow(form, {
-        name: "product",
-        label: "המוצר שמעניין אתכם",
-        type: "product",
-        required: true,
-        full: true,
-        placeholder: "חפשו או בחרו מוצר…",
-      });
-      fieldRow(form, { name: "quantity", label: "כמות", type: "number", required: true, value: "1" });
+      mountPurchaseProductRows(form);
       fieldRow(form, { name: "notes", label: "הערות (אופציונלי)", type: "textarea", rows: 2 });
       marketingConsentRow(form);
     });
@@ -1254,7 +1472,7 @@
     await botSay(
       "תודה! קיבלנו את בקשת הרכישה. נציג יחזור אליכם במייל.\nלשאלות: " + SERVICE_HELP,
     );
-    showRestart();
+    await askAnythingElse();
   }
 
   async function runLabFlow() {
@@ -1263,24 +1481,56 @@
     var openedAtIso = opened.toISOString().slice(0, 10);
     var openedAtHe = opened.toLocaleDateString("he-IL");
     var fields = await askForm("lab", function (form) {
-      fieldRow(form, {
+      var when = formCols(form, 2);
+      fieldRow(when, {
         name: "openedAt",
-        label: "תאריך פתיחת קריאת השירות",
+        label: "תאריך",
         type: "display",
         displayValue: openedAtHe,
         value: openedAtIso,
-        full: true,
       });
-      fieldRow(form, { name: "companyName", label: "שם החברה לחיוב", required: true });
-      fieldRow(form, {
+      fieldRow(when, { name: "siteName", label: "שם האתר", placeholder: "אופציונלי" });
+      var invoice = formCols(form, 2);
+      fieldRow(invoice, { name: "companyName", label: "שם לחשבונית", required: true });
+      fieldRow(invoice, {
         name: "companyId",
-        label: "ח.פ. / תעודת זהות",
+        label: "ח.פ. / ת.ז.",
         required: true,
         placeholder: "מספר ח.פ. או ת.ז.",
       });
-      fieldRow(form, {
+      var who = formCols(form, 3);
+      fieldRow(who, {
+        name: "contactName",
+        label: "שם המבקש",
+        required: true,
+        value: visitor.name || "",
+      });
+      fieldRow(who, {
+        name: "phone",
+        label: "טלפון / נייד",
+        type: "tel",
+        required: true,
+        value: visitor.phone || "",
+      });
+      fieldRow(who, {
+        name: "email",
+        label: "מייל",
+        type: "email",
+        required: true,
+        value: visitor.email || "",
+      });
+      var meta = formCols(form, 3);
+      fieldRow(meta, {
+        name: "country",
+        label: "מדינה",
+        type: "select",
+        required: true,
+        value: "ישראל",
+        options: COUNTRY_OPTIONS,
+      });
+      fieldRow(meta, {
         name: "serviceAgreement",
-        label: "לקוח בהסכם שירות",
+        label: "בהסכם שירות",
         type: "select",
         required: true,
         options: [
@@ -1289,35 +1539,7 @@
           { value: "לא", label: "לא" },
         ],
       });
-      fieldRow(form, { name: "siteName", label: "שם האתר / פרויקט", placeholder: "אופציונלי" });
-      fieldRow(form, {
-        name: "contactName",
-        label: "איש קשר",
-        required: true,
-        value: visitor.name || "",
-      });
-      fieldRow(form, {
-        name: "phone",
-        label: "טלפון נייד",
-        type: "tel",
-        required: true,
-        value: visitor.phone || "",
-      });
-      fieldRow(form, {
-        name: "email",
-        label: "דואר אלקטרוני",
-        type: "email",
-        required: true,
-        value: visitor.email || "",
-      });
-      fieldRow(form, {
-        name: "country",
-        label: "מדינה",
-        type: "select",
-        required: true,
-        value: "ישראל",
-        options: COUNTRY_OPTIONS,
-      });
+      fieldRow(meta, { name: "quantity", label: "כמות", type: "number", value: "1", required: true });
       fieldRow(form, {
         name: "equipmentType",
         label: "סוג הציוד / דגם",
@@ -1326,21 +1548,21 @@
         value: visitor.device && visitor.device.label ? visitor.device.label : "",
         placeholder: "חפשו או בחרו ציוד…",
       });
-      fieldRow(form, { name: "quantity", label: "כמות", type: "number", value: "1", required: true });
       fieldRow(form, {
         name: "faultDescription",
-        label: "תיאור התקלה",
+        label: "תיאור התקלות",
         type: "textarea",
-        rows: 2,
+        rows: 3,
         required: true,
       });
       fieldRow(form, {
         name: "signerName",
-        label: "שם מלא ותפקיד החותם",
+        label: "חותמת + שם מפורט",
         required: true,
-        placeholder: "מאשר/ת התחייבות לתשלום לפי תנאי השירות",
+        placeholder: "שם מלא ותפקיד",
         full: true,
       });
+      labTerms(form);
       marketingConsentRow(form);
     });
     if (!fields) {
@@ -1354,17 +1576,22 @@
     if (fields.email) visitor.email = fields.email;
     if (visitor.device && visitor.device.id) fields.device = visitor.device.label || visitor.device.id;
     await syncSessionProfile();
+    var serialLine = fields.serialNumber ? "\nמספר קריאה: " + fields.serialNumber : "";
     await botSay(
-      "תודה! קיבלנו את קריאת השירות. נציג יחזור אליכם.\nלשאלות: " + SERVICE_HELP,
+      "תודה! קיבלנו את קריאת השירות." + serialLine + "\nנציג יחזור אליכם.\nלשאלות: " + SERVICE_HELP,
     );
-    if (session) await showTopicMenu(false);
-    else showRestart();
+    await askAnythingElse();
   }
 
-  async function askIntent() {
+  async function askIntent(opts) {
+    opts = opts || {};
     clearChips();
-    setComposer(false, "…", false);
-    await botSay("במה תרצו שנעזור?\nמכירות והצעות מחיר, תמיכה טכנית, או פתיחת קריאת שירות.");
+    setComposer(false, "בחרו אפשרות למעלה", false);
+    var message =
+      opts.message !== undefined
+        ? opts.message
+        : "במה תרצו שנעזור?\nמכירות והצעות מחיר, תמיכה טכנית, או פתיחת קריאת שירות.";
+    if (message) await botSay(message);
     var choice = await askChips(
       [
         { label: "מכירות והצעות מחיר", icon: "🛒", value: "purchase" },
@@ -1372,7 +1599,7 @@
         { label: "פתיחת קריאת שירות", icon: "🛠️", value: "lab" },
       ],
       false,
-      "",
+      "בחרו אפשרות למעלה",
     );
     if (choice.value === "purchase") {
       await runPurchaseFlow();
@@ -1479,7 +1706,7 @@
 
   async function askRating() {
     clearChips();
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     composer.hidden = true;
     await sleep(200);
     var bubble = addBubble("assistant", "איך היה השירות? דרגו אותי, זה עוזר לנו להשתפר.", []);
@@ -1592,7 +1819,8 @@
     suggestions.hidden = false;
   }
 
-  async function runIntake() {
+  async function runIntake(opts) {
+    opts = opts || {};
     showError("");
     if (!authUser) {
       renderAuthUi();
@@ -1603,25 +1831,21 @@
     start.hidden = true;
     chat.hidden = false;
     setFullscreen(true);
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     await ensureTranscriptSession();
 
-    // Same browser visit: keep name (and phone/email/device when present). Page refresh clears them.
-    if (hasVisitorName()) {
-      await botSay("איך תרצו להמשיך?");
-      var again = await askIntent();
-      if (again !== "service") return;
-      await ensureServiceDetails();
-      await openSessionAndChat(false);
-      return;
-    }
-
-    await botSay("שלום וברוכים הבאים לישומי בקרה. אני קאל — מומחה לחשמל.");
-    var intent = await askIntent();
+    // Google login fills the name early — do not use that to pick the greeting.
+    // First open: welcome. Restart / try-again: single intent prompt only.
+    var isRestart = Boolean(opts.restart || intakeDoneOnce);
+    var greeting = isRestart
+      ? "במה תרצו שנעזור?\nמכירות והצעות מחיר, תמיכה טכנית, או פתיחת קריאת שירות."
+      : "שלום, אני העוזר של ישומי בקרה. במה אוכל לעזור היום?";
+    intakeDoneOnce = true;
+    var intent = await askIntent({ message: greeting });
     if (intent !== "service") return;
 
     await ensureServiceDetails();
-    await openSessionAndChat();
+    await openSessionAndChat(!isRestart);
   }
 
   async function sendQuestion(opts) {
@@ -1662,7 +1886,7 @@
     fileInput.value = "";
     photoName.hidden = true;
     sending = true;
-    setComposer(false, "…", false);
+    setComposer(false, "בחרו אפשרות למעלה", false);
     var waitingRow = document.createElement("div");
     waitingRow.className = "lt22-row lt22-row-assistant lt22-row-waiting";
     waitingRow.appendChild(makeAvatar());

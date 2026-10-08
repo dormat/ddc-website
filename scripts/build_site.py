@@ -4850,12 +4850,47 @@ def copy_assets() -> None:
                 shutil.copy2(item, dest)
 
 
+def refresh_cms_public_snapshot_from_live() -> bool:
+    """Pull the latest admin/Firestore snapshot into cms/data/public.json when possible.
+
+    Admin Hide/Show publishes to Firestore; without this step the static site build
+    keeps shipping a stale git snapshot where every product is still enabled.
+    """
+    import json
+    import os
+    import urllib.error
+    import urllib.request
+
+    url = (
+        os.environ.get("LIVE_CMS_SNAPSHOT_URL")
+        or os.environ.get("PUBLIC_SNAPSHOT_URL")
+        or "https://control-applications-admin.web.app/cms/public.json"
+    ).strip()
+    if not url or os.environ.get("SKIP_LIVE_CMS_SNAPSHOT") == "1":
+        return False
+    dest = ROOT / "cms" / "data" / "public.json"
+    try:
+        req = urllib.request.Request(url, headers={"Cache-Control": "no-store", "Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+        data = json.loads(raw.decode("utf-8"))
+        if not isinstance(data, dict) or "products" not in data:
+            print(f"Live CMS snapshot from {url} missing products; keeping local file")
+            return False
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Refreshed CMS public snapshot from {url} → {dest.relative_to(ROOT)} (updatedAt={data.get('updatedAt')})")
+        return True
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError, OSError) as exc:
+        print(f"Could not refresh live CMS snapshot ({exc}); using local {dest.relative_to(ROOT) if dest.exists() else 'missing'}")
+        return False
+
+
 def copy_cms_public_snapshot() -> None:
     """Ship cms/data/public.json as a static /cms/public.json for Hosting.
 
-    Marketing site (ddc-temp) serves this file directly so PR/merge deploys do not
-    need Cloud Run IAM for ssrcontrolapplicationsa. Live CMS hosting (ddc-cms)
-    can still rewrite the same path to the admin SSR service.
+    Marketing site (ddc-temp) serves this file as a fallback. Runtime hide/show is
+    driven by assets/js/cms-live.js, which prefers the live admin snapshot.
     """
     src = ROOT / "cms" / "data" / "public.json"
     if not src.exists():
@@ -4872,6 +4907,8 @@ def main():
 
     build_image_aliases.main()
     clear_aliases_cache()
+
+    refresh_cms_public_snapshot_from_live()
 
     apply_cms_overrides(
         solution_labels=SOLUTION_LABELS,

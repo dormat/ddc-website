@@ -26,3 +26,4 @@ node_modules/
 
 # Local secrets / owner handoffs (passwords, hosting logins)
 docs/private/
+bot/.venv-pdf/

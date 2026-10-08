@@ -165,7 +165,7 @@
 "url": "/en/energy-meters/",
 "kind": "solution",
 "kindLabel": "Solutions",
-"text": "An energy management system starts by measuring consumption and keeping it to the minimum needed. Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills. ElNet MC-1 Meter ElNet MC-2 Meter ElNet MC-8 Meter ElNet MC-12 Meter ElNet PIC Meter ElNet LTE Meter ElNet LT Meter ElNet LTP Meter ElNet VA Meter ElNet VIP Meter ElNet Billing & PQ Software"
+"text": "An energy management system starts by measuring consumption and keeping it to the minimum needed. Awareness of how much energy you use is how you lower cost and produce electricity and HVAC consumption bills. ElNet MC-1 Meter ElNet MC-8 Meter ElNet PIC Meter ElNet LTE Meter ElNet LT Meter ElNet LTP Meter ElNet VA Meter ElNet VIP Meter ElNet Billing & PQ Software"
 },
 {
 "title": "Electrical meters",
@@ -294,25 +294,11 @@
 "text": "ElNet MC-1 Meter Three-phase system for measuring energy. Up to 3 phases for energy measurement. Measurement accuracy 0.2% (0.1% on special order). 1600 samples per wave."
 },
 {
-"title": "ElNet MC-2 Meter",
-"url": "/en/elnet-mc-2-meter/",
-"kind": "product",
-"kindLabel": "Product",
-"text": "ElNet MC-2 Meter Up to 2 three-phase energy measurement systems. Up to 6 phases for energy measurement. Measurement accuracy 0.2% (0.1% on special order). 1600 samples per wave."
-},
-{
 "title": "ElNet MC-8 Meter",
 "url": "/en/elnet-mc-8-meter/",
 "kind": "product",
 "kindLabel": "Product",
 "text": "ElNet MC-8 Meter Three-phase energy measurements in Touz Display of all electricity measurements Support for 8 three-phase or 24 single-phase channels. measurement accuracy 0.2% 1600 samples per cycle. View all electricity measurements. Collection of daily energy data for 4 months."
-},
-{
-"title": "ElNet MC-12 Meter",
-"url": "/en/elnet-mc-12-meter/",
-"kind": "product",
-"kindLabel": "Product",
-"text": "ElNet MC-12 Meter Up to 12 three-phase energy measurement systems. Up to 32 phases for energy measurement. Measurement accuracy 0.2%. 1600 samples per wave."
 },
 {
 "title": "ElNet CO Transfer Switch",

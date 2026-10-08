@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { bulkDeleteAssistantChatsAction, deleteAssistantChatAction } from "@/app/actions/assistant";
 import type { AssistantChat } from "@/lib/assistant-store";
+import {
+  downloadTextFile,
+  exportToGoogleSheets,
+  rowsToCsv,
+} from "@/lib/assistant-export";
 import { ConfirmDeleteForm } from "@/components/confirm-delete-form";
 import { SubmitButton } from "@/components/submit-button";
 
@@ -50,6 +55,7 @@ export function AssistantChatsTable({ chats }: { chats: AssistantChat[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("updatedAt");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [selected, setSelected] = useState<Record<string, boolean>>({});
+  const [exportNote, setExportNote] = useState("");
 
   const devices = useMemo(() => {
     const set = new Set(chats.map((c) => c.device || "LT22"));
@@ -68,7 +74,16 @@ export function AssistantChatsTable({ chats }: { chats: AssistantChat[] }) {
       }
       if (day && dayKey(chat.updatedAt || chat.createdAt) !== day) return false;
       if (!needle) return true;
-      return [chat.name, chat.contact, chat.device, chat.channel, chat.id, statusLabel(chat.handedOff)]
+      return [
+        chat.name,
+        chat.contact,
+        chat.email,
+        chat.googleUid,
+        chat.device,
+        chat.channel,
+        chat.id,
+        statusLabel(chat.handedOff),
+      ]
         .join(" ")
         .toLowerCase()
         .includes(needle);
@@ -132,8 +147,97 @@ export function AssistantChatsTable({ chats }: { chats: AssistantChat[] }) {
     setSelected(next);
   }
 
+  const selectedRows = useMemo(
+    () => filtered.filter((chat) => selected[chat.id]),
+    [filtered, selected],
+  );
+
+  const EXPORT_HEADERS = [
+    "Category",
+    "Name",
+    "Phone",
+    "Email",
+    "Google UID",
+    "Device",
+    "Channel",
+    "Turns",
+    "Rating",
+    "Status",
+    "Updated",
+    "Created",
+    "Chat ID",
+    "Admin link path",
+  ];
+
+  function exportRows(rows: AssistantChat[]): string[][] {
+    return rows.map((chat) => [
+      "תמיכה טכנית",
+      chat.name || "",
+      chat.contact || "",
+      chat.email || "",
+      chat.googleUid || "",
+      chat.device || "LT22",
+      channelLabel(chat.channel),
+      String(chat.messageCount || 0),
+      chat.rating ? String(chat.rating) : "",
+      statusLabel(chat.handedOff),
+      chat.updatedAt || "",
+      chat.createdAt || "",
+      chat.id,
+      `/assistant/${chat.id}`,
+    ]);
+  }
+
+  function exportTargetRows(): AssistantChat[] {
+    if (selectedRows.length > 0) return selectedRows;
+    return filtered;
+  }
+
+  function handleCsvExport() {
+    const rows = exportTargetRows();
+    if (!rows.length) {
+      setExportNote("Nothing to export.");
+      return;
+    }
+    const stamp = new Date().toISOString().slice(0, 10);
+    downloadTextFile(
+      `assistant-support-${stamp}.csv`,
+      rowsToCsv(EXPORT_HEADERS, exportRows(rows)),
+    );
+    setExportNote(
+      selectedRows.length
+        ? `Downloaded CSV for ${rows.length} selected row(s).`
+        : `Downloaded CSV for ${rows.length} filtered row(s).`,
+    );
+  }
+
+  async function handleSheetsExport() {
+    const rows = exportTargetRows();
+    if (!rows.length) {
+      setExportNote("Nothing to export.");
+      return;
+    }
+    const result = await exportToGoogleSheets(EXPORT_HEADERS, exportRows(rows));
+    setExportNote(
+      result === "ok"
+        ? `Copied ${rows.length} row(s). A new Google Sheet opened — paste with ⌘V / Ctrl+V.`
+        : `Opened Google Sheets, but copy failed. Use Download CSV instead.`,
+    );
+  }
+
   return (
     <div className="card card-pad">
+      <div className="assistant-category-bar">
+        <span className="assistant-category-chip on">
+          תמיכה טכנית
+          <span>{chats.length}</span>
+        </span>
+      </div>
+      <p className="muted" style={{ marginTop: 0 }}>
+        מכירות וקריאות שירות נמצאים בלשונית{" "}
+        <Link href="/assistant?tab=requests">Requests</Link>.
+      </p>
+
       <div className="assistant-toolbar">
         <div className="field">
           <label htmlFor="assistant-search">Search</label>
@@ -199,6 +303,16 @@ export function AssistantChatsTable({ chats }: { chats: AssistantChat[] }) {
         ) : null}
       </div>
 
+      <div className="assistant-export-bar">
+        <button type="button" className="btn compact" onClick={handleCsvExport}>
+          Download CSV{selectedRows.length ? ` (${selectedRows.length})` : " (filtered)"}
+        </button>
+        <button type="button" className="btn compact primary" onClick={handleSheetsExport}>
+          Copy to Google Sheets{selectedRows.length ? ` (${selectedRows.length})` : ""}
+        </button>
+        {exportNote ? <span className="muted">{exportNote}</span> : null}
+      </div>
+
       {selectedIds.length > 0 ? (
         <div className="assistant-bulk-bar">
           <span>
@@ -232,6 +346,7 @@ export function AssistantChatsTable({ chats }: { chats: AssistantChat[] }) {
 
       <p className="muted" style={{ margin: "0.35rem 0 0.65rem" }}>
         Showing {filtered.length} of {chats.length}
+        {selectedRows.length ? ` · ${selectedRows.length} selected for export` : ""}
       </p>
 
       <div className="table-wrap">

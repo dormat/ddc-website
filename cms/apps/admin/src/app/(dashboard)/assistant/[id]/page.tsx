@@ -55,6 +55,22 @@ export default async function AssistantChatPage({
             {chat.contact || "—"}
           </div>
         </div>
+        {chat.email ? (
+          <div className="card stat-card">
+            <div className="muted">Email</div>
+            <div className="stat-value" style={{ fontSize: "1.15rem" }}>
+              {chat.email}
+            </div>
+          </div>
+        ) : null}
+        {chat.authProvider === "google" || chat.googleUid ? (
+          <div className="card stat-card">
+            <div className="muted">Google</div>
+            <div className="stat-value" style={{ fontSize: "1rem" }}>
+              {chat.email || chat.googleUid || "signed in"}
+            </div>
+          </div>
+        ) : null}
         <div className="card stat-card">
           <div className="muted">Device</div>
           <div className="stat-value" style={{ fontSize: "1.15rem" }}>

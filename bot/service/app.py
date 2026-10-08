@@ -664,11 +664,32 @@ def validate_purchase_fields(fields: dict) -> str | None:
         return "מספר הטלפון לא נראה תקין."
     if len(_clean_field(fields.get("country"), 80)) < 2:
         return "בחרו או הזינו מדינה."
-    if len(_clean_field(fields.get("product"), 120)) < 1:
-        return "בחרו או כתבו את המוצר."
-    qty = _clean_field(fields.get("quantity"), 20)
-    if not qty:
-        return "הזינו כמות."
+    products_raw = fields.get("products")
+    cleaned_products: list[dict] = []
+    if isinstance(products_raw, list):
+        for item in products_raw:
+            if not isinstance(item, dict):
+                continue
+            name = _clean_field(item.get("product"), 120)
+            qty = _clean_field(item.get("quantity"), 20) or "1"
+            if name:
+                cleaned_products.append({"product": name, "quantity": qty})
+    if cleaned_products:
+        fields["products"] = cleaned_products
+        fields["product"] = cleaned_products[0]["product"]
+        fields["quantity"] = cleaned_products[0]["quantity"]
+    else:
+        if len(_clean_field(fields.get("product"), 120)) < 1:
+            return "בחרו או כתבו את המוצר."
+        qty = _clean_field(fields.get("quantity"), 20)
+        if not qty:
+            return "הזינו כמות."
+        fields["products"] = [
+            {
+                "product": _clean_field(fields.get("product"), 120),
+                "quantity": qty,
+            }
+        ]
     return None
 
 
@@ -695,14 +716,51 @@ def validate_lab_fields(fields: dict) -> str | None:
         return "תארו את התקלה בקצרה."
     if len(_clean_field(fields.get("signerName"), 120)) < 2:
         return "הזינו שם מלא ותפקיד החותם."
+    term_errors = {
+        "paymentTermsAccepted": "אשרו את התחייבות התשלום.",
+        "overtimeTermsAccepted": "אשרו את תנאי השעות החריגות.",
+        "repeatCallTermsAccepted": "אשרו את תנאי הקריאה החוזרת.",
+        "travelParkingTermsAccepted": "אשרו את תנאי הנסיעות והחניה.",
+    }
+    for key, message in term_errors.items():
+        if _clean_field(fields.get(key), 10) != "כן":
+            return message
     return None
 
 
-def _request_chat_summary(kind: str, fields: dict, request_id: str) -> str:
+def allocate_lab_serial() -> str:
+    """Monotonic service-call number starting at KS-01500."""
+    ref = db().collection("assistantConfig").document("counters")
+    # First issued numbers below 1500 (e.g. KS-00001) keep; next allocation jumps to 1500+.
+    LAB_SERIAL_START = 1500
+
+    @firestore.transactional
+    def _bump(transaction):
+        snap = ref.get(transaction=transaction)
+        data = snap.to_dict() if snap.exists else {}
+        previous = int(data.get("labSerial") or 0)
+        current = max(previous, LAB_SERIAL_START - 1) + 1
+        transaction.set(ref, {"labSerial": current, "updatedAt": firestore.SERVER_TIMESTAMP}, merge=True)
+        return current
+
+    try:
+        n = _bump(db().transaction())
+    except Exception:
+        app.logger.exception("lab serial counter failed; using fallback")
+        n = LAB_SERIAL_START
+    return f"KS-{n:05d}"
+
+
+def _request_chat_summary(kind: str, fields: dict, request_id: str, serial_number: str = "") -> str:
     import mail
 
     label = mail._kind_label(kind)
-    body = mail.format_request_body(kind, fields, request_id=request_id)
+    body = mail.format_request_body(
+        kind,
+        fields,
+        request_id=request_id,
+        serial_number=serial_number,
+    )
     # Drop the trailing admin/footer lines for the in-chat copy.
     lines = [line for line in body.splitlines() if not line.startswith("במערכת הניהול:") and line != "- נשלח מעוזר ישומי בקרה באתר -"]
     while lines and not lines[-1].strip():
@@ -792,21 +850,40 @@ def _append_chat_messages(
     chat_ref.update(patch)
 
 
-def _log_request_on_chat(conversation_id: str, kind: str, fields: dict, request_id: str) -> None:
+def _log_request_on_chat(
+    conversation_id: str,
+    kind: str,
+    fields: dict,
+    request_id: str,
+    serial_number: str = "",
+) -> None:
     chat_ref = db().collection("assistantChats").document(conversation_id)
     if not chat_ref.get().exists:
         return
-    summary = _request_chat_summary(kind, fields, request_id)
-    ack = (
-        "תודה! קיבלנו את קריאת השירות. נציג יחזור אליכם."
-        if kind == "lab"
-        else "תודה! קיבלנו את בקשת הרכישה. נציג יחזור אליכם במייל."
-    )
+    summary = _request_chat_summary(kind, fields, request_id, serial_number=serial_number)
+    if kind == "lab":
+        ack = "תודה! קיבלנו את קריאת השירות. נציג יחזור אליכם."
+        if serial_number:
+            ack = f"תודה! קיבלנו את קריאת השירות.\nמספר קריאה: {serial_number}\nנציג יחזור אליכם."
+    else:
+        ack = "תודה! קיבלנו את בקשת הרכישה. נציג יחזור אליכם במייל."
     _append_chat_messages(
         chat_ref,
         [
-            {"role": "user", "text": summary, "kind": "form", "requestId": request_id},
-            {"role": "assistant", "text": ack, "kind": "form", "requestId": request_id},
+            {
+                "role": "user",
+                "text": summary,
+                "kind": "form",
+                "requestId": request_id,
+                "serialNumber": serial_number,
+            },
+            {
+                "role": "assistant",
+                "text": ack,
+                "kind": "form",
+                "requestId": request_id,
+                "serialNumber": serial_number,
+            },
         ],
     )
 
@@ -871,6 +948,10 @@ def create_request():
             return owned_err
     request_id = uuid.uuid4().hex
     hot = kind == "purchase" and csat.is_hot_lead(fields)
+    serial_number = ""
+    if kind == "lab":
+        serial_number = allocate_lab_serial()
+        fields["serialNumber"] = serial_number
 
     auth_fields = _auth_fields_from_claims(claims, fields.get("email") or "")
     try:
@@ -896,6 +977,7 @@ def create_request():
         "adminNotes": "",
         "marketingConsent": marketing_consent,
         "hotLead": hot,
+        "serialNumber": serial_number,
         "googleUid": auth_fields.get("googleUid") or "",
         "authProvider": "google",
         "createdAt": firestore.SERVER_TIMESTAMP,
@@ -917,13 +999,24 @@ def create_request():
 
     if conversation_id:
         try:
-            _log_request_on_chat(conversation_id, kind, fields, request_id)
+            _log_request_on_chat(
+                conversation_id,
+                kind,
+                fields,
+                request_id,
+                serial_number=serial_number,
+            )
         except Exception:
             app.logger.exception("Could not log request on chat")
 
     mail_result = {"serviceEmail": False, "customerEmail": False, "channel": ""}
     try:
-        mail_result = mail.notify_request(kind, fields, request_id=request_id)
+        mail_result = mail.notify_request(
+            kind,
+            fields,
+            request_id=request_id,
+            serial_number=serial_number,
+        )
         patch = {
             "email": {
                 "service": bool(mail_result.get("serviceEmail")),
@@ -931,6 +1024,7 @@ def create_request():
                 "channel": str(mail_result.get("channel") or ""),
                 "serviceMailId": str(mail_result.get("serviceMailId") or ""),
                 "customerMailId": str(mail_result.get("customerMailId") or ""),
+                "pdfAttached": bool(mail_result.get("pdfAttached")),
             },
             "updatedAt": firestore.SERVER_TIMESTAMP,
         }
@@ -950,6 +1044,7 @@ def create_request():
             "ok": True,
             "requestId": request_id,
             "conversationId": conversation_id,
+            "serialNumber": serial_number,
             "hotLead": hot,
             "email": mail_result,
         }

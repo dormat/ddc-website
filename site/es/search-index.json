@@ -165,7 +165,7 @@
 "url": "/es/energy-meters/",
 "kind": "solution",
 "kindLabel": "Soluciones",
-"text": "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía se usa permite reducir el costo y generar facturas de electricidad y climatización. Medidor ElNet MC-1 Medidor ElNet MC-2 Medidor ElNet MC-8 Medidor ElNet MC-12 Medidor ElNet PIC Medidor ElNet LTE Medidor ElNet LT Medidor ElNet LTP Medidor ElNet VA Medidor ElNet VIP Software de facturación ElNet"
+"text": "La gestión de energía empieza por medir el consumo y dejarlo en el mínimo necesario. Saber cuánta energía se usa permite reducir el costo y generar facturas de electricidad y climatización. Medidor ElNet MC-1 Medidor ElNet MC-8 Medidor ElNet PIC Medidor ElNet LTE Medidor ElNet LT Medidor ElNet LTP Medidor ElNet VA Medidor ElNet VIP Software de facturación ElNet"
 },
 {
 "title": "Medidores eléctricos",
@@ -294,25 +294,11 @@
 "text": "Medidor ElNet MC-1 Sistema trifásico de medida de energía. Hasta 3 fases para medición de energía. Precisión de medición 0,2% (0,1% en pedido especial). 1600 muestras por ola."
 },
 {
-"title": "Medidor ElNet MC-2",
-"url": "/es/elnet-mc-2-meter/",
-"kind": "product",
-"kindLabel": "Producto",
-"text": "Medidor ElNet MC-2 Hasta 2 sistemas de medida de energía trifásicos. Hasta 6 fases para medición de energía. Precisión de medición 0,2% (0,1% en pedido especial). 1600 muestras por ola."
-},
-{
 "title": "Medidor ElNet MC-8",
 "url": "/es/elnet-mc-8-meter/",
 "kind": "product",
 "kindLabel": "Producto",
 "text": "Medidor ElNet MC-8 Mediciones de energía trifásica en Touz Visualización de todas las mediciones de electricidad. Soporte para 8 canales trifásicos o 24 monofásicos. precisión de medición 0,2% 1600 muestras por ciclo. Ver todas las mediciones de electricidad."
-},
-{
-"title": "Medidor ElNet MC-12",
-"url": "/es/elnet-mc-12-meter/",
-"kind": "product",
-"kindLabel": "Producto",
-"text": "Medidor ElNet MC-12 Hasta 12 sistemas de medida de energía trifásicos. Hasta 32 fases para medición de energía. Precisión de medición 0,2%. 1600 muestras por ola."
 },
 {
 "title": "Interruptor de transferencia ElNet CO",

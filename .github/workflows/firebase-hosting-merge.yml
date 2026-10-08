@@ -1,4 +1,7 @@
-# Deploy live site on push to main.
+# Deploy live site + admin CMS on push to main.
+# Site:   hosting:ddc-temp  → control-applications-ddc.web.app
+# Admin:  hosting:ddc-admin → control-applications-admin.web.app
+# Project: control-applications-ddc
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
@@ -14,7 +17,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
       - name: Build static site
+        env:
+          # Prefer live admin snapshot so Hide/Show is reflected in built HTML + /cms/public.json
+          LIVE_CMS_SNAPSHOT_URL: https://control-applications-admin.web.app/cms/public.json
         run: |
           pip install -r requirements.txt
           python scripts/build_site.py
@@ -25,3 +34,33 @@ jobs:
           channelId: live
           projectId: control-applications-ddc
           target: ddc-temp
+      - name: Prepare CMS env for admin staging
+        env:
+          CMS_ADMIN_USERNAME: ${{ secrets.CMS_ADMIN_USERNAME }}
+          CMS_ADMIN_PASSWORD: ${{ secrets.CMS_ADMIN_PASSWORD }}
+          CMS_SESSION_SECRET: ${{ secrets.CMS_SESSION_SECRET }}
+        run: |
+          # cms/.env is not in git; create one for staging (credentials + public URLs).
+          # Optional GitHub secrets override defaults used by credentials.server.ts.
+          {
+            echo "NEXT_PUBLIC_APP_NAME=DDC Admin"
+            echo "ADMIN_USERNAME=${CMS_ADMIN_USERNAME:-AdminDDC}"
+            echo "ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:-6474998}"
+            echo "SESSION_SECRET=${CMS_SESSION_SECRET:-ddc-session-secret-change-in-prod-2026}"
+            echo "PUBLIC_SITE_URL=https://control-applications-ddc.web.app"
+            echo "PUBLIC_SNAPSHOT_URL=https://control-applications-admin.web.app/cms/public.json"
+          } > cms/.env
+      - name: Stage CMS admin for Firebase
+        run: ./scripts/stage_cms_for_firebase.sh
+      - name: Deploy admin Hosting (ddc-admin)
+        env:
+          FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC }}
+        run: |
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_CONTROL_APPLICATIONS_DDC" > "$RUNNER_TEMP/firebase-sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/firebase-sa.json"
+          npx --yes firebase-tools@13 experiments:enable webframeworks
+          npx --yes firebase-tools@13 deploy \
+            --only hosting:ddc-admin \
+            --project control-applications-ddc \
+            --force \
+            --non-interactive

@@ -95,10 +95,12 @@ The CLI creates a service account and uploads it to GitHub as the secret `FIREBA
 
 After the secret is in place:
 
-- Every push to `main` deploys to **control-applications-ddc** — https://control-applications-ddc.web.app
+- Every push to `main` deploys to project **control-applications-ddc**:
+  - Site (`ddc-temp`) → https://control-applications-ddc.web.app
+  - Admin CMS (`ddc-admin`) → https://control-applications-admin.web.app
 - Every push to `cursor/solutions-first-site-ee14` deploys to the preview site — https://control-applications-preview.web.app
 
-`main` only updates the live Hosting site (`ddc-temp` target → `control-applications-ddc`). Cloud Run (assistant API) is still deployed separately with `gcloud run deploy` unless you add a workflow for it.
+Cloud Run (assistant API) is still deployed separately with `gcloud run deploy` unless you add a workflow for it. Optional GitHub secrets `CMS_ADMIN_USERNAME` / `CMS_ADMIN_PASSWORD` / `CMS_SESSION_SECRET` override admin login defaults on deploy.
 
 ### Manual deploy
 

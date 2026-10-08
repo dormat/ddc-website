@@ -1,9 +1,13 @@
 /**
- * Apply live CMS snapshot from /cms/public.json onto the static site.
- * Keeps the exact UI; updates CMS-managed text after admin publishes.
+ * Apply live CMS snapshot onto the static site.
+ * Prefer the admin SSR snapshot (Firestore) so Hide/Show takes effect immediately.
+ * Fall back to same-origin /cms/public.json when offline/preview.
  */
 (function () {
-  var SNAPSHOT_URL = "/cms/public.json";
+  var SNAPSHOT_URLS = [
+    "https://control-applications-admin.web.app/cms/public.json",
+    "/cms/public.json",
+  ];
 
   function pathParts() {
     var parts = location.pathname.replace(/\/+$/, "").split("/").filter(Boolean);
@@ -510,11 +514,20 @@
     applyCmsPage(findPage(snapshot.pages, slug), lang, slug);
   }
 
-  fetch(SNAPSHOT_URL, { cache: "no-store" })
-    .then(function (res) {
-      if (!res.ok) throw new Error("snapshot " + res.status);
-      return res.json();
-    })
+  function fetchSnapshot(urls) {
+    if (!urls.length) return Promise.reject(new Error("no snapshot url"));
+    var url = urls[0];
+    return fetch(url, { cache: "no-store", mode: "cors" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("snapshot " + res.status);
+        return res.json();
+      })
+      .catch(function () {
+        return fetchSnapshot(urls.slice(1));
+      });
+  }
+
+  fetchSnapshot(SNAPSHOT_URLS)
     .then(apply)
     .catch(function () {
       /* keep baked-in static content */

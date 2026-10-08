@@ -16,6 +16,7 @@ function fmt(iso: string | null) {
 }
 
 const FIELD_LABELS: Record<string, string> = {
+  serialNumber: "מספר קריאה / Serial",
   fullName: "Full name",
   companyName: "Company",
   companyId: "Company / national ID",
@@ -25,6 +26,7 @@ const FIELD_LABELS: Record<string, string> = {
   country: "Country",
   product: "Product",
   quantity: "Quantity",
+  products: "Products",
   notes: "Notes",
   openedAt: "Service call opened (תאריך פתיחה)",
   serviceCallDate: "Service call opened (תאריך פתיחה)",
@@ -38,6 +40,10 @@ const FIELD_LABELS: Record<string, string> = {
   signerName: "Signer",
   device: "Device in chat",
   marketingConsent: "Marketing consent",
+  paymentTermsAccepted: "Payment terms accepted",
+  overtimeTermsAccepted: "Overtime terms accepted",
+  repeatCallTermsAccepted: "Repeat-call terms accepted",
+  travelParkingTermsAccepted: "Travel and parking terms accepted",
 };
 
 function kindLabel(kind: string) {
@@ -59,7 +65,30 @@ export default async function AssistantRequestPage({
   const req = await getAssistantRequest(id);
   if (!req) notFound();
 
-  const fieldEntries = Object.entries(req.fields).filter(([, v]) => String(v || "").trim());
+  const products = Array.isArray(req.fields.products) ? req.fields.products : null;
+  const fieldEntries = Object.entries(req.fields)
+    .filter(([key, v]) => {
+      if (key === "products") return Array.isArray(v) && v.length > 0;
+      if (products && products.length > 0 && (key === "product" || key === "quantity")) return false;
+      if (Array.isArray(v)) return v.length > 0;
+      return String(v || "").trim();
+    })
+    .map(([key, v]) => {
+      if (key === "products" && Array.isArray(v)) {
+        const lines = v
+          .map((item) => {
+            if (!item || typeof item !== "object") return "";
+            const row = item as { product?: string; quantity?: string };
+            const name = String(row.product || "").trim();
+            const qty = String(row.quantity || "").trim();
+            if (!name) return "";
+            return qty ? `${name} × ${qty}` : name;
+          })
+          .filter(Boolean);
+        return [key, lines.join("\n")] as [string, string];
+      }
+      return [key, String(v ?? "")] as [string, string];
+    });
   const csat = req.csat;
 
   return (
@@ -72,6 +101,14 @@ export default async function AssistantRequestPage({
       {sp.saved ? <p className="flash-ok">Saved.</p> : null}
 
       <div className="stats-grid" style={{ marginBottom: "1rem" }}>
+        {req.serialNumber || req.fields.serialNumber ? (
+          <div className="card stat-card">
+            <div className="muted">מספר קריאה</div>
+            <div className="stat-value" style={{ fontSize: "1.15rem" }}>
+              {req.serialNumber || req.fields.serialNumber}
+            </div>
+          </div>
+        ) : null}
         <div className="card stat-card">
           <div className="muted">Status</div>
           <div className="stat-value" style={{ fontSize: "1.15rem" }}>

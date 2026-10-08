@@ -617,6 +617,64 @@ tbody tr:hover td {
   overflow-x: auto;
 }
 
+.assistant-category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 0.85rem;
+}
+
+.assistant-category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font: inherit;
+  font-weight: 650;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.assistant-category-chip.sub {
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: #f8fafc;
+}
+
+.assistant-category-chip span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.35rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  background: #eef2f7;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.assistant-category-chip.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.assistant-category-chip.on span {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.assistant-export-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1rem;
+}
+
 .assistant-toolbar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));

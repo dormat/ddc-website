@@ -27,6 +27,9 @@ export type AssistantChat = {
   id: string;
   name: string;
   contact: string;
+  email: string;
+  googleUid: string;
+  authProvider: string;
   device: string;
   channel: string;
   messageCount: number;
@@ -53,6 +56,7 @@ export type AssistantRequest = {
   fields: Record<string, string>;
   conversationId: string;
   adminNotes: string;
+  serialNumber: string;
   createdAt: string | null;
   updatedAt: string | null;
   acknowledgedAt: string | null;
@@ -184,6 +188,9 @@ function chatFromDoc(doc: QueryDocumentSnapshot): AssistantChat {
     id: doc.id,
     name: String(data.name || ""),
     contact: String(data.contact || ""),
+    email: String(data.email || ""),
+    googleUid: String(data.googleUid || ""),
+    authProvider: String(data.authProvider || ""),
     device: String(data.device || "LT22"),
     channel: String(data.channel || "web"),
     messageCount: Number(data.messageCount || 0),
@@ -218,6 +225,9 @@ export async function getAssistantChat(id: string): Promise<AssistantChat | null
       id: snap.id,
       name: String(data.name || ""),
       contact: String(data.contact || ""),
+      email: String(data.email || ""),
+      googleUid: String(data.googleUid || ""),
+      authProvider: String(data.authProvider || ""),
       device: String(data.device || "LT22"),
       channel: String(data.channel || "web"),
       messageCount: Number(data.messageCount || 0),
@@ -293,6 +303,8 @@ function requestFromData(id: string, data: Record<string, unknown>): AssistantRe
         submittedAt: asIso(csatRaw.submittedAt),
       }
     : null;
+  const serialNumber =
+    String(data.serialNumber || "").trim() || String(fields.serialNumber || "").trim();
   return {
     id,
     kind: String(data.kind || ""),
@@ -300,6 +312,7 @@ function requestFromData(id: string, data: Record<string, unknown>): AssistantRe
     fields,
     conversationId: String(data.conversationId || ""),
     adminNotes: String(data.adminNotes || ""),
+    serialNumber,
     createdAt: asIso(data.createdAt),
     updatedAt: asIso(data.updatedAt),
     acknowledgedAt: asIso(data.acknowledgedAt),

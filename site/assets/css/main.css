@@ -3680,7 +3680,7 @@ body.lt22-assistant-open {
 }
 
 .lt22-close {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
@@ -3698,6 +3698,15 @@ body.lt22-assistant-open {
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
+}
+
+/* Finish/close only in fullscreen chat — CSS display must not override [hidden]. */
+.lt22-assistant.is-active .lt22-close:not([hidden]) {
+  display: inline-flex;
+}
+
+.lt22-close[hidden] {
+  display: none !important;
 }
 
 .lt22-close span[aria-hidden="true"] {
@@ -4169,6 +4178,23 @@ body.lt22-assistant-open {
   border-radius: 999px;
 }
 
+.lt22-composer.is-disabled .lt22-composer-row {
+  background: rgba(26, 43, 109, 0.04);
+  border-color: rgba(26, 43, 109, 0.12);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.lt22-composer.is-disabled textarea {
+  color: var(--color-gray);
+  cursor: not-allowed;
+}
+
+.lt22-composer.is-disabled .lt22-send {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .lt22-composer textarea {
   flex: 1;
   min-height: 2.5rem;
@@ -4304,8 +4330,105 @@ body.lt22-assistant-open {
 
 .lt22-form-field-full,
 .lt22-form-actions,
-.lt22-form-error {
+.lt22-form-error,
+.lt22-product-rows,
+.lt22-form-cols,
+.lt22-terms {
   grid-column: 1 / -1;
+}
+
+.lt22-form-cols {
+  display: grid;
+  gap: 0.45rem 0.55rem;
+}
+
+.lt22-form-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.lt22-form-cols-3 {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(0, 1.15fr);
+}
+
+.lt22-product-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.lt22-product-rows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.lt22-product-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5.5rem auto;
+  gap: 0.45rem 0.55rem;
+  align-items: end;
+}
+
+.lt22-product-row-product {
+  min-width: 0;
+}
+
+.lt22-product-row-qty input {
+  width: 100%;
+}
+
+.lt22-product-row-remove {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-bottom: 0.05rem;
+  border: 1px solid rgba(26, 43, 109, 0.18);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--color-navy);
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lt22-product-row-remove[hidden] {
+  display: none !important;
+}
+
+.lt22-product-row-remove:hover,
+.lt22-product-row-remove:focus-visible {
+  border-color: rgba(139, 30, 30, 0.45);
+  color: #8b1e1e;
+  outline: none;
+}
+
+.lt22-add-product {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.35rem 0.15rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-navy);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.lt22-add-product:hover,
+.lt22-add-product:focus-visible {
+  color: var(--color-cyan);
+  outline: none;
+}
+
+@media (max-width: 420px) {
+  .lt22-product-row {
+    grid-template-columns: minmax(0, 1fr) 4.5rem auto;
+  }
 }
 
 .lt22-form-field input,
@@ -4368,6 +4491,22 @@ body.lt22-assistant-open {
 .lt22-form-actions .btn {
   padding: 0.5rem 0.85rem;
   font-size: 0.88rem;
+}
+
+.lt22-form-actions .btn.is-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.lt22-form-actions .btn.is-loading .lt22-spinner {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
 }
 
 .lt22-form-error {
@@ -4512,8 +4651,89 @@ body.lt22-assistant-open {
   font-weight: 500;
 }
 
+.lt22-terms {
+  margin: 0.2rem 0 0;
+  padding: 0.45rem 0.65rem 0.5rem;
+  border: 1px solid rgba(26, 43, 109, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.lt22-terms legend {
+  padding: 0 0.3rem;
+  color: var(--color-navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.lt22-terms-hint {
+  margin: 0.1rem 0 0.15rem;
+  color: var(--color-gray);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.lt22-term {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem 0.4rem;
+  margin-top: 0.22rem;
+}
+
+.lt22-term .lt22-form-check {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.lt22-info-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.05rem;
+  padding: 0;
+  border: 1px solid rgba(26, 43, 109, 0.28);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-navy);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lt22-info-btn:hover,
+.lt22-info-btn:focus-visible,
+.lt22-info-btn[aria-expanded="true"] {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  outline: none;
+}
+
+.lt22-info-bubble {
+  flex: 1 0 100%;
+  margin: 0.1rem 0 0.15rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(0, 173, 239, 0.35);
+  border-radius: 8px;
+  background: #f4fbfe;
+  color: var(--color-dark);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.lt22-info-bubble[hidden] {
+  display: none;
+}
+
 @media (max-width: 420px) {
-  .lt22-form {
+  .lt22-form,
+  .lt22-form-cols-2,
+  .lt22-form-cols-3 {
     grid-template-columns: 1fr;
   }
 }

@@ -104,10 +104,10 @@ export default async function AssistantPage({
           Dashboard
         </Link>
         <Link className={tab === "calls" ? "on" : undefined} href="/assistant?tab=calls">
-          Calls
+          תמיכה טכנית
         </Link>
         <Link className={tab === "requests" ? "on" : undefined} href="/assistant?tab=requests">
-          Requests{newRequests ? ` (${newRequests})` : ""}
+          מכירות / קריאות שירות{newRequests ? ` (${newRequests})` : ""}
         </Link>
         <Link href="/assistant/notes">Notes</Link>
         <Link href="/settings">Follow-up settings</Link>
