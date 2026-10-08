@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { saveIndustryAction } from "@/app/actions/industries";
 import { AssetUrlField } from "@/components/media-links";
 import { SubmitButton } from "@/components/submit-button";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
 
 export default async function IndustryEditPage({
@@ -14,7 +14,7 @@ export default async function IndustryEditPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ saved?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("website");
   const { slug } = await params;
   const sp = await searchParams;
   const db = await getDb();

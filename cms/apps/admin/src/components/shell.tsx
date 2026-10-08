@@ -37,4 +37,4 @@ export function Shell({
   );
 }
 
-export { requireAuth } from "@/components/shell-auth";
+export { requireAnyArea, requireArea, requireAuth, requireOwner } from "@/components/shell-auth";

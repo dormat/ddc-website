@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { deleteAssistantRequestAction, updateAssistantRequestAction } from "@/app/actions/assistant";
 import { getAssistantRequest } from "@/lib/assistant-store";
 import { ConfirmDeleteForm } from "@/components/confirm-delete-form";
@@ -59,7 +59,7 @@ export default async function AssistantRequestPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ saved?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("assistant");
   const { id } = await params;
   const sp = await searchParams;
   const req = await getAssistantRequest(id);

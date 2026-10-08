@@ -4,6 +4,7 @@ import { solutions, solutionTranslations } from "@ddc/db";
 import { and, eq } from "@ddc/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireArea } from "@/components/shell-auth";
 import { getDb } from "@/lib/db";
 import { publishToPublicSite } from "@/lib/publish";
 
@@ -12,6 +13,7 @@ function flag(formData: FormData, name: string) {
 }
 
 export async function saveSolutionAction(slug: string, formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   const [row] = await db.select().from(solutions).where(eq(solutions.slug, slug)).limit(1);
   if (!row) throw new Error("Missing solution");

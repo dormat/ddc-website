@@ -40,6 +40,11 @@ jobs:
           CMS_ADMIN_USERNAME: ${{ secrets.CMS_ADMIN_USERNAME }}
           CMS_ADMIN_PASSWORD: ${{ secrets.CMS_ADMIN_PASSWORD }}
           CMS_SESSION_SECRET: ${{ secrets.CMS_SESSION_SECRET }}
+          CMS_ADMIN_OWNER_EMAIL: ${{ secrets.CMS_ADMIN_OWNER_EMAIL }}
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
         run: |
           # cms/.env is not in git; create one for staging (credentials + public URLs).
           # Optional GitHub secrets override defaults used by credentials.server.ts.
@@ -48,6 +53,11 @@ jobs:
             echo "ADMIN_USERNAME=${CMS_ADMIN_USERNAME:-AdminDDC}"
             echo "ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD:-6474998}"
             echo "SESSION_SECRET=${CMS_SESSION_SECRET:-ddc-session-secret-change-in-prod-2026}"
+            echo "ADMIN_OWNER_EMAIL=${CMS_ADMIN_OWNER_EMAIL:-}"
+            echo "NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY:-}"
+            echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN:-control-applications-ddc.firebaseapp.com}"
+            echo "NEXT_PUBLIC_FIREBASE_PROJECT_ID=${NEXT_PUBLIC_FIREBASE_PROJECT_ID:-control-applications-ddc}"
+            echo "NEXT_PUBLIC_FIREBASE_APP_ID=${NEXT_PUBLIC_FIREBASE_APP_ID:-}"
             echo "PUBLIC_SITE_URL=https://control-applications-ddc.web.app"
             echo "PUBLIC_SNAPSHOT_URL=https://control-applications-admin.web.app/cms/public.json"
           } > cms/.env

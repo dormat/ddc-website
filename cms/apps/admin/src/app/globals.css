@@ -1082,3 +1082,64 @@ details > summary.btn::-webkit-details-marker {
     grid-template-columns: 1fr;
   }
 }
+
+.side-user {
+  margin-top: 1rem;
+  padding: 0 0.7rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.side-user-email {
+  color: var(--side-muted);
+  word-break: break-all;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+}
+
+.preset-row,
+.filters,
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.member-access {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  align-items: center;
+}
+
+.split-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.activity-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.activity-list li {
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 720px) {
+  .split-fields {
+    grid-template-columns: 1fr;
+  }
+}

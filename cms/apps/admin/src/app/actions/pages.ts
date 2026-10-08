@@ -4,6 +4,7 @@ import { pages, pageTranslations, settings } from "@ddc/db";
 import { and, eq } from "@ddc/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireArea } from "@/components/shell-auth";
 import { getDb } from "@/lib/db";
 import { publishToPublicSite } from "@/lib/publish";
 import { normalizePageBody } from "@/lib/plain-text";
@@ -13,6 +14,7 @@ function flag(formData: FormData, name: string) {
 }
 
 export async function savePageAction(key: string, formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   const [row] = await db.select().from(pages).where(eq(pages.key, key)).limit(1);
   if (!row) throw new Error("Missing page");
@@ -52,6 +54,7 @@ export async function savePageAction(key: string, formData: FormData) {
 }
 
 export async function saveSettingsAction(formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   for (const key of ["contact_phone", "contact_email", "brand_name"] as const) {
     const value = String(formData.get(key) || "");

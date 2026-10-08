@@ -12,6 +12,7 @@ import {
 import { and, eq } from "@ddc/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireArea } from "@/components/shell-auth";
 import { getDb } from "@/lib/db";
 import { publishToPublicSite } from "@/lib/publish";
 
@@ -20,6 +21,7 @@ function flag(formData: FormData, name: string) {
 }
 
 export async function saveProductAction(slug: string, formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   const [product] = await db.select().from(products).where(eq(products.slug, slug)).limit(1);
   if (!product) throw new Error("Product not found");
@@ -125,6 +127,7 @@ export async function saveProductAction(slug: string, formData: FormData) {
 }
 
 export async function createProductAction(formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   const slug = String(formData.get("slug") || "")
     .trim()
@@ -146,6 +149,7 @@ export async function createProductAction(formData: FormData) {
 }
 
 export async function deleteProductAction(slug: string) {
+  await requireArea("website");
   const db = await getDb();
   await db.delete(products).where(eq(products.slug, slug));
   revalidatePath("/products");
@@ -155,6 +159,7 @@ export async function deleteProductAction(slug: string) {
 
 /** Hide or show a product on the public website without deleting it. */
 export async function toggleProductVisibilityAction(slug: string, formData: FormData) {
+  await requireArea("website");
   const db = await getDb();
   const [product] = await db.select().from(products).where(eq(products.slug, slug)).limit(1);
   if (!product) throw new Error("Product not found");

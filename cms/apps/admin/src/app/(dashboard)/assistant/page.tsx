@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { AssistantChatsTable } from "@/components/assistant-chats-table";
 import { AssistantRequestsTable } from "@/components/assistant-requests-table";
 import { listAssistantChats, listAssistantRequests, loadAssistantNotes } from "@/lib/assistant-store";
@@ -32,7 +32,7 @@ export default async function AssistantPage({
 }: {
   searchParams: Promise<{ tab?: string; deleted?: string; bulk?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("assistant");
   const sp = await searchParams;
   const tab =
     sp.tab === "calls" ? "calls" : sp.tab === "requests" ? "requests" : "dash";

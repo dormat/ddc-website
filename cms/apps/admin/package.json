@@ -12,6 +12,7 @@
     "@electric-sql/pglite": "^0.2.17",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
+    "firebase": "^11.6.0",
     "firebase-admin": "^13.0.2",
     "next": "^15.2.1",
     "postgres": "^3.4.5",

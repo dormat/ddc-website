@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { requireAuth } from "@/components/shell-auth";
+import { requireArea } from "@/components/shell-auth";
 import {
   bulkDeleteAssistantChats,
   bulkDeleteAssistantRequests,
@@ -23,7 +23,7 @@ function parseIds(formData: FormData): string[] {
 }
 
 export async function saveAssistantNotesAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const text = String(formData.get("notes") || "");
   if (text.length > 80_000) {
     throw new Error("Notes are too long");
@@ -35,7 +35,7 @@ export async function saveAssistantNotesAction(formData: FormData) {
 }
 
 export async function saveAssistantFollowupSettingsAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   await saveAssistantFollowupSettings({
     googleReviewUrl: String(formData.get("googleReviewUrl") || ""),
     upsellTitle: String(formData.get("upsellTitle") || ""),
@@ -48,7 +48,7 @@ export async function saveAssistantFollowupSettingsAction(formData: FormData) {
 }
 
 export async function updateAssistantRequestAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const id = String(formData.get("id") || "").trim();
   if (!id || id.length > 80) {
     throw new Error("Missing request id");
@@ -64,7 +64,7 @@ export async function updateAssistantRequestAction(formData: FormData) {
 }
 
 export async function deleteAssistantRequestAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const id = String(formData.get("id") || "").trim();
   if (!id || id.length > 80) {
     throw new Error("Missing request id");
@@ -76,7 +76,7 @@ export async function deleteAssistantRequestAction(formData: FormData) {
 }
 
 export async function deleteAssistantChatAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const id = String(formData.get("id") || "").trim();
   if (!id || id.length > 80) {
     throw new Error("Missing chat id");
@@ -88,7 +88,7 @@ export async function deleteAssistantChatAction(formData: FormData) {
 }
 
 export async function bulkUpdateAssistantRequestsAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const ids = parseIds(formData);
   if (!ids.length) {
     throw new Error("No requests selected");
@@ -108,7 +108,7 @@ export async function bulkUpdateAssistantRequestsAction(formData: FormData) {
 }
 
 export async function bulkDeleteAssistantRequestsAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const ids = parseIds(formData);
   if (!ids.length) {
     throw new Error("No requests selected");
@@ -119,7 +119,7 @@ export async function bulkDeleteAssistantRequestsAction(formData: FormData) {
 }
 
 export async function bulkDeleteAssistantChatsAction(formData: FormData) {
-  await requireAuth();
+  await requireArea("assistant");
   const ids = parseIds(formData);
   if (!ids.length) {
     throw new Error("No conversations selected");

@@ -100,7 +100,7 @@ After the secret is in place:
   - Admin CMS (`ddc-admin`) → https://control-applications-admin.web.app
 - Every push to `cursor/solutions-first-site-ee14` deploys to the preview site — https://control-applications-preview.web.app
 
-Cloud Run (assistant API) is still deployed separately with `gcloud run deploy` unless you add a workflow for it. Optional GitHub secrets `CMS_ADMIN_USERNAME` / `CMS_ADMIN_PASSWORD` / `CMS_SESSION_SECRET` override admin login defaults on deploy.
+Cloud Run (assistant API) is still deployed separately with `gcloud run deploy` unless you add a workflow for it. Admin sign-in is Google-only for invited emails. Optional GitHub secrets `CMS_ADMIN_OWNER_EMAIL`, `CMS_SESSION_SECRET`, and `NEXT_PUBLIC_FIREBASE_API_KEY` / `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` / `NEXT_PUBLIC_FIREBASE_PROJECT_ID` / `NEXT_PUBLIC_FIREBASE_APP_ID` configure the owner account and Google sign-in on deploy.
 
 ### Manual deploy
 

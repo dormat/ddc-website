@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { requireAuth } from "@/components/shell";
+import { requireArea } from "@/components/shell";
 
 export default async function PagesPage() {
-  await requireAuth();
+  await requireArea("website");
   redirect("/about");
 }

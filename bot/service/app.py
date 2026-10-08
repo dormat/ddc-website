@@ -997,6 +997,21 @@ def create_request():
         app.logger.exception("Could not save assistant request")
         return json_error(503, "לא הצלחנו לשמור את הפנייה. נסו שוב, או פנו ל-" + SERVICE_CONTACT_HE + ".")
 
+    try:
+        import crm
+
+        crm.upsert_assistant_client(
+            db(),
+            name=fields.get("fullName") or fields.get("contactName") or "",
+            company=fields.get("companyName") or "",
+            email=auth_fields.get("email") or fields.get("email") or "",
+            phone=fields.get("phone") or "",
+            chat_id=conversation_id,
+            request_id=request_id,
+        )
+    except Exception:
+        app.logger.exception("Could not update CRM client")
+
     if conversation_id:
         try:
             _log_request_on_chat(
@@ -1108,6 +1123,19 @@ def create_session():
         if email:
             doc["email"] = email
         db().collection("assistantChats").document(conversation_id).set(doc)
+        if name and email:
+            try:
+                import crm
+
+                crm.upsert_assistant_client(
+                    db(),
+                    name=name,
+                    email=email,
+                    phone=contact,
+                    chat_id=conversation_id,
+                )
+            except Exception:
+                app.logger.exception("Could not update CRM client")
     except Exception:
         app.logger.exception("Could not save the conversation")
         return json_error(503, "לא הצלחתי לפתוח שיחה עכשיו. נסו שוב בעוד רגע, או השאירו פרטים בטופס בהמשך העמוד.")
@@ -1147,6 +1175,21 @@ def update_session():
     if len(patch) > 1:
         patch["provisional"] = False
         chat_ref.update(patch)
+        merged_name = str(patch.get("name") or _chat.get("name") or "")
+        merged_email = str(patch.get("email") or _chat.get("email") or "")
+        if merged_name and merged_email:
+            try:
+                import crm
+
+                crm.upsert_assistant_client(
+                    db(),
+                    name=merged_name,
+                    email=merged_email,
+                    phone=str(patch.get("contact") or _chat.get("contact") or ""),
+                    chat_id=conversation_id,
+                )
+            except Exception:
+                app.logger.exception("Could not update CRM client")
     return jsonify({"ok": True})
 
 

@@ -37,4 +37,4 @@ firebase experiments:enable webframeworks
 firebase deploy --only hosting:ddc-admin,firestore --project control-applications-ddc --force
 ```
 
-Login: set `ADMIN_USERNAME` / `ADMIN_PASSWORD` / `SESSION_SECRET` in `cms/.env` (staged into the function).
+Login: invite Google accounts in Members. Set `ADMIN_OWNER_EMAIL` plus `NEXT_PUBLIC_FIREBASE_API_KEY`, `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`, `NEXT_PUBLIC_FIREBASE_PROJECT_ID`, and `NEXT_PUBLIC_FIREBASE_APP_ID` in `cms/.env`. The owner email can sign in before anyone else is invited. `SESSION_SECRET` signs the session cookie.

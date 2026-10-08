@@ -2,15 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { AdminMember } from "@/lib/member-access";
+import { memberCan } from "@/lib/member-access";
 
-const NAV = [
+const NAV: Array<{ href: string; label: string; area?: "website" | "assistant" | "clients" | "owner" }> = [
   { href: "/", label: "Dashboard" },
-  { href: "/assistant", label: "Assistant" },
-  { href: "/products", label: "Products" },
-  { href: "/solutions", label: "Solutions" },
-  { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About" },
-  { href: "/settings", label: "Settings" },
+  { href: "/assistant", label: "Assistant", area: "assistant" },
+  { href: "/clients", label: "Clients", area: "clients" },
+  { href: "/products", label: "Products", area: "website" },
+  { href: "/solutions", label: "Solutions", area: "website" },
+  { href: "/industries", label: "Industries", area: "website" },
+  { href: "/about", label: "About", area: "website" },
+  { href: "/settings", label: "Settings", area: "website" },
+  { href: "/members", label: "Members", area: "owner" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -18,11 +22,21 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function SideNav() {
+function visible(member: AdminMember, item: (typeof NAV)[number]) {
+  if (item.href === "/settings") {
+    return memberCan(member, "website") || memberCan(member, "assistant");
+  }
+  if (!item.area) return true;
+  if (item.area === "owner") return member.owner;
+  return memberCan(member, item.area);
+}
+
+export function SideNav({ member }: { member: AdminMember }) {
   const pathname = usePathname() || "/";
+  const items = NAV.filter((item) => visible(member, item));
   return (
     <nav>
-      {NAV.map((item) => (
+      {items.map((item) => (
         <Link
           key={item.href}
           href={item.href}

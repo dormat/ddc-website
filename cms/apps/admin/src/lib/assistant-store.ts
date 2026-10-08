@@ -1,9 +1,5 @@
-import { getApps, initializeApp } from "firebase-admin/app";
-import {
-  getFirestore,
-  type CollectionReference,
-  type QueryDocumentSnapshot,
-} from "firebase-admin/firestore";
+import { type CollectionReference, type QueryDocumentSnapshot } from "firebase-admin/firestore";
+import { firestore } from "@/lib/firebase";
 
 const NOTES_DOC = "assistantConfig/notes";
 const SETTINGS_DOC = "assistantConfig/settings";
@@ -72,6 +68,7 @@ export type AssistantRequest = {
   emailService: boolean;
   emailCustomer: boolean;
   emailChannel: string;
+  googleEmail: string;
 };
 
 export type AssistantMessage = {
@@ -85,14 +82,8 @@ export type AssistantMessage = {
   createdAt: string | null;
 };
 
-function ensureFirebaseApp() {
-  if (getApps().length) return;
-  initializeApp();
-}
-
 function db() {
-  ensureFirebaseApp();
-  return getFirestore();
+  return firestore();
 }
 
 function asIso(value: unknown): string | null {
@@ -328,6 +319,7 @@ function requestFromData(id: string, data: Record<string, unknown>): AssistantRe
     emailService: Boolean(email.service),
     emailCustomer: Boolean(email.customer),
     emailChannel: String(email.channel || ""),
+    googleEmail: String(data.googleEmail || ""),
   };
 }
 

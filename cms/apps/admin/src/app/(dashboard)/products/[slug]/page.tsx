@@ -14,7 +14,7 @@ import { notFound } from "next/navigation";
 import { deleteProductAction, saveProductAction } from "@/app/actions/products";
 import { ProductMediaEditor, type EditableMedia } from "@/components/product-media-editor";
 import { SubmitButton } from "@/components/submit-button";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
 
 export default async function ProductEditPage({
@@ -24,7 +24,7 @@ export default async function ProductEditPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ saved?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("website");
   const { slug } = await params;
   const sp = await searchParams;
   const db = await getDb();

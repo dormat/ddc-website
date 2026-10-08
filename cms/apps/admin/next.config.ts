@@ -1,8 +1,18 @@
+import path from "node:path";
+import { config as loadEnv } from "dotenv";
 import type { NextConfig } from "next";
+
+loadEnv({ path: path.join(__dirname, "../../.env") });
 
 const extras = ["@electric-sql/pglite", "postgres", "firebase-admin"];
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  },
   trailingSlash: true,
   transpilePackages: ["@ddc/db"],
   // Keep native/heavy packages out of the webpack bundle.

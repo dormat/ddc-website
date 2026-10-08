@@ -3,11 +3,11 @@ import { products, productTranslations } from "@ddc/db";
 import { sql } from "@ddc/db";
 import { createProductAction, toggleProductVisibilityAction } from "@/app/actions/products";
 import { SubmitButton } from "@/components/submit-button";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
 
 export default async function ProductsPage() {
-  await requireAuth();
+  await requireArea("website");
   const db = await getDb();
   const rows = await db
     .select({

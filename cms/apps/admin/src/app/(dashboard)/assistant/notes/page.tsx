@@ -1,4 +1,4 @@
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { SubmitButton } from "@/components/submit-button";
 import { saveAssistantNotesAction } from "@/app/actions/assistant";
 import { loadAssistantNotes } from "@/lib/assistant-store";
@@ -8,7 +8,7 @@ export default async function AssistantNotesPage({
 }: {
   searchParams: Promise<{ saved?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("assistant");
   const sp = await searchParams;
   const notes = await loadAssistantNotes();
 

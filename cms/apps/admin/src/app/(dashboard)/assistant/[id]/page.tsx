@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { deleteAssistantChatAction } from "@/app/actions/assistant";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { ConfirmDeleteForm } from "@/components/confirm-delete-form";
 import {
   getAssistantChat,
@@ -37,7 +37,7 @@ export default async function AssistantChatPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAuth();
+  await requireArea("assistant");
   const { id } = await params;
   const chat = await getAssistantChat(id);
   if (!chat) notFound();

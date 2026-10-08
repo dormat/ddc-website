@@ -1,41 +1,16 @@
 import { redirect } from "next/navigation";
-import { loginAction } from "@/app/actions/auth";
-import { SubmitButton } from "@/components/submit-button";
-import { isLoggedIn } from "@/lib/auth";
+import { GoogleSignIn } from "@/components/google-sign-in";
+import { firebaseWebConfig, isLoggedIn } from "@/lib/auth";
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
+export default async function LoginPage() {
   if (await isLoggedIn()) redirect("/");
-  const params = await searchParams;
 
   return (
     <div className="login-wrap">
       <div className="login-card">
         <h1>DDC Admin</h1>
-        <p>Sign in to manage products, solutions, and site content.</p>
-        {params.error ? <div className="error">Invalid username or password.</div> : null}
-        <form action={loginAction}>
-          <div className="field">
-            <label htmlFor="username">Username</label>
-            <input id="username" name="username" autoComplete="username" required />
-          </div>
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-            />
-          </div>
-          <SubmitButton className="btn primary" pendingLabel="Signing in…" style={{ width: "100%" }}>
-            Sign in
-          </SubmitButton>
-        </form>
+        <p>Sign in with an invited Google account to manage the website, assistant, and clients.</p>
+        <GoogleSignIn config={firebaseWebConfig()} />
       </div>
     </div>
   );

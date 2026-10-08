@@ -5,13 +5,17 @@ import { SubmitButton } from "@/components/submit-button";
 import { requireAuth } from "@/components/shell-auth";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
-  await requireAuth();
+  const member = await requireAuth();
 
   return (
     <div className="shell">
       <aside className="side">
         <h1>DDC Admin</h1>
-        <SideNav />
+        <SideNav member={member} />
+        <div className="side-user">
+          <div>{member.name || member.email}</div>
+          {member.name ? <div className="side-user-email">{member.email}</div> : null}
+        </div>
         <form action={logoutAction} className="side-logout">
           <SubmitButton className="btn" pendingLabel="Signing out…">
             Log out

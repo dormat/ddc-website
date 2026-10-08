@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { solutions, solutionTranslations } from "@ddc/db";
 import { sql } from "@ddc/db";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
 
 export default async function SolutionsPage() {
-  await requireAuth();
+  await requireArea("website");
   const db = await getDb();
   const rows = await db
     .select({

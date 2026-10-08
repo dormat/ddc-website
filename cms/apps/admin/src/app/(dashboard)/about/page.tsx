@@ -3,7 +3,7 @@ import { eq } from "@ddc/db";
 import { notFound } from "next/navigation";
 import { savePageAction } from "@/app/actions/pages";
 import { SubmitButton } from "@/components/submit-button";
-import { requireAuth, Shell } from "@/components/shell";
+import { requireArea, Shell } from "@/components/shell";
 import { getDb } from "@/lib/db";
 import { normalizePageBody } from "@/lib/plain-text";
 
@@ -14,7 +14,7 @@ export default async function AboutPage({
 }: {
   searchParams: Promise<{ saved?: string }>;
 }) {
-  await requireAuth();
+  await requireArea("website");
   const sp = await searchParams;
   const db = await getDb();
   const [row] = await db.select().from(pages).where(eq(pages.key, PAGE_KEY)).limit(1);
