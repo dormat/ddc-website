@@ -72,15 +72,14 @@ class ServiceCallPDF(FPDF):
         self.add_font("HePDF", "B", str(FONT_BOLD))
 
     def footer(self) -> None:
-        self.set_y(-14)
+        self.set_y(-11)
         self.set_draw_color(180, 180, 180)
         self.set_line_width(0.2)
         self.line(self.l_margin, self.get_y(), self.w - self.r_margin, self.get_y())
-        self.ln(1.2)
-        self.set_font("HePDF", "", 7.5)
+        self.ln(1.4)
+        self.set_font("HePDF", "", 8)
         self.set_text_color(70, 70, 70)
-        self.cell(0, 3.6, _he("רחוב הברזל 25 ת\"א 6971035  ·  www.ddc.co.il"), align="C", new_x="LMARGIN", new_y="NEXT")
-        self.cell(0, 3.6, _he("טל' 03-6474998  ·  פקס 03-6474598  ·  service@ddc.co.il"), align="C")
+        self.cell(0, 4, _he("service@ddc.co.il  ·  www.ddc.co.il  ·  03-6474998"), align="C")
 
 
 def _field(data: dict, key: str) -> str:
