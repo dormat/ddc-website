@@ -308,10 +308,57 @@
     });
   }
 
+  var exchangeGeneration = 0;
+  var exchangePinLocked = false;
+
+  function releaseExchangePin() {
+    exchangePinLocked = true;
+  }
+
+  function alignLastUserMessage() {
+    var rows = log.querySelectorAll(".lt22-row-user");
+    var last = rows.length ? rows[rows.length - 1] : null;
+    if (!last) {
+      log.scrollTop = log.scrollHeight;
+      return;
+    }
+    var pad = parseFloat(window.getComputedStyle(log).paddingTop) || 0;
+    var delta = last.getBoundingClientRect().top - log.getBoundingClientRect().top - pad;
+    if (Math.abs(delta) < 1) return;
+    log.scrollTop += delta;
+  }
+
   function scrollLog() {
+    exchangeGeneration += 1;
+    exchangePinLocked = true;
     window.requestAnimationFrame(function () {
       log.scrollTop = log.scrollHeight;
     });
+  }
+
+  function scrollToLastUser() {
+    var generation = exchangeGeneration;
+    window.requestAnimationFrame(function () {
+      if (generation !== exchangeGeneration || exchangePinLocked) return;
+      alignLastUserMessage();
+    });
+  }
+
+  log.addEventListener("wheel", releaseExchangePin, { passive: true });
+  log.addEventListener("touchmove", releaseExchangePin, { passive: true });
+  log.addEventListener("pointerdown", releaseExchangePin);
+
+  function watchExchangeHeight(row) {
+    if (!window.ResizeObserver) return;
+    var generation = exchangeGeneration;
+    var watcher = new ResizeObserver(function () {
+      if (generation !== exchangeGeneration || exchangePinLocked) {
+        watcher.disconnect();
+        return;
+      }
+      alignLastUserMessage();
+    });
+    watcher.observe(row);
   }
 
   function firstName(name) {
@@ -584,8 +631,13 @@
       frame.className = "lt22-figure";
       var image = document.createElement("img");
       var label = figureLabel(figure);
-      image.src = figure.src;
+      var figureGeneration = exchangeGeneration;
       image.alt = label;
+      image.addEventListener("load", function () {
+        if (figureGeneration !== exchangeGeneration || exchangePinLocked) return;
+        alignLastUserMessage();
+      });
+      image.src = figure.src;
       var caption = document.createElement("figcaption");
       caption.textContent = label;
       frame.appendChild(image);
@@ -594,7 +646,16 @@
     });
     row.appendChild(item);
     log.appendChild(row);
-    scrollLog();
+    if (role === "user") {
+      exchangeGeneration += 1;
+      exchangePinLocked = false;
+      scrollToLastUser();
+    } else if (log.querySelector(".lt22-row-user")) {
+      scrollToLastUser();
+      watchExchangeHeight(row);
+    } else {
+      scrollLog();
+    }
     if (opts.persist !== false) {
       var logText = String(text || "").trim();
       if (card && visitor.device && visitor.device.label) {
@@ -1902,10 +1963,10 @@
     waiting.appendChild(label);
     waitingRow.appendChild(waiting);
     log.appendChild(waitingRow);
-    scrollLog();
+    scrollToLastUser();
     var slowTimer = window.setTimeout(function () {
       label.textContent = "זה לוקח יותר זמן מהמצופה, מיד תקבלו תשובה";
-      scrollLog();
+      scrollToLastUser();
     }, 10000);
     try {
       var payload = {
@@ -1920,7 +1981,7 @@
       var data = await postMessage(payload, function () {
         window.clearTimeout(slowTimer);
         label.textContent = "זה לוקח יותר זמן מהמצופה, מיד תקבלו תשובה";
-        scrollLog();
+        scrollToLastUser();
       });
       waitingRow.remove();
       addBubble("assistant", data.answer, data.figures, null, { persist: false });
