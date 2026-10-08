@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { getAuth } from "firebase-admin/auth";
+import type { DecodedIdToken } from "firebase-admin/auth";
 import * as bundled from "./credentials.server";
 import { ensureFirebaseApp } from "@/lib/firebase";
 import {
@@ -96,22 +97,32 @@ export async function clearSessionCookie() {
 
 export type GoogleLoginResult =
   | { ok: true }
-  | { ok: false; error: "not_invited" | "invalid" | "config" };
+  | { ok: false; error: "not_invited" | "invalid" | "config"; detail?: string };
+
+function googleSignInProvider(decoded: DecodedIdToken): string {
+  const firebase = decoded.firebase;
+  if (!firebase || typeof firebase !== "object") return "";
+  return String((firebase as { sign_in_provider?: string }).sign_in_provider || "");
+}
 
 export async function loginWithGoogleIdToken(idToken: string): Promise<GoogleLoginResult> {
   const token = idToken.trim();
   if (!token) return { ok: false, error: "invalid" };
-  ensureFirebaseApp();
+  const app = ensureFirebaseApp();
   let email = "";
   let name = "";
   try {
-    const decoded = await getAuth().verifyIdToken(token);
+    const decoded = await getAuth(app).verifyIdToken(token);
     email = normalizeEmail(String(decoded.email || ""));
     name = String(decoded.name || "").trim();
-    if (!email || !decoded.email_verified) return { ok: false, error: "invalid" };
+    const google = googleSignInProvider(decoded) === "google.com";
+    if (!email || (!decoded.email_verified && !google)) {
+      return { ok: false, error: "invalid", detail: "This Google account has no verified email." };
+    }
   } catch (err) {
+    const detail = err instanceof Error ? err.message : "Token check failed";
     console.warn("Google sign-in verification failed", err);
-    return { ok: false, error: "invalid" };
+    return { ok: false, error: "invalid", detail: detail.slice(0, 180) };
   }
 
   try {

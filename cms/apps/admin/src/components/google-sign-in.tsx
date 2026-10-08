@@ -30,7 +30,11 @@ export function GoogleSignIn({ config }: { config: FirebaseWebConfig | null }) {
         if (login.error === "not_invited") {
           setError("This Google account is not invited. Ask an owner to add your email.");
         } else {
-          setError("Google sign-in could not be verified. Try again.");
+          setError(
+            login.detail
+              ? `Google sign-in could not be verified. ${login.detail}`
+              : "Google sign-in could not be verified. Try again.",
+          );
         }
         setPending(false);
         return;
